@@ -1,7 +1,6 @@
 /** @type {import("prettier").Config} */
 module.exports = {
   ...require('prettier-config-standard'),
-  pluginSearchDirs: [__dirname],
   plugins: [
     '@trivago/prettier-plugin-sort-imports',
     'prettier-plugin-tailwindcss',
