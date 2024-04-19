@@ -1,4 +1,4 @@
-import react from '@aet pstrojs/react'
+import react from '@astrojs/react'
 import tailwind from '@astrojs/tailwind'
 import vercel from '@astrojs/vercel/serverless'
 import sanity from '@sanity/astro'
