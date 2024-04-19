@@ -1,0 +1,128 @@
+---
+import MenuIcon from "../icons/MenuIcon.astro";
+import XIcon from "../icons/XIcon.astro";
+
+interface NavigationPath {
+  label: string;
+  url: string;
+}
+
+// List of paths
+const paths: NavigationPath[] = [
+  { label: "Home", url: "/" },
+  { label: "Projects", url: "/projects" },
+  { label: "Experience", url: "/experience" },
+  { label: "Awards", url: "/awards" },
+  { label: "Blog", url: "/blog" },
+];
+
+// Current page
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  class="sticky left-0 right-0 top-0 z-40 flex h-20 w-full flex-row items-center justify-end border-b border-b-border bg-background px-6 sm:justify-center"
+>
+  {/* Menu Icon Button */}
+  <button
+    id="button-open-sidebar"
+    aria-label="Open Navigation Bar"
+    class="flex size-9 sm:hidden"
+  >
+    <MenuIcon class="size-full stroke-secondary" />
+  </button>
+
+  {/* Sidebar */}
+  <div
+    id="sidebar-container"
+    class={`fixed right-0 top-0 z-10 flex h-full translate-x-full w-[200px] flex-col gap-12 border-l border-l-border bg-background py-5 pl-8 pr-6 font-inter text-base duration-300 ease-in-out sm:static sm:h-auto sm:w-auto sm:translate-x-0 sm:items-center sm:border-none sm:bg-transparent sm:p-0`}
+  >
+    {/* Close Button */}
+    <button
+      id="button-close-sidebar"
+      aria-label="Close Navigation Bar"
+      class="flex size-9 self-end sm:hidden"
+    >
+      <XIcon class="size-full stroke-secondary" />
+    </button>
+
+    {/* Path lists */}
+    <nav>
+      <ul class="flex flex-col gap-5 sm:flex-row sm:gap-12">
+        {
+          paths.map((path) => {
+            return (
+              <li>
+                <a
+                  href={path.url}
+                  class={`${
+                    currentPath.startsWith(path.url)
+                      ? "font-semibold text-secondary"
+                      : "font-medium text-muted hover:text-secondary"
+                  }`}
+                >
+                  {path.label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+  </div>
+
+  {/* Side bar opaque background */}
+  <div
+    id="sidebar-blur"
+    class="inset-0 z-0 hidden h-full w-full bg-opacity-80 backdrop-blur-sm sm:hidden"
+  >
+  </div>
+</header>
+
+<script>
+  // Open sidebar callback function
+  const onOpenSidebar = () => {
+    // Body transition
+    const body = document.querySelector("body");
+    body?.classList.add("overflow-hidden");
+
+    // Blur transition
+    const sidebarBlur = document.getElementById("sidebar-blur");
+    sidebarBlur?.classList.remove("hidden");
+    sidebarBlur?.classList.add("fixed");
+
+    // Sidebar transition
+    const sidebar = document.getElementById("sidebar-container");
+    sidebar?.classList.remove("translate-x-full");
+    sidebar?.classList.add("translate-x-0");
+  };
+
+  // Close sidebar callback function
+  const onCloseSidebar = () => {
+    // Sidebar transition
+    const sidebar = document.getElementById("sidebar-container");
+    sidebar?.classList.remove("translate-x-0");
+    sidebar?.classList.add("translate-x-full");
+
+    // Blur transition
+    const sidebarBlur = document.getElementById("sidebar-blur");
+    sidebarBlur?.classList.remove("fixed");
+    sidebarBlur?.classList.add("hidden");
+
+    // Body transition
+    const body = document.querySelector("body");
+    body?.classList.remove("overflow-hidden");
+  };
+
+  // Handle open event from button
+  const openButton = document.querySelector("#button-open-sidebar");
+  openButton?.addEventListener("click", onOpenSidebar);
+
+  // Handle close event from button
+  const closeButton = document.querySelector("#button-close-sidebar");
+  closeButton?.addEventListener("click", onCloseSidebar);
+
+  // Handle close event from sidebar blur
+  const sidebarBlur = document.querySelector("#sidebar-blur");
+  sidebarBlur?.addEventListener("click", onCloseSidebar);
+</script>
