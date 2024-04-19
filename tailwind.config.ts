@@ -9,7 +9,7 @@ const config: Config = {
         background: "#0B1120", // Background
         border: "#343841", // Border
         muted: "#9A9A9A", // Muted
-        primary: "#343841", // Primary
+        primary: "#0EA5E9", // Primary
         secondary: "#F5F5F5", // Secondary
       },
       fontFamily: {
