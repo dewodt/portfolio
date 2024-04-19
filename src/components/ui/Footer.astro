@@ -1,0 +1,79 @@
+---
+import GitHubIcon from "@/components/icons/GitHubIcon.astro";
+import LinkedInIcon from "@/components/icons/LinkedInIcon.astro";
+import InstagramIcon from "@/components/icons/InstagramIcon.astro";
+import EmailIcon from "@/components/icons/EmailIcon.astro";
+import SpotifyIcon from "@/components/icons/SpotifyIcon.astro";
+
+interface SocialMedia {
+  name: string;
+  url: string;
+  icon: any;
+  classColor: string; // Path fill or stroke
+  className: string; // Parent svg
+}
+
+const socialMedia: SocialMedia[] = [
+  {
+    name: "GitHub",
+    url: "https://github.com/dewodt",
+    icon: GitHubIcon,
+    className: "size-full",
+    classColor: "group-hover:fill-secondary",
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/dewantoro-triatmojo/",
+    icon: LinkedInIcon,
+    className: "size-full",
+    classColor: "group-hover:fill-secondary",
+  },
+  {
+    name: "Email",
+    url: "mailto:dewantorotriatmojo@gmail.com",
+    icon: EmailIcon,
+    className: "size-full",
+    classColor: "group-hover:stroke-secondary",
+  },
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/dewo.tm/",
+    icon: InstagramIcon,
+    className: "size-full",
+    classColor: "group-hover:fill-secondary",
+  },
+  {
+    name: "Spotify",
+    url: "https://open.spotify.com/user/0p89rcit1qulphp6uzgsi0tto",
+    icon: SpotifyIcon,
+    className: "size-full",
+    classColor: "group-hover:fill-secondary",
+  },
+];
+---
+
+<footer
+  class="flex h-20 items-center justify-center border-t border-border bg-background"
+>
+  <ul class="flex flex-row items-center justify-center gap-7 sm:gap-12">
+    {
+      socialMedia.map((social) => (
+        <li class="group">
+          <a
+            href={social.url}
+            target="_blank"
+            aria-label={social.name}
+            class="flex size-8 transition-all group-hover:scale-110"
+          >
+            {
+              <social.icon
+                class={social.className}
+                classColor={social.classColor}
+              />
+            }
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</footer>

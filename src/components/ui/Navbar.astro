@@ -58,7 +58,7 @@ const currentPath = Astro.url.pathname;
                   class={`${
                     currentPath.startsWith(path.url)
                       ? "font-semibold text-secondary"
-                      : "font-medium text-muted hover:text-secondary"
+                      : "font-medium text-muted transition-all hover:text-secondary"
                   }`}
                 >
                   {path.label}
