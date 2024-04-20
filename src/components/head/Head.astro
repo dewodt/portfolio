@@ -1,0 +1,71 @@
+---
+interface Props {
+  title: string;
+}
+
+// Get page title
+const { title } = Astro.props;
+---
+
+<head>
+  <!-- Viewport -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta
+    name="theme-color"
+    media="(prefers-color-scheme: dark)"
+    content="black"
+  />
+  <meta
+    name="theme-color"
+    media="(prefers-color-scheme: light)"
+    content="white"
+  />
+
+  <!-- SEO -->
+  <title>{title}</title>
+  <meta
+    name="description"
+    content="I’m a second-year undergraduate Informatics Engineering student in Bandung Institute of Technology. I have strong interest in Software Engineering."
+  />
+  <meta name="application-name" content="Dewantoro Triatmojo" />
+  <link rel="author" href="https://dewodt.com" />
+  <meta name="author" content="Dewantoro Triatmojo" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="generator" content={Astro.generator} />
+  <meta
+    name="keywords"
+    content="Dewantoro Triatmojo, Dewo, dewodt, Portfolio"
+  />
+  <meta name="creator" content="Dewantoro Triatmojo" />
+  <meta name="category" content="personalization" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Opengraph -->
+  <meta property="og:title" content={title} />
+  <meta
+    property="og:description"
+    content="I’m a second-year undergraduate Informatics Engineering student in Bandung Institute of Technology. I have strong interest in Software Engineering."
+  />
+  <meta property="og:url" content="https://dewodt.com/" />
+  <meta property="og:site_name" content="Dewantoro Triatmojo" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://dewodt.com/link-preview.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dewantoro Triatmojo" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@dewodt" />
+  <meta name="twitter:creator:id" content="1126695039633989634" />
+  <meta name="twitter:title" content={title} />
+  <meta
+    name="twitter:description"
+    content="I’m a second-year undergraduate Informatics Engineering student in Bandung Institute of Technology. I have strong interest in Software Engineering."
+  />
+  <meta name="twitter:image" content="https://dewodt.com/link-preview.jpg" />
+  <meta name="twitter:image:alt" content="Dewantoro Triatmojo" />
+</head>
