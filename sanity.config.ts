@@ -1,4 +1,4 @@
-import { schemaTypes } from "./schema";
+import { schemaTypes } from "./sanity/schema";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
