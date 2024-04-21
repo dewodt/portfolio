@@ -18,6 +18,15 @@ const paths: NavigationPath[] = [
 
 // Current page
 const currentPath = Astro.url.pathname;
+
+// isActive callback
+const isActive = (navbarPath: string) => {
+  if (navbarPath === "/") {
+    return navbarPath === currentPath;
+  } else {
+    return currentPath.startsWith(navbarPath);
+  }
+};
 ---
 
 <header
@@ -56,7 +65,7 @@ const currentPath = Astro.url.pathname;
                 <a
                   href={path.url}
                   class={`${
-                    currentPath.startsWith(path.url)
+                    isActive(path.url)
                       ? "font-semibold text-secondary"
                       : "font-medium text-muted transition-all hover:text-secondary"
                   }`}
