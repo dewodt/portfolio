@@ -6,9 +6,8 @@ export const shortTitleField = defineField({
   title: "Title",
   description: "Insert title for this schema",
   type: "string",
-  validation: (Rule) =>
-    Rule.required()
-      .error("Title is required for the document")
-      .max(23)
-      .error("Title shouldn't be more than 23 characters long"),
+  validation: (Rule) => [
+    Rule.required().error("Title is required for the document"),
+    Rule.max(23).error("Title shouldn't be more than 23 characters long"),
+  ],
 });

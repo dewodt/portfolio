@@ -6,6 +6,7 @@ import { galleryField } from "../fields/gallery";
 import { techStacksField } from "../fields/tech-stacks";
 import { shortTitleField } from "../fields/short-title";
 import { dateRangeField } from "../fields/date-range";
+import { getFormattedDate } from "@/lib/utils";
 
 export const projectsSchema = defineType({
   name: "projects",
@@ -20,4 +21,26 @@ export const projectsSchema = defineType({
     contentField,
     galleryField,
   ],
+  preview: {
+    select: {
+      title: "shortTitle",
+      startDate: "dateRange.startDate",
+      endDate: "dateRange.endDate",
+      media: "gallery.0",
+    },
+    prepare({ title, startDate, endDate, media }) {
+      // XXX YYYY
+      const start = getFormattedDate(startDate as string);
+      let subtitle = `${start}`;
+      if (endDate) {
+        const end = getFormattedDate(endDate as string);
+        subtitle += ` — ${end}`;
+      }
+      return {
+        title,
+        subtitle,
+        media,
+      };
+    },
+  },
 });

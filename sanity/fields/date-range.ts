@@ -11,8 +11,7 @@ export const dateRangeField = defineField({
       title: "Start Date",
       description: "Insert project start date (YYYY-MM)",
       type: "date",
-      validation: (Rule) =>
-        Rule.required().error("A start date is required"),
+      validation: (Rule) => Rule.required().error("A start date is required"),
       options: {
         dateFormat: "YYYY-MM",
       },
@@ -23,18 +22,16 @@ export const dateRangeField = defineField({
       description: "Insert project end date (YYYY-MM)",
       type: "date",
       validation: (Rule) =>
-        Rule.custom((endDate: Date, context) => {
-          const startDate = context.document?.startDate as Date;
-
-          if (endDate < startDate) {
-            return "End date must be after start date";
-          }
-
-          return true;
-        }),
+        Rule.min(Rule.valueOfField("startDate")).error(
+          "End date must be after start date",
+        ),
       options: {
         dateFormat: "YYYY-MM",
       },
     },
   ],
+  validation: (Rule) => Rule.required().error("Date range is required"),
+  options: {
+    columns: 2,
+  },
 });

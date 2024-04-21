@@ -11,7 +11,7 @@ const dataset = import.meta.env.PUBLIC_SANITY_STUDIO_DATASET;
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
 
 // Define the singleton document types
-const singletonTypes = new Set(["settings"]);
+const singletonTypes = new Set(["home"]);
 
 // Sanity config
 export default defineConfig({

@@ -8,4 +8,11 @@ export const homeSchema = defineType({
   title: "Home",
   type: "document",
   fields: [shortTitleField, contentField, photoField],
+  preview: {
+    select: {
+      title: "title",
+      subtitle: "content.0.children.0.text",
+      media: "photo",
+    },
+  },
 });
