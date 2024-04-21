@@ -4,8 +4,8 @@ import { defineField } from "sanity";
 export const longTitleField = defineField({
   name: "title",
   title: "Title",
-  description: "Insert title for this schema",
+  description: "Insert title",
   type: "string",
   validation: (Rule) =>
-    Rule.required().error("Title is required for the document"),
+    Rule.required().error("Title is required"),
 });

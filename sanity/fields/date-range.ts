@@ -9,7 +9,7 @@ export const dateRangeField = defineField({
     {
       name: "startDate",
       title: "Start Date",
-      description: "Insert project start date (YYYY-MM)",
+      description: "Insert start date (YYYY-MM)",
       type: "date",
       validation: (Rule) => Rule.required().error("A start date is required"),
       options: {
@@ -19,7 +19,7 @@ export const dateRangeField = defineField({
     {
       name: "endDate",
       title: "End Date",
-      description: "Insert project end date (YYYY-MM)",
+      description: "Insert end date (YYYY-MM)",
       type: "date",
       validation: (Rule) =>
         Rule.min(Rule.valueOfField("startDate")).error(

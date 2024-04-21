@@ -4,10 +4,10 @@ import { defineField } from "sanity";
 export const shortTitleField = defineField({
   name: "title",
   title: "Title",
-  description: "Insert title for this schema",
+  description: "Insert title",
   type: "string",
   validation: (Rule) => [
-    Rule.required().error("Title is required for the document"),
+    Rule.required().error("Title is required"),
     Rule.max(23).error("Title shouldn't be more than 23 characters long"),
   ],
 });

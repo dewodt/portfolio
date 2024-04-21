@@ -6,5 +6,5 @@ export const dateField = defineField({
   description: "Insert date",
   type: "date",
   validation: (Rule) =>
-    Rule.required().error("Date is required for the document"),
+    Rule.required().error("Date is required"),
 });

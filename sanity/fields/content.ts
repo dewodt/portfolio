@@ -49,7 +49,7 @@ export const contentField = defineField({
       icon: ImageIcon,
     },
   ],
-  description: "Insert a content portable text for the document!",
+  description: "Insert a content portable text!",
   validation: (Rule) =>
-    Rule.required().error("A content is required for the document"),
+    Rule.required().error("A content is required"),
 });

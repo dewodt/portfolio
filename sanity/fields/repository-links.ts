@@ -32,5 +32,5 @@ export const repositoryLinksField = defineField({
     },
   ],
   validation: (Rule) =>
-    Rule.required().error("Repository links are required for the project"),
+    Rule.required().error("Repository links are required"),
 });
