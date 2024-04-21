@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
-    "sanity:typegen": "rm -f sanity/schema/schema.json && echo \"\\e[0;32m✔\\e[0;0m Deleted old schema.json\" && rm -f src/types/sanity.ts && echo \"\\e[0;32m✔\\e[0;0m Deleted old type definition\" && sanity schema extract --path sanity/schema/schema.json && sanity typegen generate"
+    "sanity:typegen": "rm -f sanity/schema/schema.json && echo \"\\e[0;32m✔\\e[0;0m Deleted old schema.json\" && rm -f src/types/sanity.ts && echo \"\\e[0;32m✔\\e[0;0m Deleted old type definition\" && sanity schema extract --path sanity/schema/schema.json --enforce-required-fields && sanity typegen generate"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.9",

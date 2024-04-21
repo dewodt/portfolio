@@ -1,6 +1,6 @@
+import { imageField } from '../fields/image';
 import { defineType } from "sanity";
 import { getFormattedDate } from "@/lib/utils";
-import { imagePreviewField } from "../fields/image-preview";
 import { contentField } from "../fields/content";
 import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
@@ -12,7 +12,7 @@ export const blogSchema = defineType({
   title: "Blog",
   type: "document",
   fields: [
-    imagePreviewField,
+    imageField,
     titleField,
     slugField,
     descriptionField,

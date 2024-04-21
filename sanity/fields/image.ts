@@ -1,11 +1,10 @@
 import { defineField } from "sanity";
 
-export const imagePreviewField = defineField({
-  name: "imagePreview",
-  title: "Image Preview",
+export const imageField = defineField({
+  name: "image",
+  title: "Image",
   type: "image",
-  description:
-    "Upload image preview (will be used in cards, recommended 3:5 aspect ratio)",
+  description: "Image (only one) to be displayed for the document.",
   fields: [
     {
       name: "alt",
@@ -17,5 +16,5 @@ export const imagePreviewField = defineField({
     },
   ],
   validation: (Rule) =>
-    Rule.required().assetRequired().error("Image preview is required."),
+    Rule.required().assetRequired().error("Image is required"),
 });

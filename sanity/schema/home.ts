@@ -1,13 +1,13 @@
 import { defineType } from "sanity";
 import { titleField } from "../fields/title";
 import { contentField } from "../fields/content";
-import { photoField } from "../fields/photo";
+import { imageField } from "../fields/image";
 
 export const homeSchema = defineType({
   name: "home",
   title: "Home",
   type: "document",
-  fields: [titleField, contentField, photoField],
+  fields: [titleField, contentField, imageField],
   preview: {
     select: {
       title: "title",

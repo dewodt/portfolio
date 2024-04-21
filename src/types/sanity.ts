@@ -68,19 +68,13 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
 export type Blog = {
   _id: string;
   _type: "blog";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  imagePreview?: {
+  image: {
     asset: {
       _ref: string;
       _type: "reference";
@@ -89,13 +83,14 @@ export type Blog = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
   };
-  title?: string;
-  description?: string;
-  date?: string;
-  content?: Array<{
+  title: string;
+  slug: Slug;
+  description: string;
+  date: string;
+  content: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -121,7 +116,7 @@ export type Blog = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
     _key: string;
   }>;
@@ -133,11 +128,12 @@ export type Awards = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  description?: string;
-  issuer?: string;
-  date?: string;
-  content?: Array<{
+  title: string;
+  slug: Slug;
+  description: string;
+  issuer: string;
+  date: string;
+  content: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -163,7 +159,7 @@ export type Awards = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
     _key: string;
   }>;
@@ -175,27 +171,28 @@ export type Experience = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  description?: string;
-  company?: string;
-  dateRange?: {
-    startDate?: string;
+  title: string;
+  slug: Slug;
+  description: string;
+  company: string;
+  dateRange: {
+    startDate: string;
     endDate?: string;
   };
-  techStacks?: Array<string>;
-  repositoryLinks?: Array<{
-    label?: string;
-    url?: string;
+  techStacks: Array<string>;
+  repositoryLinks: Array<{
+    label: string;
+    url: string;
     _type: "repositoryLink";
     _key: string;
   }>;
   deploymentLinks?: Array<{
-    label?: string;
-    url?: string;
+    label: string;
+    url: string;
     _type: "deploymentLink";
     _key: string;
   }>;
-  content?: Array<{
+  content: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -221,7 +218,7 @@ export type Experience = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
     _key: string;
   }>;
@@ -233,7 +230,7 @@ export type Projects = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  imagePreview?: {
+  image: {
     asset: {
       _ref: string;
       _type: "reference";
@@ -242,29 +239,30 @@ export type Projects = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
   };
-  title?: string;
-  description?: string;
-  dateRange?: {
-    startDate?: string;
+  title: string;
+  slug: Slug;
+  description: string;
+  dateRange: {
+    startDate: string;
     endDate?: string;
   };
-  techStacks?: Array<string>;
-  repositoryLinks?: Array<{
-    label?: string;
-    url?: string;
+  techStacks: Array<string>;
+  repositoryLinks: Array<{
+    label: string;
+    url: string;
     _type: "repositoryLink";
     _key: string;
   }>;
   deploymentLinks?: Array<{
-    label?: string;
-    url?: string;
+    label: string;
+    url: string;
     _type: "deploymentLink";
     _key: string;
   }>;
-  content?: Array<{
+  content: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -290,7 +288,7 @@ export type Projects = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
     _key: string;
   }>;
@@ -303,10 +301,16 @@ export type Projects = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
     _key: string;
   }>;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
 };
 
 export type Home = {
@@ -315,8 +319,8 @@ export type Home = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  content?: Array<{
+  title: string;
+  content: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -342,11 +346,11 @@ export type Home = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
     _key: string;
   }>;
-  photo?: {
+  image: {
     asset: {
       _ref: string;
       _type: "reference";
@@ -355,7 +359,7 @@ export type Home = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
   };
 };
@@ -417,4 +421,288 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
+
+// Source: ./src/lib/query.ts
+// Variable: homeDetailQuery
+// Query:   *[_type == "home"][0] {    _id,      title,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+export type HomeDetailQueryResult = {
+  _id: string;
+  title: string;
+  content: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  image: {
+    url: string | null;
+    alt: string;
+    width: number | null;
+    height: number | null;
+  };
+} | null;
+// Variable: allProjectsQuery
+// Query:   *[_type == "projects"] | order(dateRange.startDate desc) {    _id,    title,    slug,    description,    dateRange,    techStacks,    repositoryLinks,    deploymentLinks,    content,    gallery,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+export type AllProjectsQueryResult = Array<{
+  _id: string;
+  title: string;
+  slug: Slug;
+  description: string;
+  dateRange: {
+    startDate: string;
+    endDate?: string;
+  };
+  techStacks: Array<string>;
+  repositoryLinks: Array<{
+    label: string;
+    url: string;
+    _type: "repositoryLink";
+    _key: string;
+  }>;
+  deploymentLinks: Array<{
+    label: string;
+    url: string;
+    _type: "deploymentLink";
+    _key: string;
+  }> | null;
+  content: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  gallery: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  }> | null;
+  image: {
+    url: string | null;
+    alt: string;
+    width: number | null;
+    height: number | null;
+  };
+}>;
+// Variable: projectDetailQuery
+// Query:   *[_type == "projects" && slug.current == $slug][0] {    _id,    title,    slug,    description,    dateRange,    techStacks,    repositoryLinks,    deploymentLinks,    content,    gallery,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+export type ProjectDetailQueryResult = {
+  _id: string;
+  title: string;
+  slug: Slug;
+  description: string;
+  dateRange: {
+    startDate: string;
+    endDate?: string;
+  };
+  techStacks: Array<string>;
+  repositoryLinks: Array<{
+    label: string;
+    url: string;
+    _type: "repositoryLink";
+    _key: string;
+  }>;
+  deploymentLinks: Array<{
+    label: string;
+    url: string;
+    _type: "deploymentLink";
+    _key: string;
+  }> | null;
+  content: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  gallery: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  }> | null;
+  image: {
+    url: string | null;
+    alt: string;
+    width: number | null;
+    height: number | null;
+  };
+} | null;
+// Variable: allExperiencesQuery
+// Query:   *[_type == "experiences"] | order(dateRange.startDate desc) {    _id,    title,    slug,    description,    dateRange,    company,    techStacks,    repositoryLinks,    deploymentLinks,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+export type AllExperiencesQueryResult = Array<never>;
+// Variable: experienceDetailQuery
+// Query:   *[_type == "experiences" && slug.current == $slug][0] {    _id,    title,    slug,    description,    dateRange,    company,    techStacks,    repositoryLinks,    deploymentLinks,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+export type ExperienceDetailQueryResult = null;
+// Variable: allAwardsQuery
+// Query:   *[_type == "awards"] | order(date desc) {    _id,    title,    slug,    description,    issuer,    date,    content,  }
+export type AllAwardsQueryResult = Array<{
+  _id: string;
+  title: string;
+  slug: Slug;
+  description: string;
+  issuer: string;
+  date: string;
+  content: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+}>;
+// Variable: awardDetailQuery
+// Query:   *[_type == "awards" && slug.current == $slug][0] {    _id,    title,    slug,    description,    issuer,    date,    content,  }
+export type AwardDetailQueryResult = {
+  _id: string;
+  title: string;
+  slug: Slug;
+  description: string;
+  issuer: string;
+  date: string;
+  content: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+} | null;
+// Variable: allBlogsQuery
+// Query:   *[_type == "blogs"] | order(date desc) {    _id,    title,    slug,    description,    date,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+export type AllBlogsQueryResult = Array<never>;
+// Variable: blogDetailQuery
+// Query:   *[_type == "blogs" && slug.current == $slug][0] {    _id,    title,    slug,    description,    date,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+export type BlogDetailQueryResult = null;
 
