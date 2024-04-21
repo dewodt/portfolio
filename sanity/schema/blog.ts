@@ -1,9 +1,9 @@
-import { imagePreviewField } from "../fields/image-preview";
 import { defineType } from "sanity";
+import { getFormattedDate } from "@/lib/utils";
+import { imagePreviewField } from "../fields/image-preview";
 import { contentField } from "../fields/content";
 import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
-import { getFormattedDate } from "@/lib/utils";
 import { dateField } from "../fields/date";
 
 export const blogSchema = defineType({

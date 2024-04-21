@@ -1,4 +1,5 @@
 import { defineType } from "sanity";
+import { getFormattedDate } from "@/lib/utils";
 import { contentField } from "../fields/content";
 import { repositoryLinksField } from "../fields/repository-links";
 import { deploymentLinksField } from "../fields/deployment-links";
@@ -7,7 +8,6 @@ import { techStacksField } from "../fields/tech-stacks";
 import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
 import { dateRangeField } from "../fields/date-range";
-import { getFormattedDate } from "@/lib/utils";
 import { imagePreviewField } from "../fields/image-preview";
 
 export const projectsSchema = defineType({

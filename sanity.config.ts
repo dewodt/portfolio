@@ -5,8 +5,12 @@ import { structureTool } from "sanity/structure";
 import { HomeIcon } from "./sanity/render/home-icon";
 
 // Get project id & dataset
-const projectId = import.meta.env.PUBLIC_SANITY_STUDIO_PROJECT_ID;
-const dataset = import.meta.env.PUBLIC_SANITY_STUDIO_DATASET;
+const projectId =
+  import.meta.env?.PUBLIC_SANITY_STUDIO_PROJECT_ID ?? // added "?"" for typegen cli
+  import.meta.env.SANITY_STUDIO_PROJECT_ID;
+const dataset =
+  import.meta.env?.PUBLIC_SANITY_STUDIO_DATASET ?? // added "?"" for typegen cli
+  import.meta.env.SANITY_STUDIO_DATASET;
 
 // Define the actions that should be available for singleton documents
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);

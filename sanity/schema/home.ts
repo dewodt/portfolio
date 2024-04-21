@@ -1,5 +1,5 @@
-import { titleField } from "../fields/title";
 import { defineType } from "sanity";
+import { titleField } from "../fields/title";
 import { contentField } from "../fields/content";
 import { photoField } from "../fields/photo";
 
