@@ -17,6 +17,7 @@ export const blogSchema = defineType({
     dateField,
     contentField,
   ],
+  icon: () => "📝",
   preview: {
     select: {
       title: "title",

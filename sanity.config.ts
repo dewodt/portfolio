@@ -2,6 +2,7 @@ import { schemaTypes } from "./sanity/schema";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { HomeIcon } from "./sanity/render/home-icon";
 
 // Get project id & dataset
 const projectId = import.meta.env.PUBLIC_SANITY_STUDIO_PROJECT_ID;
@@ -26,7 +27,7 @@ export default defineConfig({
           .title("Content")
           .items([
             // Our singleton type has a list item with a custom child
-            S.listItem().title("Home").id("home").child(
+            S.listItem().title("Home").id("home").icon(HomeIcon).child(
               // Instead of rendering a list of documents, we render a single
               // document, specifying the `documentId` manually to ensure
               // that we're editing the single instance of the document

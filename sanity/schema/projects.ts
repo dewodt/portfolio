@@ -25,6 +25,7 @@ export const projectsSchema = defineType({
     contentField,
     galleryField,
   ],
+  icon: () => "💻",
   preview: {
     select: {
       title: "title",

@@ -23,6 +23,7 @@ export const experienceSchema = defineType({
     deploymentLinksField,
     contentField,
   ],
+  icon: () => "👨‍💻",
   preview: {
     select: {
       title: "title",

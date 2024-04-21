@@ -11,6 +11,7 @@ export const awardsSchema = defineType({
   title: "Awards",
   type: "document",
   fields: [titleField, descriptionField, issuerField, dateField, contentField],
+  icon: () => "🏆",
   preview: {
     select: {
       title: "title",
