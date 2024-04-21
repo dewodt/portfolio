@@ -1,29 +1,21 @@
+import { imagePreviewField } from "../fields/image-preview";
 import { defineType } from "sanity";
 import { contentField } from "../fields/content";
-import { repositoryLinksField } from "../fields/repository-links";
-import { deploymentLinksField } from "../fields/deployment-links";
-import { galleryField } from "../fields/gallery";
-import { techStacksField } from "../fields/tech-stacks";
 import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
-import { dateRangeField } from "../fields/date-range";
 import { getFormattedDate } from "@/lib/utils";
-import { imagePreviewField } from "../fields/image-preview";
+import { dateField } from "../fields/date";
 
-export const projectsSchema = defineType({
-  name: "projects",
-  title: "Projects",
+export const blogSchema = defineType({
+  name: "blog",
+  title: "Blog",
   type: "document",
   fields: [
     imagePreviewField,
     titleField,
     descriptionField,
-    dateRangeField,
-    techStacksField,
-    repositoryLinksField,
-    deploymentLinksField,
+    dateField,
     contentField,
-    galleryField,
   ],
   preview: {
     select: {
