@@ -17,6 +17,15 @@ const dataset = PUBLIC_SANITY_STUDIO_DATASET;
 export default defineConfig({
   output: "hybrid", // Hybrid+adapter is required to support embedded Sanity Studio
   adapter: vercel(),
+  image: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        pathname: "/images/**",
+      },
+    ],
+  },
   integrations: [
     react(),
     tailwind(),

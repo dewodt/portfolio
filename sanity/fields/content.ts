@@ -9,7 +9,15 @@ export const contentField = defineField({
   of: [
     {
       type: "block",
-      // Default styles
+
+      // Remove h1 & other small headings
+      styles: [
+        { title: "Normal", value: "normal" },
+        { title: "H2", value: "h2" },
+        { title: "H3", value: "h3" },
+        { title: "H4", value: "h4" },
+        { title: "Blockquote", value: "blockquote" },
+      ],
 
       // Default lists
 
@@ -50,6 +58,5 @@ export const contentField = defineField({
     },
   ],
   description: "Insert a content portable text!",
-  validation: (Rule) =>
-    Rule.required().error("A content is required"),
+  validation: (Rule) => Rule.required().error("A content is required"),
 });
