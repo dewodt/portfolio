@@ -8,6 +8,7 @@ import { titleField } from "../fields/title";
 import { dateRangeField } from "../fields/date-range";
 import { descriptionField } from "../fields/description";
 import { companyField } from "../fields/company";
+import { slugField } from "../fields/slug";
 
 export const experienceSchema = defineType({
   name: "experience",
@@ -15,6 +16,7 @@ export const experienceSchema = defineType({
   type: "document",
   fields: [
     titleField,
+    slugField,
     descriptionField,
     companyField,
     dateRangeField,

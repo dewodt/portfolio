@@ -9,6 +9,7 @@ import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
 import { dateRangeField } from "../fields/date-range";
 import { imagePreviewField } from "../fields/image-preview";
+import { slugField } from "../fields/slug";
 
 export const projectsSchema = defineType({
   name: "projects",
@@ -17,6 +18,7 @@ export const projectsSchema = defineType({
   fields: [
     imagePreviewField,
     titleField,
+    slugField,
     descriptionField,
     dateRangeField,
     techStacksField,

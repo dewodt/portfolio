@@ -5,6 +5,7 @@ import { contentField } from "../fields/content";
 import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
 import { dateField } from "../fields/date";
+import { slugField } from "../fields/slug";
 
 export const blogSchema = defineType({
   name: "blog",
@@ -13,6 +14,7 @@ export const blogSchema = defineType({
   fields: [
     imagePreviewField,
     titleField,
+    slugField,
     descriptionField,
     dateField,
     contentField,

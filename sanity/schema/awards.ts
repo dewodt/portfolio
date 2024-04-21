@@ -5,12 +5,20 @@ import { contentField } from "../fields/content";
 import { issuerField } from "../fields/issuer";
 import { dateField } from "../fields/date";
 import { descriptionField } from "../fields/description";
+import { slugField } from "../fields/slug";
 
 export const awardsSchema = defineType({
   name: "awards",
   title: "Awards",
   type: "document",
-  fields: [titleField, descriptionField, issuerField, dateField, contentField],
+  fields: [
+    titleField,
+    slugField,
+    descriptionField,
+    issuerField,
+    dateField,
+    contentField,
+  ],
   icon: () => "🏆",
   preview: {
     select: {
