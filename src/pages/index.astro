@@ -1,8 +1,15 @@
 ---
-import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { fetchSanityData, homeDetailQuery } from "@/lib/query";
+import type { HomeDetailQueryResult } from "@/types/sanity";
+import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
 
-// Get data from CMS
+// TO DO: Get data from CMS
+const data = await fetchSanityData<HomeDetailQueryResult>(homeDetailQuery);
+if (!data) {
+  throw new Error("Home data not found");
+}
 ---
 
 <Layout title="Dewantoro Triatmojo">
@@ -10,30 +17,29 @@ import Layout from "../layouts/Layout.astro";
     class="flex flex-auto items-center justify-center px-4 py-12 sm:p-16 lg:p-24"
   >
     <section
-      class="flex flex-col items-center gap-4 sm:flex-row-reverse sm:gap-8 lg:gap-16"
+      class="flex flex-col items-center gap-4 sm:flex-row-reverse sm:gap-8 lg:gap-16 xl:gap-24"
     >
       {/* My Photo */}
       <Image
-        alt="Dewantoro Triatmojo's Photo"
-        src={"/dewo.jpg"}
-        width={300}
-        height={300}
         class="size-64 rounded-full border-2 border-border lg:size-96"
+        src={data.image.url!}
+        alt={data.image.alt}
+        widths={[256, 384]}
+        sizes="(max-width: 1024px) 256px, 384px"
+        inferSize
       />
 
       {/* Texts */}
       <div
         class="flex max-w-xs flex-col gap-2 text-center sm:max-w-sm sm:text-start lg:max-w-lg lg:gap-4"
       >
+        {/* Title */}
         <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
-          Dewantoro Triatmojo
+          {data.title}
         </h1>
-        <p class="text-base text-muted lg:text-xl">
-          Hello there! I’m a second-year undergraduate
-          <span class="text-primary">Computer Science</span>
-          student in Bandung Institute of Technology. I have strong interest in the
-          world of <span class="text-primary">Software Engineering.</span>
-        </p>
+
+        {/* Paragraph */}
+        <CustomPortableText value={data.content} />
       </div>
     </section>
   </main>
