@@ -3,9 +3,10 @@ import { contentField } from "../fields/content";
 import { repositoryLinksField } from "../fields/repository-links";
 import { deploymentLinksField } from "../fields/deployment-links";
 import { techStacksField } from "../fields/tech-stacks";
-import { shortTitleField } from "../fields/short-title";
+import { titleField } from "../fields/title";
 import { dateRangeField } from "../fields/date-range";
 import { getFormattedDate } from "@/lib/utils";
+import { descriptionField } from "../fields/description";
 import { companyField } from "../fields/company";
 
 export const experienceSchema = defineType({
@@ -13,7 +14,8 @@ export const experienceSchema = defineType({
   title: "Experience",
   type: "document",
   fields: [
-    shortTitleField,
+    titleField,
+    descriptionField,
     companyField,
     dateRangeField,
     techStacksField,

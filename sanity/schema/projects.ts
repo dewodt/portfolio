@@ -4,7 +4,8 @@ import { repositoryLinksField } from "../fields/repository-links";
 import { deploymentLinksField } from "../fields/deployment-links";
 import { galleryField } from "../fields/gallery";
 import { techStacksField } from "../fields/tech-stacks";
-import { shortTitleField } from "../fields/short-title";
+import { titleField } from "../fields/title";
+import { descriptionField } from "../fields/description";
 import { dateRangeField } from "../fields/date-range";
 import { getFormattedDate } from "@/lib/utils";
 
@@ -13,7 +14,8 @@ export const projectsSchema = defineType({
   title: "Projects",
   type: "document",
   fields: [
-    shortTitleField,
+    titleField,
+    descriptionField,
     dateRangeField,
     techStacksField,
     repositoryLinksField,
@@ -36,6 +38,7 @@ export const projectsSchema = defineType({
         const end = getFormattedDate(endDate as string);
         subtitle += ` — ${end}`;
       }
+
       return {
         title,
         subtitle,

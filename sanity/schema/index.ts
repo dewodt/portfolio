@@ -1,4 +1,4 @@
-import awards from "./awards";
+import { awardsSchema } from "./awards";
 import blog from "./blog";
 import { homeSchema } from "./home";
 import { projectsSchema } from "./projects";
@@ -8,6 +8,6 @@ export const schemaTypes = [
   homeSchema,
   projectsSchema,
   experienceSchema,
-  awards,
+  awardsSchema,
   blog,
 ];
