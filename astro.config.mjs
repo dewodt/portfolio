@@ -35,6 +35,7 @@ export default defineConfig({
       studioBasePath: "/admin",
       useCdn: false, // Statically build no need cdn
       apiVersion: "2024-04-19", // Set to date of setup to use the latest API version
+      perspective: "published", // Use the published dataset
     }),
   ],
 });

@@ -9,8 +9,7 @@ interface SocialMedia {
   name: string;
   url: string;
   icon: any;
-  classColor: string; // Path fill or stroke
-  className: string; // Parent svg
+  className: string;
 }
 
 const socialMedia: SocialMedia[] = [
@@ -18,36 +17,31 @@ const socialMedia: SocialMedia[] = [
     name: "GitHub",
     url: "https://github.com/dewodt",
     icon: GitHubIcon,
-    className: "size-full",
-    classColor: "group-hover:fill-secondary",
+    className: "fill-muted group-hover:fill-secondary",
   },
   {
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/dewantoro-triatmojo/",
     icon: LinkedInIcon,
-    className: "size-full",
-    classColor: "group-hover:fill-secondary",
+    className: "fill-muted group-hover:fill-secondary",
   },
   {
     name: "Email",
     url: "mailto:dewantorotriatmojo@gmail.com",
     icon: EmailIcon,
-    className: "size-full",
-    classColor: "group-hover:stroke-secondary",
+    className: "stroke-muted group-hover:stroke-secondary",
   },
   {
     name: "Instagram",
     url: "https://www.instagram.com/dewo.tm/",
     icon: InstagramIcon,
-    className: "size-full",
-    classColor: "group-hover:fill-secondary",
+    className: "fill-muted group-hover:fill-secondary",
   },
   {
     name: "Spotify",
     url: "https://open.spotify.com/user/0p89rcit1qulphp6uzgsi0tto",
     icon: SpotifyIcon,
-    className: "size-full",
-    classColor: "group-hover:fill-secondary",
+    className: "fill-muted group-hover:fill-secondary",
   },
 ];
 ---
@@ -61,16 +55,11 @@ const socialMedia: SocialMedia[] = [
         <li class="group">
           <a
             href={social.url}
-            target="_blank"
             aria-label={social.name}
+            target="_blank"
             class="flex size-8 transition-all group-hover:scale-110"
           >
-            {
-              <social.icon
-                class={social.className}
-                classColor={social.classColor}
-              />
-            }
+            {<social.icon class:list={["size-full", social.className]} />}
           </a>
         </li>
       ))
