@@ -4,11 +4,9 @@ import { contentField } from "../fields/content";
 import { repositoryLinksField } from "../fields/repository-links";
 import { deploymentLinksField } from "../fields/deployment-links";
 import { galleryField } from "../fields/gallery";
-import { techStacksField } from "../fields/tech-stacks";
 import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
 import { dateRangeField } from "../fields/date-range";
-import { imageField } from "../fields/image";
 import { slugField } from "../fields/slug";
 
 export const projectsSchema = defineType({
@@ -16,12 +14,10 @@ export const projectsSchema = defineType({
   title: "Projects",
   type: "document",
   fields: [
-    imageField,
     titleField,
     slugField,
     descriptionField,
     dateRangeField,
-    techStacksField,
     repositoryLinksField,
     deploymentLinksField,
     contentField,
@@ -33,7 +29,7 @@ export const projectsSchema = defineType({
       title: "title",
       startDate: "dateRange.startDate",
       endDate: "dateRange.endDate",
-      media: "imagePreview",
+      media: "gallery.0.asset",
     },
     prepare({ title, startDate, endDate, media }) {
       // XXX YYYY

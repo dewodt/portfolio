@@ -4,7 +4,7 @@ export const imageField = defineField({
   name: "image",
   title: "Image",
   type: "image",
-  description: "Image (only one) to be displayed for the document.",
+  description: "An image to be displayed for the document.",
   fields: [
     {
       name: "alt",

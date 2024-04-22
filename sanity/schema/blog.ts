@@ -12,7 +12,7 @@ export const blogSchema = defineType({
   title: "Blog",
   type: "document",
   fields: [
-    imageField,
+    imageField, // for image preview
     titleField,
     slugField,
     descriptionField,

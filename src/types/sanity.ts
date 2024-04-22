@@ -97,7 +97,7 @@ export type Blog = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -140,7 +140,7 @@ export type Awards = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -179,7 +179,6 @@ export type Experience = {
     startDate: string;
     endDate?: string;
   };
-  techStacks: Array<string>;
   repositoryLinks: Array<{
     label: string;
     url: string;
@@ -199,7 +198,7 @@ export type Experience = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -230,18 +229,6 @@ export type Projects = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  image: {
-    asset: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-  };
   title: string;
   slug: Slug;
   description: string;
@@ -249,7 +236,6 @@ export type Projects = {
     startDate: string;
     endDate?: string;
   };
-  techStacks: Array<string>;
   repositoryLinks: Array<{
     label: string;
     url: string;
@@ -269,7 +255,7 @@ export type Projects = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -319,7 +305,6 @@ export type Home = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
   content: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -327,7 +312,7 @@ export type Home = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -424,10 +409,9 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: ./src/lib/query.ts
 // Variable: homeDetailQuery
-// Query:   *[_type == "home"][0] {    _id,      title,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+// Query:   *[_type == "home"][0] {    _id,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,    }  }
 export type HomeDetailQueryResult = {
   _id: string;
-  title: string;
   content: Array<{
     asset?: {
       _ref: string;
@@ -447,7 +431,7 @@ export type HomeDetailQueryResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -461,12 +445,10 @@ export type HomeDetailQueryResult = {
   image: {
     url: string | null;
     alt: string;
-    width: number | null;
-    height: number | null;
   };
 } | null;
 // Variable: allProjectsQuery
-// Query:   *[_type == "projects"] | order(dateRange.startDate desc) {    _id,    title,    slug,    description,    dateRange,    techStacks,    repositoryLinks,    deploymentLinks,    content,    gallery,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+// Query:   *[_type == "projects"] | order(dateRange.startDate desc) {    _id,    title,    slug,    description,    dateRange,    repositoryLinks,    deploymentLinks,    "image": {      "url": gallery[0].asset->url,      "alt": gallery[0].alt,    },  }
 export type AllProjectsQueryResult = Array<{
   _id: string;
   title: string;
@@ -476,7 +458,6 @@ export type AllProjectsQueryResult = Array<{
     startDate: string;
     endDate?: string;
   };
-  techStacks: Array<string>;
   repositoryLinks: Array<{
     label: string;
     url: string;
@@ -489,58 +470,13 @@ export type AllProjectsQueryResult = Array<{
     _type: "deploymentLink";
     _key: string;
   }> | null;
-  content: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-    _key: string;
-  } | {
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  gallery: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-    _key: string;
-  }> | null;
   image: {
     url: string | null;
-    alt: string;
-    width: number | null;
-    height: number | null;
+    alt: string | null;
   };
 }>;
 // Variable: projectDetailQuery
-// Query:   *[_type == "projects" && slug.current == $slug][0] {    _id,    title,    slug,    description,    dateRange,    techStacks,    repositoryLinks,    deploymentLinks,    content,    gallery,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+// Query:   *[_type == "projects" && slug.current == $slug][0] {    _id,    title,    slug,    description,    dateRange,    repositoryLinks,    deploymentLinks,    content,    gallery[] {      "url": asset->url,      "alt": alt,    },  }
 export type ProjectDetailQueryResult = {
   _id: string;
   title: string;
@@ -550,7 +486,6 @@ export type ProjectDetailQueryResult = {
     startDate: string;
     endDate?: string;
   };
-  techStacks: Array<string>;
   repositoryLinks: Array<{
     label: string;
     url: string;
@@ -582,7 +517,7 @@ export type ProjectDetailQueryResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -594,33 +529,18 @@ export type ProjectDetailQueryResult = {
     _key: string;
   }>;
   gallery: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-    _key: string;
-  }> | null;
-  image: {
     url: string | null;
     alt: string;
-    width: number | null;
-    height: number | null;
-  };
+  }> | null;
 } | null;
 // Variable: allExperiencesQuery
-// Query:   *[_type == "experiences"] | order(dateRange.startDate desc) {    _id,    title,    slug,    description,    dateRange,    company,    techStacks,    repositoryLinks,    deploymentLinks,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+// Query:   *[_type == "experiences"] | order(dateRange.startDate desc) {    _id,    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,  }
 export type AllExperiencesQueryResult = Array<never>;
 // Variable: experienceDetailQuery
-// Query:   *[_type == "experiences" && slug.current == $slug][0] {    _id,    title,    slug,    description,    dateRange,    company,    techStacks,    repositoryLinks,    deploymentLinks,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+// Query:   *[_type == "experiences" && slug.current == $slug][0] {    _id,    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,    content,  }
 export type ExperienceDetailQueryResult = null;
 // Variable: allAwardsQuery
-// Query:   *[_type == "awards"] | order(date desc) {    _id,    title,    slug,    description,    issuer,    date,    content,  }
+// Query:   *[_type == "awards"] | order(date desc) {    _id,    title,    slug,    description,    issuer,    date,  }
 export type AllAwardsQueryResult = Array<{
   _id: string;
   title: string;
@@ -628,36 +548,6 @@ export type AllAwardsQueryResult = Array<{
   description: string;
   issuer: string;
   date: string;
-  content: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-    _key: string;
-  } | {
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
 }>;
 // Variable: awardDetailQuery
 // Query:   *[_type == "awards" && slug.current == $slug][0] {    _id,    title,    slug,    description,    issuer,    date,    content,  }
@@ -687,7 +577,7 @@ export type AwardDetailQueryResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -700,9 +590,9 @@ export type AwardDetailQueryResult = {
   }>;
 } | null;
 // Variable: allBlogsQuery
-// Query:   *[_type == "blogs"] | order(date desc) {    _id,    title,    slug,    description,    date,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+// Query:   *[_type == "blogs"] | order(date desc) {    _id,    title,    slug,    description,    date,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    content,  }
 export type AllBlogsQueryResult = Array<never>;
 // Variable: blogDetailQuery
-// Query:   *[_type == "blogs" && slug.current == $slug][0] {    _id,    title,    slug,    description,    date,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height    }  }
+// Query:   *[_type == "blogs" && slug.current == $slug][0] {    _id,    title,    slug,    description,    date,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    content,  }
 export type BlogDetailQueryResult = null;
 

@@ -10,9 +10,10 @@ export const contentField = defineField({
     {
       type: "block",
 
-      // Remove h1 & other small headings
+      // Remove small headings
       styles: [
         { title: "Normal", value: "normal" },
+        { title: "H1", value: "h1" },
         { title: "H2", value: "h2" },
         { title: "H3", value: "h3" },
         { title: "H4", value: "h4" },

@@ -3,7 +3,6 @@ import { getFormattedDate } from "@/lib/utils";
 import { contentField } from "../fields/content";
 import { repositoryLinksField } from "../fields/repository-links";
 import { deploymentLinksField } from "../fields/deployment-links";
-import { techStacksField } from "../fields/tech-stacks";
 import { titleField } from "../fields/title";
 import { dateRangeField } from "../fields/date-range";
 import { descriptionField } from "../fields/description";
@@ -20,7 +19,6 @@ export const experienceSchema = defineType({
     descriptionField,
     companyField,
     dateRangeField,
-    techStacksField,
     repositoryLinksField,
     deploymentLinksField,
     contentField,

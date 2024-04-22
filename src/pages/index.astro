@@ -14,7 +14,7 @@ if (!data) {
 
 <Layout title="Dewantoro Triatmojo">
   <main
-    class="flex flex-auto items-center justify-center px-4 py-12 sm:p-16 lg:p-24"
+    class="flex flex-auto items-center justify-center px-3 py-12 sm:p-12 lg:p-16"
   >
     <section
       class="flex flex-col items-center gap-4 sm:flex-row-reverse sm:gap-8 lg:gap-16 xl:gap-24"
@@ -33,12 +33,7 @@ if (!data) {
       <div
         class="flex max-w-xs flex-col gap-2 text-center sm:max-w-sm sm:text-start lg:max-w-lg lg:gap-4"
       >
-        {/* Title */}
-        <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
-          {data.title}
-        </h1>
-
-        {/* Paragraph */}
+        {/* Content Title + Paragraph */}
         <CustomPortableText value={data.content} />
       </div>
     </section>

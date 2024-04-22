@@ -6,6 +6,7 @@ export const sanityClient = createClient({
   dataset: import.meta.env.PUBLIC_SANITY_STUDIO_DATASET,
   useCdn: false, // Statically build no need cdn
   apiVersion: "2024-04-19", // Set to date of setup to use the latest API version
+  perspective: "published", // Use the published dataset
 });
 
 export const fetchSanityData = async <T>(groqQuery: string): Promise<T> => {
@@ -17,14 +18,11 @@ export const fetchSanityData = async <T>(groqQuery: string): Promise<T> => {
 
 export const homeDetailQuery = groq`
   *[_type == "home"][0] {
-    _id,  
-    title,
+    _id,
     content,
     "image": {
       "url": image.asset->url,
       "alt": image.alt,
-      "width": image.asset->metadata.dimensions.width,
-      "height": image.asset->metadata.dimensions.height
     }
   }
 `;
@@ -36,17 +34,12 @@ export const allProjectsQuery = groq`
     slug,
     description,
     dateRange,
-    techStacks,
     repositoryLinks,
     deploymentLinks,
-    content,
-    gallery,
     "image": {
-      "url": image.asset->url,
-      "alt": image.alt,
-      "width": image.asset->metadata.dimensions.width,
-      "height": image.asset->metadata.dimensions.height
-    }
+      "url": gallery[0].asset->url,
+      "alt": gallery[0].alt,
+    },
   }
 `;
 
@@ -57,17 +50,13 @@ export const projectDetailQuery = groq`
     slug,
     description,
     dateRange,
-    techStacks,
     repositoryLinks,
     deploymentLinks,
     content,
-    gallery,
-    "image": {
-      "url": image.asset->url,
-      "alt": image.alt,
-      "width": image.asset->metadata.dimensions.width,
-      "height": image.asset->metadata.dimensions.height
-    }
+    gallery[] {
+      "url": asset->url,
+      "alt": alt,
+    },
   }
 `;
 
@@ -79,16 +68,8 @@ export const allExperiencesQuery = groq`
     description,
     dateRange,
     company,
-    techStacks,
     repositoryLinks,
     deploymentLinks,
-    content,
-    "image": {
-      "url": image.asset->url,
-      "alt": image.alt,
-      "width": image.asset->metadata.dimensions.width,
-      "height": image.asset->metadata.dimensions.height
-    }
   }
 `;
 
@@ -100,16 +81,9 @@ export const experienceDetailQuery = groq`
     description,
     dateRange,
     company,
-    techStacks,
     repositoryLinks,
     deploymentLinks,
     content,
-    "image": {
-      "url": image.asset->url,
-      "alt": image.alt,
-      "width": image.asset->metadata.dimensions.width,
-      "height": image.asset->metadata.dimensions.height
-    }
   }
 `;
 
@@ -121,7 +95,6 @@ export const allAwardsQuery = groq`
     description,
     issuer,
     date,
-    content,
   }
 `;
 
@@ -144,13 +117,11 @@ export const allBlogsQuery = groq`
     slug,
     description,
     date,
-    content,
     "image": {
       "url": image.asset->url,
       "alt": image.alt,
-      "width": image.asset->metadata.dimensions.width,
-      "height": image.asset->metadata.dimensions.height
-    }
+    },
+    content,
   }
 `;
 
@@ -161,12 +132,10 @@ export const blogDetailQuery = groq`
     slug,
     description,
     date,
-    content,
     "image": {
       "url": image.asset->url,
       "alt": image.alt,
-      "width": image.asset->metadata.dimensions.width,
-      "height": image.asset->metadata.dimensions.height
-    }
+    },
+    content,
   }
 `;

@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
@@ -8,12 +7,16 @@ const config: Config = {
       colors: {
         background: "#0B1120", // Background
         border: "#343841", // Border
-        muted: "#9A9A9A", // Muted
+        card: "#1E293B", // Card color
+        muted: "#A0A4A3", // Muted
         primary: "#0EA5E9", // Primary
         secondary: "#F5F5F5", // Secondary
       },
       fontFamily: {
         inter: ["Inter Variable", "sans-serif"],
+      },
+      dropShadow: {
+        primary: "0px 0px 32px rgba(14, 165,233, 0.4)",
       },
     },
   },
