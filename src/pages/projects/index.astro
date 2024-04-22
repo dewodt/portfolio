@@ -1,0 +1,31 @@
+---
+import CardProjects from "@/components/ui/card/CardProjects.astro";
+import Layout from "@/layouts/Layout.astro";
+import type { AllProjectsQueryResult } from "@/types/sanity";
+import { fetchSanityData, allProjectsQuery } from "@/lib/query";
+
+// Get all projects from CMS
+const data = await fetchSanityData<AllProjectsQueryResult>(allProjectsQuery);
+---
+
+<Layout title="Projects | Dewantoro Triatmojo">
+  <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
+    <section class="flex flex-col items-center gap-8 lg:gap-10">
+      {/* Title */}
+      <h1 class="text-3xl font-bold lg:text-5xl">Projects</h1>
+
+      {/* Projects List */}
+      <ul
+        class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-10 xl:grid-cols-3"
+      >
+        {
+          data.map((project) => (
+            <li>
+              <CardProjects project={project} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Layout>
