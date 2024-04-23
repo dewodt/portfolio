@@ -1,0 +1,15 @@
+---
+import type { Props as $, Mark as MarkType } from "astro-portabletext/types";
+
+// Generic is for markDef type
+export type Props = $<MarkType<Record<string, string>>>;
+const props = Astro.props;
+---
+
+<a
+  href={props.node.markDef.href}
+  target="_blank"
+  class="text-base font-medium leading-none text-primary underline-offset-4 hover:underline lg:text-lg lg:leading-none"
+>
+  <slot />
+</a>

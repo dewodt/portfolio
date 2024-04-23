@@ -1,11 +1,29 @@
 ---
 import { PortableText } from "astro-portabletext";
-// Custom components
-import CustomBlock from "./CustomBlock.astro";
-import CustomMark from "./CustomMark.astro";
 
 // Utils
 import { mergeComponents } from "astro-portabletext/utils";
+
+// Block
+import CustomH1 from "./block/CustomH1.astro";
+import CustomH4 from "./block/CustomH4.astro";
+import CustomH3 from "./block/CustomH3.astro";
+import CustomH2 from "./block/CustomH2.astro";
+import CustomNormal from "./block/CustomNormal.astro";
+import CustomBlockquote from "./block/CustomBlockquote.astro";
+
+// Mark
+import CustomHighlight from "./mark/CustomHighlight.astro";
+
+// Type
+import CustomImage from "./type/CustomImage.astro";
+
+// List
+import CustomNumberList from "./list/CustomNumberList.astro";
+import CustomBulletList from "./list/CustomBulletList.astro";
+import CustomNumberListItem from "./list/CustomNumberListItem.astro";
+import CustomBulletListItem from "./list/CustomBulletListItem.astro";
+import CustomLink from "./mark/CustomLink.astro";
 
 type PortableTextProps = Parameters<typeof PortableText>[0];
 
@@ -15,8 +33,31 @@ const { value, components: overrideComponents = {} } = Astro.props;
 
 const components = mergeComponents(
   {
-    block: CustomBlock,
-    mark: CustomMark,
+    type: {
+      image: CustomImage,
+    },
+    block: {
+      h1: CustomH1,
+      h2: CustomH2,
+      h3: CustomH3,
+      h4: CustomH4,
+      normal: CustomNormal,
+      blockquote: CustomBlockquote,
+    },
+    list: {
+      number: CustomNumberList,
+      bullet: CustomBulletList,
+    },
+    listItem: {
+      number: CustomNumberListItem,
+      bullet: CustomBulletListItem,
+    },
+    mark: {
+      // Most of the marks are handled by the default components (they dont relate to UI size / color)
+      highlight: CustomHighlight,
+      internalLink: CustomLink,
+      externalLink: CustomLink,
+    },
   },
   overrideComponents,
 );

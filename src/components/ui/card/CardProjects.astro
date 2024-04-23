@@ -48,15 +48,23 @@ const { project } = Astro.props;
     <div class="z-20 flex flex-row items-center gap-2">
       <CalendarIcon class="size-5" />
 
-      <p
+      <span
         class="text-sm font-medium leading-none text-secondary lg:text-base lg:leading-none"
       >
-        {getFormattedDate(project.dateRange.startDate)}{
-          project.dateRange.endDate
-            ? ` — ${getFormattedDate(project.dateRange.endDate)}`
-            : ""
+        <time datetime={project.dateRange.startDate}>
+          {getFormattedDate(project.dateRange.startDate)}
+        </time>
+        {
+          project.dateRange.endDate && (
+            <>
+              {" — "}
+              <time datetime={project.dateRange.endDate}>
+                {getFormattedDate(project.dateRange.endDate)}
+              </time>
+            </>
+          )
         }
-      </p>
+      </span>
     </div>
 
     {/* Short description */}

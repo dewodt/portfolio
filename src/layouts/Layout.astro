@@ -6,15 +6,16 @@ import Head from "@/components/head/Head.astro";
 
 interface Props {
   title: string;
+  description: string;
 }
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   {/* Common Head */}
-  <Head title={title} />
+  <Head title={title} description={description} />
 
   {/* Body Content */}
   <body class="flex min-h-screen flex-col bg-background font-inter">

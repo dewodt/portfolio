@@ -21,8 +21,10 @@ export const contentField = defineField({
       ],
 
       // Default lists
-
-      // Default link
+      lists: [
+        { title: "Bullet", value: "bullet" },
+        { title: "Numbered", value: "number" },
+      ],
 
       // Custom marks
       marks: {
@@ -33,6 +35,7 @@ export const contentField = defineField({
           { title: "Code", value: "code" },
           { title: "Underline", value: "underline" },
           { title: "Strike", value: "strike-through" },
+
           // Addition
           {
             title: "Highlight",
@@ -41,10 +44,47 @@ export const contentField = defineField({
             component: RenderHighlight,
           },
         ],
+        annotations: [
+          {
+            name: "internalLink",
+            title: "Internal Link",
+            type: "object",
+            fields: [
+              {
+                name: "reference",
+                title: "Reference",
+                type: "reference",
+                to: [
+                  { type: "projects" },
+                  { type: "experience" },
+                  { type: "awards" },
+                  { type: "blog" },
+                ],
+              },
+            ],
+            validation: (Rule) =>
+              Rule.required().error("Reference is required"),
+          },
+          {
+            name: "externalLink",
+            title: "External Link",
+            type: "object",
+            fields: [
+              {
+                name: "url",
+                title: "URL",
+                type: "url",
+              },
+            ],
+            validation: (Rule) =>
+              Rule.required().error("External URL is required"),
+          },
+        ],
       },
     },
     {
       type: "image",
+      icon: ImageIcon,
       fields: [
         {
           name: "alt",
@@ -55,7 +95,7 @@ export const contentField = defineField({
             Rule.required().error("Alt text is required for the image"),
         },
       ],
-      icon: ImageIcon,
+      validation: (Rule) => Rule.required().error("An image is required"),
     },
   ],
   description: "Insert a content portable text!",

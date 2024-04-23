@@ -1,4 +1,4 @@
-import { imageField } from '../fields/image';
+import { imageField } from "../fields/image";
 import { defineType } from "sanity";
 import { getFormattedDate } from "@/lib/utils";
 import { contentField } from "../fields/content";

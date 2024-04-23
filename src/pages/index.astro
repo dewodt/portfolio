@@ -1,18 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
-import { fetchSanityData, homeDetailQuery } from "@/lib/query";
 import type { HomeDetailQueryResult } from "@/types/sanity";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
+import { sanityClient, homeDetailQuery } from "@/lib/query";
 
-// TO DO: Get data from CMS
-const data = await fetchSanityData<HomeDetailQueryResult>(homeDetailQuery);
+const data = await sanityClient.fetch<HomeDetailQueryResult>(homeDetailQuery);
 if (!data) {
   throw new Error("Home data not found");
 }
 ---
 
-<Layout title="Dewantoro Triatmojo">
+<Layout
+  title="Dewantoro Triatmojo"
+  description="I’m a second-year undergraduate Computer Science student in Bandung Institute of Technology. I have strong interest in the realm of Software Engineering and Machine Learning!"
+>
   <main
     class="flex flex-auto items-center justify-center px-3 py-12 sm:p-12 lg:p-16"
   >

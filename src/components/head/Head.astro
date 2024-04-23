@@ -1,10 +1,11 @@
 ---
 interface Props {
   title: string;
+  description: string;
 }
 
 // Get page title
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <head>
@@ -25,10 +26,7 @@ const { title } = Astro.props;
 
   <!-- SEO -->
   <title>{title}</title>
-  <meta
-    name="description"
-    content="I’m a second-year undergraduate Informatics Engineering student in Bandung Institute of Technology. I have strong interest in Software Engineering."
-  />
+  <meta name="description" content={description} />
   <meta name="application-name" content="Dewantoro Triatmojo" />
   <link rel="author" href="https://dewodt.com" />
   <meta name="author" content="Dewantoro Triatmojo" />
@@ -44,10 +42,7 @@ const { title } = Astro.props;
 
   <!-- Opengraph -->
   <meta property="og:title" content={title} />
-  <meta
-    property="og:description"
-    content="I’m a second-year undergraduate Informatics Engineering student in Bandung Institute of Technology. I have strong interest in Software Engineering."
-  />
+  <meta property="og:description" content={description} />
   <meta property="og:url" content="https://dewodt.com/" />
   <meta property="og:site_name" content="Dewantoro Triatmojo" />
   <meta property="og:locale" content="en_US" />
@@ -62,10 +57,7 @@ const { title } = Astro.props;
   <meta name="twitter:creator" content="@dewodt" />
   <meta name="twitter:creator:id" content="1126695039633989634" />
   <meta name="twitter:title" content={title} />
-  <meta
-    name="twitter:description"
-    content="I’m a second-year undergraduate Informatics Engineering student in Bandung Institute of Technology. I have strong interest in Software Engineering."
-  />
+  <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content="https://dewodt.com/link-preview.jpg" />
   <meta name="twitter:image:alt" content="Dewantoro Triatmojo" />
 </head>

@@ -2,13 +2,16 @@
 import CardProjects from "@/components/ui/card/CardProjects.astro";
 import Layout from "@/layouts/Layout.astro";
 import type { AllProjectsQueryResult } from "@/types/sanity";
-import { fetchSanityData, allProjectsQuery } from "@/lib/query";
+import { sanityClient, allProjectsQuery } from "@/lib/query";
 
 // Get all projects from CMS
-const data = await fetchSanityData<AllProjectsQueryResult>(allProjectsQuery);
+const data = await sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery);
 ---
 
-<Layout title="Projects | Dewantoro Triatmojo">
+<Layout
+  title="Projects | Dewantoro Triatmojo"
+  description="Personal projects I've created in my spare time to explore new techs & tools!"
+>
   <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
     <section class="flex flex-col items-center gap-8 lg:gap-10">
       {/* Title */}

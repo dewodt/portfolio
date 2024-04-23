@@ -9,11 +9,6 @@ export const sanityClient = createClient({
   perspective: "published", // Use the published dataset
 });
 
-export const fetchSanityData = async <T>(groqQuery: string): Promise<T> => {
-  const result = await sanityClient.fetch(groqQuery);
-  return result;
-};
-
 // Use slug to query params a single (non single instance) document
 
 export const homeDetailQuery = groq`
@@ -52,7 +47,25 @@ export const projectDetailQuery = groq`
     dateRange,
     repositoryLinks,
     deploymentLinks,
-    content,
+    content[]{
+      ...,
+      markDefs[]{
+        ...,
+        _type == "internalLink" => {
+          ...,
+          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
+        },
+        _type == "externalLink" => {
+          ...,
+          "href": url,
+        },
+      },
+      _type == "image" => {
+        ...,
+        "url": asset->url,
+        "alt": alt,
+      }
+    },
     gallery[] {
       "url": asset->url,
       "alt": alt,
@@ -61,7 +74,7 @@ export const projectDetailQuery = groq`
 `;
 
 export const allExperiencesQuery = groq`
-  *[_type == "experiences"] | order(dateRange.startDate desc) {
+  *[_type == "experience"] | order(dateRange.startDate desc) {
     _id,
     title,
     slug,
@@ -74,7 +87,7 @@ export const allExperiencesQuery = groq`
 `;
 
 export const experienceDetailQuery = groq`
-  *[_type == "experiences" && slug.current == $slug][0] {
+  *[_type == "experience" && slug.current == $slug][0] {
     _id,
     title,
     slug,
@@ -83,7 +96,25 @@ export const experienceDetailQuery = groq`
     company,
     repositoryLinks,
     deploymentLinks,
-    content,
+    content[]{
+      ...,
+      markDefs[]{
+        ...,
+        _type == "internalLink" => {
+          ...,
+          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
+        },
+        _type == "externalLink" => {
+          ...,
+          "href": url,
+        },
+      },
+      _type == "image" => {
+        ...,
+        "url": asset->url,
+        "alt": alt,
+      }
+    },
   }
 `;
 
@@ -106,12 +137,30 @@ export const awardDetailQuery = groq`
     description,
     issuer,
     date,
-    content,
+    content[]{
+      ...,
+      markDefs[]{
+        ...,
+        _type == "internalLink" => {
+          ...,
+          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
+        },
+        _type == "externalLink" => {
+          ...,
+          "href": url,
+        },
+      },
+      _type == "image" => {
+        ...,
+        "url": asset->url,
+        "alt": alt,
+      }
+    },
   }
 `;
 
 export const allBlogsQuery = groq`
-  *[_type == "blogs"] | order(date desc) {
+  *[_type == "blog"] | order(date desc) {
     _id,
     title,
     slug,
@@ -121,12 +170,30 @@ export const allBlogsQuery = groq`
       "url": image.asset->url,
       "alt": image.alt,
     },
-    content,
+    content[]{
+      ...,
+      markDefs[]{
+        ...,
+        _type == "internalLink" => {
+          ...,
+          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
+        },
+        _type == "externalLink" => {
+          ...,
+          "href": url,
+        },
+      },
+      _type == "image" => {
+        ...,
+        "url": asset->url,
+        "alt": alt,
+      }
+    },
   }
 `;
 
 export const blogDetailQuery = groq`
-  *[_type == "blogs" && slug.current == $slug][0] {
+  *[_type == "blog" && slug.current == $slug][0] {
     _id,
     title,
     slug,
@@ -136,6 +203,24 @@ export const blogDetailQuery = groq`
       "url": image.asset->url,
       "alt": image.alt,
     },
-    content,
+    content[]{
+      ...,
+      markDefs[]{
+        ...,
+        _type == "internalLink" => {
+          ...,
+          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
+        },
+        _type == "externalLink" => {
+          ...,
+          "href": url,
+        },
+      },
+      _type == "image" => {
+        ...,
+        "url": asset->url,
+        "alt": alt,
+      }
+    },
   }
 `;
