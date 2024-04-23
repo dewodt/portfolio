@@ -1,7 +1,22 @@
 ---
+import type { Props as $, List as ListType } from "astro-portabletext/types";
 
+export type Props = $<ListType>;
+
+const props = Astro.props;
+const level = props.node.level;
 ---
 
-<ul class="list-inside list-disc">
+<ul
+  class:list={[
+    "list-inside",
+    // Spacing
+    level === 1 ? "ml-0" : "ml-6",
+    // Type
+    (level - 1) % 3 === 0 && "list-disc",
+    (level - 1) % 3 === 1 && "list-circle",
+    (level - 1) % 3 === 2 && "list-square",
+  ]}
+>
   <slot />
 </ul>

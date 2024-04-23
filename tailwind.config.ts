@@ -18,6 +18,12 @@ const config: Config = {
       dropShadow: {
         primary: "0px 0px 32px rgba(14, 165,233, 0.4)",
       },
+      listStyleType: {
+        square: "square",
+        circle: "circle",
+        "lower-alpha": "lower-alpha",
+        "lower-roman": "lower-roman",
+      },
     },
   },
   plugins: [],
