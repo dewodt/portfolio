@@ -8,6 +8,7 @@ import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
 import { dateRangeField } from "../fields/date-range";
 import { slugField } from "../fields/slug";
+import { ProjectsIcon } from "../components/icon/projects-icon";
 
 export const projectsSchema = defineType({
   name: "projects",
@@ -23,7 +24,7 @@ export const projectsSchema = defineType({
     contentField,
     galleryField,
   ],
-  icon: () => "💻",
+  icon: ProjectsIcon,
   preview: {
     select: {
       title: "title",

@@ -8,6 +8,7 @@ import { dateRangeField } from "../fields/date-range";
 import { descriptionField } from "../fields/description";
 import { companyField } from "../fields/company";
 import { slugField } from "../fields/slug";
+import { ExperienceIcon } from "../components/icon/experience-icon";
 
 export const experienceSchema = defineType({
   name: "experience",
@@ -23,7 +24,7 @@ export const experienceSchema = defineType({
     deploymentLinksField,
     contentField,
   ],
-  icon: () => "👨‍💻",
+  icon: ExperienceIcon,
   preview: {
     select: {
       title: "title",

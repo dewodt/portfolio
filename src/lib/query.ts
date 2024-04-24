@@ -11,14 +11,23 @@ export const sanityClient = createClient({
 
 // Use slug to query params a single (non single instance) document
 
-export const homeDetailQuery = groq`
-  *[_type == "home"][0] {
+export const homePageQuery = groq`
+  *[_type == "home-page"][0] {
     _id,
+    title,
     content,
     "image": {
       "url": image.asset->url,
       "alt": image.alt,
     }
+  }
+`;
+
+export const projectsPageQuery = groq`
+  *[_type == "projects-page"][0] {
+    _id,
+    title,
+    content,
   }
 `;
 
@@ -73,6 +82,14 @@ export const projectDetailQuery = groq`
   }
 `;
 
+export const experiencePageQuery = groq`
+  *[_type == "experience-page"][0] {
+    _id,
+    title,
+    content,
+  }
+`;
+
 export const allExperiencesQuery = groq`
   *[_type == "experience"] | order(dateRange.startDate desc) {
     _id,
@@ -118,6 +135,14 @@ export const experienceDetailQuery = groq`
   }
 `;
 
+export const awardsPageQuery = groq`
+  *[_type == "awards-page"][0] {
+    _id,
+    title,
+    content,
+  }
+`;
+
 export const allAwardsQuery = groq`
   *[_type == "awards"] | order(date desc) {
     _id,
@@ -156,6 +181,14 @@ export const awardDetailQuery = groq`
         "alt": alt,
       }
     },
+  }
+`;
+
+export const blogPageQuery = groq`
+  *[_type == "blog-page"][0] {
+    _id,
+    title,
+    content,
   }
 `;
 

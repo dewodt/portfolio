@@ -6,6 +6,7 @@ import { issuerField } from "../fields/issuer";
 import { dateField } from "../fields/date";
 import { descriptionField } from "../fields/description";
 import { slugField } from "../fields/slug";
+import { AwardsIcon } from "../components/icon/awards-icon";
 
 export const awardsSchema = defineType({
   name: "awards",
@@ -19,7 +20,7 @@ export const awardsSchema = defineType({
     dateField,
     contentField,
   ],
-  icon: () => "🏆",
+  icon: AwardsIcon,
   preview: {
     select: {
       title: "title",

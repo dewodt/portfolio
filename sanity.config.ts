@@ -2,7 +2,11 @@ import { schemaTypes } from "./sanity/schema";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
-import { HomeIcon } from "./sanity/render/home-icon";
+import { HomeIcon } from "./sanity/components/icon/home-icon";
+import { ProjectsIcon } from "./sanity/components/icon/projects-icon";
+import { ExperienceIcon } from "./sanity/components/icon/experience-icon";
+import { AwardsIcon } from "./sanity/components/icon/awards-icon";
+import { BlogIcon } from "./sanity/components/icon/blog-icon";
 
 // Get project id & dataset
 const projectId =
@@ -30,18 +34,59 @@ export default defineConfig({
         S.list()
           .title("Content")
           .items([
-            // Our singleton type has a list item with a custom child
-            S.listItem().title("Home").id("home").icon(HomeIcon).child(
-              // Instead of rendering a list of documents, we render a single
-              // document, specifying the `documentId` manually to ensure
-              // that we're editing the single instance of the document
-              S.document().schemaType("home").documentId("home"),
-            ),
+            // Home
+            S.listItem()
+              .title("Home Page")
+              .id("home-page")
+              .icon(HomeIcon)
+              .child(
+                S.document().schemaType("home-page").documentId("home-page"),
+              ),
 
-            // Regular document types
+            // Projects
+            S.listItem()
+              .title("Projects Page")
+              .id("projects-page")
+              .icon(ProjectsIcon)
+              .child(
+                S.document()
+                  .schemaType("projects-page")
+                  .documentId("projects-page"),
+              ),
             S.documentTypeListItem("projects").title("Projects"),
+
+            // Experience
+            S.listItem()
+              .title("Experience Page")
+              .id("experience-page")
+              .icon(ExperienceIcon)
+              .child(
+                S.document()
+                  .schemaType("experience-page")
+                  .documentId("experience-page"),
+              ),
             S.documentTypeListItem("experience").title("Experience"),
+
+            // Awards
+            S.listItem()
+              .title("Awards Page")
+              .id("awards-page")
+              .icon(AwardsIcon)
+              .child(
+                S.document()
+                  .schemaType("awards-page")
+                  .documentId("awards-page"),
+              ),
             S.documentTypeListItem("awards").title("Awards"),
+
+            // Blog
+            S.listItem()
+              .title("Blog Page")
+              .id("blog-page")
+              .icon(BlogIcon)
+              .child(
+                S.document().schemaType("blog-page").documentId("blog-page"),
+              ),
             S.documentTypeListItem("blog").title("Blog"),
           ]),
     }),

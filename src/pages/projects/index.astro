@@ -1,28 +1,48 @@
 ---
 import CardProjects from "@/components/ui/card/CardProjects.astro";
 import Layout from "@/layouts/Layout.astro";
-import type { AllProjectsQueryResult } from "@/types/sanity";
-import { sanityClient, allProjectsQuery } from "@/lib/query";
+import type {
+  AllProjectsQueryResult,
+  ProjectsPageQueryResult,
+} from "@/types/sanity";
+import { sanityClient, allProjectsQuery, projectsPageQuery } from "@/lib/query";
+import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
+import { toPlainText } from "astro-portabletext/utils";
 
+// Get projects page from CMS
+const pageData =
+  await sanityClient.fetch<ProjectsPageQueryResult>(projectsPageQuery);
 // Get all projects from CMS
-const data = await sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery);
+const projectsData =
+  await sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery);
+
+if (!pageData) {
+  throw new Error("Failed to fetch projects page data");
+}
 ---
 
 <Layout
-  title="Projects | Dewantoro Triatmojo"
-  description="Personal projects I've created in my spare time to explore new techs & tools!"
+  title={`${pageData.title} | Dewantoro Triatmojo`}
+  description={toPlainText(pageData.content)}
 >
   <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
-    <section class="flex flex-col items-center gap-8 lg:gap-10">
-      {/* Title */}
-      <h1 class="text-3xl font-bold lg:text-5xl">Projects</h1>
+    <section class="flex flex-col items-center gap-5">
+      <div class="flex flex-col gap-3 text-center lg:gap-5">
+        {/* Title */}
+        <h1 class="text-3xl font-bold lg:text-5xl">
+          {pageData.title}
+        </h1>
+
+        {/* Content */}
+        <CustomPortableText value={pageData.content} />
+      </div>
 
       {/* Projects List */}
       <ul
         class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-10 xl:grid-cols-3"
       >
         {
-          data.map((project) => (
+          projectsData.map((project) => (
             <li>
               <CardProjects project={project} />
             </li>

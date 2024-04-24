@@ -6,6 +6,7 @@ import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
 import { dateField } from "../fields/date";
 import { slugField } from "../fields/slug";
+import { BlogIcon } from "../components/icon/blog-icon";
 
 export const blogSchema = defineType({
   name: "blog",
@@ -19,7 +20,7 @@ export const blogSchema = defineType({
     dateField,
     contentField,
   ],
-  icon: () => "📝",
+  icon: BlogIcon,
   preview: {
     select: {
       title: "title",

@@ -1,6 +1,6 @@
 import { HighlightIcon, ImageIcon } from "@sanity/icons";
 import { defineField } from "sanity";
-import { RenderHighlight } from "../render/highlight";
+import { RenderHighlight } from "../components/portable-text/highlight";
 
 export const contentField = defineField({
   name: "content",
@@ -10,10 +10,9 @@ export const contentField = defineField({
     {
       type: "block",
 
-      // Remove small headings
+      // Remove small headings & h1 (h1 already with title)
       styles: [
         { title: "Normal", value: "normal" },
-        { title: "H1", value: "h1" },
         { title: "H2", value: "h2" },
         { title: "H3", value: "h3" },
         { title: "H4", value: "h4" },

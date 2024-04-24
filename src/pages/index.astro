@@ -1,20 +1,19 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
-import type { HomeDetailQueryResult } from "@/types/sanity";
+import type { HomePageQueryResult } from "@/types/sanity";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
-import { sanityClient, homeDetailQuery } from "@/lib/query";
+import { sanityClient, homePageQuery } from "@/lib/query";
+import { toPlainText } from "astro-portabletext/utils";
 
-const data = await sanityClient.fetch<HomeDetailQueryResult>(homeDetailQuery);
-if (!data) {
+// Get home page data
+const homePage = await sanityClient.fetch<HomePageQueryResult>(homePageQuery);
+if (!homePage) {
   throw new Error("Home data not found");
 }
 ---
 
-<Layout
-  title="Dewantoro Triatmojo"
-  description="I’m a second-year undergraduate Computer Science student in Bandung Institute of Technology. I have strong interest in the realm of Software Engineering and Machine Learning!"
->
+<Layout title={homePage.title} description={toPlainText(homePage.content)}>
   <main
     class="flex flex-auto items-center justify-center px-3 py-12 sm:p-12 lg:p-16"
   >
@@ -24,8 +23,8 @@ if (!data) {
       {/* My Photo */}
       <Image
         class="size-64 rounded-full border-2 border-border lg:size-96"
-        src={data.image.url!}
-        alt={data.image.alt}
+        src={homePage.image.url!}
+        alt={homePage.image.alt}
         widths={[256, 384]}
         sizes="(max-width: 1024px) 256px, 384px"
         inferSize
@@ -35,8 +34,13 @@ if (!data) {
       <div
         class="flex max-w-xs flex-col gap-2 text-center sm:max-w-sm sm:text-start lg:max-w-lg lg:gap-4"
       >
-        {/* Content Title + Paragraph */}
-        <CustomPortableText value={data.content} />
+        {/* Title */}
+        <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
+          {homePage.title}
+        </h1>
+
+        {/* Paragraph */}
+        <CustomPortableText value={homePage.content} />
       </div>
     </section>
   </main>
