@@ -19,7 +19,6 @@
     "@fontsource-variable/inter": "^5.0.17",
     "@sanity/astro": "^2.2.1",
     "@sanity/client": "^6.15.19",
-    "@sanity/icons": "^2.11.8",
     "@sanity/vision": "^3.38.0",
     "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.22",

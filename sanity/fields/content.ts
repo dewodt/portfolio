@@ -1,5 +1,6 @@
-import { HighlightIcon, ImageIcon } from "@sanity/icons";
 import { defineField } from "sanity";
+import { HighlightIcon } from "../components/icon/highlight-icon";
+import { ImageIcon } from "../components/icon/image-icon";
 import { RenderHighlight } from "../components/portable-text/highlight";
 
 export const contentField = defineField({
