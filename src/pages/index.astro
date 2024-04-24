@@ -7,13 +7,17 @@ import { sanityClient, homePageQuery } from "@/lib/query";
 import { toPlainText } from "astro-portabletext/utils";
 
 // Get home page data
-const homePage = await sanityClient.fetch<HomePageQueryResult>(homePageQuery);
-if (!homePage) {
+const homePageData =
+  await sanityClient.fetch<HomePageQueryResult>(homePageQuery);
+if (!homePageData) {
   throw new Error("Home data not found");
 }
 ---
 
-<Layout title={homePage.title} description={toPlainText(homePage.content)}>
+<Layout
+  title={homePageData.title}
+  description={toPlainText(homePageData.content)}
+>
   <main
     class="flex flex-auto items-center justify-center px-3 py-12 sm:p-12 lg:p-16"
   >
@@ -23,8 +27,8 @@ if (!homePage) {
       {/* My Photo */}
       <Image
         class="size-64 rounded-full border-2 border-border lg:size-96"
-        src={homePage.image.url!}
-        alt={homePage.image.alt}
+        src={homePageData.image.url!}
+        alt={homePageData.image.alt}
         widths={[256, 384]}
         sizes="(max-width: 1024px) 256px, 384px"
         inferSize
@@ -36,11 +40,11 @@ if (!homePage) {
       >
         {/* Title */}
         <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
-          {homePage.title}
+          {homePageData.title}
         </h1>
 
         {/* Paragraph */}
-        <CustomPortableText value={homePage.content} />
+        <CustomPortableText value={homePageData.content} />
       </div>
     </section>
   </main>

@@ -27,29 +27,33 @@ export const projectsPageQuery = groq`
   *[_type == "projects-page"][0] {
     _id,
     title,
-    content,
+    description,
   }
 `;
 
 export const allProjectsQuery = groq`
   *[_type == "projects"] | order(dateRange.startDate desc) {
     _id,
+    "image": {
+      "url": image.asset->url,
+      "alt": image.alt,
+    },
     title,
     slug,
     description,
     dateRange,
     repositoryLinks,
     deploymentLinks,
-    "image": {
-      "url": gallery[0].asset->url,
-      "alt": gallery[0].alt,
-    },
   }
 `;
 
 export const projectDetailQuery = groq`
   *[_type == "projects" && slug.current == $slug][0] {
     _id,
+    "image": {
+      "url": image.asset->url,
+      "alt": image.alt,
+    },
     title,
     slug,
     description,
@@ -75,10 +79,6 @@ export const projectDetailQuery = groq`
         "alt": alt,
       }
     },
-    gallery[] {
-      "url": asset->url,
-      "alt": alt,
-    },
   }
 `;
 
@@ -86,7 +86,7 @@ export const experiencePageQuery = groq`
   *[_type == "experience-page"][0] {
     _id,
     title,
-    content,
+    description,
   }
 `;
 
@@ -139,7 +139,7 @@ export const awardsPageQuery = groq`
   *[_type == "awards-page"][0] {
     _id,
     title,
-    content,
+    description,
   }
 `;
 
@@ -188,54 +188,35 @@ export const blogPageQuery = groq`
   *[_type == "blog-page"][0] {
     _id,
     title,
-    content,
+    description,
   }
 `;
 
 export const allBlogsQuery = groq`
   *[_type == "blog"] | order(date desc) {
     _id,
-    title,
-    slug,
-    description,
-    date,
     "image": {
       "url": image.asset->url,
       "alt": image.alt,
     },
-    content[]{
-      ...,
-      markDefs[]{
-        ...,
-        _type == "internalLink" => {
-          ...,
-          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
-        },
-        _type == "externalLink" => {
-          ...,
-          "href": url,
-        },
-      },
-      _type == "image" => {
-        ...,
-        "url": asset->url,
-        "alt": alt,
-      }
-    },
+    title,
+    slug,
+    description,
+    date,
   }
 `;
 
 export const blogDetailQuery = groq`
   *[_type == "blog" && slug.current == $slug][0] {
     _id,
-    title,
-    slug,
-    description,
-    date,
     "image": {
       "url": image.asset->url,
       "alt": image.alt,
     },
+    title,
+    slug,
+    description,
+    date,
     content[]{
       ...,
       markDefs[]{

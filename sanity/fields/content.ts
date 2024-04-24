@@ -59,6 +59,8 @@ export const contentField = defineField({
                   { type: "awards" },
                   { type: "blog" },
                 ],
+                validation: (Rule) =>
+                  Rule.required().error("Reference is required"),
               },
             ],
             validation: (Rule) =>
@@ -73,6 +75,11 @@ export const contentField = defineField({
                 name: "url",
                 title: "URL",
                 type: "url",
+                validation: (Rule) => [
+                  Rule.uri({
+                    scheme: ["http", "https", "mailto", "tel"],
+                  }).error("Invalid URL"),
+                ],
               },
             ],
             validation: (Rule) =>

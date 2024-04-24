@@ -1,0 +1,146 @@
+---
+import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon.astro";
+import GitHubIcon from "@/components/icons/GitHubIcon.astro";
+import LinkIcon from "@/components/icons/LinkIcon.astro";
+import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
+import Layout from "@/layouts/Layout.astro";
+import {
+  sanityClient,
+  projectDetailQuery,
+  allProjectsQuery,
+} from "@/lib/query";
+import { getFormattedDate } from "@/lib/utils";
+import {
+  type AllProjectsQueryResult,
+  type ProjectDetailQueryResult,
+} from "@/types/sanity";
+import { Image } from "astro:assets";
+
+export const getStaticPaths = async () => {
+  // Get all projects from CMS
+  const allProjectsData =
+    await sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery);
+
+  const paths = allProjectsData.map((project) => ({
+    params: {
+      slug: project.slug.current,
+    },
+  }));
+
+  return paths;
+};
+
+// Get data from CMS
+const projectDetailData = await sanityClient.fetch<ProjectDetailQueryResult>(
+  projectDetailQuery,
+  { slug: "guess-astro" },
+);
+
+if (!projectDetailData) {
+  throw new Error("Data not found");
+}
+---
+
+<Layout
+  title={projectDetailData.title}
+  description={projectDetailData.description}
+>
+  <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
+    <article class="flex w-full max-w-3xl flex-col gap-5 lg:gap-7">
+      {/* Header Section */}
+      <section class="flex flex-col gap-4 lg:gap-6">
+        {/* Back Button */}
+        <a href="/projects" class="flex w-fit items-center gap-1 text-primary">
+          <ChevronLeftIcon class="size-5" />
+          <span class="text-base font-medium leading-none">Back</span>
+        </a>
+
+        <div class="flex flex-col gap-3 lg:gap-5">
+          {/* Title */}
+          <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
+            {projectDetailData.title}
+          </h1>
+
+          {/* Metadata */}
+          <ul class="flex flex-col gap-3 lg:gap-4">
+            <li class="flex flex-row items-center gap-2">
+              <CalendarIcon class="size-5 lg:size-6" />
+
+              <span
+                class="text-base font-medium leading-none text-secondary lg:text-lg lg:leading-none"
+              >
+                <time datetime={projectDetailData.dateRange.startDate}>
+                  {getFormattedDate(projectDetailData.dateRange.startDate)}
+                </time>
+                {
+                  projectDetailData.dateRange.endDate && (
+                    <>
+                      {" — "}
+                      <time datetime={projectDetailData.dateRange.endDate}>
+                        {getFormattedDate(projectDetailData.dateRange.endDate)}
+                      </time>
+                    </>
+                  )
+                }
+              </span>
+            </li>
+
+            {/* Repository URLS */}
+            {
+              projectDetailData.repositoryLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    class="group flex flex-row items-center gap-2"
+                  >
+                    <GitHubIcon class="size-5 fill-secondary lg:size-6" />
+                    <span class="text-base font-medium leading-none text-secondary underline-offset-4 group-hover:underline lg:text-lg lg:leading-none">
+                      {link.label}
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+
+            {/* Deployment URLS */}
+            {
+              projectDetailData.deploymentLinks &&
+                projectDetailData.deploymentLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      class="group flex flex-row items-center gap-2"
+                    >
+                      <LinkIcon class="size-5 stroke-secondary lg:size-6" />
+                      <span class="text-base font-medium leading-none text-secondary underline-offset-4 group-hover:underline lg:text-lg lg:leading-none">
+                        {link.label}
+                      </span>
+                    </a>
+                  </li>
+                ))
+            }
+          </ul>
+
+          {/* Preview Image (Usually project logo) */}
+          <Image
+            class="h-auto w-full rounded-xl"
+            src={projectDetailData.image.url!}
+            alt={projectDetailData.image.alt}
+            widths={[320, 640, 960, 1280, 1920]}
+            sizes="(max-width: 768px) 100vw, 768px"
+            inferSize
+          />
+        </div>
+      </section>
+
+      {/* Content Section */}
+      <section>
+        {/* Content */}
+        <CustomPortableText value={projectDetailData.content} />
+      </section>
+    </article>
+  </main>
+</Layout>

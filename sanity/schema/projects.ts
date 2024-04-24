@@ -3,18 +3,19 @@ import { getFormattedDate } from "@/lib/utils";
 import { contentField } from "../fields/content";
 import { repositoryLinksField } from "../fields/repository-links";
 import { deploymentLinksField } from "../fields/deployment-links";
-import { galleryField } from "../fields/gallery";
 import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
 import { dateRangeField } from "../fields/date-range";
 import { slugField } from "../fields/slug";
 import { ProjectsIcon } from "../components/icon/projects-icon";
+import { imageField } from "../fields/image";
 
 export const projectsSchema = defineType({
   name: "projects",
   title: "Projects",
   type: "document",
   fields: [
+    imageField, // Image preview
     titleField,
     slugField,
     descriptionField,
@@ -22,7 +23,6 @@ export const projectsSchema = defineType({
     repositoryLinksField,
     deploymentLinksField,
     contentField,
-    galleryField,
   ],
   icon: ProjectsIcon,
   preview: {
@@ -30,7 +30,7 @@ export const projectsSchema = defineType({
       title: "title",
       startDate: "dateRange.startDate",
       endDate: "dateRange.endDate",
-      media: "gallery.0.asset",
+      media: "image",
     },
     prepare({ title, startDate, endDate, media }) {
       // XXX YYYY
