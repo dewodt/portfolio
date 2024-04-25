@@ -1,0 +1,154 @@
+---
+import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon.astro";
+import GitHubIcon from "@/components/icons/GitHubIcon.astro";
+import LinkIcon from "@/components/icons/LinkIcon.astro";
+import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
+import Layout from "@/layouts/Layout.astro";
+import {
+  sanityClient,
+  projectDetailQuery,
+  allExperiencesQuery,
+  experienceDetailQuery,
+} from "@/lib/query";
+import { getFormattedDate } from "@/lib/utils";
+import {
+  type AllExperiencesQueryResult,
+  type ExperienceDetailQueryResult,
+} from "@/types/sanity";
+import { Image } from "astro:assets";
+
+export const getStaticPaths = async () => {
+  // Get all experience from CMS
+  const allExperienceData =
+    await sanityClient.fetch<AllExperiencesQueryResult>(allExperiencesQuery);
+
+  const paths = allExperienceData.map((project) => ({
+    params: {
+      slug: project.slug.current,
+    },
+  }));
+
+  return paths;
+};
+
+// Get data from CMS
+const experienceDetailData =
+  await sanityClient.fetch<ExperienceDetailQueryResult>(experienceDetailQuery, {
+    slug: Astro.params.slug,
+  });
+
+if (!experienceDetailData) {
+  throw new Error("Data not found");
+}
+---
+
+<Layout
+  title={experienceDetailData.title}
+  description={experienceDetailData.description}
+>
+  <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
+    <article class="flex w-full max-w-3xl flex-col gap-5 lg:gap-7">
+      {/* Header Section */}
+      <section class="flex flex-col gap-4 lg:gap-6">
+        {/* Back Button */}
+        <a
+          href="/projects"
+          class="flex w-fit items-center gap-1 text-primary transition-all hover:text-primary/90"
+        >
+          <ChevronLeftIcon class="size-5" />
+          <span class="text-base font-medium leading-none">Back</span>
+        </a>
+
+        <div class="flex flex-col gap-4 lg:gap-6">
+          {/* Title */}
+          <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
+            {experienceDetailData.title}
+          </h1>
+
+          {/* Metadata */}
+          <ul class="flex flex-col gap-3 lg:gap-4">
+            <li class="flex flex-row items-center gap-2">
+              <CalendarIcon class="size-5 lg:size-6" />
+
+              <span
+                class="text-base font-medium leading-none text-secondary lg:text-lg lg:leading-none"
+              >
+                <time datetime={experienceDetailData.dateRange.startDate}>
+                  {getFormattedDate(experienceDetailData.dateRange.startDate)}
+                  {" — "}
+                </time>
+                {
+                  experienceDetailData.dateRange.endDate ? (
+                    <>
+                      <time datetime={experienceDetailData.dateRange.endDate}>
+                        {getFormattedDate(
+                          experienceDetailData.dateRange.endDate,
+                        )}
+                      </time>
+                    </>
+                  ) : (
+                    <span>Now</span>
+                  )
+                }
+              </span>
+            </li>
+
+            {/* Repository URLS */}
+            {
+              experienceDetailData.repositoryLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    class="group flex flex-row items-center gap-2"
+                  >
+                    <GitHubIcon class="size-5 fill-secondary lg:size-6" />
+                    <span class="text-base font-medium leading-none text-secondary underline-offset-4 group-hover:underline lg:text-lg lg:leading-none">
+                      {link.label}
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+
+            {/* Deployment URLS */}
+            {
+              experienceDetailData.deploymentLinks &&
+                experienceDetailData.deploymentLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      class="group flex flex-row items-center gap-2"
+                    >
+                      <LinkIcon class="size-5 stroke-secondary lg:size-6" />
+                      <span class="text-base font-medium leading-none text-secondary underline-offset-4 group-hover:underline lg:text-lg lg:leading-none">
+                        {link.label}
+                      </span>
+                    </a>
+                  </li>
+                ))
+            }
+          </ul>
+
+          {/* Preview Image (Usually project logo) */}
+          <Image
+            class="aspect-[5/3] w-full rounded-xl object-cover object-center"
+            src={experienceDetailData.image.url!}
+            alt={experienceDetailData.image.alt}
+            widths={[370, 768]}
+            sizes="(max-width: 640px) 370px, 768px"
+            inferSize
+          />
+        </div>
+      </section>
+
+      {/* Content Section */}
+      <section>
+        {/* Content */}
+        <CustomPortableText value={experienceDetailData.content} />
+      </section>
+    </article>
+  </main>
+</Layout>
