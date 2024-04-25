@@ -1,0 +1,53 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import type { AllBlogsQueryResult, BlogPageQueryResult } from "@/types/sanity";
+import { sanityClient, allBlogsQuery, blogPageQuery } from "@/lib/query";
+import CardBlog from "@/components/ui/card/CardBlog.astro";
+
+// Get blogs page from CMS
+const blogPageData =
+  await sanityClient.fetch<BlogPageQueryResult>(blogPageQuery);
+
+// Get all blogs from CMS
+const allBlogData =
+  await sanityClient.fetch<AllBlogsQueryResult>(allBlogsQuery);
+
+if (!blogPageData) {
+  throw new Error("Failed to fetch blogs page data");
+}
+---
+
+<Layout
+  title={`${blogPageData.title} | Dewantoro Triatmojo`}
+  description={blogPageData.description}
+>
+  <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
+    <section class="flex flex-col items-center gap-6 lg:gap-8">
+      {/* Header */}
+      <div class="flex flex-col gap-2 text-center lg:gap-4">
+        {/* Title */}
+        <h1 class="text-3xl font-bold lg:text-5xl">
+          {blogPageData.title}
+        </h1>
+
+        {/* Content */}
+        <p class="text-base text-muted lg:text-lg">
+          {blogPageData.description}
+        </p>
+      </div>
+
+      {/* Blog List */}
+      <ul
+        class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-10 xl:grid-cols-3"
+      >
+        {
+          allBlogData.map((blog) => (
+            <li>
+              <CardBlog blog={blog} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Layout>

@@ -1,13 +1,14 @@
 ---
-import type { AllAwardsQueryResult } from "@/types/sanity";
+import { Image } from "astro:assets";
+import type { AllBlogsQueryResult } from "@/types/sanity";
 import { getFormattedDate } from "@/lib/utils";
 import CalendarIcon from "@/components/icons/CalendarIcon.astro";
 
 interface Props {
-  award: AllAwardsQueryResult[number];
+  blog: AllBlogsQueryResult[number];
 }
 
-const { award } = Astro.props;
+const { blog } = Astro.props;
 ---
 
 <article
@@ -15,11 +16,21 @@ const { award } = Astro.props;
 >
   {/* Card anchor, cannot nest anchor element so use absolute posititoning */}
   <a
-    href={`/awards/${award.slug.current}`}
-    aria-label={`Link to award ${award.title}`}
+    href={`/blog/${blog.slug.current}`}
+    aria-label={`Link to blog ${blog.title}`}
     class="absolute inset-0 z-30"
   >
   </a>
+
+  {/* Card Image */}
+  <Image
+    class="aspect-[5/3] w-full object-cover object-center"
+    src={blog.image.url!}
+    alt={blog.image.alt}
+    widths={[320, 384]}
+    sizes="(max-width: 640px) 320px, 384px"
+    inferSize
+  />
 
   {/* Card Content */}
   {/* Before css pseudoclass to animate gradient transition */}
@@ -28,29 +39,24 @@ const { award } = Astro.props;
   >
     {/* Title */}
     <h2 class="z-20 text-xl font-bold text-secondary lg:text-2xl">
-      {award.title}
+      {blog.title}
     </h2>
-
-    {/* Issued by */}
-    <p class="z-20 text-base font-semibold text-secondary lg:text-lg">
-      {award.issuer}
-    </p>
 
     {/* Date */}
     <div class="z-20 flex flex-row items-center gap-2">
       <CalendarIcon class="size-5" />
 
       <time
-        datetime={award.date}
+        datetime={blog.date}
         class="text-sm font-medium leading-none text-secondary lg:text-base lg:leading-none"
       >
-        {getFormattedDate(award.date)}
+        {getFormattedDate(blog.date)}
       </time>
     </div>
 
     {/* Short description */}
     <p class="z-20 line-clamp-3 text-sm text-muted lg:text-base">
-      {award.description}
+      {blog.description}
     </p>
   </div>
 </article>
