@@ -16,7 +16,7 @@ const config: Config = {
         inter: ["Inter Variable", "sans-serif"],
       },
       dropShadow: {
-        primary: "0px 0px 32px rgba(14, 165,233, 0.4)",
+        primary: "0px 0px 32px rgba(14, 165,233, 0.35)",
       },
       listStyleType: {
         square: "square",

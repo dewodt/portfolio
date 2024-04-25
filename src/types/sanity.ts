@@ -771,7 +771,7 @@ export type ExperiencePageQueryResult = {
   description: string;
 } | null;
 // Variable: allExperiencesQuery
-// Query:   *[_type == "experience"] | order(dateRange.startDate desc) {    _id,    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,  }
+// Query:   *[_type == "experience"] | order(dateRange.startDate desc) {    _id,    title,    slug,    description,    dateRange,    "company": {      "name": company.name,      "logo": {        "url": company.logo.asset->url,        "alt": company.logo.alt,      }    },    repositoryLinks,    deploymentLinks,  }
 export type AllExperiencesQueryResult = Array<{
   _id: string;
   title: string;
@@ -784,16 +784,8 @@ export type AllExperiencesQueryResult = Array<{
   company: {
     name: string;
     logo: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
+      url: string | null;
       alt: string;
-      _type: "image";
     };
   };
   repositoryLinks: Array<{
@@ -810,7 +802,7 @@ export type AllExperiencesQueryResult = Array<{
   }> | null;
 }>;
 // Variable: experienceDetailQuery
-// Query:   *[_type == "experience" && slug.current == $slug][0] {    _id,    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query:   *[_type == "experience" && slug.current == $slug][0] {    _id,    title,    slug,    description,    dateRange,    "company": {      "name": company.name,      "logo": {        "url": company.logo.asset->url,        "alt": company.logo.alt,      }    },    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
 export type ExperienceDetailQueryResult = {
   _id: string;
   title: string;
@@ -823,16 +815,8 @@ export type ExperienceDetailQueryResult = {
   company: {
     name: string;
     logo: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
+      url: string | null;
       alt: string;
-      _type: "image";
     };
   };
   repositoryLinks: Array<{

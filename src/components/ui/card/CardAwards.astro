@@ -1,0 +1,56 @@
+---
+import type { AllAwardsQueryResult } from "@/types/sanity";
+import { getFormattedDate } from "@/lib/utils";
+import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+
+interface Props {
+  award: AllAwardsQueryResult[number];
+}
+
+const { award } = Astro.props;
+---
+
+<article
+  class="group/card relative h-fit w-full max-w-xs overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:drop-shadow-primary lg:max-w-sm"
+>
+  {/* Card anchor, cannot nest anchor element so use absolute posititoning */}
+  <a
+    href={`/awards/${award.slug.current}`}
+    aria-label={`Link to award ${award.title}`}
+    class="absolute inset-0 z-30"
+  >
+  </a>
+
+  {/* Card Content */}
+  {/* Before css pseudoclass to animate gradient transition */}
+  <div
+    class="relative flex flex-col gap-2 bg-card px-5 py-4 before:absolute before:inset-0 before:z-10 before:bg-gradient-to-b before:from-primary/35 before:to-primary/5 before:opacity-0 before:transition-all before:duration-200 before:content-[''] group-hover/card:before:opacity-100"
+  >
+    {/* Title */}
+    <h2 class="z-20 text-xl font-bold text-secondary lg:text-2xl">
+      {award.title}
+    </h2>
+
+    {/* Issued by */}
+    <p class="z-20 text-base font-semibold text-secondary lg:text-lg">
+      {award.issuer}
+    </p>
+
+    {/* Date */}
+    <div class="z-20 flex flex-row items-center gap-2">
+      <CalendarIcon class="size-5" />
+
+      <time
+        datetime={award.date}
+        class="text-sm font-medium leading-none text-secondary lg:text-base lg:leading-none"
+      >
+        {getFormattedDate(award.date)}
+      </time>
+    </div>
+
+    {/* Short description */}
+    <p class="z-20 line-clamp-3 text-sm text-muted lg:text-base">
+      {award.description}
+    </p>
+  </div>
+</article>

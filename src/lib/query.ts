@@ -97,7 +97,13 @@ export const allExperiencesQuery = groq`
     slug,
     description,
     dateRange,
-    company,
+    "company": {
+      "name": company.name,
+      "logo": {
+        "url": company.logo.asset->url,
+        "alt": company.logo.alt,
+      }
+    },
     repositoryLinks,
     deploymentLinks,
   }
@@ -110,7 +116,13 @@ export const experienceDetailQuery = groq`
     slug,
     description,
     dateRange,
-    company,
+    "company": {
+      "name": company.name,
+      "logo": {
+        "url": company.logo.asset->url,
+        "alt": company.logo.alt,
+      }
+    },
     repositoryLinks,
     deploymentLinks,
     content[]{

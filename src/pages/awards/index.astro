@@ -1,0 +1,56 @@
+---
+import CardProjects from "@/components/ui/card/CardProjects.astro";
+import Layout from "@/layouts/Layout.astro";
+import type {
+  AllAwardsQueryResult,
+  AwardsPageQueryResult,
+} from "@/types/sanity";
+import { sanityClient, allAwardsQuery, awardsPageQuery } from "@/lib/query";
+import CardAwards from "@/components/ui/card/CardAwards.astro";
+
+// Get projects page from CMS
+const awardsPageData =
+  await sanityClient.fetch<AwardsPageQueryResult>(awardsPageQuery);
+// Get all projects from CMS
+const allAwardsData =
+  await sanityClient.fetch<AllAwardsQueryResult>(allAwardsQuery);
+
+if (!awardsPageData) {
+  throw new Error("Failed to fetch projects page data");
+}
+---
+
+<Layout
+  title={`${awardsPageData.title} | Dewantoro Triatmojo`}
+  description={awardsPageData.description}
+>
+  <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
+    <section class="flex flex-col items-center gap-6 lg:gap-8">
+      {/* Header */}
+      <div class="flex flex-col gap-2 text-center lg:gap-4">
+        {/* Title */}
+        <h1 class="text-3xl font-bold lg:text-5xl">
+          {awardsPageData.title}
+        </h1>
+
+        {/* Content */}
+        <p class="text-base text-muted lg:text-lg">
+          {awardsPageData.description}
+        </p>
+      </div>
+
+      {/* Projects List */}
+      <ul
+        class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-10 xl:grid-cols-3"
+      >
+        {
+          allAwardsData.map((award) => (
+            <li>
+              <CardAwards award={award} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Layout>
