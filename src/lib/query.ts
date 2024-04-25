@@ -93,17 +93,15 @@ export const experiencePageQuery = groq`
 export const allExperiencesQuery = groq`
   *[_type == "experience"] | order(dateRange.startDate desc) {
     _id,
+    "image": {
+      "url": image.asset->url,
+      "alt": image.alt
+    },
     title,
     slug,
     description,
     dateRange,
-    "company": {
-      "name": company.name,
-      "logo": {
-        "url": company.logo.asset->url,
-        "alt": company.logo.alt,
-      }
-    },
+    company,
     repositoryLinks,
     deploymentLinks,
   }
@@ -112,17 +110,15 @@ export const allExperiencesQuery = groq`
 export const experienceDetailQuery = groq`
   *[_type == "experience" && slug.current == $slug][0] {
     _id,
+    "image": {
+      "url": image.asset->url,
+      "alt": image.alt
+    },
     title,
     slug,
     description,
     dateRange,
-    "company": {
-      "name": company.name,
-      "logo": {
-        "url": company.logo.asset->url,
-        "alt": company.logo.alt,
-      }
-    },
+    company,
     repositoryLinks,
     deploymentLinks,
     content[]{
@@ -158,6 +154,10 @@ export const awardsPageQuery = groq`
 export const allAwardsQuery = groq`
   *[_type == "awards"] | order(date desc) {
     _id,
+    "image": {
+      "url": image.asset->url,
+      "alt": image.alt
+    },
     title,
     slug,
     description,
@@ -169,6 +169,10 @@ export const allAwardsQuery = groq`
 export const awardDetailQuery = groq`
   *[_type == "awards" && slug.current == $slug][0] {
     _id,
+    "image": {
+      "url": image.asset->url,
+      "alt": image.alt
+    },
     title,
     slug,
     description,

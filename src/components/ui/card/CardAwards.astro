@@ -2,6 +2,7 @@
 import type { AllAwardsQueryResult } from "@/types/sanity";
 import { getFormattedDate } from "@/lib/utils";
 import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+import { Image } from "astro:assets";
 
 interface Props {
   award: AllAwardsQueryResult[number];
@@ -20,6 +21,16 @@ const { award } = Astro.props;
     class="absolute inset-0 z-30"
   >
   </a>
+
+  {/* Card Image */}
+  <Image
+    class="aspect-[5/3] w-full object-cover object-center"
+    src={award.image.url!}
+    alt={award.image.alt}
+    widths={[320, 384]}
+    sizes="(max-width: 640px) 320px, 384px"
+    inferSize
+  />
 
   {/* Card Content */}
   {/* Before css pseudoclass to animate gradient transition */}

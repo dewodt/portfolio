@@ -9,12 +9,14 @@ import { descriptionField } from "../fields/description";
 import { companyField } from "../fields/company";
 import { slugField } from "../fields/slug";
 import { ExperienceIcon } from "../components/icon/experience-icon";
+import { imageField } from "../fields/image";
 
 export const experienceSchema = defineType({
   name: "experience",
   title: "Experience",
   type: "document",
   fields: [
+    imageField,
     titleField,
     slugField,
     descriptionField,

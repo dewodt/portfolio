@@ -1,0 +1,117 @@
+---
+import { Image } from "astro:assets";
+import type { AllExperiencesQueryResult } from "@/types/sanity";
+import { getFormattedDate } from "@/lib/utils";
+import GitHubIcon from "@/components/icons/GitHubIcon.astro";
+import LinkIcon from "@/components/icons/LinkIcon.astro";
+import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+
+interface Props {
+  experience: AllExperiencesQueryResult[number];
+}
+
+const { experience } = Astro.props;
+---
+
+<article
+  class="group/card relative h-fit w-full max-w-xs overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:drop-shadow-primary lg:max-w-sm"
+>
+  {/* Card anchor, cannot nest anchor element so use absolute posititoning */}
+  <a
+    href={`/experience/${experience.slug.current}`}
+    aria-label={`Link to project ${experience.title}`}
+    class="absolute inset-0 z-30"
+  >
+  </a>
+
+  {/* Card Image */}
+  <Image
+    class="aspect-[5/3] w-full object-cover object-center"
+    src={experience.image.url!}
+    alt={experience.image.alt}
+    widths={[320, 384]}
+    sizes="(max-width: 640px) 320px, 384px"
+    inferSize
+  />
+
+  {/* Card Content */}
+  {/* Before css pseudoclass to animate gradient transition */}
+  <div
+    class="relative flex flex-col gap-2 bg-card p-5 before:absolute before:inset-0 before:z-10 before:bg-gradient-to-b before:from-primary/35 before:to-primary/5 before:opacity-0 before:transition-all before:duration-200 before:content-[''] group-hover/card:before:opacity-100"
+  >
+    {/* Title */}
+    <h2
+      class="z-20 text-xl font-bold text-secondary lg:text-2xl lg:leading-none"
+    >
+      {experience.title}
+    </h2>
+
+    {/* Company */}
+    <p class="z-20 text-base font-semibold text-secondary lg:text-lg">
+      {experience.company}
+    </p>
+
+    {/* Date */}
+    <div class="z-20 flex flex-row items-center gap-2">
+      <CalendarIcon class="size-5" />
+
+      <span
+        class="text-sm font-medium leading-none text-secondary lg:text-base lg:leading-none"
+      >
+        <time datetime={experience.dateRange.startDate}>
+          {getFormattedDate(experience.dateRange.startDate)}
+        </time>
+        {
+          experience.dateRange.endDate && (
+            <>
+              {" — "}
+              <time datetime={experience.dateRange.endDate}>
+                {getFormattedDate(experience.dateRange.endDate)}
+              </time>
+            </>
+          )
+        }
+      </span>
+    </div>
+
+    {/* Short description */}
+    <p class="z-20 line-clamp-3 text-sm text-muted lg:text-base">
+      {experience.description}
+    </p>
+
+    <ul class="flex flex-row gap-5">
+      {/* Repo link */}
+      {
+        experience.repositoryLinks.map((repo) => (
+          <li class="group/repo">
+            <a
+              href={repo.url}
+              aria-label={repo.label}
+              target="_blank"
+              class="relative z-40 flex size-7 transition-all duration-200 group-hover/repo:scale-110 lg:size-8"
+            >
+              <GitHubIcon class="size-full fill-muted group-hover/repo:fill-secondary" />
+            </a>
+          </li>
+        ))
+      }
+
+      {/* Deployment link */}
+      {
+        experience.deploymentLinks &&
+          experience.deploymentLinks.map((deployment) => (
+            <li class="group/deploy">
+              <a
+                href={deployment.url}
+                aria-label={deployment.label}
+                target="_blank"
+                class="relative z-40 flex size-7 transition-all duration-200 group-hover/deploy:scale-110 lg:size-8"
+              >
+                <LinkIcon class="size-full stroke-muted group-hover/deploy:stroke-secondary" />
+              </a>
+            </li>
+          ))
+      }
+    </ul>
+  </div>
+</article>

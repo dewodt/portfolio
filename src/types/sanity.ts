@@ -282,24 +282,22 @@ export type Experience = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  image: {
+    asset: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
   title: string;
   slug: Slug;
   description: string;
-  company: {
-    name: string;
-    logo: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt: string;
-      _type: "image";
-    };
-  };
+  company: string;
   dateRange: {
     startDate: string;
     endDate?: string;
@@ -378,6 +376,18 @@ export type Awards = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  image: {
+    asset: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
   title: string;
   slug: Slug;
   description: string;
@@ -771,9 +781,13 @@ export type ExperiencePageQueryResult = {
   description: string;
 } | null;
 // Variable: allExperiencesQuery
-// Query:   *[_type == "experience"] | order(dateRange.startDate desc) {    _id,    title,    slug,    description,    dateRange,    "company": {      "name": company.name,      "logo": {        "url": company.logo.asset->url,        "alt": company.logo.alt,      }    },    repositoryLinks,    deploymentLinks,  }
+// Query:   *[_type == "experience"] | order(dateRange.startDate desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,  }
 export type AllExperiencesQueryResult = Array<{
   _id: string;
+  image: {
+    url: string | null;
+    alt: string;
+  };
   title: string;
   slug: Slug;
   description: string;
@@ -781,13 +795,7 @@ export type AllExperiencesQueryResult = Array<{
     startDate: string;
     endDate?: string;
   };
-  company: {
-    name: string;
-    logo: {
-      url: string | null;
-      alt: string;
-    };
-  };
+  company: string;
   repositoryLinks: Array<{
     label: string;
     url: string;
@@ -802,9 +810,13 @@ export type AllExperiencesQueryResult = Array<{
   }> | null;
 }>;
 // Variable: experienceDetailQuery
-// Query:   *[_type == "experience" && slug.current == $slug][0] {    _id,    title,    slug,    description,    dateRange,    "company": {      "name": company.name,      "logo": {        "url": company.logo.asset->url,        "alt": company.logo.alt,      }    },    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query:   *[_type == "experience" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
 export type ExperienceDetailQueryResult = {
   _id: string;
+  image: {
+    url: string | null;
+    alt: string;
+  };
   title: string;
   slug: Slug;
   description: string;
@@ -812,13 +824,7 @@ export type ExperienceDetailQueryResult = {
     startDate: string;
     endDate?: string;
   };
-  company: {
-    name: string;
-    logo: {
-      url: string | null;
-      alt: string;
-    };
-  };
+  company: string;
   repositoryLinks: Array<{
     label: string;
     url: string;
@@ -894,9 +900,13 @@ export type AwardsPageQueryResult = {
   description: string;
 } | null;
 // Variable: allAwardsQuery
-// Query:   *[_type == "awards"] | order(date desc) {    _id,    title,    slug,    description,    issuer,    date,  }
+// Query:   *[_type == "awards"] | order(date desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    issuer,    date,  }
 export type AllAwardsQueryResult = Array<{
   _id: string;
+  image: {
+    url: string | null;
+    alt: string;
+  };
   title: string;
   slug: Slug;
   description: string;
@@ -904,9 +914,13 @@ export type AllAwardsQueryResult = Array<{
   date: string;
 }>;
 // Variable: awardDetailQuery
-// Query:   *[_type == "awards" && slug.current == $slug][0] {    _id,    title,    slug,    description,    issuer,    date,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query:   *[_type == "awards" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    issuer,    date,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
 export type AwardDetailQueryResult = {
   _id: string;
+  image: {
+    url: string | null;
+    alt: string;
+  };
   title: string;
   slug: Slug;
   description: string;

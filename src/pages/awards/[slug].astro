@@ -9,6 +9,7 @@ import {
   type AllAwardsQueryResult,
   type AwardDetailQueryResult,
 } from "@/types/sanity";
+import { Image } from "astro:assets";
 
 export const getStaticPaths = async () => {
   // Get all awards from CMS
@@ -74,6 +75,16 @@ if (!awardDetailData) {
               </time>
             </li>
           </ul>
+
+          {/* Preview Image (Usually project logo) */}
+          <Image
+            class="aspect-[5/3] w-full rounded-lg object-cover object-center"
+            src={awardDetailData.image.url!}
+            alt={awardDetailData.image.alt}
+            widths={[370, 768]}
+            sizes="(max-width: 640px) 370px, 768px"
+            inferSize
+          />
         </div>
       </section>
 

@@ -1,0 +1,59 @@
+---
+import CardExperience from "@/components/ui/card/CardExperience.astro";
+import Layout from "@/layouts/Layout.astro";
+import type {
+  AllExperiencesQueryResult,
+  ExperiencePageQueryResult,
+} from "@/types/sanity";
+import {
+  sanityClient,
+  experiencePageQuery,
+  allExperiencesQuery,
+} from "@/lib/query";
+
+// Get projects page from CMS
+const experiencePageData =
+  await sanityClient.fetch<ExperiencePageQueryResult>(experiencePageQuery);
+// Get all projects from CMS
+const allExperienceData =
+  await sanityClient.fetch<AllExperiencesQueryResult>(allExperiencesQuery);
+
+if (!experiencePageData) {
+  throw new Error("Failed to fetch projects page data");
+}
+---
+
+<Layout
+  title={`${experiencePageData.title} | Dewantoro Triatmojo`}
+  description={experiencePageData.description}
+>
+  <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
+    <section class="flex flex-col items-center gap-6 lg:gap-8">
+      {/* Header */}
+      <div class="flex flex-col gap-2 text-center lg:gap-4">
+        {/* Title */}
+        <h1 class="text-3xl font-bold lg:text-5xl">
+          {experiencePageData.title}
+        </h1>
+
+        {/* Content */}
+        <p class="text-base text-muted lg:text-lg">
+          {experiencePageData.description}
+        </p>
+      </div>
+
+      {/* Projects List */}
+      <ul
+        class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-10 xl:grid-cols-3"
+      >
+        {
+          allExperienceData.map((experience) => (
+            <li>
+              <CardExperience experience={experience} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Layout>
