@@ -51,12 +51,15 @@ if (!projectDetailData) {
       {/* Header Section */}
       <section class="flex flex-col gap-4 lg:gap-6">
         {/* Back Button */}
-        <a href="/projects" class="flex w-fit items-center gap-1 text-primary">
+        <a
+          href="/projects"
+          class="flex w-fit items-center gap-1 text-primary transition-all hover:text-primary/90"
+        >
           <ChevronLeftIcon class="size-5" />
           <span class="text-base font-medium leading-none">Back</span>
         </a>
 
-        <div class="flex flex-col gap-3 lg:gap-5">
+        <div class="flex flex-col gap-4 lg:gap-6">
           {/* Title */}
           <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
             {projectDetailData.title}
@@ -126,7 +129,7 @@ if (!projectDetailData) {
 
           {/* Preview Image (Usually project logo) */}
           <Image
-            class="h-auto w-full rounded-xl"
+            class="aspect-[5/3] w-full rounded-xl object-cover object-center"
             src={projectDetailData.image.url!}
             alt={projectDetailData.image.alt}
             widths={[370, 768]}

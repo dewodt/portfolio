@@ -1,21 +1,23 @@
 ---
 import CalendarIcon from "@/components/icons/CalendarIcon.astro";
 import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon.astro";
+import UserIcon from "@/components/icons/UserIcon.astro";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
 import Layout from "@/layouts/Layout.astro";
-import { sanityClient, awardDetailQuery, allAwardsQuery } from "@/lib/query";
+import { sanityClient, blogDetailQuery, allBlogsQuery } from "@/lib/query";
 import { getFormattedDate } from "@/lib/utils";
 import {
-  type AllAwardsQueryResult,
-  type AwardDetailQueryResult,
+  type AllBlogsQueryResult,
+  type BlogDetailQueryResult,
 } from "@/types/sanity";
+import { Image } from "astro:assets";
 
 export const getStaticPaths = async () => {
   // Get all awards from CMS
-  const allAwardsData =
-    await sanityClient.fetch<AllAwardsQueryResult>(allAwardsQuery);
+  const allBlogsData =
+    await sanityClient.fetch<AllBlogsQueryResult>(allBlogsQuery);
 
-  const paths = allAwardsData.map((award) => ({
+  const paths = allBlogsData.map((award) => ({
     params: {
       slug: award.slug.current,
     },
@@ -25,24 +27,24 @@ export const getStaticPaths = async () => {
 };
 
 // Get data from CMS
-const awardDetailData = await sanityClient.fetch<AwardDetailQueryResult>(
-  awardDetailQuery,
+const blogDetailData = await sanityClient.fetch<BlogDetailQueryResult>(
+  blogDetailQuery,
   { slug: Astro.params.slug },
 );
 
-if (!awardDetailData) {
+if (!blogDetailData) {
   throw new Error("Data not found");
 }
 ---
 
-<Layout title={awardDetailData.title} description={awardDetailData.description}>
+<Layout title={blogDetailData.title} description={blogDetailData.description}>
   <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
     <article class="flex w-full max-w-3xl flex-col gap-5 lg:gap-7">
       {/* Header Section */}
       <section class="flex flex-col gap-4 lg:gap-6">
         {/* Back Button */}
         <a
-          href="/awards"
+          href="/blog"
           class="flex w-fit items-center gap-1 text-primary transition-all hover:text-primary/90"
         >
           <ChevronLeftIcon class="size-5" />
@@ -52,35 +54,51 @@ if (!awardDetailData) {
         <div class="flex flex-col gap-4 lg:gap-6">
           {/* Title */}
           <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
-            {awardDetailData.title}
+            {blogDetailData.title}
           </h1>
 
           {/* Metadata */}
           <ul class="flex flex-col gap-3 lg:gap-4">
-            {/* Issued by */}
-            <li class="text-base font-semibold text-secondary lg:text-lg">
-              Issued by {awardDetailData.issuer}
-            </li>
-
             {/* Date */}
             <li class="flex flex-row items-center gap-2">
               <CalendarIcon class="size-5 lg:size-6" />
 
               <time
-                datetime={awardDetailData.date}
+                datetime={blogDetailData.date}
                 class="text-base font-medium leading-none text-secondary lg:text-lg lg:leading-none"
               >
-                {getFormattedDate(awardDetailData.date)}
+                {getFormattedDate(blogDetailData.date)}
               </time>
             </li>
+
+            {/* Author (Me, ofcourse) */}
+            <li class="flex flex-row items-center gap-2">
+              <UserIcon class="size-5 lg:size-6" />
+
+              <span
+                class="text-base font-medium leading-none text-secondary lg:text-lg lg:leading-none"
+              >
+                Dewantoro Triatmojo
+              </span>
+            </li>
           </ul>
+
+          {/* Preview Image (Usually project logo) */}
+          <Image
+            class="aspect-[5/3] w-full rounded-lg object-cover object-center"
+            src={blogDetailData.image.url!}
+            alt={blogDetailData.image.alt}
+            widths={[370, 768]}
+            sizes="(max-width: 640px) 370px, 768px"
+            inferSize
+          />
         </div>
       </section>
 
       {/* Content Section */}
       <section>
         {/* Content */}
-        <CustomPortableText value={awardDetailData.content} />
+        <CustomPortableText value={blogDetailData.content} />
       </section>
     </article>
   </main>
