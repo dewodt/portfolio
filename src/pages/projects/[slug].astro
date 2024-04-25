@@ -34,7 +34,7 @@ export const getStaticPaths = async () => {
 // Get data from CMS
 const projectDetailData = await sanityClient.fetch<ProjectDetailQueryResult>(
   projectDetailQuery,
-  { slug: "guess-astro" },
+  { slug: Astro.params.slug },
 );
 
 if (!projectDetailData) {
