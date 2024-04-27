@@ -115,70 +115,60 @@ export type HomePage = {
   _updatedAt: string;
   _rev: string;
   title: string;
-  content: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<
-          | {
-              reference:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "projects";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "experience";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "awards";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "blog";
-                  };
-              _type: "internalLink";
-              _key: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              _key: string;
-            }
-        >;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "image";
-        _key: string;
-      }
-  >;
+  content: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      reference: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "projects";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "experience";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "awards";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      };
+      _type: "internalLink";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "externalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  }>;
   image: {
     asset: {
       _ref: string;
@@ -218,7 +208,7 @@ export type Projects = {
     startDate: string;
     endDate?: string;
   };
-  repositoryLinks: Array<{
+  repositoryLinks?: Array<{
     label: string;
     url: string;
     _type: "repositoryLink";
@@ -230,70 +220,60 @@ export type Projects = {
     _type: "deploymentLink";
     _key: string;
   }>;
-  content: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<
-          | {
-              reference:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "projects";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "experience";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "awards";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "blog";
-                  };
-              _type: "internalLink";
-              _key: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              _key: string;
-            }
-        >;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "image";
-        _key: string;
-      }
-  >;
+  content: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      reference: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "projects";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "experience";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "awards";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      };
+      _type: "internalLink";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "externalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  }>;
 };
 
 export type Experience = {
@@ -322,7 +302,7 @@ export type Experience = {
     startDate: string;
     endDate?: string;
   };
-  repositoryLinks: Array<{
+  repositoryLinks?: Array<{
     label: string;
     url: string;
     _type: "repositoryLink";
@@ -334,70 +314,60 @@ export type Experience = {
     _type: "deploymentLink";
     _key: string;
   }>;
-  content: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<
-          | {
-              reference:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "projects";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "experience";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "awards";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "blog";
-                  };
-              _type: "internalLink";
-              _key: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              _key: string;
-            }
-        >;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "image";
-        _key: string;
-      }
-  >;
+  content: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      reference: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "projects";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "experience";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "awards";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      };
+      _type: "internalLink";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "externalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  }>;
 };
 
 export type Awards = {
@@ -423,70 +393,60 @@ export type Awards = {
   description: string;
   issuer: string;
   date: string;
-  content: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<
-          | {
-              reference:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "projects";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "experience";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "awards";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "blog";
-                  };
-              _type: "internalLink";
-              _key: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              _key: string;
-            }
-        >;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "image";
-        _key: string;
-      }
-  >;
+  content: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      reference: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "projects";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "experience";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "awards";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      };
+      _type: "internalLink";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "externalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  }>;
 };
 
 export type Blog = {
@@ -511,70 +471,60 @@ export type Blog = {
   slug: Slug;
   description: string;
   date: string;
-  content: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<
-          | {
-              reference:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "projects";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "experience";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "awards";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "blog";
-                  };
-              _type: "internalLink";
-              _key: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              _key: string;
-            }
-        >;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "image";
-        _key: string;
-      }
-  >;
+  content: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      reference: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "projects";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "experience";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "awards";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      };
+      _type: "internalLink";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "externalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  }>;
 };
 
 export type Slug = {
@@ -647,70 +597,60 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 export type HomePageQueryResult = {
   _id: string;
   title: string;
-  content: Array<
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "image";
-        _key: string;
-      }
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<
-          | {
-              reference:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "awards";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "blog";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "experience";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "projects";
-                  };
-              _type: "internalLink";
-              _key: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              _key: string;
-            }
-        >;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-  >;
+  content: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      reference: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "awards";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "experience";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "projects";
+      };
+      _type: "internalLink";
+      _key: string;
+    } | {
+      url?: string;
+      _type: "externalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
   image: {
     url: string | null;
     alt: string;
@@ -743,7 +683,7 @@ export type AllProjectsQueryResult = Array<{
     url: string;
     _type: "repositoryLink";
     _key: string;
-  }>;
+  }> | null;
   deploymentLinks: Array<{
     label: string;
     url: string;
@@ -771,77 +711,67 @@ export type ProjectDetailQueryResult = {
     url: string;
     _type: "repositoryLink";
     _key: string;
-  }>;
+  }> | null;
   deploymentLinks: Array<{
     label: string;
     url: string;
     _type: "deploymentLink";
     _key: string;
   }> | null;
-  content: Array<
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "image";
-        markDefs: null;
-        url: string | null;
-      }
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs: Array<
-          | {
-              reference:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "awards";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "blog";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "experience";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "projects";
-                  };
-              _type: "internalLink";
-              href: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              href: string | null;
-            }
-        > | null;
-        level?: number;
-        _type: "block";
-      }
-  >;
+  content: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    markDefs: null;
+    url: string | null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      reference: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "awards";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "experience";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "projects";
+      };
+      _type: "internalLink";
+      href: string;
+    } | {
+      url?: string;
+      _type: "externalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  }>;
 } | null;
 // Variable: experiencePageQuery
 // Query:   *[_type == "experience-page"][0] {    _id,    title,    description,  }
@@ -871,7 +801,7 @@ export type AllExperiencesQueryResult = Array<{
     url: string;
     _type: "repositoryLink";
     _key: string;
-  }>;
+  }> | null;
   deploymentLinks: Array<{
     label: string;
     url: string;
@@ -900,77 +830,67 @@ export type ExperienceDetailQueryResult = {
     url: string;
     _type: "repositoryLink";
     _key: string;
-  }>;
+  }> | null;
   deploymentLinks: Array<{
     label: string;
     url: string;
     _type: "deploymentLink";
     _key: string;
   }> | null;
-  content: Array<
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "image";
-        markDefs: null;
-        url: string | null;
-      }
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs: Array<
-          | {
-              reference:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "awards";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "blog";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "experience";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "projects";
-                  };
-              _type: "internalLink";
-              href: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              href: string | null;
-            }
-        > | null;
-        level?: number;
-        _type: "block";
-      }
-  >;
+  content: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    markDefs: null;
+    url: string | null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      reference: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "awards";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "experience";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "projects";
+      };
+      _type: "internalLink";
+      href: string;
+    } | {
+      url?: string;
+      _type: "externalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  }>;
 } | null;
 // Variable: awardsPageQuery
 // Query:   *[_type == "awards-page"][0] {    _id,    title,    description,  }
@@ -1006,70 +926,60 @@ export type AwardDetailQueryResult = {
   description: string;
   issuer: string;
   date: string;
-  content: Array<
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "image";
-        markDefs: null;
-        url: string | null;
-      }
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs: Array<
-          | {
-              reference:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "awards";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "blog";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "experience";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "projects";
-                  };
-              _type: "internalLink";
-              href: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              href: string | null;
-            }
-        > | null;
-        level?: number;
-        _type: "block";
-      }
-  >;
+  content: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    markDefs: null;
+    url: string | null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      reference: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "awards";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "experience";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "projects";
+      };
+      _type: "internalLink";
+      href: string;
+    } | {
+      url?: string;
+      _type: "externalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  }>;
 } | null;
 // Variable: blogPageQuery
 // Query:   *[_type == "blog-page"][0] {    _id,    title,    description,  }
@@ -1103,68 +1013,59 @@ export type BlogDetailQueryResult = {
   slug: Slug;
   description: string;
   date: string;
-  content: Array<
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "image";
-        markDefs: null;
-        url: string | null;
-      }
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs: Array<
-          | {
-              reference:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "awards";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "blog";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "experience";
-                  }
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: "projects";
-                  };
-              _type: "internalLink";
-              href: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              href: string | null;
-            }
-        > | null;
-        level?: number;
-        _type: "block";
-      }
-  >;
+  content: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    markDefs: null;
+    url: string | null;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<{
+      reference: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "awards";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "experience";
+      } | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "projects";
+      };
+      _type: "internalLink";
+      href: string;
+    } | {
+      url?: string;
+      _type: "externalLink";
+      href: string | null;
+    }> | null;
+    level?: number;
+    _type: "block";
+  }>;
 } | null;
+

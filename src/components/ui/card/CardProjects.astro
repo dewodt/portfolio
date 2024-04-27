@@ -72,39 +72,40 @@ const { project } = Astro.props;
       {project.description}
     </p>
 
-    <ul class="flex flex-row gap-5">
-      {/* Repo link */}
-      {
-        project.repositoryLinks.map((repo) => (
-          <li class="group/repo">
-            <a
-              href={repo.url}
-              aria-label={repo.label}
-              target="_blank"
-              class="relative z-40 flex size-7 transition-all duration-200 group-hover/repo:scale-110 lg:size-8"
-            >
-              <GitHubIcon class="size-full fill-muted group-hover/repo:fill-secondary" />
-            </a>
-          </li>
-        ))
-      }
+    {
+      (project.repositoryLinks || project.deploymentLinks) && (
+        <ul class="flex flex-row gap-5">
+          {/* Repo link */}
+          {project.repositoryLinks &&
+            project.repositoryLinks.map((repo) => (
+              <li class="group/repo">
+                <a
+                  href={repo.url}
+                  aria-label={repo.label}
+                  target="_blank"
+                  class="relative z-40 flex size-7 transition-all duration-200 group-hover/repo:scale-110 lg:size-8"
+                >
+                  <GitHubIcon class="size-full fill-muted group-hover/repo:fill-secondary" />
+                </a>
+              </li>
+            ))}
 
-      {/* Deployment link */}
-      {
-        project.deploymentLinks &&
-          project.deploymentLinks.map((deployment) => (
-            <li class="group/deploy">
-              <a
-                href={deployment.url}
-                aria-label={deployment.label}
-                target="_blank"
-                class="relative z-40 flex size-7 transition-all duration-200 group-hover/deploy:scale-110 lg:size-8"
-              >
-                <LinkIcon class="size-full stroke-muted group-hover/deploy:stroke-secondary" />
-              </a>
-            </li>
-          ))
-      }
-    </ul>
+          {/* Deployment link */}
+          {project.deploymentLinks &&
+            project.deploymentLinks.map((deployment) => (
+              <li class="group/deploy">
+                <a
+                  href={deployment.url}
+                  aria-label={deployment.label}
+                  target="_blank"
+                  class="relative z-40 flex size-7 transition-all duration-200 group-hover/deploy:scale-110 lg:size-8"
+                >
+                  <LinkIcon class="size-full stroke-muted group-hover/deploy:stroke-secondary" />
+                </a>
+              </li>
+            ))}
+        </ul>
+      )
+    }
   </div>
 </article>

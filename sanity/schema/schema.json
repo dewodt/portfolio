@@ -1222,7 +1222,7 @@
             }
           }
         },
-        "optional": false
+        "optional": true
       },
       "deploymentLinks": {
         "type": "objectAttribute",
@@ -1857,7 +1857,7 @@
             }
           }
         },
-        "optional": false
+        "optional": true
       },
       "deploymentLinks": {
         "type": "objectAttribute",
