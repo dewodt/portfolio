@@ -9,6 +9,12 @@ import { AwardsIcon } from "./sanity/components/icon/awards-icon";
 import { BlogIcon } from "./sanity/components/icon/blog-icon";
 import { vercelDeployTool } from "sanity-plugin-vercel-deploy";
 
+// Add the import to the theme.js downloaded
+import { theme as _theme } from "./sanity/config/theme";
+
+// Assign typings to theme
+const theme = _theme as import("sanity").StudioTheme;
+
 // Get project id & dataset
 const projectId =
   import.meta.env?.PUBLIC_SANITY_STUDIO_PROJECT_ID ?? // added "?"" for typegen cli
@@ -27,6 +33,7 @@ const singletonTypes = new Set(["home"]);
 export default defineConfig({
   name: "portfolio",
   title: "Portfolio",
+  theme,
   projectId,
   dataset,
   plugins: [

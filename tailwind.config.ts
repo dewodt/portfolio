@@ -10,7 +10,7 @@ const config: Config = {
         card: "#1E293B", // Card color
         muted: "#A0A4A3", // Muted
         primary: "#0EA5E9", // Primary
-        secondary: "#F5F5F5", // Secondary
+        secondary: "#FFFFFF", // Secondary
       },
       fontFamily: {
         inter: ["Inter Variable", "sans-serif"],
