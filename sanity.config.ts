@@ -7,6 +7,7 @@ import { ProjectsIcon } from "./sanity/components/icon/projects-icon";
 import { ExperienceIcon } from "./sanity/components/icon/experience-icon";
 import { AwardsIcon } from "./sanity/components/icon/awards-icon";
 import { BlogIcon } from "./sanity/components/icon/blog-icon";
+import { vercelDeployTool } from "sanity-plugin-vercel-deploy";
 
 // Get project id & dataset
 const projectId =
@@ -91,6 +92,7 @@ export default defineConfig({
           ]),
     }),
     visionTool(),
+    vercelDeployTool(),
   ],
   schema: {
     types: schemaTypes,
