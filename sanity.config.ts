@@ -61,7 +61,7 @@ export default defineConfig({
                   .schemaType("projects-page")
                   .documentId("projects-page"),
               ),
-            S.documentTypeListItem("projects").title("Projects"),
+            S.documentTypeListItem("projects").title("Projects List"),
 
             // Experience
             S.listItem()
@@ -73,7 +73,7 @@ export default defineConfig({
                   .schemaType("experience-page")
                   .documentId("experience-page"),
               ),
-            S.documentTypeListItem("experience").title("Experience"),
+            S.documentTypeListItem("experience").title("Experience List"),
 
             // Awards
             S.listItem()
@@ -85,7 +85,7 @@ export default defineConfig({
                   .schemaType("awards-page")
                   .documentId("awards-page"),
               ),
-            S.documentTypeListItem("awards").title("Awards"),
+            S.documentTypeListItem("awards").title("Awards List"),
 
             // Blog
             S.listItem()
@@ -95,7 +95,7 @@ export default defineConfig({
               .child(
                 S.document().schemaType("blog-page").documentId("blog-page"),
               ),
-            S.documentTypeListItem("blog").title("Blog"),
+            S.documentTypeListItem("blog").title("Blog List"),
           ]),
     }),
     visionTool(),
