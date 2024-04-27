@@ -1,7 +1,8 @@
 import { defineField } from "sanity";
 import { HighlightIcon } from "../components/icon/highlight-icon";
 import { ImageIcon } from "../components/icon/image-icon";
-import { RenderHighlight } from "../components/portable-text/highlight";
+import { CustomHighlight } from "../components/portable-text/mark/custom-highlight";
+import { CustomBlockquote } from "../components/portable-text/block/custom-blockquote";
 
 export const contentField = defineField({
   name: "content",
@@ -17,7 +18,11 @@ export const contentField = defineField({
         { title: "H2", value: "h2" },
         { title: "H3", value: "h3" },
         { title: "H4", value: "h4" },
-        { title: "Blockquote", value: "blockquote" },
+        {
+          title: "Blockquote",
+          value: "blockquote",
+          component: CustomBlockquote,
+        },
       ],
 
       // Default lists
@@ -41,7 +46,7 @@ export const contentField = defineField({
             title: "Highlight",
             value: "highlight",
             icon: HighlightIcon,
-            component: RenderHighlight,
+            component: CustomHighlight,
           },
         ],
         annotations: [

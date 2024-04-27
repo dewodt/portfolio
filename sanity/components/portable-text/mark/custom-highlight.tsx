@@ -1,4 +1,4 @@
-export const RenderHighlight = ({
+export const CustomHighlight = ({
   children,
 }: {
   children: React.ReactNode;
