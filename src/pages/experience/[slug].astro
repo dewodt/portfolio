@@ -50,11 +50,11 @@ if (!experienceDetailData) {
   <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
     <article class="flex w-full max-w-3xl flex-col gap-5 lg:gap-7">
       {/* Header Section */}
-      <section class="flex flex-col gap-4 lg:gap-6">
+      <section class="flex flex-col items-start gap-4 lg:gap-6">
         {/* Back Button */}
         <a
           href="/projects"
-          class="flex w-fit items-center gap-1 text-primary transition-all hover:text-primary/90"
+          class="flex items-center gap-1 text-primary transition-all hover:text-primary/90"
         >
           <ChevronLeftIcon class="size-5" />
           <span class="text-base font-medium leading-none">Back</span>
@@ -67,7 +67,7 @@ if (!experienceDetailData) {
           </h1>
 
           {/* Metadata */}
-          <ul class="flex flex-col gap-3 lg:gap-4">
+          <ul class="flex flex-col items-start gap-3 lg:gap-4">
             <li class="flex flex-row items-center gap-2">
               <CalendarIcon class="size-5 lg:size-6" />
 
@@ -135,7 +135,7 @@ if (!experienceDetailData) {
 
           {/* Preview Image (Usually project logo) */}
           <Image
-            class="aspect-[5/3] w-full rounded-xl object-cover object-center"
+            class="aspect-video w-full rounded-xl object-cover object-center"
             src={experienceDetailData.image.url!}
             alt={experienceDetailData.image.alt}
             widths={[370, 768]}
