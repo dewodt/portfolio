@@ -1,6 +1,7 @@
 ---
 import CalendarIcon from "@/components/icons/CalendarIcon.astro";
 import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon.astro";
+import CompanyIcon from "@/components/icons/CompanyIcon.astro";
 import GitHubIcon from "@/components/icons/GitHubIcon.astro";
 import LinkIcon from "@/components/icons/LinkIcon.astro";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
@@ -68,6 +69,16 @@ if (!experienceDetailData) {
 
           {/* Metadata */}
           <ul class="flex flex-col items-start gap-3 lg:gap-4">
+            <li class="flex flex-row items-center gap-2">
+              <CompanyIcon class="size-5 lg:size-6" />
+
+              <span
+                class="text-base font-medium leading-none text-secondary lg:text-lg lg:leading-none"
+              >
+                {experienceDetailData.company}
+              </span>
+            </li>
+
             <li class="flex flex-row items-center gap-2">
               <CalendarIcon class="size-5 lg:size-6" />
 

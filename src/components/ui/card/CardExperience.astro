@@ -5,6 +5,7 @@ import { getFormattedDate } from "@/lib/utils";
 import GitHubIcon from "@/components/icons/GitHubIcon.astro";
 import LinkIcon from "@/components/icons/LinkIcon.astro";
 import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+import CompanyIcon from "@/components/icons/CompanyIcon.astro";
 
 interface Props {
   experience: AllExperiencesQueryResult[number];
@@ -37,38 +38,41 @@ const { experience } = Astro.props;
   {/* Card Content */}
   {/* Before css pseudoclass to animate gradient transition */}
   <div
-    class="relative flex flex-col gap-2 bg-card p-5 before:absolute before:inset-0 before:z-10 before:bg-gradient-to-b before:from-primary/35 before:to-primary/5 before:opacity-0 before:transition-all before:duration-200 before:content-[''] group-hover/card:before:opacity-100"
+    class="relative flex flex-col gap-2 bg-card p-4 before:absolute before:inset-0 before:z-10 before:bg-gradient-to-b before:from-primary/35 before:to-primary/5 before:opacity-0 before:transition-all before:duration-200 before:content-[''] group-hover/card:before:opacity-100 lg:p-5"
   >
     {/* Title */}
     <h2
-      class="z-20 text-xl font-bold text-secondary lg:text-2xl lg:leading-none"
+      class="z-20 text-xl font-bold text-secondary lg:text-2xl"
     >
       {experience.title}
     </h2>
 
     {/* Company */}
-    <p class="z-20 text-base font-semibold text-secondary lg:text-lg">
-      {experience.company}
-    </p>
+    <div class="z-20 flex flex-row items-center gap-2">
+      <CompanyIcon class="size-5" />
+      <span class="text-sm font-medium text-secondary lg:text-base">
+        {experience.company}
+      </span>
+    </div>
 
     {/* Date */}
     <div class="z-20 flex flex-row items-center gap-2">
       <CalendarIcon class="size-5" />
 
-      <span
-        class="text-sm font-medium leading-none text-secondary lg:text-base lg:leading-none"
-      >
+      <span class="text-sm font-medium text-secondary lg:text-base">
         <time datetime={experience.dateRange.startDate}>
           {getFormattedDate(experience.dateRange.startDate)}
+          {" — "}
         </time>
         {
-          experience.dateRange.endDate && (
+          experience.dateRange.endDate ? (
             <>
-              {" — "}
               <time datetime={experience.dateRange.endDate}>
                 {getFormattedDate(experience.dateRange.endDate)}
               </time>
             </>
+          ) : (
+            <span>Now</span>
           )
         }
       </span>

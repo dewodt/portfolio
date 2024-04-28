@@ -3,6 +3,7 @@ import type { AllAwardsQueryResult } from "@/types/sanity";
 import { getFormattedDate } from "@/lib/utils";
 import CalendarIcon from "@/components/icons/CalendarIcon.astro";
 import { Image } from "astro:assets";
+import FileBadgeIcon from "@/components/icons/FileBadgeIcon.astro";
 
 interface Props {
   award: AllAwardsQueryResult[number];
@@ -43,9 +44,12 @@ const { award } = Astro.props;
     </h2>
 
     {/* Issued by */}
-    <p class="z-20 text-base font-semibold text-secondary lg:text-lg">
-      {award.issuer}
-    </p>
+    <div class="z-20 flex flex-row items-center gap-2">
+      <FileBadgeIcon class="size-5" />
+      <span class="text-sm font-medium text-secondary lg:text-base">
+        {award.issuer}
+      </span>
+    </div>
 
     {/* Date */}
     <div class="z-20 flex flex-row items-center gap-2">
@@ -53,7 +57,7 @@ const { award } = Astro.props;
 
       <time
         datetime={award.date}
-        class="text-sm font-medium leading-none text-secondary lg:text-base lg:leading-none"
+        class="text-sm font-medium text-secondary lg:text-base"
       >
         {getFormattedDate(award.date)}
       </time>
