@@ -1,0 +1,23 @@
+---
+import GitHubIcon from "@/components/icons/GitHubIcon.astro";
+
+interface Props {
+  repository: {
+    url: string;
+    label: string;
+  };
+}
+
+const { repository } = Astro.props;
+---
+
+<li class="group/repo">
+  <a
+    href={repository.url}
+    aria-label={repository.label}
+    target="_blank"
+    class="relative z-40 flex size-7 transition-all duration-200 group-hover/repo:scale-110 lg:size-8"
+  >
+    <GitHubIcon class="size-full fill-muted group-hover/repo:fill-secondary" />
+  </a>
+</li>

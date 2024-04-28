@@ -1,10 +1,13 @@
 ---
-import { Image } from "astro:assets";
 import type { AllProjectsQueryResult } from "@/types/sanity";
-import { getFormattedDate } from "@/lib/utils";
-import GitHubIcon from "@/components/icons/GitHubIcon.astro";
-import LinkIcon from "@/components/icons/LinkIcon.astro";
-import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+import CardContainer from "./builder/CardContainer.astro";
+import CardImage from "./builder/CardImage.astro";
+import CardContent from "./builder/CardContent.astro";
+import CardTitle from "./builder/CardTitle.astro";
+import CardDateRange from "./builder/CardDateRange.astro";
+import CardDescription from "./builder/CardDescription.astro";
+import CardLiRepository from "./builder/CardLiRepository.astro";
+import CardLiDeployment from "./builder/CardLiDeployment.astro";
 
 interface Props {
   project: AllProjectsQueryResult[number];
@@ -13,99 +16,48 @@ interface Props {
 const { project } = Astro.props;
 ---
 
-<article
-  class="group/card relative z-10 h-fit w-full max-w-xs overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:drop-shadow-primary lg:max-w-sm"
+<CardContainer
+  href={`/projects/${project.slug.current}`}
+  ariaLabel={`Link to project ${project.title}`}
 >
-  {/* Card anchor, cannot nest anchor element so use absolute posititoning */}
-  <a
-    href={`/projects/${project.slug.current}`}
-    aria-label={`Link to project ${project.title}`}
-    class="absolute inset-0 z-30"
-  >
-  </a>
-
   {/* Card Image */}
-  <Image
-    class="aspect-video w-full object-cover object-center"
-    src={project.image.url!}
-    alt={project.image.alt}
-    widths={[320, 384]}
-    sizes="(max-width: 640px) 320px, 384px"
-    inferSize
-  />
+  <CardImage src={project.image.url!} alt={project.image.alt} />
 
   {/* Card Content */}
-  {/* Before css pseudoclass to animate gradient transition */}
-  <div
-    class="relative flex flex-col gap-2 bg-card p-5 before:absolute before:inset-0 before:z-10 before:bg-gradient-to-b before:from-primary/35 before:to-primary/5 before:opacity-0 before:transition-all before:duration-200 before:content-[''] group-hover/card:before:opacity-100"
-  >
+  <CardContent>
     {/* Title */}
-    <h2 class="z-20 text-xl font-bold text-secondary lg:text-2xl">
+    <CardTitle>
       {project.title}
-    </h2>
+    </CardTitle>
 
     {/* Date */}
-    <div class="z-20 flex flex-row items-center gap-2">
-      <CalendarIcon class="size-5" />
-
-      <span
-        class="text-sm font-medium leading-none text-secondary lg:text-base lg:leading-none"
-      >
-        <time datetime={project.dateRange.startDate}>
-          {getFormattedDate(project.dateRange.startDate)}
-        </time>
-        {
-          project.dateRange.endDate && (
-            <>
-              {" — "}
-              <time datetime={project.dateRange.endDate}>
-                {getFormattedDate(project.dateRange.endDate)}
-              </time>
-            </>
-          )
-        }
-      </span>
-    </div>
+    <CardDateRange
+      dateRange={project.dateRange}
+      isEmptyEndDateShowNow={false}
+    />
 
     {/* Short description */}
-    <p class="z-20 line-clamp-3 text-sm text-muted lg:text-base">
+    <CardDescription>
       {project.description}
-    </p>
+    </CardDescription>
 
+    {/* Links */}
     {
       (project.repositoryLinks || project.deploymentLinks) && (
         <ul class="flex flex-row gap-5">
           {/* Repo link */}
           {project.repositoryLinks &&
-            project.repositoryLinks.map((repo) => (
-              <li class="group/repo">
-                <a
-                  href={repo.url}
-                  aria-label={repo.label}
-                  target="_blank"
-                  class="relative z-40 flex size-7 transition-all duration-200 group-hover/repo:scale-110 lg:size-8"
-                >
-                  <GitHubIcon class="size-full fill-muted group-hover/repo:fill-secondary" />
-                </a>
-              </li>
+            project.repositoryLinks.map((repository) => (
+              <CardLiRepository repository={repository} />
             ))}
 
           {/* Deployment link */}
           {project.deploymentLinks &&
             project.deploymentLinks.map((deployment) => (
-              <li class="group/deploy">
-                <a
-                  href={deployment.url}
-                  aria-label={deployment.label}
-                  target="_blank"
-                  class="relative z-40 flex size-7 transition-all duration-200 group-hover/deploy:scale-110 lg:size-8"
-                >
-                  <LinkIcon class="size-full stroke-muted group-hover/deploy:stroke-secondary" />
-                </a>
-              </li>
+              <CardLiDeployment deployment={deployment} />
             ))}
         </ul>
       )
     }
-  </div>
-</article>
+  </CardContent>
+</CardContainer>

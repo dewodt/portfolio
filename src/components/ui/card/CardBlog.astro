@@ -1,8 +1,11 @@
 ---
-import { Image } from "astro:assets";
 import type { AllBlogsQueryResult } from "@/types/sanity";
-import { getFormattedDate } from "@/lib/utils";
-import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+import CardContainer from "./builder/CardContainer.astro";
+import CardImage from "./builder/CardImage.astro";
+import CardContent from "./builder/CardContent.astro";
+import CardTitle from "./builder/CardTitle.astro";
+import CardDate from "./builder/CardDate.astro";
+import CardDescription from "./builder/CardDescription.astro";
 
 interface Props {
   blog: AllBlogsQueryResult[number];
@@ -11,52 +14,26 @@ interface Props {
 const { blog } = Astro.props;
 ---
 
-<article
-  class="group/card relative z-10 h-fit w-full max-w-xs overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:drop-shadow-primary lg:max-w-sm"
+<CardContainer
+  href={`/blog/${blog.slug.current}`}
+  ariaLabel={`Link to blog ${blog.title}`}
 >
-  {/* Card anchor, cannot nest anchor element so use absolute posititoning */}
-  <a
-    href={`/blog/${blog.slug.current}`}
-    aria-label={`Link to blog ${blog.title}`}
-    class="absolute inset-0 z-30"
-  >
-  </a>
-
   {/* Card Image */}
-  <Image
-    class="aspect-video w-full object-cover object-center"
-    src={blog.image.url!}
-    alt={blog.image.alt}
-    widths={[320, 384]}
-    sizes="(max-width: 640px) 320px, 384px"
-    inferSize
-  />
+  <CardImage src={blog.image.url!} alt={blog.image.alt} />
 
   {/* Card Content */}
-  {/* Before css pseudoclass to animate gradient transition */}
-  <div
-    class="relative flex flex-col gap-2 bg-card p-5 before:absolute before:inset-0 before:z-10 before:bg-gradient-to-b before:from-primary/35 before:to-primary/5 before:opacity-0 before:transition-all before:duration-200 before:content-[''] group-hover/card:before:opacity-100"
-  >
+  <CardContent>
     {/* Title */}
-    <h2 class="z-20 text-xl font-bold text-secondary lg:text-2xl">
+    <CardTitle>
       {blog.title}
-    </h2>
+    </CardTitle>
 
     {/* Date */}
-    <div class="z-20 flex flex-row items-center gap-2">
-      <CalendarIcon class="size-5" />
-
-      <time
-        datetime={blog.date}
-        class="text-sm font-medium leading-none text-secondary lg:text-base lg:leading-none"
-      >
-        {getFormattedDate(blog.date)}
-      </time>
-    </div>
+    <CardDate date={blog.date} />
 
     {/* Short description */}
-    <p class="z-20 line-clamp-3 text-sm text-muted lg:text-base">
+    <CardDescription>
       {blog.description}
-    </p>
-  </div>
-</article>
+    </CardDescription>
+  </CardContent>
+</CardContainer>

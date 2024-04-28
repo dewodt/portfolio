@@ -1,9 +1,13 @@
 ---
 import type { AllAwardsQueryResult } from "@/types/sanity";
-import { getFormattedDate } from "@/lib/utils";
-import CalendarIcon from "@/components/icons/CalendarIcon.astro";
-import { Image } from "astro:assets";
 import FileBadgeIcon from "@/components/icons/FileBadgeIcon.astro";
+import CardContainer from "./builder/CardContainer.astro";
+import CardImage from "./builder/CardImage.astro";
+import CardContent from "./builder/CardContent.astro";
+import CardTitle from "./builder/CardTitle.astro";
+import CardSubtitle from "./builder/CardSubtitle.astro";
+import CardDescription from "./builder/CardDescription.astro";
+import CardDate from "./builder/CardDate.astro";
 
 interface Props {
   award: AllAwardsQueryResult[number];
@@ -12,60 +16,32 @@ interface Props {
 const { award } = Astro.props;
 ---
 
-<article
-  class="group/card relative z-10 h-fit w-full max-w-xs overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:drop-shadow-primary lg:max-w-sm"
+<CardContainer
+  href={`/awards/${award.slug.current}`}
+  ariaLabel={`Link to award ${award.title} issued by ${award.issuer}`}
 >
-  {/* Card anchor, cannot nest anchor element so use absolute posititoning */}
-  <a
-    href={`/awards/${award.slug.current}`}
-    aria-label={`Link to award ${award.title}`}
-    class="absolute inset-0 z-30"
-  >
-  </a>
-
   {/* Card Image */}
-  <Image
-    class="aspect-video w-full object-cover object-center"
-    src={award.image.url!}
-    alt={award.image.alt}
-    widths={[320, 384]}
-    sizes="(max-width: 640px) 320px, 384px"
-    inferSize
-  />
+  <CardImage src={award.image.url!} alt={award.image.alt} />
 
   {/* Card Content */}
-  {/* Before css pseudoclass to animate gradient transition */}
-  <div
-    class="relative flex flex-col gap-2 bg-card p-5 before:absolute before:inset-0 before:z-10 before:bg-gradient-to-b before:from-primary/35 before:to-primary/5 before:opacity-0 before:transition-all before:duration-200 before:content-[''] group-hover/card:before:opacity-100"
-  >
+  <CardContent>
     {/* Title */}
-    <h2 class="z-20 text-xl font-bold text-secondary lg:text-2xl">
-      {award.title}
-    </h2>
+    <CardTitle>{award.title}</CardTitle>
 
     {/* Issued by */}
-    <div class="z-20 flex flex-row items-center gap-2">
+    <CardSubtitle>
       <FileBadgeIcon class="size-5" />
-      <span class="text-sm font-medium text-secondary lg:text-base">
+      <span>
         {award.issuer}
       </span>
-    </div>
+    </CardSubtitle>
 
     {/* Date */}
-    <div class="z-20 flex flex-row items-center gap-2">
-      <CalendarIcon class="size-5" />
-
-      <time
-        datetime={award.date}
-        class="text-sm font-medium text-secondary lg:text-base"
-      >
-        {getFormattedDate(award.date)}
-      </time>
-    </div>
+    <CardDate date={award.date} />
 
     {/* Short description */}
-    <p class="z-20 line-clamp-3 text-sm text-muted lg:text-base">
+    <CardDescription>
       {award.description}
-    </p>
-  </div>
-</article>
+    </CardDescription>
+  </CardContent>
+</CardContainer>

@@ -1,0 +1,18 @@
+---
+interface Props {
+  href: string;
+  ariaLabel: string;
+}
+
+const { href, ariaLabel } = Astro.props;
+---
+
+<article
+  class="group/card relative z-10 h-fit w-full max-w-xs overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:drop-shadow-primary lg:max-w-sm"
+>
+  {/* Card anchor, cannot nest anchor element so use absolute posititoning */}
+  <a href={href} aria-label={ariaLabel} class="absolute inset-0 z-30"> </a>
+
+  {/* Card contents */}
+  <slot />
+</article>
