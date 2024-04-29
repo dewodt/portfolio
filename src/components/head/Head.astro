@@ -1,4 +1,6 @@
 ---
+import SpeedInsights from "@vercel/speed-insights/astro";
+
 interface Props {
   title: string;
   description: string;
@@ -61,4 +63,7 @@ const { title, description } = Astro.props;
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content="https://dewodt.com/link-preview.jpg" />
   <meta name="twitter:image:alt" content="Dewantoro Triatmojo" />
+
+  <!-- Speed Insights -->
+  <SpeedInsights />
 </head>
