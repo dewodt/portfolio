@@ -1,5 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import LayoutBase from "@/layouts/LayoutBase.astro";
 import type { AllBlogsQueryResult, BlogPageQueryResult } from "@/types/sanity";
 import { sanityClient, allBlogsQuery, blogPageQuery } from "@/lib/query";
 import CardBlog from "@/components/ui/card/CardBlog.astro";
@@ -17,7 +17,7 @@ if (!blogPageData) {
 }
 ---
 
-<Layout
+<LayoutBase
   title={`${blogPageData.title} | Dewantoro Triatmojo`}
   description={blogPageData.description}
 >
@@ -50,4 +50,4 @@ if (!blogPageData) {
       </ul>
     </section>
   </main>
-</Layout>
+</LayoutBase>

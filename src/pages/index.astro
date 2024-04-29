@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import LayoutBase from "../layouts/LayoutBase.astro";
 import { Image } from "astro:assets";
 import type { HomePageQueryResult } from "@/types/sanity";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
@@ -14,7 +14,7 @@ if (!homePageData) {
 }
 ---
 
-<Layout
+<LayoutBase
   title={homePageData.title}
   description={toPlainText(homePageData.content)}
 >
@@ -48,4 +48,4 @@ if (!homePageData) {
       </div>
     </section>
   </main>
-</Layout>
+</LayoutBase>

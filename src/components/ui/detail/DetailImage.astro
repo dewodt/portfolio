@@ -1,0 +1,19 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  src: string;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<Image
+  class="aspect-video w-full rounded-lg object-cover object-center"
+  src={src}
+  alt={alt}
+  widths={[370, 768]}
+  sizes="(max-width: 640px) 370px, 768px"
+  inferSize
+/>

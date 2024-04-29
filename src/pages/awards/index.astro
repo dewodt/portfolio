@@ -1,5 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import LayoutBase from "@/layouts/LayoutBase.astro";
 import type {
   AllAwardsQueryResult,
   AwardsPageQueryResult,
@@ -19,7 +19,7 @@ if (!awardsPageData) {
 }
 ---
 
-<Layout
+<LayoutBase
   title={`${awardsPageData.title} | Dewantoro Triatmojo`}
   description={awardsPageData.description}
 >
@@ -52,4 +52,4 @@ if (!awardsPageData) {
       </ul>
     </section>
   </main>
-</Layout>
+</LayoutBase>

@@ -1,6 +1,6 @@
 ---
 import CardProjects from "@/components/ui/card/CardProjects.astro";
-import Layout from "@/layouts/Layout.astro";
+import LayoutBase from "@/layouts/LayoutBase.astro";
 import type {
   AllProjectsQueryResult,
   ProjectsPageQueryResult,
@@ -19,7 +19,7 @@ if (!projectPageData) {
 }
 ---
 
-<Layout
+<LayoutBase
   title={`${projectPageData.title} | Dewantoro Triatmojo`}
   description={projectPageData.description}
 >
@@ -52,4 +52,4 @@ if (!projectPageData) {
       </ul>
     </section>
   </main>
-</Layout>
+</LayoutBase>

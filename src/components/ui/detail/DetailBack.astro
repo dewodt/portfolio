@@ -1,0 +1,18 @@
+---
+import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon.astro";
+
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+
+{/* Back Button */}
+<a
+  href={href}
+  class="flex items-center gap-1 text-primary transition-all hover:text-primary/90"
+>
+  <ChevronLeftIcon class="size-5" />
+  <span class="text-base font-medium leading-none">Back</span>
+</a>

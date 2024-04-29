@@ -1,6 +1,6 @@
 ---
 import CardExperience from "@/components/ui/card/CardExperience.astro";
-import Layout from "@/layouts/Layout.astro";
+import LayoutBase from "@/layouts/LayoutBase.astro";
 import type {
   AllExperiencesQueryResult,
   ExperiencePageQueryResult,
@@ -23,7 +23,7 @@ if (!experiencePageData) {
 }
 ---
 
-<Layout
+<LayoutBase
   title={`${experiencePageData.title} | Dewantoro Triatmojo`}
   description={experiencePageData.description}
 >
@@ -56,4 +56,4 @@ if (!experiencePageData) {
       </ul>
     </section>
   </main>
-</Layout>
+</LayoutBase>
