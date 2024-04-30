@@ -55,17 +55,15 @@ const { experience } = Astro.props;
     {
       (experience.repositoryLinks || experience.deploymentLinks) && (
         <ul class="flex flex-row gap-5">
-          {/* Repo link */}
-          {experience.repositoryLinks &&
-            experience.repositoryLinks.map((repository) => (
-              <CardLiRepository repository={repository} />
-            ))}
+          {/* First Repo link */}
+          {experience.repositoryLinks && (
+            <CardLiRepository repository={experience.repositoryLinks[0]} />
+          )}
 
-          {/* Deployment link */}
-          {experience.deploymentLinks &&
-            experience.deploymentLinks.map((deployment) => (
-              <CardLiDeployment deployment={deployment} />
-            ))}
+          {/* First Deployment link */}
+          {experience.deploymentLinks && (
+            <CardLiDeployment deployment={experience.deploymentLinks[0]} />
+          )}
         </ul>
       )
     }

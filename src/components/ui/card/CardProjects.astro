@@ -45,17 +45,15 @@ const { project } = Astro.props;
     {
       (project.repositoryLinks || project.deploymentLinks) && (
         <ul class="flex flex-row gap-5">
-          {/* Repo link */}
-          {project.repositoryLinks &&
-            project.repositoryLinks.map((repository) => (
-              <CardLiRepository repository={repository} />
-            ))}
+          {/* First Repo link */}
+          {project.repositoryLinks && (
+            <CardLiRepository repository={project.repositoryLinks[0]} />
+          )}
 
-          {/* Deployment link */}
-          {project.deploymentLinks &&
-            project.deploymentLinks.map((deployment) => (
-              <CardLiDeployment deployment={deployment} />
-            ))}
+          {/* First Deployment link */}
+          {project.deploymentLinks && (
+            <CardLiDeployment deployment={project.deploymentLinks[0]} />
+          )}
         </ul>
       )
     }
