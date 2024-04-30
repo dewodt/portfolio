@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/_si/script.js",
+      "destination": "https://dewodt.com/_vercel/speed-insights/script.js"
+    },
+    {
+      "source": "/_va/script.js",
+      "destination": "https://dewodt.com/_vercel/insights/script.js"
+    }
+  ]
+}

@@ -55,6 +55,9 @@ const { title, description } = Astro.props;
   <meta name="twitter:image" content="https://dewodt.com/link-preview.jpg" />
   <meta name="twitter:image:alt" content="Dewantoro Triatmojo" />
 
+  <!-- Analytics -->
+  <script src="@/lib/analytics.ts"></script>
+
   <!-- Speed Insights -->
-  <SpeedInsights />
+  <SpeedInsights scriptSrc="/_si/script.js" route="/_si" />
 </head>

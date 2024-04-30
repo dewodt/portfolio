@@ -18,9 +18,8 @@ const dataset = PUBLIC_SANITY_STUDIO_DATASET;
 export default defineConfig({
   // Hybrid+adapter is required to support embedded Sanity Studio
   output: "hybrid",
-  adapter: vercel({
-    webAnalytics: { enabled: true },
-  }),
+  // Don't use vercel web analytics config here (use inject) cannot customize scriptSrc to avoid adblockers
+  adapter: vercel(),
   site: "https://dewodt.com",
   image: {
     remotePatterns: [
