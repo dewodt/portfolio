@@ -49,7 +49,7 @@ if (!awardDetailData) {
 
       <article class="flex flex-col items-start gap-5 lg:gap-7">
         {/* Header Section */}
-        <header class="flex flex-col gap-4 lg:gap-6">
+        <header class="flex w-full flex-col gap-4 lg:gap-6">
           {/* Title */}
           <DetailTitle>
             {awardDetailData.title}
@@ -78,7 +78,7 @@ if (!awardDetailData) {
         </header>
 
         {/* Content Section */}
-        <section>
+        <section class="w-full">
           <CustomPortableText value={awardDetailData.content} />
         </section>
       </article>

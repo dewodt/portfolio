@@ -55,7 +55,7 @@ if (!experienceDetailData) {
 
       <article class="flex flex-col items-start gap-5 lg:gap-7">
         {/* Header Section */}
-        <header class="flex flex-col gap-4 lg:gap-6">
+        <header class="flex w-full flex-col gap-4 lg:gap-6">
           {/* Title */}
           <DetailTitle>
             {experienceDetailData.title}
@@ -100,7 +100,7 @@ if (!experienceDetailData) {
         </header>
 
         {/* Content Section */}
-        <section>
+        <section class="w-full">
           {/* Content */}
           <CustomPortableText value={experienceDetailData.content} />
         </section>
