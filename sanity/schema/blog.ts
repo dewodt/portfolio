@@ -24,18 +24,12 @@ export const blogSchema = defineType({
   preview: {
     select: {
       title: "title",
-      startDate: "dateRange.startDate",
-      endDate: "dateRange.endDate",
-      media: "imagePreview",
+      date: "date",
+      media: "image",
     },
-    prepare({ title, startDate, endDate, media }) {
+    prepare({ title, date, media }) {
       // XXX YYYY
-      const start = getFormattedDate(startDate as string);
-      let subtitle = `${start}`;
-      if (endDate) {
-        const end = getFormattedDate(endDate as string);
-        subtitle += ` — ${end}`;
-      }
+      const subtitle = getFormattedDate(date as string);
 
       return {
         title,

@@ -33,8 +33,9 @@ export const experienceSchema = defineType({
       company: "company",
       startDate: "dateRange.startDate",
       endDate: "dateRange.endDate",
+      media: "image",
     },
-    prepare({ title, company, startDate, endDate }) {
+    prepare({ title, company, startDate, endDate, media }) {
       // XXX YYYY
       const start = getFormattedDate(startDate as string);
       let subtitle = `${company} | ${start}`;
@@ -47,6 +48,7 @@ export const experienceSchema = defineType({
       return {
         title,
         subtitle,
+        media,
       };
     },
   },

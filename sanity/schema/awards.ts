@@ -28,14 +28,16 @@ export const awardsSchema = defineType({
       title: "title",
       issuer: "issuer",
       date: "date",
+      media: "image",
     },
-    prepare({ title, issuer, date }) {
+    prepare({ title, issuer, date, media }) {
       const formattedDate = getFormattedDate(date as string);
       const subtitle = `${issuer} | ${formattedDate}`;
 
       return {
         title,
         subtitle,
+        media,
       };
     },
   },
