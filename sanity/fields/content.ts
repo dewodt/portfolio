@@ -3,6 +3,8 @@ import { HighlightIcon } from "../components/icon/highlight-icon";
 import { ImageIcon } from "../components/icon/image-icon";
 import { CustomHighlight } from "../components/portable-text/mark/custom-highlight";
 import { CustomBlockquote } from "../components/portable-text/block/custom-blockquote";
+import { ExternalLinkIcon } from "../components/icon/external-link-icon";
+import { InternalLinkIcon } from "../components/icon/internal-link-icon";
 
 export const contentField = defineField({
   name: "content",
@@ -54,6 +56,7 @@ export const contentField = defineField({
             name: "internalLink",
             title: "Internal Link",
             type: "object",
+            icon: InternalLinkIcon,
             fields: [
               {
                 name: "reference",
@@ -76,6 +79,7 @@ export const contentField = defineField({
             name: "externalLink",
             title: "External Link",
             type: "object",
+            icon: ExternalLinkIcon,
             fields: [
               {
                 name: "url",
