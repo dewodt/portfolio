@@ -15,14 +15,16 @@ const props = Astro.props;
 
 <figure class="mb-3 flex flex-col gap-1 lg:mb-5 lg:gap-2">
   <Image
-    class="aspect-video w-full rounded-lg object-cover object-center"
+    class="flex aspect-video w-full items-center justify-evenly rounded-lg bg-card object-cover object-center text-base font-medium text-secondary"
     src={props.node.url}
     alt={props.node.alt}
     widths={[370, 768]}
     sizes="(max-width: 640px) 370px, 768px"
     inferSize
   />
-  <figcaption class="text-center text-base font-medium lg:text-lg">
+  <figcaption
+    class="text-center text-base font-medium text-secondary lg:text-lg"
+  >
     {props.node.alt}
   </figcaption>
 </figure>

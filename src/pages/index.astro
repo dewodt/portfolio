@@ -26,11 +26,12 @@ if (!homePageData) {
     >
       {/* My Photo */}
       <Image
-        class="size-64 rounded-full border-2 border-border lg:size-96"
+        class="flex size-64 items-center justify-evenly rounded-full border-2 border-border bg-card text-base font-medium text-secondary lg:size-96"
         src={homePageData.image.url!}
         alt={homePageData.image.alt}
         widths={[256, 384]}
         sizes="(max-width: 1024px) 256px, 384px"
+        loading="eager"
         inferSize
       />
 
