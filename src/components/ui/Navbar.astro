@@ -49,7 +49,7 @@ const isActive = (navbarPath: string) => {
   {/* Sidebar */}
   <div
     id="sidebar-container"
-    class={`fixed right-0 top-0 z-10 flex h-full translate-x-full w-[200px] flex-col gap-12 border-l border-l-border bg-background py-5 pl-8 pr-6 text-base duration-300 ease-in-out sm:static sm:h-auto sm:w-auto sm:translate-x-0 sm:items-center sm:border-none sm:bg-transparent sm:p-0`}
+    class={`fixed right-[-200px] top-0 bottom-0 z-10 translate-x-0 flex h-full w-[200px] flex-col gap-12 border-l border-l-border bg-background py-6 pl-8 pr-6 text-base duration-300 ease-in-out sm:static sm:h-auto sm:w-auto sm:translate-x-0 sm:items-center sm:border-none sm:bg-transparent sm:p-0`}
   >
     {/* Close Button */}
     <button
@@ -96,36 +96,44 @@ const isActive = (navbarPath: string) => {
 <script>
   // Open sidebar callback function
   const onOpenSidebar = () => {
-    // Body transition
+    // Select elements
     const body = document.querySelector("body");
-    body?.classList.add("overflow-hidden");
+    const sidebarBlur = document.getElementById("sidebar-blur");
+    const sidebar = document.getElementById("sidebar-container");
+
+    if (!body || !sidebarBlur || !sidebar) return;
+
+    // Body transition
+    body.classList.add("overflow-hidden");
 
     // Blur transition
-    const sidebarBlur = document.getElementById("sidebar-blur");
-    sidebarBlur?.classList.remove("hidden");
-    sidebarBlur?.classList.add("fixed");
+    sidebarBlur.classList.remove("hidden");
+    sidebarBlur.classList.add("fixed");
 
     // Sidebar transition
-    const sidebar = document.getElementById("sidebar-container");
-    sidebar?.classList.remove("translate-x-full");
-    sidebar?.classList.add("translate-x-0");
+    sidebar.classList.remove("translate-x-0");
+    sidebar.classList.add("-translate-x-[200px]");
   };
 
   // Close sidebar callback function
   const onCloseSidebar = () => {
-    // Sidebar transition
+    // Select elements
+    const body = document.querySelector("body");
     const sidebar = document.getElementById("sidebar-container");
-    sidebar?.classList.remove("translate-x-0");
-    sidebar?.classList.add("translate-x-full");
+    const sidebarBlur = document.getElementById("sidebar-blur");
+
+    if (!body || !sidebar || !sidebarBlur) return;
+
+    // Sidebar transition
+    sidebar.classList.remove("-translate-x-[200px]");
+    sidebar.classList.add("translate-x-0");
 
     // Blur transition
-    const sidebarBlur = document.getElementById("sidebar-blur");
-    sidebarBlur?.classList.remove("fixed");
-    sidebarBlur?.classList.add("hidden");
+    sidebarBlur.classList.remove("fixed");
+    sidebarBlur.classList.add("hidden");
 
     // Body transition
-    const body = document.querySelector("body");
-    body?.classList.remove("overflow-hidden");
+    body.classList.remove("overflow-hidden");
   };
 
   // Handle open event from button
