@@ -8,8 +8,9 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
-    "sanity:typegen": "rm -f sanity/schema/schema.json && echo \"\\e[0;32m✔\\e[0;0m Deleted old schema.json\" && rm -f src/types/sanity.ts && echo \"\\e[0;32m✔\\e[0;0m Deleted old type definition\" && sanity schema extract --path sanity/schema/schema.json --enforce-required-fields && sanity typegen generate"
+    "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\" && echo \"\\e[0;32m✔\\e[0;0m Linted files\"",
+    "sanity:typegen": "rm -f sanity/schema/schema.json && echo \"\\e[0;32m✔\\e[0;0m Deleted old schema.json\" && rm -f src/types/sanity.ts && echo \"\\e[0;32m✔\\e[0;0m Deleted old type definition\" && sanity schema extract --path sanity/schema/schema.json --enforce-required-fields && sanity typegen generate",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.9",
@@ -40,6 +41,7 @@
     "@typescript-eslint/parser": "^7.3.1",
     "eslint": "^8.57.0",
     "eslint-plugin-astro": "^0.31.4",
+    "husky": "^9.0.11",
     "prettier": "^3.2.5",
     "prettier-config-standard": "^7.0.0",
     "prettier-plugin-astro": "^0.13.0",

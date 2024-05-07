@@ -1,7 +1,6 @@
-# 📄 Description
+# 📑 Description
 
 My personal portfolio website showcases the projects I have completed, the experiences I have gained, the awards I have achieved, and some articles (blog posts) I have written.
-
 
 # 🔗 Deployments
 
