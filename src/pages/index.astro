@@ -36,8 +36,9 @@ if (!homePageData) {
       />
 
       {/* Texts */}
+      {/* Need to override default margin from portable text */}
       <div
-        class="flex max-w-xs flex-col gap-2 text-center sm:max-w-sm sm:text-start lg:max-w-lg lg:gap-4"
+        class="flex max-w-xs flex-col gap-2 text-center sm:max-w-sm sm:text-start lg:max-w-lg lg:gap-4 [&>*]:my-0 [&>*]:lg:my-0"
       >
         {/* Title */}
         <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
