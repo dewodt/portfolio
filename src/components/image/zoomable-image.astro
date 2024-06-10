@@ -1,0 +1,15 @@
+<script>
+  // Initialize medium-zoom
+  import mediumZoom from "medium-zoom";
+  mediumZoom("[data-zoomable]", {
+    margin: window.innerWidth < 1024 ? 24 : 128,
+    background: "rgba(0, 0, 0, 0.8)",
+  });
+</script>
+
+<style is:global>
+  .medium-zoom-overlay,
+  .medium-zoom-image--opened {
+    z-index: 70;
+  }
+</style>
