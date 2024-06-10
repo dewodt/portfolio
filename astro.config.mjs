@@ -1,7 +1,7 @@
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
-import { sanityIntegration as sanity } from "@sanity/astro";
+import sanity from "@sanity/astro";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 
