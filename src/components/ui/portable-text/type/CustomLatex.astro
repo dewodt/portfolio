@@ -1,0 +1,30 @@
+---
+import type { Props as $, TypedObject } from "astro-portabletext/types";
+import KaTeX from "katex";
+import "katex/dist/katex.min.css";
+
+export type Props = $<TypedObject> & {
+  node: {
+    body: string;
+  };
+};
+
+const {
+  isInline,
+  node: { body },
+} = Astro.props;
+
+// Render the KaTeX serverside
+const html = KaTeX.renderToString(body, {
+  throwOnError: false,
+  displayMode: !isInline,
+});
+---
+
+{
+  isInline ? (
+    <span class="text-white" set:html={html} />
+  ) : (
+    <p class="text-base text-white lg:text-lg" set:html={html} />
+  )
+}

@@ -5,11 +5,15 @@ import { CustomHighlight } from "../components/portable-text/mark/custom-highlig
 import { CustomBlockquote } from "../components/portable-text/block/custom-blockquote";
 import { ExternalLinkIcon } from "../components/icon/external-link-icon";
 import { InternalLinkIcon } from "../components/icon/internal-link-icon";
+import { LatexPreview } from "../components/portable-text/math/latex-preview";
+import { MathIcon } from "../components/icon/math-icon";
 
 export const contentField = defineField({
   name: "content",
   title: "Content",
   type: "array",
+  description: "Insert a content portable text!",
+  validation: (Rule) => Rule.required().error("A content is required"),
   of: [
     {
       type: "block",
@@ -97,6 +101,35 @@ export const contentField = defineField({
           },
         ],
       },
+
+      // Other inline elements
+      of: [
+        {
+          type: "object",
+          icon: MathIcon,
+          title: "Inline LaTeX",
+          name: "latex",
+          components: { preview: LatexPreview },
+          fields: [
+            // Latex content
+            {
+              name: "body",
+              title: "LaTeX content",
+              type: "text",
+              description: "Insert a LaTeX content",
+              validation: (Rule) =>
+                Rule.required().error("A LaTeX content is required"),
+            },
+          ],
+          preview: {
+            select: {
+              body: "body",
+            },
+          },
+          validation: (Rule) =>
+            Rule.required().error("A LaTeX content is required"),
+        },
+      ],
     },
     {
       type: "image",
@@ -113,7 +146,30 @@ export const contentField = defineField({
       ],
       validation: (Rule) => Rule.required().error("An image is required"),
     },
+    {
+      type: "object",
+      icon: MathIcon,
+      title: "Block LaTeX",
+      name: "latex",
+      components: { preview: LatexPreview },
+      fields: [
+        // Latex content
+        {
+          name: "body",
+          title: "LaTeX content",
+          type: "text",
+          description: "Insert a LaTeX content",
+          validation: (Rule) =>
+            Rule.required().error("A LaTeX content is required"),
+        },
+      ],
+      preview: {
+        select: {
+          body: "body",
+        },
+      },
+      validation: (Rule) =>
+        Rule.required().error("A LaTeX content is required"),
+    },
   ],
-  description: "Insert a content portable text!",
-  validation: (Rule) => Rule.required().error("A content is required"),
 });
