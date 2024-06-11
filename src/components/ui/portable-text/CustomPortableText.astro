@@ -17,13 +17,14 @@ import CustomLink from "./mark/CustomLink.astro";
 
 // Type
 import CustomImage from "./type/CustomImage.astro";
+import CustomLatex from "./type/CustomLatex.astro";
+import CustomCode from "./type/CustomCode.astro";
 
 // List
 import CustomNumberList from "./list/CustomNumberList.astro";
 import CustomBulletList from "./list/CustomBulletList.astro";
 import CustomNumberListItem from "./list/CustomNumberListItem.astro";
 import CustomBulletListItem from "./list/CustomBulletListItem.astro";
-import CustomLatex from "./type/CustomLatex.astro";
 
 type PortableTextProps = Parameters<typeof PortableText>[0];
 
@@ -36,6 +37,7 @@ const components = mergeComponents(
     type: {
       image: CustomImage,
       latex: CustomLatex,
+      code: CustomCode,
     },
     block: {
       h2: CustomH2,

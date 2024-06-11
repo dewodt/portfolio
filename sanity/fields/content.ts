@@ -7,6 +7,7 @@ import { ExternalLinkIcon } from "../components/icon/external-link-icon";
 import { InternalLinkIcon } from "../components/icon/internal-link-icon";
 import { LatexPreview } from "../components/portable-text/math/latex-preview";
 import { MathIcon } from "../components/icon/math-icon";
+import { codeField } from "./code";
 
 export const contentField = defineField({
   name: "content",
@@ -131,6 +132,8 @@ export const contentField = defineField({
         },
       ],
     },
+
+    // Image
     {
       type: "image",
       icon: ImageIcon,
@@ -146,6 +149,8 @@ export const contentField = defineField({
       ],
       validation: (Rule) => Rule.required().error("An image is required"),
     },
+
+    // Latex
     {
       type: "object",
       icon: MathIcon,
@@ -170,6 +175,11 @@ export const contentField = defineField({
       },
       validation: (Rule) =>
         Rule.required().error("A LaTeX content is required"),
+    },
+
+    // Code field
+    {
+      ...codeField,
     },
   ],
 });

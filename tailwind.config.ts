@@ -11,6 +11,7 @@ const config: Config = {
         muted: "#A0A4A3", // Muted
         primary: "#0EA5E9", // Primary
         secondary: "#FFFFFF", // Secondary
+        destructive: "#EF4444", // Destructive
       },
       fontFamily: {
         inter: ["Inter Variable", "sans-serif"],

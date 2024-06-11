@@ -8,6 +8,7 @@ import { ExperienceIcon } from "./sanity/components/icon/experience-icon";
 import { AwardsIcon } from "./sanity/components/icon/awards-icon";
 import { BlogIcon } from "./sanity/components/icon/blog-icon";
 import { vercelDeployTool } from "sanity-plugin-vercel-deploy";
+import { codeInput } from "@sanity/code-input";
 
 // Add the import to the theme.js downloaded
 import { theme as _theme } from "./sanity/config/theme";
@@ -100,6 +101,7 @@ export default defineConfig({
     }),
     visionTool(),
     vercelDeployTool(),
+    codeInput(),
   ],
   schema: {
     types: schemaTypes,
