@@ -29,122 +29,130 @@ const isActive = (navbarPath: string) => {
 };
 ---
 
-<header
-  class="sticky left-0 right-0 top-0 z-40 flex h-20 w-full flex-row items-center justify-between border-b border-b-border bg-background px-7 sm:justify-center"
->
-  {/* Mobile Icon */}
-  <a href="/" class="text-2xl font-bold sm:hidden">
-    <span class="text-secondary">dewo</span><span class="text-primary">dt</span>
-  </a>
-
-  {/* Menu Icon Button */}
-  <button
-    id="button-open-sidebar"
-    aria-label="Open Navigation Bar"
-    class="flex size-9 sm:hidden"
+<nav-bar>
+  <header
+    class="sticky left-0 right-0 top-0 z-40 flex h-20 w-full flex-row items-center justify-between border-b border-b-border bg-background px-7 sm:justify-center"
   >
-    <MenuIcon class="size-full stroke-secondary" />
-  </button>
+    {/* Mobile Icon */}
+    <a href="/" class="text-2xl font-bold sm:hidden">
+      <span class="text-secondary">dewo</span><span class="text-primary"
+        >dt</span
+      >
+    </a>
 
-  {/* Sidebar */}
-  <div
-    id="sidebar-container"
-    class={`fixed right-[-200px] top-0 bottom-0 z-10 translate-x-0 flex h-full w-[200px] flex-col gap-12 border-l border-l-border bg-background py-6 pl-8 pr-6 text-base duration-300 ease-in-out sm:static sm:h-auto sm:w-auto sm:translate-x-0 sm:items-center sm:border-none sm:bg-transparent sm:p-0`}
-  >
-    {/* Close Button */}
+    {/* Menu Icon Button */}
     <button
-      id="button-close-sidebar"
-      aria-label="Close Navigation Bar"
-      class="flex size-9 self-end sm:hidden"
+      id="button-open-sidebar"
+      aria-label="Open Navigation Bar"
+      class="flex size-9 sm:hidden"
     >
-      <XIcon class="size-full stroke-secondary" />
+      <MenuIcon class="size-full stroke-secondary" />
     </button>
 
-    {/* Path lists */}
-    <nav>
-      <ul class="flex flex-col gap-5 sm:flex-row sm:gap-12">
-        {
-          paths.map((path) => {
-            return (
-              <li>
-                <a
-                  href={path.url}
-                  class={`${
-                    isActive(path.url)
-                      ? "font-semibold text-secondary"
-                      : "font-medium text-muted transition-all duration-200 hover:text-secondary"
-                  }`}
-                >
-                  {path.label}
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
-    </nav>
-  </div>
+    {/* Sidebar */}
+    <div
+      id="sidebar-container"
+      class={`fixed right-[-200px] top-0 bottom-0 z-10 translate-x-0 flex h-full w-[200px] flex-col gap-12 border-l border-l-border bg-background py-6 pl-8 pr-6 text-base duration-300 ease-in-out sm:static sm:h-auto sm:w-auto sm:translate-x-0 sm:items-center sm:border-none sm:bg-transparent sm:p-0`}
+    >
+      {/* Close Button */}
+      <button
+        id="button-close-sidebar"
+        aria-label="Close Navigation Bar"
+        class="flex size-9 self-end sm:hidden"
+      >
+        <XIcon class="size-full stroke-secondary" />
+      </button>
 
-  {/* Side bar opaque background */}
-  <div
-    id="sidebar-blur"
-    class="inset-0 z-0 hidden h-full w-full bg-black bg-opacity-80 sm:hidden"
-  >
-  </div>
-</header>
+      {/* Path lists */}
+      <nav>
+        <ul class="flex flex-col gap-5 sm:flex-row sm:gap-12">
+          {
+            paths.map((path) => {
+              return (
+                <li>
+                  <a
+                    href={path.url}
+                    class={`${
+                      isActive(path.url)
+                        ? "font-semibold text-secondary"
+                        : "font-medium text-muted transition-all duration-200 hover:text-secondary"
+                    }`}
+                  >
+                    {path.label}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </nav>
+    </div>
+
+    {/* Side bar opaque background */}
+    <div
+      id="sidebar-blur"
+      class="inset-0 z-0 hidden h-full w-full bg-black bg-opacity-80 sm:hidden"
+    >
+    </div>
+  </header>
+</nav-bar>
 
 <script>
-  // Open sidebar callback function
-  const onOpenSidebar = () => {
-    // Select elements
-    const body = document.querySelector("body");
-    const sidebarBlur = document.getElementById("sidebar-blur");
-    const sidebar = document.getElementById("sidebar-container");
+  class Navbar extends HTMLElement {
+    constructor() {
+      super();
 
-    if (!body || !sidebarBlur || !sidebar) return;
+      // Open sidebar callback function
+      const onOpenSidebar = () => {
+        // Select elements
+        const body = document.querySelector("body");
+        const sidebarBlur = this.querySelector("#sidebar-blur");
+        const sidebar = this.querySelector("#sidebar-container");
 
-    // Body transition
-    body.classList.add("overflow-hidden");
+        // Body transition
+        body?.classList.add("overflow-hidden");
 
-    // Blur transition
-    sidebarBlur.classList.remove("hidden");
-    sidebarBlur.classList.add("fixed");
+        // Blur transition
+        sidebarBlur?.classList.remove("hidden");
+        sidebarBlur?.classList.add("fixed");
 
-    // Sidebar transition
-    sidebar.classList.remove("translate-x-0");
-    sidebar.classList.add("-translate-x-[200px]");
-  };
+        // Sidebar transition
+        sidebar?.classList.remove("translate-x-0");
+        sidebar?.classList.add("-translate-x-[200px]");
+      };
 
-  // Close sidebar callback function
-  const onCloseSidebar = () => {
-    // Select elements
-    const body = document.querySelector("body");
-    const sidebar = document.getElementById("sidebar-container");
-    const sidebarBlur = document.getElementById("sidebar-blur");
+      // Close sidebar callback function
+      const onCloseSidebar = () => {
+        // Select elements
+        const body = document.querySelector("body");
+        const sidebarBlur = this.querySelector("#sidebar-blur");
+        const sidebar = this.querySelector("#sidebar-container");
 
-    if (!body || !sidebar || !sidebarBlur) return;
+        // Sidebar transition
+        sidebar?.classList.remove("-translate-x-[200px]");
+        sidebar?.classList.add("translate-x-0");
 
-    // Sidebar transition
-    sidebar.classList.remove("-translate-x-[200px]");
-    sidebar.classList.add("translate-x-0");
+        // Blur transition
+        sidebarBlur?.classList.remove("fixed");
+        sidebarBlur?.classList.add("hidden");
 
-    // Blur transition
-    sidebarBlur.classList.remove("fixed");
-    sidebarBlur.classList.add("hidden");
+        // Body transition
+        body?.classList.remove("overflow-hidden");
+      };
 
-    // Body transition
-    body.classList.remove("overflow-hidden");
-  };
+      // Handle open event from button
+      const openButton = this.querySelector("#button-open-sidebar");
+      openButton?.addEventListener("click", onOpenSidebar);
 
-  // Handle open event from button
-  const openButton = document.querySelector("#button-open-sidebar");
-  openButton?.addEventListener("click", onOpenSidebar);
+      // Handle close event from button
+      const closeButton = this.querySelector("#button-close-sidebar");
+      closeButton?.addEventListener("click", onCloseSidebar);
 
-  // Handle close event from button
-  const closeButton = document.querySelector("#button-close-sidebar");
-  closeButton?.addEventListener("click", onCloseSidebar);
+      // Handle close event from sidebar blur
+      const sidebarBlur = this.querySelector("#sidebar-blur");
+      sidebarBlur?.addEventListener("click", onCloseSidebar);
+    }
+  }
 
-  // Handle close event from sidebar blur
-  const sidebarBlur = document.querySelector("#sidebar-blur");
-  sidebarBlur?.addEventListener("click", onCloseSidebar);
+  customElements.define("nav-bar", Navbar);
 </script>
