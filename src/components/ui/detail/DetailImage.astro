@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import ZoomableImage from "@/components/image/zoomable-image.astro";
 
 interface Props {
   src: string;
@@ -9,7 +9,7 @@ interface Props {
 const { src, alt } = Astro.props;
 ---
 
-<Image
+<ZoomableImage
   class="flex aspect-video w-full items-center justify-evenly rounded-lg bg-card object-cover object-center text-base font-medium text-secondary"
   src={src}
   alt={alt}
@@ -17,5 +17,4 @@ const { src, alt } = Astro.props;
   sizes="(max-width: 640px) 370px, 768px"
   loading="eager"
   inferSize
-  data-zoomable
 />

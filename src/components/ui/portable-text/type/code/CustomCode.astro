@@ -4,7 +4,7 @@ import CustomInlineCode from "./CustomInlineCode.astro";
 import CustomBlockCode from "./CustomBlockCode.astro";
 
 // Props
-export type Props = $<TypedObject> & {
+type Props = $<TypedObject> & {
   node: {
     language: string;
     code: string;

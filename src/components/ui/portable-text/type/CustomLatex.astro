@@ -3,7 +3,7 @@ import type { Props as $, TypedObject } from "astro-portabletext/types";
 import KaTeX from "katex";
 import "katex/dist/katex.min.css";
 
-export type Props = $<TypedObject> & {
+type Props = $<TypedObject> & {
   node: {
     body: string;
   };

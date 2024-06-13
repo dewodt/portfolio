@@ -1,3 +1,14 @@
+---
+import type { LocalImageProps, RemoteImageProps } from "astro:assets";
+import { Image } from "astro:assets";
+
+type Props = LocalImageProps | RemoteImageProps;
+
+const props = Astro.props;
+---
+
+<Image {...props} data-zoomable />
+
 <script>
   // Initialize medium-zoom
   import mediumZoom from "medium-zoom";

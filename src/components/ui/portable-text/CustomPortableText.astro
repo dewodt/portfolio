@@ -28,7 +28,7 @@ import CustomBulletListItem from "./list/CustomBulletListItem.astro";
 
 type PortableTextProps = Parameters<typeof PortableText>[0];
 
-export type Props = Pick<PortableTextProps, "value" | "components">;
+type Props = Pick<PortableTextProps, "value" | "components">;
 
 const { value, components: overrideComponents = {} } = Astro.props;
 

@@ -1,9 +1,8 @@
 ---
-import { Image } from "astro:assets";
-
 import type { Props as $, TypedObject } from "astro-portabletext/types";
+import ZoomableImage from "@/components/image/zoomable-image.astro";
 
-export type Props = $<TypedObject> & {
+type Props = $<TypedObject> & {
   node: {
     url: string;
     alt: string;
@@ -14,14 +13,13 @@ const props = Astro.props;
 ---
 
 <figure class="mb-3 flex flex-col gap-1 lg:mb-5 lg:gap-2">
-  <Image
+  <ZoomableImage
     class="flex aspect-video w-full items-center justify-evenly rounded-lg bg-card object-cover object-center text-base font-medium text-secondary"
     src={props.node.url}
     alt={props.node.alt}
     widths={[370, 768]}
     sizes="(max-width: 640px) 370px, 768px"
     inferSize
-    data-zoomable
   />
   <figcaption
     class="text-center text-base font-medium text-secondary lg:text-lg"

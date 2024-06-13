@@ -2,7 +2,7 @@
 import type { Props as $, Mark as MarkType } from "astro-portabletext/types";
 
 // Generic is for markDef type
-export type Props = $<MarkType<Record<string, string>>>;
+type Props = $<MarkType<Record<string, string>>>;
 const props = Astro.props;
 ---
 

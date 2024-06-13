@@ -1,7 +1,7 @@
 ---
 import type { Props as $, List as ListType } from "astro-portabletext/types";
 
-export type Props = $<ListType>;
+type Props = $<ListType>;
 
 const props = Astro.props;
 const level = props.node.level;
