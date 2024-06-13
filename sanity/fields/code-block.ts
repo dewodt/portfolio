@@ -1,11 +1,13 @@
 import { defineField } from "sanity";
+import { CodeIcon } from "../components/icon/code-icon";
 
-export const codeField = defineField({
+export const codeBlockField = defineField({
   type: "code",
   name: "code",
-  title: "Code Field",
-  description: "Insert a code field!",
-  validation: (Rule) => Rule.required().error("A code field is required"),
+  icon: CodeIcon,
+  title: "Block",
+  description: "Insert a code block field!",
+  validation: (Rule) => Rule.required().error("A code block field is required"),
   options: {
     languageAlternatives: [
       // groq, javascript, jsx, typescript, tsx, php, sql, mysql, json, markdown, java, html, csharp, sh, css, ruby, python, xml, yaml, golang, text
@@ -13,7 +15,7 @@ export const codeField = defineField({
       { title: "JSX", value: "jsx" },
       { title: "TypeScript", value: "typescript" },
       { title: "TSX", value: "tsx" },
-      { title: "Go", value: "golang" },
+      { title: "Go", value: "go" },
       { title: "HTML", value: "html" },
       { title: "CSS", value: "css" },
       { title: "PHP", value: "php" },

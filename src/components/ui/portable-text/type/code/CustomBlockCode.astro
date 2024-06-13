@@ -1,0 +1,118 @@
+---
+import CopyIcon from "@/components/icons/CopyIcon.astro";
+import Button from "@/components/ui/Button.astro";
+import { runHighlighterWithAstro } from "@astrojs/prism/dist/highlighter";
+
+// Props
+interface Props {
+  language: string;
+  code: string;
+  filename?: string;
+  highlightedLines: number[];
+}
+const { language, code, filename, highlightedLines } = Astro.props;
+
+// Line class highlighting
+const classLines = highlightedLines.join(",");
+
+// Get html
+const { classLanguage, html } = runHighlighterWithAstro(language, code);
+---
+
+<custom-block-code>
+  <div class="overflow-hidden rounded-md border border-border text-base">
+    <div
+      class="flex h-12 flex-row items-center justify-between border-b border-border bg-[#282c34] pl-4 pr-2"
+    >
+      {/* Filename */}
+      {
+        filename ? (
+          <p class="leading-none">{filename}</p>
+        ) : (
+          <p class="leading-none">{language}</p>
+        )
+      }
+
+      {/* Copy button */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="relative size-9 hover:bg-muted/10"
+      >
+        <CopyIcon class="size-4" />
+      </Button>
+    </div>
+
+    {/* Code */}
+    {
+      /* must be <pre><code></code></pre> (inline) or unexpected newline/indentation will occur */
+    }
+    <pre
+      data-line={classLines}
+      class={[classLanguage, "line-numbers"]
+        .filter(Boolean)
+        .join(" ")}><code class={classLanguage} set:html={html} /></pre>
+  </div>
+</custom-block-code>
+
+<script>
+  class CustomBlockCode extends HTMLElement {
+    constructor() {
+      super();
+
+      // Copy code to clipboard
+      const copyButton = this.querySelector("button"); // only one button in the block
+      copyButton?.addEventListener("click", () => {
+        const code = this.querySelector("pre");
+        const codeToCopy = code?.textContent ?? "";
+
+        navigator.clipboard.writeText(codeToCopy).then(() => {
+          const checkIcon = `
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-check size-4"
+            >
+              <path d="M20 6 9 17l-5-5"></path>
+            </svg>
+          `;
+
+          const copyIcon = `
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-copy size-4"
+            >
+              <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+            </svg>
+          `;
+
+          // Change the button content to a check icon
+          copyButton.innerHTML = checkIcon;
+
+          // Change the button content back to a copy icon after 1.5 second
+          setTimeout(() => {
+            copyButton.innerHTML = copyIcon;
+          }, 1500);
+        });
+      });
+    }
+  }
+
+  customElements.define("custom-block-code", CustomBlockCode);
+</script>

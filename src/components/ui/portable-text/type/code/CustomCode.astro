@@ -1,0 +1,32 @@
+---
+import type { Props as $, TypedObject } from "astro-portabletext/types";
+import CustomInlineCode from "./CustomInlineCode.astro";
+import CustomBlockCode from "./CustomBlockCode.astro";
+
+// Props
+export type Props = $<TypedObject> & {
+  node: {
+    language: string;
+    code: string;
+    filename?: string;
+    highlightedLines: number[];
+  };
+};
+const {
+  node: { language, code, filename, highlightedLines = [] },
+  isInline,
+} = Astro.props;
+---
+
+{
+  isInline ? (
+    <CustomInlineCode code={code} language={language} />
+  ) : (
+    <CustomBlockCode
+      code={code}
+      language={language}
+      filename={filename}
+      highlightedLines={highlightedLines}
+    />
+  )
+}
