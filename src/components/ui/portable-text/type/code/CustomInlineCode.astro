@@ -11,4 +11,4 @@ const { language, code } = Astro.props;
 const { classLanguage, html } = runHighlighterWithAstro(language, code);
 ---
 
-<code class={classLanguage} set:html={html} />
+<code class:list={["text-sm lg:text-base", classLanguage]} set:html={html} />

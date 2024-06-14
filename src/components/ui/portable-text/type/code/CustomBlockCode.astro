@@ -20,7 +20,9 @@ const { classLanguage, html } = runHighlighterWithAstro(language, code);
 ---
 
 <custom-block-code>
-  <div class="overflow-hidden rounded-md border border-border text-base">
+  <div
+    class="mb-5 flex flex-col overflow-hidden rounded-md border border-border text-sm lg:mb-6 lg:text-base"
+  >
     <div
       class="flex h-12 flex-row items-center justify-between border-b border-border bg-[#282c34] pl-4 pr-2"
     >
@@ -56,6 +58,11 @@ const { classLanguage, html } = runHighlighterWithAstro(language, code);
 </custom-block-code>
 
 <script>
+  // Import plugin for line highlighting
+  import "prismjs/plugins/line-numbers/prism-line-numbers";
+  // Import plugin for line numbering
+  import "prismjs/plugins/line-highlight/prism-line-highlight";
+
   class CustomBlockCode extends HTMLElement {
     constructor() {
       super();

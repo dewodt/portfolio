@@ -25,6 +25,9 @@ const html = KaTeX.renderToString(body, {
   isInline ? (
     <span class="text-white" set:html={html} />
   ) : (
-    <p class="text-base text-white lg:text-lg" set:html={html} />
+    <p
+      class="text-base text-white lg:text-lg [&>.katex-display]:mb-5 [&>.katex-display]:mt-0 lg:[&>.katex-display]:mb-6"
+      set:html={html}
+    />
   )
 }
