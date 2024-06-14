@@ -1,7 +1,7 @@
 import { titleField } from "../fields/title";
 import { defineType } from "sanity";
 import { imageField } from "../fields/image";
-import { contentField } from "../fields/content";
+import { contentField } from "../fields/content/content";
 
 export const homePageSchema = defineType({
   name: "home-page",

@@ -1,6 +1,6 @@
 import { defineType } from "sanity";
 import { getFormattedDate } from "@/lib/utils";
-import { contentField } from "../fields/content";
+import { contentField } from "../fields/content/content";
 import { repositoryLinksField } from "../fields/repository-links";
 import { deploymentLinksField } from "../fields/deployment-links";
 import { titleField } from "../fields/title";

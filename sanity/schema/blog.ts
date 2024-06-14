@@ -1,7 +1,7 @@
 import { imageField } from "../fields/image";
 import { defineType } from "sanity";
 import { getFormattedDate } from "@/lib/utils";
-import { contentField } from "../fields/content";
+import { contentField } from "../fields/content/content";
 import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
 import { dateField } from "../fields/date";

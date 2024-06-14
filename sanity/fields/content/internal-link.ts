@@ -1,0 +1,24 @@
+import { defineField } from "sanity";
+import { InternalLinkIcon } from "../../components/icon/internal-link-icon";
+
+export const internalLinkField = defineField({
+  name: "internalLink",
+  title: "Internal Link",
+  type: "object",
+  icon: InternalLinkIcon,
+  fields: [
+    {
+      name: "reference",
+      title: "Reference",
+      type: "reference",
+      to: [
+        { type: "projects" },
+        { type: "experience" },
+        { type: "awards" },
+        { type: "blog" },
+      ],
+      validation: (Rule) => Rule.required().error("Reference is required"),
+    },
+  ],
+  validation: (Rule) => Rule.required().error("Reference is required"),
+});
