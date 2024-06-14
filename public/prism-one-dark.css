@@ -295,7 +295,7 @@ div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:focus {
 /* Line Highlight plugin overrides */
 /* The highlighted line itself */
 .line-highlight.line-highlight {
-  background: hsla(220, 100%, 80%, 0.04);
+  background: hsla(220, 100%, 80%, 0.1);
 }
 
 /* Default line numbers in Line Highlight plugin */

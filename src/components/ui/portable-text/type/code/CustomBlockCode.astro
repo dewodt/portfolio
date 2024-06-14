@@ -1,7 +1,7 @@
 ---
 import CopyIcon from "@/components/icons/CopyIcon.astro";
 import Button from "@/components/ui/Button.astro";
-import { runHighlighterWithAstro } from "@astrojs/prism/dist/highlighter";
+import { runHighlighterWithAstro } from "@astrojs/prism/dist/highlighter"; // Simplify serverside highlighting
 
 // Props
 interface Props {
@@ -15,11 +15,11 @@ const { language, code, filename, highlightedLines } = Astro.props;
 // Line class highlighting
 const classLines = highlightedLines.join(",");
 
-// Get html
+// Render code serverside first (for best look), then reload it again but with plugins in client side later on
 const { classLanguage, html } = runHighlighterWithAstro(language, code);
 ---
 
-<custom-block-code>
+<custom-block-code data-language={language}>
   <div
     class="mb-5 flex flex-col overflow-hidden rounded-md border border-border text-sm lg:mb-6 lg:text-base"
   >
@@ -55,26 +55,57 @@ const { classLanguage, html } = runHighlighterWithAstro(language, code);
         .filter(Boolean)
         .join(" ")}><code class={classLanguage} set:html={html} /></pre>
   </div>
-</custom-block-code>
 
-<script>
-  // Import plugin for line highlighting
-  import "prismjs/plugins/line-numbers/prism-line-numbers";
-  // Import plugin for line numbering
-  import "prismjs/plugins/line-highlight/prism-line-highlight";
+  <script>
+    // Handle all code blocks in the page
+    // Rerender to load plugin
+    import Prism from "prismjs";
+    import "prismjs/plugins/line-numbers/prism-line-numbers.min.css";
+    import "prismjs/plugins/line-numbers/prism-line-numbers.min.js";
+    import "prismjs/plugins/line-highlight/prism-line-highlight.min.css";
+    import "prismjs/plugins/line-highlight/prism-line-highlight.min.js";
 
-  class CustomBlockCode extends HTMLElement {
-    constructor() {
-      super();
+    // Get all <pre><code> elements
+    const codeBlocks = document.querySelectorAll("pre code");
 
-      // Copy code to clipboard
-      const copyButton = this.querySelector("button"); // only one button in the block
-      copyButton?.addEventListener("click", () => {
-        const code = this.querySelector("pre");
-        const codeToCopy = code?.textContent ?? "";
+    // Load languages dynamically to reduce bundle size (only load what's needed)
+    // Get all needed languages
+    const languages = new Set();
+    codeBlocks.forEach((codeBlock) => {
+      languages.add(codeBlock.className.replace("language-", ""));
+    });
+    // Load all needed languages. use promise.all to load all languages in parallel
+    Promise.all(
+      Array.from(languages).map((language) => {
+        return new Promise((resolve) => {
+          const script = document.createElement("script");
+          script.src = `https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-${language}.min.js`;
+          script.async = true; // async to not block rendering
+          script.onload = resolve;
+          document.head.appendChild(script);
+        });
+      }),
+    ).then(() => {
+      // All languages are loaded
+      // Highlight all code blocks
+      Prism.highlightAll();
+    });
+  </script>
 
-        navigator.clipboard.writeText(codeToCopy).then(() => {
-          const checkIcon = `
+  <script>
+    // Handle (each of) the custom block code
+    class CustomBlockCode extends HTMLElement {
+      constructor() {
+        super();
+
+        // Copy code to clipboard
+        const copyButton = this.querySelector("button"); // only one button in the block
+        copyButton?.addEventListener("click", () => {
+          const code = this.querySelector("pre");
+          const codeToCopy = code?.textContent ?? "";
+
+          navigator.clipboard.writeText(codeToCopy).then(() => {
+            const checkIcon = `
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -91,7 +122,7 @@ const { classLanguage, html } = runHighlighterWithAstro(language, code);
             </svg>
           `;
 
-          const copyIcon = `
+            const copyIcon = `
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -109,17 +140,18 @@ const { classLanguage, html } = runHighlighterWithAstro(language, code);
             </svg>
           `;
 
-          // Change the button content to a check icon
-          copyButton.innerHTML = checkIcon;
+            // Change the button content to a check icon
+            copyButton.innerHTML = checkIcon;
 
-          // Change the button content back to a copy icon after 1.5 second
-          setTimeout(() => {
-            copyButton.innerHTML = copyIcon;
-          }, 1500);
+            // Change the button content back to a copy icon after 1.5 second
+            setTimeout(() => {
+              copyButton.innerHTML = copyIcon;
+            }, 1500);
+          });
         });
-      });
+      }
     }
-  }
 
-  customElements.define("custom-block-code", CustomBlockCode);
-</script>
+    customElements.define("custom-block-code", CustomBlockCode);
+  </script>
+</custom-block-code>

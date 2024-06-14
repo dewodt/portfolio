@@ -1,6 +1,7 @@
 export interface CodeOption {
   title: string;
   value: string;
+  mode?: string;
 }
 
 export const codeOptions: CodeOption[] = [
@@ -9,7 +10,7 @@ export const codeOptions: CodeOption[] = [
   { title: "JSX", value: "jsx" },
   { title: "TypeScript", value: "typescript" },
   { title: "TSX", value: "tsx" },
-  { title: "Go", value: "go" },
+  { title: "Go", value: "go", mode: "golang" },
   { title: "HTML", value: "html" },
   { title: "CSS", value: "css" },
   { title: "PHP", value: "php" },

@@ -2,12 +2,12 @@ import { externalLinkField } from "./external-link";
 import { internalLinkField } from "./internal-link";
 import { latexField } from "./latex";
 import { codeInlineField } from "./code-inline";
+import { codeBlockField } from "./code-block";
 import { defineField } from "sanity";
 import { HighlightIcon } from "../../components/icon/highlight-icon";
 import { ImageIcon } from "../../components/icon/image-icon";
 import { CustomHighlight } from "../../components/portable-text/mark/custom-highlight";
 import { CustomBlockquote } from "../../components/portable-text/block/custom-blockquote";
-import { codeBlockField } from "./code-block";
 
 export const contentField = defineField({
   name: "content",
