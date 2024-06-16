@@ -95,6 +95,15 @@ export const contentField = defineField({
           validation: (Rule) =>
             Rule.required().error("Alt text is required for the image"),
         },
+        {
+          name: "caption",
+          title: "Caption",
+          type: "boolean",
+          description: "Add a caption (using alt text) to the image",
+          initialValue: false,
+          validation: (Rule) =>
+            Rule.required().error("A caption option is required"),
+        },
       ],
       validation: (Rule) => Rule.required().error("An image is required"),
     },
