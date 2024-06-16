@@ -22,12 +22,6 @@ export const codeInlineField = defineField({
   validation: (Rule) => Rule.required().error("An inline code is required"),
   fields: [
     {
-      name: "code",
-      title: "Code",
-      type: "string",
-      validation: (Rule) => Rule.required().error("A code is required"),
-    },
-    {
       name: "language",
       title: "Language",
       type: "string",
@@ -35,6 +29,12 @@ export const codeInlineField = defineField({
       options: {
         list: codeOptions,
       },
+    },
+    {
+      name: "code",
+      title: "Code",
+      type: "string",
+      validation: (Rule) => Rule.required().error("A code is required"),
     },
   ],
 });
