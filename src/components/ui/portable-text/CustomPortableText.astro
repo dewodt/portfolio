@@ -25,6 +25,7 @@ import CustomNumberList from "./list/CustomNumberList.astro";
 import CustomBulletList from "./list/CustomBulletList.astro";
 import CustomNumberListItem from "./list/CustomNumberListItem.astro";
 import CustomBulletListItem from "./list/CustomBulletListItem.astro";
+import CustomStrong from "./mark/CustomStrong.astro";
 
 type PortableTextProps = Parameters<typeof PortableText>[0];
 
@@ -59,6 +60,7 @@ const components = mergeComponents(
       highlight: CustomHighlight,
       internalLink: CustomLink,
       externalLink: CustomLink,
+      strong: CustomStrong,
     },
   },
   overrideComponents,

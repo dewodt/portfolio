@@ -1,0 +1,11 @@
+---
+import type { Props as $, Mark as MarkType } from "astro-portabletext/types";
+
+// Generic is for markDef type
+type Props = $<MarkType<Record<string, string>>>;
+const props = Astro.props;
+---
+
+<strong class="text-secondary">
+  <slot />
+</strong>
