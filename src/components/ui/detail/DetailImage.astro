@@ -9,12 +9,14 @@ interface Props {
 const { src, alt } = Astro.props;
 ---
 
-<ZoomableImage
-  class="flex aspect-video w-full items-center justify-evenly rounded-lg bg-card object-cover object-center text-base font-medium text-secondary"
-  src={src}
-  alt={alt}
-  widths={[370, 768, 1280]}
-  sizes="(max-width: 640px) 370px, (max-width: 1024px) 768px, 1280px"
-  loading="eager"
-  inferSize
-/>
+<figure>
+  <ZoomableImage
+    class="flex aspect-video w-full items-center justify-evenly rounded-lg bg-card object-cover object-center text-base font-medium text-secondary"
+    src={src}
+    alt={alt}
+    widths={[370, 768, 1280]}
+    sizes="(max-width: 640px) 370px, (max-width: 1024px) 768px, 1280px"
+    loading="eager"
+    inferSize
+  />
+</figure>
