@@ -1,3 +1,4 @@
+import { media } from "sanity-plugin-media";
 import { schemaTypes } from "./sanity/schema";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
@@ -99,8 +100,9 @@ export default defineConfig({
             S.documentTypeListItem("blog").title("Blog List"),
           ]),
     }),
-    visionTool(),
+    media(), // Note: only use the media to manage images, not to use the metadata feature (like alt) because it's for the image native metadata stored in sanity cloud, thus can't be forced to be required
     vercelDeployTool(),
+    visionTool(),
     codeInput(),
   ],
   schema: {

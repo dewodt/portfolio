@@ -4,7 +4,7 @@ import { codeOptions } from "../../config/code-options";
 
 export const codeBlockField = defineField({
   type: "code",
-  name: "code",
+  name: "code-block",
   icon: CodeIcon,
   title: "Block",
   description: "Insert a code block field!",
