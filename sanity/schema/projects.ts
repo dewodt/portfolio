@@ -15,7 +15,9 @@ export const projectsSchema = defineType({
   title: "Projects",
   type: "document",
   fields: [
-    imageField, // Image preview
+    imageField(
+      "Image for the card preview, link preview, and first header image (RECOMMENDED SIZE IS 1200x630px).",
+    ),
     titleField,
     slugField,
     descriptionField,

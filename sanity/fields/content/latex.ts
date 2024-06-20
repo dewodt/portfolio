@@ -12,6 +12,7 @@ export const latexField = (isInline: boolean) =>
       // @ts-ignore
       preview: LatexPreview,
     },
+    description: "Insert a LaTeX content",
     fields: [
       // Latex content
       {

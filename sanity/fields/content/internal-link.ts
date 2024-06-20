@@ -6,6 +6,7 @@ export const internalLinkField = defineField({
   title: "Internal Link",
   type: "object",
   icon: InternalLinkIcon,
+  description: "Insert an Internal URL (within the CMS data)",
   fields: [
     {
       name: "reference",

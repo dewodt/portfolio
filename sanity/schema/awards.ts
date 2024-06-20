@@ -14,7 +14,9 @@ export const awardsSchema = defineType({
   title: "Awards",
   type: "document",
   fields: [
-    imageField,
+    imageField(
+      "Image for the card preview, link preview, and first header image (RECOMMENDED SIZE IS 1200x630px).",
+    ),
     titleField,
     slugField,
     descriptionField,

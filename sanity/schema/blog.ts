@@ -13,7 +13,9 @@ export const blogSchema = defineType({
   title: "Blog",
   type: "document",
   fields: [
-    imageField, // for image preview
+    imageField(
+      "Image for the card preview, link preview, and first header image (RECOMMENDED SIZE IS 1200x630px).",
+    ),
     titleField,
     slugField,
     descriptionField,

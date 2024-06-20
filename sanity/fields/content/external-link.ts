@@ -6,6 +6,7 @@ export const externalLinkField = defineField({
   title: "External Link",
   type: "object",
   icon: ExternalLinkIcon,
+  description: "Insert an External URL (outside of the site)",
   fields: [
     {
       name: "url",
