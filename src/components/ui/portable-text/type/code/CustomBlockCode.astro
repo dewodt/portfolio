@@ -1,7 +1,8 @@
 ---
 import CopyIcon from "@/components/icons/CopyIcon.astro";
 import Button from "@/components/ui/Button.astro";
-import { runHighlighterWithAstro } from "@astrojs/prism/dist/highlighter"; // Simplify serverside highlighting
+import Code from "./Code.astro";
+import { transformerMetaHighlight } from "@shikijs/transformers";
 
 // Props
 interface Props {
@@ -11,12 +12,6 @@ interface Props {
   highlightedLines: number[];
 }
 const { language, code, filename, highlightedLines } = Astro.props;
-
-// Line class highlighting
-const classLines = highlightedLines.join(",");
-
-// Render code serverside first (for best look), then reload it again but with plugins in client side later on
-const { classLanguage, html } = runHighlighterWithAstro(language, code);
 ---
 
 <custom-block-code data-language={language}>
@@ -46,51 +41,49 @@ const { classLanguage, html } = runHighlighterWithAstro(language, code);
     </div>
 
     {/* Code */}
-    {
-      /* must be <pre><code></code></pre> (inline) or unexpected newline/indentation will occur */
-    }
-    <pre
-      data-line={classLines}
-      class={[classLanguage, "line-numbers"]
-        .filter(Boolean)
-        .join(" ")}><code class={classLanguage} set:html={html} /></pre>
+    <Code
+      code={code}
+      lang={language as any}
+      class="text-sm lg:text-base"
+      theme="one-dark-pro"
+      highlightedLines={highlightedLines}
+      transformers={[transformerMetaHighlight()]}
+      inline={false}
+    />
   </div>
 
-  <script>
-    // Handle all code blocks in the page
-    // Rerender to load plugin
-    import Prism from "prismjs";
-    import "prismjs/plugins/line-numbers/prism-line-numbers.min.css";
-    import "prismjs/plugins/line-numbers/prism-line-numbers.min.js";
-    import "prismjs/plugins/line-highlight/prism-line-highlight.min.css";
-    import "prismjs/plugins/line-highlight/prism-line-highlight.min.js";
+  <style is:global>
+    pre:has(code) {
+      padding: 1rem 0px;
+      overflow-x: auto;
+    }
 
-    // Get all <pre><code> elements
-    const codeBlocks = document.querySelectorAll("pre code");
+    pre code {
+      display: grid;
+      counter-reset: step;
+      counter-increment: step 0;
+    }
 
-    // Load languages dynamically to reduce bundle size (only load what's needed)
-    // Get all needed languages
-    const languages = new Set();
-    codeBlocks.forEach((codeBlock) => {
-      languages.add(codeBlock.className.replace("language-", ""));
-    });
-    // Load all needed languages. use promise.all to load all languages in parallel
-    Promise.all(
-      Array.from(languages).map((language) => {
-        return new Promise((resolve) => {
-          const script = document.createElement("script");
-          script.src = `https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-${language}.min.js`;
-          script.async = true; // async to not block rendering
-          script.onload = resolve;
-          document.head.appendChild(script);
-        });
-      }),
-    ).then(() => {
-      // All languages are loaded
-      // Highlight all code blocks
-      Prism.highlightAll();
-    });
-  </script>
+    pre code .line {
+      padding-inline: 1rem;
+    }
+
+    /* Line numbers */
+    pre code .line::before {
+      content: counter(step);
+      counter-increment: step;
+      width: 1rem;
+      margin-right: 1.25rem;
+      display: inline-block;
+      text-align: right;
+      color: #636d83;
+    }
+
+    /* Highlighted lines */
+    pre code .line.highlighted {
+      background-color: #3d4555;
+    }
+  </style>
 
   <script>
     // Handle (each of) the custom block code

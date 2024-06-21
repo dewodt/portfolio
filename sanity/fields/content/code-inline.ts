@@ -7,7 +7,7 @@ export const codeInlineField = defineField({
   type: "object",
   icon: CodeIcon,
   title: "Inline",
-  name: "code-inline",
+  name: "customCode",
   description: "Insert an inline code!",
   components: {
     // @ts-ignore

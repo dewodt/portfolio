@@ -17,5 +17,5 @@ My personal portfolio website showcases the projects I have completed, the exper
 - Typescript (Typesafe for JavaScript)
 - Sanity (CMS)
 - KaTeX (Render LaTeX)
-- Prism (Code Highlighter)
+- Shiki (Code Highlighter)
 - medium-zoom (Medium-like Image Zoom Library)

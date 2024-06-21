@@ -1,4 +1,4 @@
-import { Highlight, themes } from "prism-react-renderer";
+import { Highlight, themes } from "prism-react-renderer"; // Must use prism for clientside highlighting
 
 export interface CodeInlineProps {
   code: string;
