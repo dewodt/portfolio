@@ -26,30 +26,32 @@ const { experience } = Astro.props;
   <CardImage src={experience.image.url!} alt={experience.image.alt} />
 
   {/* Card Content */}
-  <CardContent>
-    {/* Title */}
-    <CardTitle>
-      {experience.title}
-    </CardTitle>
+  <CardContent class="justify-between">
+    <div class="flex flex-col gap-2">
+      {/* Title */}
+      <CardTitle>
+        {experience.title}
+      </CardTitle>
 
-    {/* Company */}
-    <CardSubtitle>
-      <CompanyIcon class="size-5 stroke-secondary" />
-      <span>
-        {experience.company}
-      </span>
-    </CardSubtitle>
+      {/* Company */}
+      <CardSubtitle>
+        <CompanyIcon class="size-5 stroke-secondary" />
+        <span>
+          {experience.company}
+        </span>
+      </CardSubtitle>
 
-    {/* Date */}
-    <CardDateRange
-      dateRange={experience.dateRange}
-      isEmptyEndDateShowNow={true}
-    />
+      {/* Date */}
+      <CardDateRange
+        dateRange={experience.dateRange}
+        isEmptyEndDateShowNow={true}
+      />
 
-    {/* Short description */}
-    <CardDescription>
-      {experience.description}
-    </CardDescription>
+      {/* Short description */}
+      <CardDescription>
+        {experience.description}
+      </CardDescription>
+    </div>
 
     {/* Links */}
     {

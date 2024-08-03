@@ -24,22 +24,24 @@ const { project } = Astro.props;
   <CardImage src={project.image.url!} alt={project.image.alt} />
 
   {/* Card Content */}
-  <CardContent>
-    {/* Title */}
-    <CardTitle>
-      {project.title}
-    </CardTitle>
+  <CardContent class="justify-between">
+    <div class="flex flex-col gap-2">
+      {/* Title */}
+      <CardTitle>
+        {project.title}
+      </CardTitle>
 
-    {/* Date */}
-    <CardDateRange
-      dateRange={project.dateRange}
-      isEmptyEndDateShowNow={false}
-    />
+      {/* Date */}
+      <CardDateRange
+        dateRange={project.dateRange}
+        isEmptyEndDateShowNow={false}
+      />
 
-    {/* Short description */}
-    <CardDescription>
-      {project.description}
-    </CardDescription>
+      {/* Short description */}
+      <CardDescription>
+        {project.description}
+      </CardDescription>
+    </div>
 
     {/* Links */}
     {
