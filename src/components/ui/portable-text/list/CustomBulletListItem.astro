@@ -2,6 +2,7 @@
 
 ---
 
-<li class="pl-6 -indent-6 text-base text-muted lg:text-lg">
+<!-- [&>ul]:mb-0 lg:[&>ul]:mb-0 to remove margin from nested ul, but still have margin from root ul -->
+<li class="text-base text-muted lg:text-lg [&>ul]:mb-0 lg:[&>ul]:mb-0">
   <slot />
 </li>
