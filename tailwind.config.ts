@@ -12,6 +12,7 @@ const config: Config = {
         primary: "#0EA5E9", // Primary
         secondary: "#FFFFFF", // Secondary
         destructive: "#EF4444", // Destructive
+        "card-darker": "#18212F", // Card darker
       },
       fontFamily: {
         inter: ["Inter Variable", "sans-serif"],

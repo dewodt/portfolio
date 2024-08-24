@@ -1,7 +1,7 @@
 ---
 import "@fontsource-variable/inter";
 import Navbar from "@/components/ui/Navbar.astro";
-import Footer from "@/components/ui/Footer.astro";
+import SocialBar from "@/components/ui/SocialBar.astro";
 import Head from "@/components/head/Head.astro";
 
 interface Props {
@@ -34,6 +34,6 @@ const { title, description, linkPreviewImage } = Astro.props;
     <slot />
 
     {/* Footer */}
-    <Footer />
+    <SocialBar />
   </body>
 </html>

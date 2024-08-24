@@ -30,10 +30,10 @@ const isActive = (navbarPath: string) => {
 ---
 
 <nav-bar
-  class="sticky left-0 right-0 top-0 z-40 sm:left-auto sm:right-auto sm:mx-auto sm:pt-6"
+  class="sticky left-0 right-0 top-0 z-40 sm:left-auto sm:right-auto sm:top-6 sm:mx-auto sm:mt-6"
 >
   <header
-    class="flex h-20 w-full flex-row items-center justify-between border-b border-border bg-background px-7 py-2 sm:h-fit sm:rounded-full sm:border sm:bg-card sm:p-2"
+    class="flex h-20 w-full flex-row items-center justify-between border-b border-border bg-card-darker px-7 py-2 sm:h-fit sm:rounded-full sm:border sm:bg-card-darker sm:p-2"
   >
     {/* Mobile Icon */}
     <a href="/" class="text-2xl font-bold sm:hidden">
@@ -54,7 +54,7 @@ const isActive = (navbarPath: string) => {
     {/* Sidebar */}
     <div
       id="sidebar-container"
-      class={`fixed right-[-200px] top-0 bottom-0 z-10 translate-x-0 flex h-full w-[200px] flex-col gap-12 border-l border-l-border bg-background py-6 pl-8 pr-6 text-base duration-300 ease-in-out sm:static sm:h-auto sm:w-auto sm:translate-x-0 sm:border-none sm:bg-transparent sm:p-0`}
+      class="fixed bottom-0 right-[-200px] top-0 z-10 flex h-full w-[200px] translate-x-0 flex-col gap-12 border-l border-l-border bg-card-darker py-6 pl-8 pr-6 text-base duration-300 ease-in-out sm:static sm:h-auto sm:w-auto sm:translate-x-0 sm:border-none sm:bg-transparent sm:p-0"
     >
       {/* Close Button */}
       <button
