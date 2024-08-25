@@ -5,6 +5,7 @@ import type { HomePageQueryResult } from "@/types/sanity";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
 import { sanityClient, homePageQuery } from "@/lib/query";
 import { toPlainText } from "astro-portabletext/utils";
+import Badge from "@/components/ui/badge/Badge.astro";
 
 // Get home page data
 const homePageData =
@@ -18,35 +19,157 @@ if (!homePageData) {
   title={homePageData.title}
   description={toPlainText(homePageData.content)}
 >
-  <main
-    class="flex flex-auto items-center justify-center px-3 py-12 sm:p-12 lg:p-16"
-  >
+  <main class="flex flex-auto flex-col gap-[calc(66px+24px)]">
+    <!-- Hero -->
     <section
-      class="flex flex-col items-center gap-4 sm:flex-row-reverse sm:gap-8 lg:gap-16 xl:gap-24"
+      class="flex min-h-[calc(100vh-80px-66px-24px)] flex-auto items-center justify-center px-3 py-12 sm:min-h-[calc(100vh-58px-24px-66px-24px)] sm:p-12 lg:p-16"
     >
-      {/* My Photo */}
-      <Image
-        class="flex size-64 items-center justify-evenly rounded-full border-2 border-border bg-card text-base font-medium text-secondary drop-shadow-primary lg:size-96"
-        src={homePageData.image.url!}
-        alt={homePageData.image.alt}
-        widths={[256, 384]}
-        sizes="(max-width: 1024px) 256px, 384px"
-        loading="eager"
-        inferSize
-      />
-
-      {/* Texts */}
-      {/* Need to override default margin from portable text */}
       <div
-        class="flex max-w-xs flex-col gap-2 text-center sm:max-w-sm sm:text-start lg:max-w-lg lg:gap-4 [&>*]:my-0 [&>*]:lg:my-0"
+        class="flex flex-col items-center gap-4 sm:flex-row-reverse sm:gap-8 lg:gap-16 xl:gap-24"
       >
-        {/* Title */}
-        <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
-          {homePageData.title}
-        </h1>
+        {/* My Photo */}
+        <Image
+          class="flex size-64 items-center justify-evenly rounded-full border-2 border-border bg-card text-base font-medium text-secondary drop-shadow-primary lg:size-96"
+          src={homePageData.image.url!}
+          alt={homePageData.image.alt}
+          widths={[256, 384]}
+          sizes="(max-width: 1024px) 256px, 384px"
+          loading="eager"
+          inferSize
+        />
 
-        {/* Paragraph */}
-        <CustomPortableText value={homePageData.content} />
+        {/* Texts */}
+        {/* Need to override default margin from portable text */}
+        <div
+          class="flex max-w-xs flex-col gap-2 text-center sm:max-w-sm sm:text-start lg:max-w-lg lg:gap-4 [&>*]:my-0 [&>*]:lg:my-0"
+        >
+          {/* Title */}
+          <h1 class="text-3xl font-bold text-secondary lg:text-5xl">
+            {homePageData.title}
+          </h1>
+
+          {/* Paragraph */}
+          <CustomPortableText value={homePageData.content} />
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section
+      class="flex min-h-[calc(100vh-80px-66px-24px)] flex-auto justify-center px-3 py-12 sm:min-h-[calc(100vh-58px-24px-66px-24px)] sm:p-12 lg:p-16"
+    >
+      <div class="flex w-full max-w-3xl flex-col gap-6">
+        <div class="space-y-2 text-center">
+          <h2 class="text-2xl font-bold text-secondary lg:text-4xl">
+            Tools & Technologies
+          </h2>
+          <p class="text-base text-muted lg:text-lg">
+            Frameworks, Library, and Tools I used from my projects and
+            experience
+          </p>
+        </div>
+
+        <div class="space-y-8">
+          <div class="space-y-4">
+            <h3
+              class="text-center text-lg font-bold text-secondary lg:text-2xl"
+            >
+              Programming Languages
+            </h3>
+            <ul class="g flex flex-row flex-wrap justify-center gap-3">
+              {
+                homePageData.skillProgrammingLanguage?.map((skill) => (
+                  <li>
+                    <Badge>
+                      <Image
+                        class="h-4 w-auto"
+                        src={skill.logo!}
+                        alt={`${skill.title} Logo`}
+                        inferSize
+                      />
+                      <span>{skill.title}</span>
+                    </Badge>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <h3
+              class="text-center text-lg font-bold text-secondary lg:text-2xl"
+            >
+              Web Development
+            </h3>
+            <ul class="g flex flex-row flex-wrap justify-center gap-3">
+              {
+                homePageData.skillWebDevelopment?.map((skill) => (
+                  <li>
+                    <Badge>
+                      <Image
+                        src={skill.logo!}
+                        alt={`${skill.title} Logo`}
+                        class="h-4 w-auto"
+                        inferSize
+                      />
+                      <span>{skill.title}</span>
+                    </Badge>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <h3
+              class="text-center text-lg font-bold text-secondary lg:text-2xl"
+            >
+              Databases
+            </h3>
+            <ul class="g flex flex-row flex-wrap justify-center gap-3">
+              {
+                homePageData.skillDatabase?.map((skill) => (
+                  <li>
+                    <Badge>
+                      <Image
+                        src={skill.logo!}
+                        alt={`${skill.title} Logo`}
+                        class="h-4 w-auto"
+                        inferSize
+                      />
+                      <span>{skill.title}</span>
+                    </Badge>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <h3
+              class="text-center text-lg font-bold text-secondary lg:text-2xl"
+            >
+              Tools
+            </h3>
+            <ul class="g flex flex-row flex-wrap justify-center gap-3">
+              {
+                homePageData.skillTool?.map((skill) => (
+                  <li>
+                    <Badge>
+                      <Image
+                        src={skill.logo!}
+                        alt={`${skill.title} Logo`}
+                        class="h-4 w-auto"
+                        inferSize
+                      />
+                      <span>{skill.title}</span>
+                    </Badge>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   </main>

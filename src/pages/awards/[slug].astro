@@ -80,7 +80,12 @@ if (!awardDetailData) {
 
         {/* Content Section */}
         <section class="w-full">
-          <CustomPortableText value={awardDetailData.content} />
+          {
+            (
+              // @ts-ignore
+              <CustomPortableText value={awardDetailData.content} />
+            )
+          }
         </section>
       </article>
     </div>

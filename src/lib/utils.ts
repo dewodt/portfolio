@@ -24,11 +24,20 @@ export function portableTextToPlainText(blocks: Content): string {
         if (block._type !== "block" || !block.children) {
           return "";
         }
-        // loop through the children spans, and join the
-        // text strings
-        return block.children.map((child) => child.text).join("");
+
+        // Ignore latex and code blocks
+        const text = block.children
+          .map((child) => {
+            if (child._type === "span") {
+              return child.text;
+            } else {
+              return "";
+            }
+          })
+          .join(" "); // join the text with a space
+
+        return text;
       })
-      // join the paragraphs leaving split by two linebreaks
-      .join("\n\n")
+      .join("\n\n") // join the paragraphs leaving split by two linebreaks
   );
 }

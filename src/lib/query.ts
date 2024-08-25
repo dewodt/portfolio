@@ -19,6 +19,22 @@ export const homePageQuery = groq`
     "image": {
       "url": image.asset->url,
       "alt": image.alt,
+    },
+    skillProgrammingLanguage[]{
+      title,
+      "logo": logo.asset->url,
+    },
+    skillWebDevelopment[]{
+      title,
+      "logo": logo.asset->url,
+    },
+    skillDatabase[]{
+      title,
+      "logo": logo.asset->url,
+    },
+    skillTool[]{
+      title,
+      "logo": logo.asset->url,
     }
   }
 `;

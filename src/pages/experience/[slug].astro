@@ -103,7 +103,12 @@ if (!experienceDetailData) {
         {/* Content Section */}
         <section class="w-full">
           {/* Content */}
-          <CustomPortableText value={experienceDetailData.content} />
+          {
+            (
+              // @ts-ignore
+              <CustomPortableText value={experienceDetailData.content} />
+            )
+          }
         </section>
       </article>
     </div>

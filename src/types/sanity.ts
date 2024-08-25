@@ -117,12 +117,46 @@ export type HomePage = {
   title: string;
   content: Array<
     | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
+        children?: Array<
+          | {
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }
+          | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
+              language:
+                | "javascript"
+                | "jsx"
+                | "typescript"
+                | "tsx"
+                | "go"
+                | "html"
+                | "css"
+                | "php"
+                | "java"
+                | "ruby"
+                | "csharp"
+                | "python"
+                | "sh"
+                | "sql"
+                | "mysql"
+                | "groq"
+                | "text"
+                | "markdown"
+                | "json"
+                | "xml"
+                | "yaml";
+              code: string;
+              _type: "customCode";
+              _key: string;
+            }
+        >;
         style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
         listItem?: "bullet" | "number";
         markDefs?: Array<
@@ -175,9 +209,18 @@ export type HomePage = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        caption: boolean;
         _type: "image";
         _key: string;
       }
+    | {
+        body: string;
+        _type: "latex";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Code)
   >;
   image: {
     asset: {
@@ -191,6 +234,70 @@ export type HomePage = {
     alt: string;
     _type: "image";
   };
+  skillProgrammingLanguage?: Array<{
+    title: string;
+    logo: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _type: "skillItem";
+    _key: string;
+  }>;
+  skillWebDevelopment?: Array<{
+    title: string;
+    logo: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _type: "skillItem";
+    _key: string;
+  }>;
+  skillDatabase?: Array<{
+    title: string;
+    logo: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _type: "skillItem";
+    _key: string;
+  }>;
+  skillTool?: Array<{
+    title: string;
+    logo: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _type: "skillItem";
+    _key: string;
+  }>;
 };
 
 export type Projects = {
@@ -232,12 +339,46 @@ export type Projects = {
   }>;
   content: Array<
     | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
+        children?: Array<
+          | {
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }
+          | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
+              language:
+                | "javascript"
+                | "jsx"
+                | "typescript"
+                | "tsx"
+                | "go"
+                | "html"
+                | "css"
+                | "php"
+                | "java"
+                | "ruby"
+                | "csharp"
+                | "python"
+                | "sh"
+                | "sql"
+                | "mysql"
+                | "groq"
+                | "text"
+                | "markdown"
+                | "json"
+                | "xml"
+                | "yaml";
+              code: string;
+              _type: "customCode";
+              _key: string;
+            }
+        >;
         style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
         listItem?: "bullet" | "number";
         markDefs?: Array<
@@ -290,9 +431,18 @@ export type Projects = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        caption: boolean;
         _type: "image";
         _key: string;
       }
+    | {
+        body: string;
+        _type: "latex";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Code)
   >;
 };
 
@@ -336,12 +486,46 @@ export type Experience = {
   }>;
   content: Array<
     | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
+        children?: Array<
+          | {
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }
+          | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
+              language:
+                | "javascript"
+                | "jsx"
+                | "typescript"
+                | "tsx"
+                | "go"
+                | "html"
+                | "css"
+                | "php"
+                | "java"
+                | "ruby"
+                | "csharp"
+                | "python"
+                | "sh"
+                | "sql"
+                | "mysql"
+                | "groq"
+                | "text"
+                | "markdown"
+                | "json"
+                | "xml"
+                | "yaml";
+              code: string;
+              _type: "customCode";
+              _key: string;
+            }
+        >;
         style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
         listItem?: "bullet" | "number";
         markDefs?: Array<
@@ -394,9 +578,18 @@ export type Experience = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        caption: boolean;
         _type: "image";
         _key: string;
       }
+    | {
+        body: string;
+        _type: "latex";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Code)
   >;
 };
 
@@ -425,12 +618,46 @@ export type Awards = {
   date: string;
   content: Array<
     | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
+        children?: Array<
+          | {
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }
+          | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
+              language:
+                | "javascript"
+                | "jsx"
+                | "typescript"
+                | "tsx"
+                | "go"
+                | "html"
+                | "css"
+                | "php"
+                | "java"
+                | "ruby"
+                | "csharp"
+                | "python"
+                | "sh"
+                | "sql"
+                | "mysql"
+                | "groq"
+                | "text"
+                | "markdown"
+                | "json"
+                | "xml"
+                | "yaml";
+              code: string;
+              _type: "customCode";
+              _key: string;
+            }
+        >;
         style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
         listItem?: "bullet" | "number";
         markDefs?: Array<
@@ -483,9 +710,18 @@ export type Awards = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        caption: boolean;
         _type: "image";
         _key: string;
       }
+    | {
+        body: string;
+        _type: "latex";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Code)
   >;
 };
 
@@ -513,12 +749,46 @@ export type Blog = {
   date: string;
   content: Array<
     | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
+        children?: Array<
+          | {
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }
+          | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
+              language:
+                | "javascript"
+                | "jsx"
+                | "typescript"
+                | "tsx"
+                | "go"
+                | "html"
+                | "css"
+                | "php"
+                | "java"
+                | "ruby"
+                | "csharp"
+                | "python"
+                | "sh"
+                | "sql"
+                | "mysql"
+                | "groq"
+                | "text"
+                | "markdown"
+                | "json"
+                | "xml"
+                | "yaml";
+              code: string;
+              _type: "customCode";
+              _key: string;
+            }
+        >;
         style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
         listItem?: "bullet" | "number";
         markDefs?: Array<
@@ -571,16 +841,19 @@ export type Blog = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        caption: boolean;
         _type: "image";
         _key: string;
       }
+    | {
+        body: string;
+        _type: "latex";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Code)
   >;
-};
-
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
 };
 
 export type SanityImageCrop = {
@@ -639,15 +912,40 @@ export type SanityImageMetadata = {
   hasAlpha?: boolean;
   isOpaque?: boolean;
 };
-export declare const internalGroqTypeReferenceTo: unique symbol;
 
+export type Code = {
+  _type: "code";
+  language?: string;
+  filename?: string;
+  code?: string;
+  highlightedLines?: Array<number>;
+};
+
+export type MediaTag = {
+  _id: string;
+  _type: "media.tag";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: Slug;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
+};
+export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/query.ts
 // Variable: homePageQuery
-// Query:   *[_type == "home-page"][0] {    _id,    title,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,    }  }
+// Query:   *[_type == "home-page"][0] {    _id,    title,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    skillProgrammingLanguage[]{      title,      "logo": logo.asset->url,    },    skillWebDevelopment[]{      title,      "logo": logo.asset->url,    },    skillDatabase[]{      title,      "logo": logo.asset->url,    },    skillTool[]{      title,      "logo": logo.asset->url,    }  }
 export type HomePageQueryResult = {
   _id: string;
   title: string;
   content: Array<
+    | ({
+        _key: string;
+      } & Code)
     | {
         asset?: {
           _ref: string;
@@ -658,16 +956,56 @@ export type HomePageQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        caption: boolean;
         _type: "image";
         _key: string;
       }
     | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
+        body: string;
+        _type: "latex";
+        _key: string;
+      }
+    | {
+        children?: Array<
+          | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
+              language:
+                | "csharp"
+                | "css"
+                | "go"
+                | "groq"
+                | "html"
+                | "java"
+                | "javascript"
+                | "json"
+                | "jsx"
+                | "markdown"
+                | "mysql"
+                | "php"
+                | "python"
+                | "ruby"
+                | "sh"
+                | "sql"
+                | "text"
+                | "tsx"
+                | "typescript"
+                | "xml"
+                | "yaml";
+              code: string;
+              _type: "customCode";
+              _key: string;
+            }
+          | {
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }
+        >;
         style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
         listItem?: "bullet" | "number";
         markDefs?: Array<
@@ -715,6 +1053,22 @@ export type HomePageQueryResult = {
     url: string | null;
     alt: string;
   };
+  skillProgrammingLanguage: Array<{
+    title: string;
+    logo: string | null;
+  }> | null;
+  skillWebDevelopment: Array<{
+    title: string;
+    logo: string | null;
+  }> | null;
+  skillDatabase: Array<{
+    title: string;
+    logo: string | null;
+  }> | null;
+  skillTool: Array<{
+    title: string;
+    logo: string | null;
+  }> | null;
 } | null;
 // Variable: projectsPageQuery
 // Query:   *[_type == "projects-page"][0] {    _id,    title,    description,  }
@@ -780,6 +1134,10 @@ export type ProjectDetailQueryResult = {
   }> | null;
   content: Array<
     | {
+        _key: string;
+        markDefs: null;
+      }
+    | {
         asset?: {
           _ref: string;
           _type: "reference";
@@ -789,17 +1147,57 @@ export type ProjectDetailQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        caption: boolean;
         _type: "image";
         markDefs: null;
         url: string | null;
       }
     | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
+        body: string;
+        _type: "latex";
+        markDefs: null;
+      }
+    | {
+        children?: Array<
+          | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
+              language:
+                | "csharp"
+                | "css"
+                | "go"
+                | "groq"
+                | "html"
+                | "java"
+                | "javascript"
+                | "json"
+                | "jsx"
+                | "markdown"
+                | "mysql"
+                | "php"
+                | "python"
+                | "ruby"
+                | "sh"
+                | "sql"
+                | "text"
+                | "tsx"
+                | "typescript"
+                | "xml"
+                | "yaml";
+              code: string;
+              _type: "customCode";
+              _key: string;
+            }
+          | {
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }
+        >;
         style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
         listItem?: "bullet" | "number";
         markDefs: Array<
@@ -909,6 +1307,10 @@ export type ExperienceDetailQueryResult = {
   }> | null;
   content: Array<
     | {
+        _key: string;
+        markDefs: null;
+      }
+    | {
         asset?: {
           _ref: string;
           _type: "reference";
@@ -918,17 +1320,57 @@ export type ExperienceDetailQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        caption: boolean;
         _type: "image";
         markDefs: null;
         url: string | null;
       }
     | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
+        body: string;
+        _type: "latex";
+        markDefs: null;
+      }
+    | {
+        children?: Array<
+          | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
+              language:
+                | "csharp"
+                | "css"
+                | "go"
+                | "groq"
+                | "html"
+                | "java"
+                | "javascript"
+                | "json"
+                | "jsx"
+                | "markdown"
+                | "mysql"
+                | "php"
+                | "python"
+                | "ruby"
+                | "sh"
+                | "sql"
+                | "text"
+                | "tsx"
+                | "typescript"
+                | "xml"
+                | "yaml";
+              code: string;
+              _type: "customCode";
+              _key: string;
+            }
+          | {
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }
+        >;
         style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
         listItem?: "bullet" | "number";
         markDefs: Array<
@@ -1008,6 +1450,10 @@ export type AwardDetailQueryResult = {
   date: string;
   content: Array<
     | {
+        _key: string;
+        markDefs: null;
+      }
+    | {
         asset?: {
           _ref: string;
           _type: "reference";
@@ -1017,17 +1463,57 @@ export type AwardDetailQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        caption: boolean;
         _type: "image";
         markDefs: null;
         url: string | null;
       }
     | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
+        body: string;
+        _type: "latex";
+        markDefs: null;
+      }
+    | {
+        children?: Array<
+          | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
+              language:
+                | "csharp"
+                | "css"
+                | "go"
+                | "groq"
+                | "html"
+                | "java"
+                | "javascript"
+                | "json"
+                | "jsx"
+                | "markdown"
+                | "mysql"
+                | "php"
+                | "python"
+                | "ruby"
+                | "sh"
+                | "sql"
+                | "text"
+                | "tsx"
+                | "typescript"
+                | "xml"
+                | "yaml";
+              code: string;
+              _type: "customCode";
+              _key: string;
+            }
+          | {
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }
+        >;
         style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
         listItem?: "bullet" | "number";
         markDefs: Array<
@@ -1105,6 +1591,10 @@ export type BlogDetailQueryResult = {
   date: string;
   content: Array<
     | {
+        _key: string;
+        markDefs: null;
+      }
+    | {
         asset?: {
           _ref: string;
           _type: "reference";
@@ -1114,17 +1604,57 @@ export type BlogDetailQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        caption: boolean;
         _type: "image";
         markDefs: null;
         url: string | null;
       }
     | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
+        body: string;
+        _type: "latex";
+        markDefs: null;
+      }
+    | {
+        children?: Array<
+          | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
+              language:
+                | "csharp"
+                | "css"
+                | "go"
+                | "groq"
+                | "html"
+                | "java"
+                | "javascript"
+                | "json"
+                | "jsx"
+                | "markdown"
+                | "mysql"
+                | "php"
+                | "python"
+                | "ruby"
+                | "sh"
+                | "sql"
+                | "text"
+                | "tsx"
+                | "typescript"
+                | "xml"
+                | "yaml";
+              code: string;
+              _type: "customCode";
+              _key: string;
+            }
+          | {
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }
+        >;
         style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
         listItem?: "bullet" | "number";
         markDefs: Array<

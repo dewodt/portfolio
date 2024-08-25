@@ -70,7 +70,12 @@ if (!blogDetailData) {
         {/* Content Section */}
         <section class="w-full">
           {/* Content */}
-          <CustomPortableText value={blogDetailData.content} />
+          {
+            (
+              // @ts-ignore
+              <CustomPortableText value={blogDetailData.content} />
+            )
+          }
         </section>
       </article>
     </div>
