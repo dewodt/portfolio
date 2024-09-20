@@ -1,5 +1,7 @@
 ---
 import SpeedInsights from "@vercel/speed-insights/astro";
+import "@fontsource-variable/inter";
+import interWoff2 from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 
 interface Props {
   title: string;
@@ -79,4 +81,13 @@ const finalLinkPreviewImage =
 
   <!-- Speed Insights -->
   <SpeedInsights scriptSrc="/_si/script.js" route="/_si" />
+
+  <!-- Font -->
+  <link
+    rel="preload"
+    as="font"
+    type="font/woff2"
+    href={interWoff2}
+    crossorigin="anonymous"
+  />
 </head>
