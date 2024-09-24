@@ -935,10 +935,34 @@ export type Slug = {
   current: string;
   source?: string;
 };
+
+export type AllSanitySchemaTypes =
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityFileAsset
+  | Geopoint
+  | BlogPage
+  | AwardsPage
+  | ExperiencePage
+  | ProjectsPage
+  | HomePage
+  | Projects
+  | Experience
+  | Awards
+  | Blog
+  | SanityImageCrop
+  | SanityImageHotspot
+  | SanityImageAsset
+  | SanityAssetSourceData
+  | SanityImageMetadata
+  | Code
+  | MediaTag
+  | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/query.ts
 // Variable: homePageQuery
-// Query:   *[_type == "home-page"][0] {    _id,    title,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    skillProgrammingLanguage[]{      title,      "logo": logo.asset->url,    },    skillWebDevelopment[]{      title,      "logo": logo.asset->url,    },    skillDatabase[]{      title,      "logo": logo.asset->url,    },    skillTool[]{      title,      "logo": logo.asset->url,    }  }
+// Query: *[_type == "home-page"][0] {    _id,    title,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    skillProgrammingLanguage[]{      title,      "logo": logo.asset->url,    },    skillWebDevelopment[]{      title,      "logo": logo.asset->url,    },    skillDatabase[]{      title,      "logo": logo.asset->url,    },    skillTool[]{      title,      "logo": logo.asset->url,    }  }
 export type HomePageQueryResult = {
   _id: string;
   title: string;
@@ -947,31 +971,7 @@ export type HomePageQueryResult = {
         _key: string;
       } & Code)
     | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        caption: boolean;
-        _type: "image";
-        _key: string;
-      }
-    | {
-        body: string;
-        _type: "latex";
-        _key: string;
-      }
-    | {
         children?: Array<
-          | {
-              body: string;
-              _type: "latex";
-              _key: string;
-            }
           | {
               language:
                 | "csharp"
@@ -1000,6 +1000,11 @@ export type HomePageQueryResult = {
               _key: string;
             }
           | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
               marks?: Array<string>;
               text?: string;
               _type: "span";
@@ -1009,6 +1014,11 @@ export type HomePageQueryResult = {
         style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
         listItem?: "bullet" | "number";
         markDefs?: Array<
+          | {
+              url?: string;
+              _type: "externalLink";
+              _key: string;
+            }
           | {
               reference:
                 | {
@@ -1038,14 +1048,28 @@ export type HomePageQueryResult = {
               _type: "internalLink";
               _key: string;
             }
-          | {
-              url?: string;
-              _type: "externalLink";
-              _key: string;
-            }
         >;
         level?: number;
         _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        caption: boolean;
+        _type: "image";
+        _key: string;
+      }
+    | {
+        body: string;
+        _type: "latex";
         _key: string;
       }
   >;
@@ -1071,14 +1095,14 @@ export type HomePageQueryResult = {
   }> | null;
 } | null;
 // Variable: projectsPageQuery
-// Query:   *[_type == "projects-page"][0] {    _id,    title,    description,  }
+// Query: *[_type == "projects-page"][0] {    _id,    title,    description,  }
 export type ProjectsPageQueryResult = {
   _id: string;
   title: string;
   description: string;
 } | null;
 // Variable: allProjectsQuery
-// Query:   *[_type == "projects"] | order(dateRange.startDate desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    dateRange,    repositoryLinks,    deploymentLinks,  }
+// Query: *[_type == "projects"] | order(dateRange.startDate desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    dateRange,    repositoryLinks,    deploymentLinks,  }
 export type AllProjectsQueryResult = Array<{
   _id: string;
   image: {
@@ -1106,7 +1130,7 @@ export type AllProjectsQueryResult = Array<{
   }> | null;
 }>;
 // Variable: projectDetailQuery
-// Query:   *[_type == "projects" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    dateRange,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query: *[_type == "projects" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    dateRange,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
 export type ProjectDetailQueryResult = {
   _id: string;
   image: {
@@ -1134,36 +1158,7 @@ export type ProjectDetailQueryResult = {
   }> | null;
   content: Array<
     | {
-        _key: string;
-        markDefs: null;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        caption: boolean;
-        _type: "image";
-        markDefs: null;
-        url: string | null;
-      }
-    | {
-        body: string;
-        _type: "latex";
-        markDefs: null;
-      }
-    | {
         children?: Array<
-          | {
-              body: string;
-              _type: "latex";
-              _key: string;
-            }
           | {
               language:
                 | "csharp"
@@ -1192,6 +1187,11 @@ export type ProjectDetailQueryResult = {
               _key: string;
             }
           | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
               marks?: Array<string>;
               text?: string;
               _type: "span";
@@ -1201,6 +1201,12 @@ export type ProjectDetailQueryResult = {
         style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
         listItem?: "bullet" | "number";
         markDefs: Array<
+          | {
+              url?: string;
+              _type: "externalLink";
+              _key: string;
+              href: string | null;
+            }
           | {
               reference:
                 | {
@@ -1228,28 +1234,56 @@ export type ProjectDetailQueryResult = {
                     [internalGroqTypeReferenceTo]?: "projects";
                   };
               _type: "internalLink";
+              _key: string;
               href: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              href: string | null;
             }
         > | null;
         level?: number;
         _type: "block";
+        _key: string;
+      }
+    | {
+        _key: string;
+        _type: "code";
+        language?: string;
+        filename?: string;
+        code?: string;
+        highlightedLines?: Array<number>;
+        markDefs: null;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        caption: boolean;
+        _type: "image";
+        _key: string;
+        markDefs: null;
+        url: string | null;
+      }
+    | {
+        body: string;
+        _type: "latex";
+        _key: string;
+        markDefs: null;
       }
   >;
 } | null;
 // Variable: experiencePageQuery
-// Query:   *[_type == "experience-page"][0] {    _id,    title,    description,  }
+// Query: *[_type == "experience-page"][0] {    _id,    title,    description,  }
 export type ExperiencePageQueryResult = {
   _id: string;
   title: string;
   description: string;
 } | null;
 // Variable: allExperiencesQuery
-// Query:   *[_type == "experience"] | order(dateRange.startDate desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,  }
+// Query: *[_type == "experience"] | order(dateRange.startDate desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,  }
 export type AllExperiencesQueryResult = Array<{
   _id: string;
   image: {
@@ -1278,7 +1312,7 @@ export type AllExperiencesQueryResult = Array<{
   }> | null;
 }>;
 // Variable: experienceDetailQuery
-// Query:   *[_type == "experience" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query: *[_type == "experience" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
 export type ExperienceDetailQueryResult = {
   _id: string;
   image: {
@@ -1307,36 +1341,7 @@ export type ExperienceDetailQueryResult = {
   }> | null;
   content: Array<
     | {
-        _key: string;
-        markDefs: null;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        caption: boolean;
-        _type: "image";
-        markDefs: null;
-        url: string | null;
-      }
-    | {
-        body: string;
-        _type: "latex";
-        markDefs: null;
-      }
-    | {
         children?: Array<
-          | {
-              body: string;
-              _type: "latex";
-              _key: string;
-            }
           | {
               language:
                 | "csharp"
@@ -1365,6 +1370,11 @@ export type ExperienceDetailQueryResult = {
               _key: string;
             }
           | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
               marks?: Array<string>;
               text?: string;
               _type: "span";
@@ -1374,6 +1384,12 @@ export type ExperienceDetailQueryResult = {
         style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
         listItem?: "bullet" | "number";
         markDefs: Array<
+          | {
+              url?: string;
+              _type: "externalLink";
+              _key: string;
+              href: string | null;
+            }
           | {
               reference:
                 | {
@@ -1401,28 +1417,56 @@ export type ExperienceDetailQueryResult = {
                     [internalGroqTypeReferenceTo]?: "projects";
                   };
               _type: "internalLink";
+              _key: string;
               href: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              href: string | null;
             }
         > | null;
         level?: number;
         _type: "block";
+        _key: string;
+      }
+    | {
+        _key: string;
+        _type: "code";
+        language?: string;
+        filename?: string;
+        code?: string;
+        highlightedLines?: Array<number>;
+        markDefs: null;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        caption: boolean;
+        _type: "image";
+        _key: string;
+        markDefs: null;
+        url: string | null;
+      }
+    | {
+        body: string;
+        _type: "latex";
+        _key: string;
+        markDefs: null;
       }
   >;
 } | null;
 // Variable: awardsPageQuery
-// Query:   *[_type == "awards-page"][0] {    _id,    title,    description,  }
+// Query: *[_type == "awards-page"][0] {    _id,    title,    description,  }
 export type AwardsPageQueryResult = {
   _id: string;
   title: string;
   description: string;
 } | null;
 // Variable: allAwardsQuery
-// Query:   *[_type == "awards"] | order(date desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    issuer,    date,  }
+// Query: *[_type == "awards"] | order(date desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    issuer,    date,  }
 export type AllAwardsQueryResult = Array<{
   _id: string;
   image: {
@@ -1436,7 +1480,7 @@ export type AllAwardsQueryResult = Array<{
   date: string;
 }>;
 // Variable: awardDetailQuery
-// Query:   *[_type == "awards" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    issuer,    date,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query: *[_type == "awards" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    issuer,    date,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
 export type AwardDetailQueryResult = {
   _id: string;
   image: {
@@ -1450,36 +1494,7 @@ export type AwardDetailQueryResult = {
   date: string;
   content: Array<
     | {
-        _key: string;
-        markDefs: null;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        caption: boolean;
-        _type: "image";
-        markDefs: null;
-        url: string | null;
-      }
-    | {
-        body: string;
-        _type: "latex";
-        markDefs: null;
-      }
-    | {
         children?: Array<
-          | {
-              body: string;
-              _type: "latex";
-              _key: string;
-            }
           | {
               language:
                 | "csharp"
@@ -1508,6 +1523,11 @@ export type AwardDetailQueryResult = {
               _key: string;
             }
           | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
               marks?: Array<string>;
               text?: string;
               _type: "span";
@@ -1517,6 +1537,12 @@ export type AwardDetailQueryResult = {
         style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
         listItem?: "bullet" | "number";
         markDefs: Array<
+          | {
+              url?: string;
+              _type: "externalLink";
+              _key: string;
+              href: string | null;
+            }
           | {
               reference:
                 | {
@@ -1544,28 +1570,56 @@ export type AwardDetailQueryResult = {
                     [internalGroqTypeReferenceTo]?: "projects";
                   };
               _type: "internalLink";
+              _key: string;
               href: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              href: string | null;
             }
         > | null;
         level?: number;
         _type: "block";
+        _key: string;
+      }
+    | {
+        _key: string;
+        _type: "code";
+        language?: string;
+        filename?: string;
+        code?: string;
+        highlightedLines?: Array<number>;
+        markDefs: null;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        caption: boolean;
+        _type: "image";
+        _key: string;
+        markDefs: null;
+        url: string | null;
+      }
+    | {
+        body: string;
+        _type: "latex";
+        _key: string;
+        markDefs: null;
       }
   >;
 } | null;
 // Variable: blogPageQuery
-// Query:   *[_type == "blog-page"][0] {    _id,    title,    description,  }
+// Query: *[_type == "blog-page"][0] {    _id,    title,    description,  }
 export type BlogPageQueryResult = {
   _id: string;
   title: string;
   description: string;
 } | null;
 // Variable: allBlogsQuery
-// Query:   *[_type == "blog"] | order(date desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    date,  }
+// Query: *[_type == "blog"] | order(date desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    date,  }
 export type AllBlogsQueryResult = Array<{
   _id: string;
   image: {
@@ -1578,7 +1632,7 @@ export type AllBlogsQueryResult = Array<{
   date: string;
 }>;
 // Variable: blogDetailQuery
-// Query:   *[_type == "blog" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    date,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query: *[_type == "blog" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    date,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
 export type BlogDetailQueryResult = {
   _id: string;
   image: {
@@ -1591,36 +1645,7 @@ export type BlogDetailQueryResult = {
   date: string;
   content: Array<
     | {
-        _key: string;
-        markDefs: null;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        caption: boolean;
-        _type: "image";
-        markDefs: null;
-        url: string | null;
-      }
-    | {
-        body: string;
-        _type: "latex";
-        markDefs: null;
-      }
-    | {
         children?: Array<
-          | {
-              body: string;
-              _type: "latex";
-              _key: string;
-            }
           | {
               language:
                 | "csharp"
@@ -1649,6 +1674,11 @@ export type BlogDetailQueryResult = {
               _key: string;
             }
           | {
+              body: string;
+              _type: "latex";
+              _key: string;
+            }
+          | {
               marks?: Array<string>;
               text?: string;
               _type: "span";
@@ -1658,6 +1688,12 @@ export type BlogDetailQueryResult = {
         style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
         listItem?: "bullet" | "number";
         markDefs: Array<
+          | {
+              url?: string;
+              _type: "externalLink";
+              _key: string;
+              href: string | null;
+            }
           | {
               reference:
                 | {
@@ -1685,16 +1721,64 @@ export type BlogDetailQueryResult = {
                     [internalGroqTypeReferenceTo]?: "projects";
                   };
               _type: "internalLink";
+              _key: string;
               href: string;
-            }
-          | {
-              url?: string;
-              _type: "externalLink";
-              href: string | null;
             }
         > | null;
         level?: number;
         _type: "block";
+        _key: string;
+      }
+    | {
+        _key: string;
+        _type: "code";
+        language?: string;
+        filename?: string;
+        code?: string;
+        highlightedLines?: Array<number>;
+        markDefs: null;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        caption: boolean;
+        _type: "image";
+        _key: string;
+        markDefs: null;
+        url: string | null;
+      }
+    | {
+        body: string;
+        _type: "latex";
+        _key: string;
+        markDefs: null;
       }
   >;
 } | null;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    '\n  *[_type == "home-page"][0] {\n    _id,\n    title,\n    content,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    skillProgrammingLanguage[]{\n      title,\n      "logo": logo.asset->url,\n    },\n    skillWebDevelopment[]{\n      title,\n      "logo": logo.asset->url,\n    },\n    skillDatabase[]{\n      title,\n      "logo": logo.asset->url,\n    },\n    skillTool[]{\n      title,\n      "logo": logo.asset->url,\n    }\n  }\n': HomePageQueryResult;
+    '\n  *[_type == "projects-page"][0] {\n    _id,\n    title,\n    description,\n  }\n': ProjectsPageQueryResult;
+    '\n  *[_type == "projects"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllProjectsQueryResult;
+    '\n  *[_type == "projects" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n  }\n': ProjectDetailQueryResult;
+    '\n  *[_type == "experience-page"][0] {\n    _id,\n    title,\n    description,\n  }\n': ExperiencePageQueryResult;
+    '\n  *[_type == "experience"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    company,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllExperiencesQueryResult;
+    '\n  *[_type == "experience" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    company,\n    repositoryLinks,\n    deploymentLinks,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n  }\n': ExperienceDetailQueryResult;
+    '\n  *[_type == "awards-page"][0] {\n    _id,\n    title,\n    description,\n  }\n': AwardsPageQueryResult;
+    '\n  *[_type == "awards"] | order(date desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n  }\n': AllAwardsQueryResult;
+    '\n  *[_type == "awards" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n  }\n': AwardDetailQueryResult;
+    '\n  *[_type == "blog-page"][0] {\n    _id,\n    title,\n    description,\n  }\n': BlogPageQueryResult;
+    '\n  *[_type == "blog"] | order(date desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    date,\n  }\n': AllBlogsQueryResult;
+    '\n  *[_type == "blog" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    date,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n  }\n': BlogDetailQueryResult;
+  }
+}
