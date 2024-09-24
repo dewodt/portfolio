@@ -7,15 +7,10 @@ const { class: className } = Astro.props;
 ---
 
 <div
-  class="group relative overflow-hidden rounded-full border border-border bg-card transition-all duration-200 hover:border-primary/35"
+  class:list={[
+    "flex flex-row items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold leading-none text-secondary transition-all duration-200 hover:border-transparent hover:bg-primary/35",
+    className,
+  ]}
 >
-  <div
-    class:list={[
-      "flex flex-row items-center gap-2 px-4 py-2 text-sm font-semibold leading-none text-secondary",
-      "transition-all duration-200 group-hover:bg-primary/35",
-      className,
-    ]}
-  >
-    <slot />
-  </div>
+  <slot />
 </div>
