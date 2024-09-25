@@ -43,9 +43,9 @@ export const experienceSchema = defineType({
       let subtitle = `${company} | ${start}`;
       if (endDate) {
         const end = getFormattedDate(endDate as string);
-        subtitle += ` — ${end}`;
+        subtitle += ` – ${end}`;
       } else {
-        subtitle += " — Now";
+        subtitle += " – Now";
       }
       return {
         title,

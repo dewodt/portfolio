@@ -24,7 +24,7 @@ const { dateRange, isEmptyEndDateShowNow } = Astro.props;
         <>
           <time datetime={dateRange.startDate}>
             {getFormattedDate(dateRange.startDate)}
-            {" — "}
+            {" – "}
           </time>
           {dateRange.endDate ? (
             <>
@@ -43,7 +43,7 @@ const { dateRange, isEmptyEndDateShowNow } = Astro.props;
           </time>
           {dateRange.endDate && (
             <>
-              {" — "}
+              {" – "}
               <time datetime={dateRange.endDate}>
                 {getFormattedDate(dateRange.endDate)}
               </time>

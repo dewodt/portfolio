@@ -40,7 +40,7 @@ export const projectsSchema = defineType({
       let subtitle = `${start}`;
       if (endDate) {
         const end = getFormattedDate(endDate as string);
-        subtitle += ` — ${end}`;
+        subtitle += ` – ${end}`;
       }
 
       return {
