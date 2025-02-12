@@ -1,6 +1,6 @@
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 import sanity from "@sanity/astro";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
@@ -17,7 +17,7 @@ const dataset = PUBLIC_SANITY_STUDIO_DATASET;
 // https://astro.build/config
 export default defineConfig({
   // Hybrid+adapter is required to support embedded Sanity Studio
-  output: "hybrid",
+  output: "static",
   // Don't use vercel web analytics config here (use inject) cannot customize scriptSrc to avoid adblockers
   adapter: vercel(),
   site: "https://dewodt.com",
