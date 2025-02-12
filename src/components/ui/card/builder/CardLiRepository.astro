@@ -1,5 +1,5 @@
 ---
-import GitHubIcon from "@/components/icons/GitHubIcon.astro";
+import FolderGitIcon from "@/components/icons/FolderGitIcon.astro";
 
 interface Props {
   repository: {
@@ -18,6 +18,8 @@ const { repository } = Astro.props;
     target="_blank"
     class="relative z-40 flex size-7 transition-all duration-200 group-hover/repo:scale-110 lg:size-8"
   >
-    <GitHubIcon class="size-full fill-muted group-hover/repo:fill-secondary" />
+    <FolderGitIcon
+      class="size-full stroke-muted group-hover/repo:stroke-secondary"
+    />
   </a>
 </li>

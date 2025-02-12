@@ -17,9 +17,11 @@ const { deployment } = Astro.props;
     target="_blank"
     class="group flex flex-row items-center gap-2"
   >
-    <LinkIcon class="size-5 stroke-secondary lg:size-6" />
+    <LinkIcon
+      class="size-5 stroke-muted group-hover:stroke-secondary lg:size-6"
+    />
     <span
-      class="text-base font-medium leading-none text-secondary underline-offset-4 group-hover:underline lg:text-lg lg:leading-none"
+      class="text-base font-medium leading-none text-muted underline-offset-4 group-hover:text-secondary group-hover:underline lg:text-lg lg:leading-none"
     >
       {deployment.label}
     </span>
