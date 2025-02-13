@@ -1,5 +1,6 @@
 ---
-import FolderGitIcon from "@/components/icons/FolderGitIcon.astro";
+import GitHubIcon from "@/components/icons/GitHubIcon.astro";
+import GitLabOutlineIcon from "@/components/icons/GitLabOutlineIcon.astro";
 
 interface Props {
   repository: {
@@ -17,9 +18,14 @@ const { repository } = Astro.props;
     target="_blank"
     class="group flex flex-row items-center gap-2"
   >
-    <FolderGitIcon
-      class="size-5 stroke-muted group-hover:stroke-secondary lg:size-6"
-    />
+    {
+      repository.url.startsWith("https://gitlab.com") ? (
+        <GitLabOutlineIcon class="size-5 stroke-muted group-hover:stroke-secondary lg:size-6" />
+      ) : (
+        <GitHubIcon class="size-5 fill-muted group-hover:fill-secondary lg:size-6" />
+      )
+    }
+
     <span
       class="text-base font-medium leading-none text-muted underline-offset-4 group-hover:text-secondary group-hover:underline lg:text-lg lg:leading-none"
     >
