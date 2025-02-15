@@ -21,9 +21,9 @@ const { repository } = Astro.props;
   >
     {
       repository.url.startsWith("https://gitlab.com") ? (
-        <GitLabOutlineIcon class="size-full stroke-muted group-hover/repo:stroke-secondary" />
+        <GitLabOutlineIcon class="stroke-muted group-hover/repo:stroke-secondary size-full" />
       ) : (
-        <GitHubIcon class="size-full fill-muted group-hover/repo:fill-secondary" />
+        <GitHubIcon class="fill-muted group-hover/repo:fill-secondary size-full" />
       )
     }
   </a>

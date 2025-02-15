@@ -10,9 +10,9 @@ const { date } = Astro.props;
 ---
 
 <div class="z-20 flex flex-row items-center gap-2">
-  <CalendarIcon class="size-5 stroke-secondary" />
+  <CalendarIcon class="stroke-secondary size-5" />
 
-  <time datetime={date} class="text-sm font-medium text-secondary lg:text-base">
+  <time datetime={date} class="text-secondary text-sm font-medium lg:text-base">
     {getFormattedDate(date)}
   </time>
 </div>

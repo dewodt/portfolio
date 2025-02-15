@@ -1,25 +1,27 @@
 import react from "@astrojs/react";
-import tailwind from "@astrojs/tailwind";
+import node from "@astrojs/node";
 import vercel from "@astrojs/vercel";
 import sanity from "@sanity/astro";
+import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 
 // Use loadEnv to load environment variables
-import sitemap from "@astrojs/sitemap";
 const { PUBLIC_SANITY_STUDIO_PROJECT_ID, PUBLIC_SANITY_STUDIO_DATASET } =
   loadEnv(import.meta.env.MODE, process.cwd(), "");
 
-// Get project id & dataset
-const projectId = PUBLIC_SANITY_STUDIO_PROJECT_ID;
-const dataset = PUBLIC_SANITY_STUDIO_DATASET;
-
 // https://astro.build/config
 export default defineConfig({
-  // Hybrid+adapter is required to support embedded Sanity Studio
   output: "static",
-  // Don't use vercel web analytics config here (use inject) cannot customize scriptSrc to avoid adblockers
-  adapter: vercel(),
+  adapter:
+    process.argv[3] === "--node"
+      ? // For local build
+        node({
+          mode: "standalone",
+        })
+      : // Don't use vercel web analytics config here (use inject) cannot customize scriptSrc to avoid adblockers
+        vercel(),
   site: "https://dewodt.com",
   image: {
     remotePatterns: [
@@ -30,19 +32,23 @@ export default defineConfig({
       },
     ],
   },
+  vite: {
+    // As of tailwind v4 and astro v5, tailwindcss should come from vite plugin
+    plugins: [tailwindcss()],
+  },
   integrations: [
     react(),
-    tailwind(),
     sitemap(),
     sanity({
-      projectId,
-      dataset,
+      projectId: PUBLIC_SANITY_STUDIO_PROJECT_ID,
+      dataset: PUBLIC_SANITY_STUDIO_DATASET,
       studioBasePath: "/admin",
-      useCdn: false,
       // Statically build no need cdn
-      apiVersion: "2024-04-19",
+      useCdn: false,
       // Set to date of setup to use the latest API version
-      perspective: "published", // Use the published dataset
+      apiVersion: "2024-04-19",
+      // Use the published dataset
+      perspective: "published",
     }),
   ],
 });

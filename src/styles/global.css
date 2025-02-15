@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-background: #0b1120;
+  --color-border: #343841;
+  --color-card: #1e293b;
+  --color-muted: #a0a4a3;
+  --color-primary: #0ea5e9;
+  --color-secondary: #ffffff;
+  --color-destructive: #ef4444;
+  --color-card-darker: #18212f;
+
+  /* Font Family */
+  --font-inter: "Inter Variable", sans-serif;
+
+  /* Drop Shadow */
+  --drop-shadow-primary: 0px 0px 48px rgba(14, 165, 233, 0.35);
+}

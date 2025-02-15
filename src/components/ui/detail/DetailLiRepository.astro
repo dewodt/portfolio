@@ -20,14 +20,14 @@ const { repository } = Astro.props;
   >
     {
       repository.url.startsWith("https://gitlab.com") ? (
-        <GitLabOutlineIcon class="size-5 stroke-muted group-hover:stroke-secondary lg:size-6" />
+        <GitLabOutlineIcon class="stroke-muted group-hover:stroke-secondary size-5 lg:size-6" />
       ) : (
-        <GitHubIcon class="size-5 fill-muted group-hover:fill-secondary lg:size-6" />
+        <GitHubIcon class="fill-muted group-hover:fill-secondary size-5 lg:size-6" />
       )
     }
 
     <span
-      class="text-base font-medium leading-none text-muted underline-offset-4 group-hover:text-secondary group-hover:underline lg:text-lg lg:leading-none"
+      class="text-muted group-hover:text-secondary text-base leading-none font-medium underline-offset-4 group-hover:underline lg:text-lg lg:leading-none"
     >
       {repository.label}
     </span>

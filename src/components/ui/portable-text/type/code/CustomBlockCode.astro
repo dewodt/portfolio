@@ -16,10 +16,10 @@ const { language, code, filename, highlightedLines } = Astro.props;
 
 <custom-block-code data-language={language}>
   <div
-    class="mb-5 flex flex-col overflow-hidden rounded-md border border-border text-sm lg:mb-6 lg:text-base"
+    class="border-border mb-5 flex flex-col overflow-hidden rounded-md border text-sm lg:mb-6 lg:text-base"
   >
     <div
-      class="flex h-12 flex-row items-center justify-between border-b border-border bg-[#2c2c2c] pl-4 pr-2"
+      class="border-border flex h-12 flex-row items-center justify-between border-b bg-[#2c2c2c] pr-2 pl-4"
     >
       {/* Filename */}
       {
@@ -34,7 +34,7 @@ const { language, code, filename, highlightedLines } = Astro.props;
       <Button
         variant="ghost"
         size="icon"
-        className="relative size-9 hover:bg-muted/10"
+        className="hover:bg-muted/10 relative size-9"
       >
         <CopyIcon class="size-4" />
       </Button>

@@ -1,4 +1,5 @@
 ---
+import "../styles/global.css";
 import Navbar from "@/components/ui/Navbar.astro";
 import SocialBar from "@/components/ui/SocialBar.astro";
 import Head from "@/components/head/Head.astro";
@@ -25,7 +26,7 @@ const { title, description, linkPreviewImage } = Astro.props;
   />
 
   {/* Body Content */}
-  <body class="flex min-h-screen flex-col bg-background font-inter">
+  <body class="bg-background font-inter flex min-h-screen flex-col">
     {/* Navbar */}
     <Navbar />
 

@@ -14,10 +14,10 @@ const { isEmptyEndDateShowNow, dateRange } = Astro.props;
 ---
 
 <div class="z-20 flex flex-row items-center gap-2">
-  <CalendarIcon class="size-5 stroke-secondary" />
+  <CalendarIcon class="stroke-secondary size-5" />
 
   <span
-    class="text-sm font-medium leading-none text-secondary lg:text-base lg:leading-none"
+    class="text-secondary text-sm leading-none font-medium lg:text-base lg:leading-none"
   >
     {
       isEmptyEndDateShowNow ? (

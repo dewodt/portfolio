@@ -31,16 +31,16 @@ const isActive = (navbarPath: string) => {
 
 <!-- Blur -->
 <div
-  class="pointer-events-none fixed inset-x-0 top-0 z-30 h-12 w-full bg-gradient-to-b from-background to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
+  class="from-background pointer-events-none fixed inset-x-0 top-0 z-30 h-12 w-full bg-gradient-to-b to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
 >
 </div>
 
 <!-- Navbar -->
 <nav-bar
-  class="sticky left-0 right-0 top-0 z-40 sm:left-auto sm:right-auto sm:top-6 sm:mx-auto sm:mt-6"
+  class="sticky top-0 right-0 left-0 z-40 sm:top-6 sm:right-auto sm:left-auto sm:mx-auto sm:mt-6"
 >
   <header
-    class="flex h-20 w-full flex-row items-center justify-between border-b border-border bg-card-darker px-7 py-2 sm:h-fit sm:rounded-full sm:border sm:bg-card-darker sm:p-2"
+    class="border-border bg-card-darker sm:bg-card-darker flex h-20 w-full flex-row items-center justify-between border-b px-7 py-2 sm:h-fit sm:rounded-full sm:border sm:p-2"
   >
     {/* Mobile Icon */}
     <a href="/" class="text-2xl font-bold sm:hidden">
@@ -55,13 +55,13 @@ const isActive = (navbarPath: string) => {
       aria-label="Open Navigation Bar"
       class="flex size-9 sm:hidden"
     >
-      <MenuIcon class="size-full stroke-secondary" />
+      <MenuIcon class="stroke-secondary size-full" />
     </button>
 
     {/* Sidebar */}
     <div
       id="sidebar-container"
-      class="fixed bottom-0 right-[-200px] top-0 z-10 flex h-full w-[200px] translate-x-0 flex-col gap-12 border-l border-l-border bg-card-darker py-6 pl-8 pr-6 text-base duration-300 ease-in-out sm:static sm:h-auto sm:w-auto sm:translate-x-0 sm:border-none sm:bg-transparent sm:p-0"
+      class="border-l-border bg-card-darker fixed top-0 right-[-200px] bottom-0 z-10 flex h-full w-[200px] translate-x-0 flex-col gap-12 border-l py-6 pr-6 pl-8 text-base duration-300 ease-in-out sm:static sm:h-auto sm:w-auto sm:translate-x-0 sm:border-none sm:bg-transparent sm:p-0"
     >
       {/* Close Button */}
       <button
@@ -69,7 +69,7 @@ const isActive = (navbarPath: string) => {
         aria-label="Close Navigation Bar"
         class="flex size-9 self-end sm:hidden"
       >
-        <XIcon class="size-full stroke-secondary" />
+        <XIcon class="stroke-secondary size-full" />
       </button>
 
       {/* Path lists */}
@@ -83,8 +83,8 @@ const isActive = (navbarPath: string) => {
                     href={path.url}
                     class={`flex text-base sm:rounded-full sm:px-5 sm:py-2 ${
                       isActive(path.url)
-                        ? "font-semibold text-secondary sm:bg-primary"
-                        : "font-medium text-muted transition-all duration-200 hover:text-secondary sm:hover:bg-primary/35"
+                        ? "text-secondary sm:bg-primary font-semibold"
+                        : "text-muted hover:text-secondary sm:hover:bg-primary/35 font-medium transition-all duration-200"
                     }`}
                   >
                     {path.label}
@@ -100,7 +100,7 @@ const isActive = (navbarPath: string) => {
     {/* Side bar opaque background */}
     <div
       id="sidebar-blur"
-      class="inset-0 z-0 hidden h-full w-full bg-black bg-opacity-80 sm:hidden"
+      class="bg-opacity-80 inset-0 z-0 hidden h-full w-full bg-black sm:hidden"
     >
     </div>
   </header>
