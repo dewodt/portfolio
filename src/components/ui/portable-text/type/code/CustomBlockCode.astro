@@ -51,54 +51,55 @@ const { language, code, filename, highlightedLines } = Astro.props;
       inline={false}
     />
   </div>
+</custom-block-code>
 
-  <style is:global>
-    pre:has(code) {
-      padding: 20px 0px;
-      overflow-x: auto;
-    }
+<style is:global>
+  pre:has(code) {
+    padding: 20px 0px;
+    overflow-x: auto;
+  }
 
-    pre code {
-      display: grid;
-      counter-reset: step;
-      counter-increment: step 0;
-    }
+  pre code {
+    display: grid;
+    counter-reset: step;
+    counter-increment: step 0;
+  }
 
-    pre code .line {
-      padding-inline: 1rem;
-    }
+  pre code .line {
+    padding-inline: 1rem;
+  }
 
-    /* Line numbers */
-    pre code .line::before {
-      content: counter(step);
-      counter-increment: step;
-      width: 1rem;
-      margin-right: 1.25rem;
-      display: inline-block;
-      text-align: right;
-      color: #6e7681;
-    }
+  /* Line numbers */
+  pre code .line::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 1rem;
+    margin-right: 1.25rem;
+    display: inline-block;
+    text-align: right;
+    color: #6e7681;
+  }
 
-    /* Highlighted lines */
-    pre code .line.highlighted {
-      background-color: rgba(38, 79, 120, 0.35);
-    }
-  </style>
+  /* Highlighted lines */
+  pre code .line.highlighted {
+    background-color: rgba(38, 79, 120, 0.35);
+  }
+</style>
 
-  <script>
-    // Handle (each of) the custom block code
-    class CustomBlockCode extends HTMLElement {
-      constructor() {
-        super();
+<script>
+  // Handle (each of) the custom block code
+  class CustomBlockCode extends HTMLElement {
+    constructor() {
+      super();
 
-        // Copy code to clipboard
-        const copyButton = this.querySelector("button"); // only one button in the block
-        copyButton?.addEventListener("click", () => {
-          const code = this.querySelector("pre");
-          const codeToCopy = code?.textContent ?? "";
+      // Copy code to clipboard
+      const copyButton = this.querySelector("button"); // only one button in the block
+      copyButton?.addEventListener("click", () => {
+        const code = this.querySelector("pre");
+        const codeToCopy = code?.textContent ?? "";
 
-          navigator.clipboard.writeText(codeToCopy).then(() => {
-            const checkIcon = `
+        navigator.clipboard.writeText(codeToCopy).then(() => {
+          const checkIcon = `
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -115,7 +116,7 @@ const { language, code, filename, highlightedLines } = Astro.props;
             </svg>
           `;
 
-            const copyIcon = `
+          const copyIcon = `
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -133,18 +134,17 @@ const { language, code, filename, highlightedLines } = Astro.props;
             </svg>
           `;
 
-            // Change the button content to a check icon
-            copyButton.innerHTML = checkIcon;
+          // Change the button content to a check icon
+          copyButton.innerHTML = checkIcon;
 
-            // Change the button content back to a copy icon after 1.5 second
-            setTimeout(() => {
-              copyButton.innerHTML = copyIcon;
-            }, 1500);
-          });
+          // Change the button content back to a copy icon after 1.5 second
+          setTimeout(() => {
+            copyButton.innerHTML = copyIcon;
+          }, 1500);
         });
-      }
+      });
     }
+  }
 
-    customElements.define("custom-block-code", CustomBlockCode);
-  </script>
-</custom-block-code>
+  customElements.define("custom-block-code", CustomBlockCode);
+</script>
