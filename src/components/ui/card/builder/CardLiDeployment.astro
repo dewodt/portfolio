@@ -16,10 +16,10 @@ const { deployment } = Astro.props;
     href={deployment.url}
     aria-label={deployment.label}
     target="_blank"
-    class="relative z-40 flex size-7 transition-all duration-200 group-hover/deploy:scale-110 lg:size-8"
+    class="relative z-40 flex size-7 transition-transform duration-200 group-hover/deploy:scale-110 lg:size-8"
   >
     <LinkIcon
-      class="stroke-muted group-hover/deploy:stroke-secondary size-full"
+      class="stroke-muted group-hover/deploy:stroke-secondary size-full transition-colors duration-200"
     />
   </a>
 </li>
