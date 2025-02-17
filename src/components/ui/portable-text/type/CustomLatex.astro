@@ -26,8 +26,14 @@ const html = KaTeX.renderToString(body, {
     <span class="text-white" set:html={html} />
   ) : (
     <p
-      class="text-base text-white lg:text-lg [&>.katex-display]:mt-0 [&>.katex-display]:mb-5 lg:[&>.katex-display]:mb-6"
+      class="overflow-x-auto text-base text-white lg:text-lg [&>.katex-display]:mt-0 [&>.katex-display]:mb-5 lg:[&>.katex-display]:mb-6"
       set:html={html}
     />
   )
 }
+<style is:global>
+  /* override inline */
+  .katex .vlist-t2 {
+    margin-right: 0;
+  }
+</style>
