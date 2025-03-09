@@ -8,7 +8,8 @@ import { ProjectsIcon } from "./sanity/components/icon/projects-icon";
 import { ExperienceIcon } from "./sanity/components/icon/experience-icon";
 import { AwardsIcon } from "./sanity/components/icon/awards-icon";
 import { BlogIcon } from "./sanity/components/icon/blog-icon";
-import { vercelDeployTool } from "sanity-plugin-vercel-deploy";
+import { dashboardTool } from "@sanity/dashboard";
+import { vercelWidget } from "sanity-plugin-dashboard-widget-vercel";
 import { codeInput } from "@sanity/code-input";
 
 // Add the import to the theme.js downloaded
@@ -101,9 +102,11 @@ export default defineConfig({
           ]),
     }),
     media(), // Note: only use the media to manage images, not to use the metadata feature (like alt) because it's for the image native metadata stored in sanity cloud, thus can't be forced to be required
-    vercelDeployTool(),
     visionTool(),
     codeInput(),
+    dashboardTool({
+      widgets: [vercelWidget()],
+    }),
   ],
   schema: {
     types: schemaTypes,
