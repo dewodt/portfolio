@@ -1,5 +1,6 @@
 ---
 import FileBadgeIcon from "@/components/icons/FileBadgeIcon.astro";
+import DetailAdjacentNavigation from "@/components/ui/detail/DetailAdjacentNavigation.astro";
 import DetailBack from "@/components/ui/detail/DetailBack.astro";
 import DetailImage from "@/components/ui/detail/DetailImage.astro";
 import DetailLiCustom from "@/components/ui/detail/DetailLiCustom.astro";
@@ -87,6 +88,20 @@ if (!awardDetailData) {
             )
           }
         </section>
+
+        {/* Adjancent Navigation */}
+        <DetailAdjacentNavigation
+          previous={awardDetailData.previous && {
+            title: awardDetailData.previous.title,
+            href: `/awards/${awardDetailData.previous.slug.current}`,
+            description: awardDetailData.previous.description,
+          }}
+          next={awardDetailData.next && {
+            title: awardDetailData.next.title,
+            href: `/awards/${awardDetailData.next.slug.current}`,
+            description: awardDetailData.next.description,
+          }}
+        />
       </article>
     </div>
   </main>

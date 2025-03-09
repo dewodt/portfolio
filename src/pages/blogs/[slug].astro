@@ -1,4 +1,5 @@
 ---
+import DetailAdjacentNavigation from "@/components/ui/detail/DetailAdjacentNavigation.astro";
 import DetailBack from "@/components/ui/detail/DetailBack.astro";
 import DetailImage from "@/components/ui/detail/DetailImage.astro";
 import DetailLiDate from "@/components/ui/detail/DetailLiDate.astro";
@@ -77,6 +78,20 @@ if (!blogDetailData) {
             )
           }
         </section>
+
+        {/* Adjancent Navigation */}
+        <DetailAdjacentNavigation
+          previous={blogDetailData.previous && {
+            title: blogDetailData.previous.title,
+            href: `/blogs/${blogDetailData.previous.slug.current}`,
+            description: blogDetailData.previous.description,
+          }}
+          next={blogDetailData.next && {
+            title: blogDetailData.next.title,
+            href: `/blogs/${blogDetailData.next.slug.current}`,
+            description: blogDetailData.next.description,
+          }}
+        />
       </article>
     </div>
   </main>

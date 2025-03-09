@@ -95,6 +95,20 @@ export const projectDetailQuery = groq`
         "alt": alt,
       }
     },
+    "previous": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
+      _id,
+      title,
+      slug,
+      description,
+      dateRange
+    },
+    "next": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {
+      _id,
+      title,
+      slug,
+      description,
+      dateRange
+    },
   }
 `;
 
@@ -156,6 +170,22 @@ export const experienceDetailQuery = groq`
         "alt": alt,
       }
     },
+    "previous": *[_type == "experience" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
+      _id,
+      title,
+      slug,
+      description,
+      dateRange,
+      company
+    },    
+    "next": *[_type == "experience" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {
+      _id,
+      title,
+      slug,
+      description,
+      dateRange,
+      company
+    },
   }
 `;
 
@@ -213,6 +243,22 @@ export const awardDetailQuery = groq`
         "alt": alt,
       }
     },
+    "previous": *[_type == "awards" && date < ^.date] | order(date desc) [0] {
+      _id,
+      title,
+      slug,
+      description,
+      issuer,
+      date
+    },
+    "next": *[_type == "awards" && date > ^.date] | order(date) [0] {
+      _id,
+      title,
+      slug,
+      description,
+      issuer,
+      date
+    },
   }
 `;
 
@@ -267,6 +313,20 @@ export const blogDetailQuery = groq`
         "url": asset->url,
         "alt": alt,
       }
+    },
+    "previous": *[_type == "blog" && date < ^.date] | order(date desc) [0] {
+      _id,
+      title,
+      slug,
+      description,
+      date
+    },
+    "next": *[_type == "blog" && date > ^.date] | order(date) [0] {
+      _id,
+      title,
+      slug,
+      description,
+      date
     },
   }
 `;

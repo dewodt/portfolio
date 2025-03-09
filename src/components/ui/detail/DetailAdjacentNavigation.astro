@@ -1,0 +1,86 @@
+---
+// Import necessary icons
+import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon.astro";
+import ChevronRightIcon from "@/components/icons/ChevronRightIcon.astro";
+import CardContainer from "../card/builder/CardContainer.astro";
+import CardContent from "../card/builder/CardContent.astro";
+
+interface Post {
+  href: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  previous?: Post | null;
+  next?: Post | null;
+}
+
+const { previous, next } = Astro.props;
+
+// Don't render anything if both are null/undefined
+if (!previous && !next) return null;
+---
+
+<nav
+  class="border-t-border grid w-full grid-cols-1 gap-6 border-t pt-8 md:grid-cols-2 md:gap-8"
+>
+  {
+    previous ? (
+      <>
+        <CardContainer
+          href={previous.href}
+          ariaLabel={`Link to previous post ${previous.title}`}
+          class="h-auto w-auto max-w-none lg:max-w-none"
+        >
+          <CardContent class="border-none">
+            <div class="text-muted z-20 flex items-center gap-2">
+              <ChevronLeftIcon class="size-4" />
+              <span class="text-sm font-medium">Previous Post</span>
+            </div>
+
+            <div class="z-20">
+              <h3 class="text-secondary text-lg font-bold break-keep">
+                {previous.title}
+              </h3>
+              <p class="text-muted mt-1 line-clamp-3 text-sm">
+                {previous.description}
+              </p>
+            </div>
+          </CardContent>
+        </CardContainer>
+      </>
+    ) : (
+      // Render empty div to maintain grid layout
+      <div class="hidden md:block" />
+    )
+  }
+
+  {
+    next && (
+      <>
+        <CardContainer
+          href={next.href}
+          ariaLabel={`Link to next post ${next.title}`}
+          class="h-auto w-auto max-w-none lg:max-w-none"
+        >
+          <CardContent class="border-none">
+            <div class="text-muted z-20 flex items-center justify-end gap-2">
+              <span class="text-sm font-medium">Next Post</span>
+              <ChevronRightIcon class="size-4" />
+            </div>
+
+            <div class="z-20">
+              <h3 class="text-secondary text-lg font-bold break-keep">
+                {next.title}
+              </h3>
+              <p class="text-muted mt-1 line-clamp-3 text-sm">
+                {next.description}
+              </p>
+            </div>
+          </CardContent>
+        </CardContainer>
+      </>
+    )
+  }
+</nav>

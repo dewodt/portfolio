@@ -1130,7 +1130,7 @@ export type AllProjectsQueryResult = Array<{
   }> | null;
 }>;
 // Variable: projectDetailQuery
-// Query: *[_type == "projects" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    dateRange,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query: *[_type == "projects" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    dateRange,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },    "previous": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {      _id,      title,      slug,      description,      dateRange    },    "next": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {      _id,      title,      slug,      description,      dateRange    },  }
 export type ProjectDetailQueryResult = {
   _id: string;
   image: {
@@ -1274,6 +1274,26 @@ export type ProjectDetailQueryResult = {
         markDefs: null;
       }
   >;
+  previous: {
+    _id: string;
+    title: string;
+    slug: Slug;
+    description: string;
+    dateRange: {
+      startDate: string;
+      endDate?: string;
+    };
+  } | null;
+  next: {
+    _id: string;
+    title: string;
+    slug: Slug;
+    description: string;
+    dateRange: {
+      startDate: string;
+      endDate?: string;
+    };
+  } | null;
 } | null;
 // Variable: experiencePageQuery
 // Query: *[_type == "experience-page"][0] {    _id,    title,    description,  }
@@ -1312,7 +1332,7 @@ export type AllExperiencesQueryResult = Array<{
   }> | null;
 }>;
 // Variable: experienceDetailQuery
-// Query: *[_type == "experience" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query: *[_type == "experience" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },    "previous": *[_type == "experience" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {      _id,      title,      slug,      description,      dateRange,      company    },        "next": *[_type == "experience" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {      _id,      title,      slug,      description,      dateRange,      company    },  }
 export type ExperienceDetailQueryResult = {
   _id: string;
   image: {
@@ -1457,6 +1477,28 @@ export type ExperienceDetailQueryResult = {
         markDefs: null;
       }
   >;
+  previous: {
+    _id: string;
+    title: string;
+    slug: Slug;
+    description: string;
+    dateRange: {
+      startDate: string;
+      endDate?: string;
+    };
+    company: string;
+  } | null;
+  next: {
+    _id: string;
+    title: string;
+    slug: Slug;
+    description: string;
+    dateRange: {
+      startDate: string;
+      endDate?: string;
+    };
+    company: string;
+  } | null;
 } | null;
 // Variable: awardsPageQuery
 // Query: *[_type == "awards-page"][0] {    _id,    title,    description,  }
@@ -1480,7 +1522,7 @@ export type AllAwardsQueryResult = Array<{
   date: string;
 }>;
 // Variable: awardDetailQuery
-// Query: *[_type == "awards" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    issuer,    date,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query: *[_type == "awards" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    issuer,    date,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },    "previous": *[_type == "awards" && date < ^.date] | order(date desc) [0] {      _id,      title,      slug,      description,      issuer,      date    },    "next": *[_type == "awards" && date > ^.date] | order(date) [0] {      _id,      title,      slug,      description,      issuer,      date    },  }
 export type AwardDetailQueryResult = {
   _id: string;
   image: {
@@ -1610,6 +1652,22 @@ export type AwardDetailQueryResult = {
         markDefs: null;
       }
   >;
+  previous: {
+    _id: string;
+    title: string;
+    slug: Slug;
+    description: string;
+    issuer: string;
+    date: string;
+  } | null;
+  next: {
+    _id: string;
+    title: string;
+    slug: Slug;
+    description: string;
+    issuer: string;
+    date: string;
+  } | null;
 } | null;
 // Variable: blogPageQuery
 // Query: *[_type == "blog-page"][0] {    _id,    title,    description,  }
@@ -1632,7 +1690,7 @@ export type AllBlogsQueryResult = Array<{
   date: string;
 }>;
 // Variable: blogDetailQuery
-// Query: *[_type == "blog" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    date,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },  }
+// Query: *[_type == "blog" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    date,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },    "previous": *[_type == "blog" && date < ^.date] | order(date desc) [0] {      _id,      title,      slug,      description,      date    },    "next": *[_type == "blog" && date > ^.date] | order(date) [0] {      _id,      title,      slug,      description,      date    },  }
 export type BlogDetailQueryResult = {
   _id: string;
   image: {
@@ -1761,6 +1819,20 @@ export type BlogDetailQueryResult = {
         markDefs: null;
       }
   >;
+  previous: {
+    _id: string;
+    title: string;
+    slug: Slug;
+    description: string;
+    date: string;
+  } | null;
+  next: {
+    _id: string;
+    title: string;
+    slug: Slug;
+    description: string;
+    date: string;
+  } | null;
 } | null;
 
 // Query TypeMap
@@ -1770,15 +1842,15 @@ declare module "@sanity/client" {
     '\n  *[_type == "home-page"][0] {\n    _id,\n    title,\n    content,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    skillProgrammingLanguage[]{\n      title,\n      "logo": logo.asset->url,\n    },\n    skillWebDevelopment[]{\n      title,\n      "logo": logo.asset->url,\n    },\n    skillDatabase[]{\n      title,\n      "logo": logo.asset->url,\n    },\n    skillTool[]{\n      title,\n      "logo": logo.asset->url,\n    }\n  }\n': HomePageQueryResult;
     '\n  *[_type == "projects-page"][0] {\n    _id,\n    title,\n    description,\n  }\n': ProjectsPageQueryResult;
     '\n  *[_type == "projects"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllProjectsQueryResult;
-    '\n  *[_type == "projects" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n  }\n': ProjectDetailQueryResult;
+    '\n  *[_type == "projects" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "previous": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n    "next": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n  }\n': ProjectDetailQueryResult;
     '\n  *[_type == "experience-page"][0] {\n    _id,\n    title,\n    description,\n  }\n': ExperiencePageQueryResult;
     '\n  *[_type == "experience"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    company,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllExperiencesQueryResult;
-    '\n  *[_type == "experience" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    company,\n    repositoryLinks,\n    deploymentLinks,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n  }\n': ExperienceDetailQueryResult;
+    '\n  *[_type == "experience" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    company,\n    repositoryLinks,\n    deploymentLinks,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "previous": *[_type == "experience" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange,\n      company\n    },    \n    "next": *[_type == "experience" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange,\n      company\n    },\n  }\n': ExperienceDetailQueryResult;
     '\n  *[_type == "awards-page"][0] {\n    _id,\n    title,\n    description,\n  }\n': AwardsPageQueryResult;
     '\n  *[_type == "awards"] | order(date desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n  }\n': AllAwardsQueryResult;
-    '\n  *[_type == "awards" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n  }\n': AwardDetailQueryResult;
+    '\n  *[_type == "awards" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "previous": *[_type == "awards" && date < ^.date] | order(date desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n    "next": *[_type == "awards" && date > ^.date] | order(date) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n  }\n': AwardDetailQueryResult;
     '\n  *[_type == "blog-page"][0] {\n    _id,\n    title,\n    description,\n  }\n': BlogPageQueryResult;
     '\n  *[_type == "blog"] | order(date desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    date,\n  }\n': AllBlogsQueryResult;
-    '\n  *[_type == "blog" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    date,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n  }\n': BlogDetailQueryResult;
+    '\n  *[_type == "blog" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    date,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "previous": *[_type == "blog" && date < ^.date] | order(date desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      date\n    },\n    "next": *[_type == "blog" && date > ^.date] | order(date) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      date\n    },\n  }\n': BlogDetailQueryResult;
   }
 }

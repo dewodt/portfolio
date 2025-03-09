@@ -1,5 +1,6 @@
 ---
 import CompanyIcon from "@/components/icons/CompanyIcon.astro";
+import DetailAdjacentNavigation from "@/components/ui/detail/DetailAdjacentNavigation.astro";
 import DetailBack from "@/components/ui/detail/DetailBack.astro";
 import DetailImage from "@/components/ui/detail/DetailImage.astro";
 import DetailLiCustom from "@/components/ui/detail/DetailLiCustom.astro";
@@ -110,6 +111,20 @@ if (!experienceDetailData) {
             )
           }
         </section>
+
+        {/* Adjancent Navigation */}
+        <DetailAdjacentNavigation
+          previous={experienceDetailData.previous && {
+            title: `${experienceDetailData.previous.title} @ ${experienceDetailData.previous.company}`,
+            href: `/experiences/${experienceDetailData.previous.slug.current}`,
+            description: experienceDetailData.previous.description,
+          }}
+          next={experienceDetailData.next && {
+            title: `${experienceDetailData.next.title} @ ${experienceDetailData.next.company}`,
+            href: `/experiences/${experienceDetailData.next.slug.current}`,
+            description: experienceDetailData.next.description,
+          }}
+        />
       </article>
     </div>
   </main>
