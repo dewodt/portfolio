@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import type { HomePageQueryResult } from "@/types/sanity";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
 import { sanityClient, homePageQuery } from "@/lib/query";
-import { toPlainText } from "astro-portabletext/utils";
+import { toPlainText } from "astro-portabletext";
 import Badge from "@/components/ui/badge/Badge.astro";
 
 // Get home page data
