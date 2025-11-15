@@ -56,10 +56,21 @@
     "eslint": "^8.57.0",
     "eslint-plugin-astro": "^0.31.4",
     "husky": "^9.0.11",
+    "lint-staged": "^16.2.6",
     "prettier": "^3.2.5",
     "prettier-config-standard": "^7.0.0",
     "prettier-plugin-astro": "^0.13.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tsx": "^4.20.6"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,md,mdx,astro}": [
+      "prettier --write",
+      "git add"
+    ],
+    "src/**/*.{js,ts,jsx,tsx,astro}": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
