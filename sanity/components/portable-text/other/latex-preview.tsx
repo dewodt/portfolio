@@ -30,11 +30,14 @@ export const LatexPreview = (props: LatexPreviewProps) => {
     <>
       {isInline ? (
         <span
-          className="text-white"
+          style={{ color: "#ffffff" }}
           dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (
-        <p className="text-white" dangerouslySetInnerHTML={{ __html: html }} />
+        <p
+          style={{ color: "#ffffff" }}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
       )}
     </>
   );

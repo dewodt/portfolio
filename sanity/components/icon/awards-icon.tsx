@@ -1,3 +1,3 @@
-export const AwardsIcon = () => {
-  return <span>🏆</span>;
+export const AwardsIcon = (props: React.HTMLAttributes<HTMLSpanElement>) => {
+  return <span {...props}>🏆</span>;
 };

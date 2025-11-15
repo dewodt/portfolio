@@ -1,3 +1,3 @@
-export const BlogIcon = () => {
-  return <span>📝</span>;
+export const BlogIcon = (props: React.HTMLAttributes<HTMLSpanElement>) => {
+  return <span {...props}>📝</span>;
 };

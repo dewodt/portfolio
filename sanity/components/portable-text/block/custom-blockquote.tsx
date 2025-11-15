@@ -6,8 +6,28 @@ export const CustomBlockquote = ({
   children: React.ReactNode;
 }) => {
   return (
-    <blockquote className="border-l-primary bg-card rounded-r-md border-l-4 p-4 text-base font-medium text-white italic lg:text-lg">
-      <QuoteIcon className="fill-primary mb-2 size-6 stroke-0 lg:size-7" />
+    <blockquote
+      style={{
+        borderLeft: "4px solid #0ea5e9",
+        backgroundColor: "#1e293b",
+        borderTopRightRadius: "6px",
+        borderBottomRightRadius: "6px",
+        padding: "1rem",
+        fontSize: "1rem",
+        fontWeight: 500,
+        color: "#ffffff",
+        fontStyle: "italic",
+      }}
+    >
+      <QuoteIcon
+        style={{
+          fill: "#0ea5e9",
+          marginBottom: "0.5rem",
+          width: "1.5rem",
+          height: "1.5rem",
+          stroke: "none",
+        }}
+      />
       {children}
     </blockquote>
   );

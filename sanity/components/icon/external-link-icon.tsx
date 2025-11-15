@@ -1,4 +1,7 @@
-export const ExternalLinkIcon = () => {
+export const ExternalLinkIcon = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -7,10 +10,11 @@ export const ExternalLinkIcon = () => {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      className="lucide lucide-external-link"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`lucide lucide-external-link ${className ?? ""}`}
+      {...props}
     >
       <path d="M15 3h6v6" />
       <path d="M10 14 21 3" />
