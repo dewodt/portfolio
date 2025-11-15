@@ -2,7 +2,9 @@ import { titleField } from "../fields/title";
 import { defineType } from "sanity";
 import { imageField } from "../fields/image";
 import { contentField } from "../fields/content/content";
-import { skillField, SkillType } from "../fields/skill";
+import { skillsSectionTitleField } from "../fields/skills-section-title";
+import { skillsSectionDescriptionField } from "../fields/skills-section-description";
+import { skillCategoriesField } from "../fields/skill";
 
 export const homePageSchema = defineType({
   name: "home-page",
@@ -12,9 +14,8 @@ export const homePageSchema = defineType({
     titleField,
     contentField,
     imageField("Your photo (RECOMMENDED SIZE IS 1:1)"),
-    skillField(SkillType.ProgrammingLanguage),
-    skillField(SkillType.WebDevelopment),
-    skillField(SkillType.Database),
-    skillField(SkillType.Tool),
+    skillsSectionTitleField,
+    skillsSectionDescriptionField,
+    skillCategoriesField,
   ],
 });

@@ -234,68 +234,27 @@ export type HomePage = {
     alt: string;
     _type: "image";
   };
-  skillProgrammingLanguage?: Array<{
-    title: string;
-    logo: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+  skillsSectionTitle: string;
+  skillsSectionDescription: string;
+  skillCategories: Array<{
+    categoryTitle: string;
+    skills: Array<{
+      title: string;
+      logo: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
       };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    _type: "skillItem";
-    _key: string;
-  }>;
-  skillWebDevelopment?: Array<{
-    title: string;
-    logo: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    _type: "skillItem";
-    _key: string;
-  }>;
-  skillDatabase?: Array<{
-    title: string;
-    logo: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    _type: "skillItem";
-    _key: string;
-  }>;
-  skillTool?: Array<{
-    title: string;
-    logo: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    _type: "skillItem";
+      _type: "skillItem";
+      _key: string;
+    }>;
+    _type: "skillCategory";
     _key: string;
   }>;
 };
@@ -962,7 +921,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/query.ts
 // Variable: homePageQuery
-// Query: *[_type == "home-page"][0] {    _id,    title,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    skillProgrammingLanguage[]{      title,      "logo": logo.asset->url,    },    skillWebDevelopment[]{      title,      "logo": logo.asset->url,    },    skillDatabase[]{      title,      "logo": logo.asset->url,    },    skillTool[]{      title,      "logo": logo.asset->url,    }  }
+// Query: *[_type == "home-page"][0] {    _id,    title,    content,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    skillsSectionTitle,    skillsSectionDescription,    skillCategories[]{      categoryTitle,      skills[]{        title,        "logo": logo.asset->url,      }    }  }
 export type HomePageQueryResult = {
   _id: string;
   title: string;
@@ -1077,22 +1036,15 @@ export type HomePageQueryResult = {
     url: string | null;
     alt: string;
   };
-  skillProgrammingLanguage: Array<{
-    title: string;
-    logo: string | null;
-  }> | null;
-  skillWebDevelopment: Array<{
-    title: string;
-    logo: string | null;
-  }> | null;
-  skillDatabase: Array<{
-    title: string;
-    logo: string | null;
-  }> | null;
-  skillTool: Array<{
-    title: string;
-    logo: string | null;
-  }> | null;
+  skillsSectionTitle: string;
+  skillsSectionDescription: string;
+  skillCategories: Array<{
+    categoryTitle: string;
+    skills: Array<{
+      title: string;
+      logo: string | null;
+    }>;
+  }>;
 } | null;
 // Variable: projectsPageQuery
 // Query: *[_type == "projects-page"][0] {    _id,    title,    description,  }
@@ -1839,7 +1791,7 @@ export type BlogDetailQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "home-page"][0] {\n    _id,\n    title,\n    content,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    skillProgrammingLanguage[]{\n      title,\n      "logo": logo.asset->url,\n    },\n    skillWebDevelopment[]{\n      title,\n      "logo": logo.asset->url,\n    },\n    skillDatabase[]{\n      title,\n      "logo": logo.asset->url,\n    },\n    skillTool[]{\n      title,\n      "logo": logo.asset->url,\n    }\n  }\n': HomePageQueryResult;
+    '\n  *[_type == "home-page"][0] {\n    _id,\n    title,\n    content,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    skillsSectionTitle,\n    skillsSectionDescription,\n    skillCategories[]{\n      categoryTitle,\n      skills[]{\n        title,\n        "logo": logo.asset->url,\n      }\n    }\n  }\n': HomePageQueryResult;
     '\n  *[_type == "projects-page"][0] {\n    _id,\n    title,\n    description,\n  }\n': ProjectsPageQueryResult;
     '\n  *[_type == "projects"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllProjectsQueryResult;
     '\n  *[_type == "projects" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "previous": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n    "next": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n  }\n': ProjectDetailQueryResult;
