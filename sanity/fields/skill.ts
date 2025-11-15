@@ -52,10 +52,12 @@ export const skillCategoriesField = defineField({
               preview: {
                 select: {
                   title: "title",
+                  logo: "logo",
                 },
-                prepare({ title }) {
+                prepare({ title, logo }) {
                   return {
                     title,
+                    media: logo,
                   };
                 },
               },
