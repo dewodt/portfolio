@@ -32,8 +32,8 @@ if (!homePageData) {
           class="border-border bg-card text-secondary drop-shadow-primary flex size-64 items-center justify-evenly rounded-full border-2 text-base font-medium lg:size-96"
           src={homePageData.image.url!}
           alt={homePageData.image.alt}
-          widths={[256, 384]}
-          sizes="(max-width: 1024px) 256px, 384px"
+          widths={[256, 384, 512, 768]}
+          sizes="(max-width: 1023px) 256px, 384px"
           loading="eager"
           inferSize
         />
@@ -83,6 +83,8 @@ if (!homePageData) {
                           class="h-4 w-auto"
                           src={skill.logo!}
                           alt={`${skill.title} Logo`}
+                          widths={[16, 32, 48]}
+                          sizes="16px"
                           inferSize
                         />
                         <span>{skill.title}</span>
