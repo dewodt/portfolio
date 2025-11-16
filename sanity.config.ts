@@ -54,18 +54,6 @@ export default defineConfig({
                 S.document().schemaType("home-page").documentId("home-page"),
               ),
 
-            // Projects
-            S.listItem()
-              .title("Projects Page")
-              .id("projects-page")
-              .icon(ProjectsIcon)
-              .child(
-                S.document()
-                  .schemaType("projects-page")
-                  .documentId("projects-page"),
-              ),
-            S.documentTypeListItem("projects").title("Projects List"),
-
             // Experience
             S.listItem()
               .title("Experience Page")
@@ -77,6 +65,18 @@ export default defineConfig({
                   .documentId("experience-page"),
               ),
             S.documentTypeListItem("experience").title("Experience List"),
+
+            // Projects
+            S.listItem()
+              .title("Projects Page")
+              .id("projects-page")
+              .icon(ProjectsIcon)
+              .child(
+                S.document()
+                  .schemaType("projects-page")
+                  .documentId("projects-page"),
+              ),
+            S.documentTypeListItem("projects").title("Projects List"),
 
             // Awards
             S.listItem()
