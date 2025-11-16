@@ -2,6 +2,7 @@
 import CopyIcon from "@/components/icons/CopyIcon.astro";
 import Button from "@/components/ui/Button.astro";
 import { transformerMetaHighlight } from "@shikijs/transformers";
+import type { CodeLanguage } from "astro";
 import { Code } from "astro:components";
 
 // Props
@@ -43,7 +44,7 @@ const { language, code, filename, highlightedLines } = Astro.props;
     {/* Code */}
     <Code
       code={code}
-      lang={language as any}
+      lang={language as CodeLanguage}
       class="text-sm lg:text-base"
       theme="dark-plus"
       meta={`{${highlightedLines.join(",")}}`}

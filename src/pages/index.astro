@@ -6,6 +6,7 @@ import CustomPortableText from "@/components/ui/portable-text/CustomPortableText
 import { sanityClient, homePageQuery } from "@/lib/query";
 import { toPlainText } from "astro-portabletext";
 import Badge from "@/components/ui/badge/Badge.astro";
+import type { PortableTextBlock } from "@portabletext/types";
 
 // Get home page data
 const homePageData =
@@ -13,11 +14,14 @@ const homePageData =
 if (!homePageData) {
   throw new Error("Home data not found");
 }
+
+// Cast content to PortableTextBlock array for type safety
+const portableTextContent = homePageData.content as PortableTextBlock[];
 ---
 
 <LayoutBase
   title={homePageData.title}
-  description={toPlainText(homePageData.content)}
+  description={toPlainText(portableTextContent)}
 >
   <main class="flex flex-auto flex-col gap-[calc(66px+24px)]">
     <!-- Hero -->
@@ -49,7 +53,7 @@ if (!homePageData) {
           </h1>
 
           {/* Paragraph */}
-          <CustomPortableText value={homePageData.content} />
+          <CustomPortableText value={portableTextContent} />
         </div>
       </div>
     </section>
