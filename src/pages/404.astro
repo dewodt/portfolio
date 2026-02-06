@@ -1,31 +1,74 @@
 ---
 import LayoutBase from "@/layouts/LayoutBase.astro";
+import ArrowRightIcon from "@/components/icons/ArrowRightIcon.astro";
 ---
 
 <LayoutBase
   title="Error 404 | Dewantoro Triatmojo"
-  description="The page you're looking for doesn't exists. You can go back to home page or double-check the URL to make sure it's correct."
+  description="The page you're looking for doesn't exist or has been moved."
 >
   <main
     class="flex flex-auto items-center justify-center px-5 py-12 sm:p-12 lg:p-16"
   >
-    <section
-      class="flex max-w-xl flex-col items-center gap-4 text-center lg:gap-6"
-    >
-      <div class="flex flex-col gap-2 lg:gap-4">
-        <h1 class="text-secondary text-3xl font-bold lg:text-5xl">
-          Error 404: Not Found
-        </h1>
-        <p class="text-muted text-base lg:text-lg">
-          The page you're looking for doesn't exists. You can go back to home
-          page or double-check the URL to make sure it's correct.
-        </p>
+    <section class="flex flex-col items-center gap-2 text-center">
+      {/* Mono label */}
+      <span
+        class="text-primary animate-fade-in-up font-mono text-sm tracking-widest uppercase opacity-0 sm:text-base lg:text-lg"
+        style="animation-delay: 0.1s;"
+      >
+        Error
+      </span>
+
+      {/* Giant 404 with ambient glow */}
+      <div
+        class="animate-fade-in-scale relative mb-2 opacity-0 select-none sm:mb-4"
+        style="animation-delay: 0.2s;"
+      >
+        <div
+          class="bg-primary/15 animate-pulse-glow absolute -inset-8 rounded-full blur-3xl"
+          aria-hidden="true"
+        >
+        </div>
+        <div
+          class="bg-primary-hover/10 animate-pulse-glow absolute -inset-4 rounded-full blur-2xl"
+          style="animation-delay: 1.5s;"
+          aria-hidden="true"
+        >
+        </div>
+        <span
+          class="from-primary/70 via-primary to-primary-hover relative block bg-gradient-to-r bg-clip-text font-mono text-[10rem] leading-none font-bold tracking-tighter text-transparent sm:text-[14rem] lg:text-[18rem]"
+          aria-hidden="true"
+        >
+          404
+        </span>
       </div>
+
+      {/* Title */}
+      <h1
+        class="text-secondary animate-fade-in-up text-xl font-semibold tracking-tight opacity-0 sm:text-2xl lg:text-3xl"
+        style="animation-delay: 0.3s;"
+      >
+        Page not found
+      </h1>
+
+      {/* Description */}
+      <p
+        class="text-muted animate-fade-in-up text-sm opacity-0 sm:text-base lg:text-lg"
+        style="animation-delay: 0.4s;"
+      >
+        The page you're looking for doesn't exist or has been moved.
+      </p>
+
+      {/* CTA Button */}
       <a
         href="/"
-        class="bg-primary text-secondary hover:bg-primary/90 flex w-fit rounded-lg px-7 py-4 text-base leading-none font-semibold transition-colors duration-200"
+        class="group bg-primary text-secondary hover:bg-primary/90 ring-offset-background focus-visible:ring-primary animate-fade-in-up mt-4 inline-flex items-center gap-2 rounded-full py-3 pr-6 pl-8 text-sm font-medium opacity-0 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden sm:mt-6"
+        style="animation-delay: 0.5s;"
       >
-        Home Page
+        Back to About
+        <ArrowRightIcon
+          class="size-4 transition-transform duration-300 group-hover:translate-x-1"
+        />
       </a>
     </section>
   </main>
