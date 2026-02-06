@@ -48,24 +48,24 @@ const socialMedia: SocialMedia[] = [
 
 <!-- Bottom blur -->
 <div
-  class="from-background pointer-events-none fixed inset-x-0 bottom-0 z-30 h-12 w-full bg-gradient-to-t to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"
+  class="from-background pointer-events-none fixed inset-x-0 bottom-0 z-30 block h-12 w-full bg-gradient-to-t to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"
 >
 </div>
 
 <!-- Bar -->
 <!-- Note: When using sticky bottom the anchor link is misplaced in mobile firefox (because of the top search browser bar). Alternatively, use fixed with margin to overcome this issue.--><!-- Blur -->
-<div class="mt-[calc(66px+24px)]"></div>
+<div class="mt-[calc(58px+24px)] block"></div>
 <ul
-  class="border-border bg-card-darker fixed bottom-6 left-1/2 z-30 flex -translate-x-1/2 flex-row items-center justify-center gap-1 rounded-full border p-2 lg:gap-2"
+  class="social-dock border-border/50 bg-card-darker/80 fixed bottom-6 left-1/2 z-30 flex -translate-x-1/2 flex-row items-center justify-center gap-2 rounded-full border p-1.5 backdrop-blur-xl transition-[gap] duration-300 ease-out hover:gap-3"
 >
   {
     socialMedia.map((social) => (
-      <li>
+      <li class="social-dock-item">
         <a
           href={social.url}
           aria-label={social.name}
           target="_blank"
-          class="group flex size-12 rounded-full p-2 transition-transform duration-200 hover:scale-[1.175]"
+          class="group text-secondary flex size-10 rounded-full p-1.5"
         >
           {<social.icon class="size-full" />}
         </a>
@@ -73,3 +73,23 @@ const socialMedia: SocialMedia[] = [
     ))
   }
 </ul>
+
+<style>
+  .social-dock-item {
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .social-dock-item:hover {
+    transform: scale(1.35);
+  }
+
+  .social-dock-item:hover + .social-dock-item,
+  .social-dock-item:has(+ .social-dock-item:hover) {
+    transform: scale(1.125);
+  }
+
+  .social-dock-item:hover + .social-dock-item + .social-dock-item,
+  .social-dock-item:has(+ .social-dock-item + .social-dock-item:hover) {
+    transform: scale(1.05);
+  }
+</style>

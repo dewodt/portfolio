@@ -23,48 +23,88 @@ const portableTextContent = homePageData.content as PortableTextBlock[];
   title={homePageData.title}
   description={toPlainText(portableTextContent)}
 >
-  <main class="flex flex-auto flex-col gap-[calc(66px+24px)]">
+  <main class="flex flex-auto flex-col gap-16 sm:gap-24">
     <!-- Hero -->
     <section
-      class="flex min-h-[calc(100vh-80px-66px-24px)] flex-auto items-center justify-center px-5 py-12 sm:min-h-[calc(100vh-58px-24px-66px-24px)] sm:p-12 lg:p-16"
+      class="relative flex min-h-[calc(100vh-6rem)] flex-auto items-center justify-center px-5 py-12 sm:min-h-[calc(100vh-10rem)] sm:p-12 lg:p-16"
     >
       <div
-        class="flex flex-col items-center gap-4 sm:flex-row-reverse sm:gap-8 lg:gap-16 xl:gap-24"
+        class="relative flex flex-col items-center gap-6 sm:flex-row-reverse sm:gap-10 lg:gap-16 xl:gap-24"
       >
         {/* My Photo */}
-        <Image
-          class="border-border bg-card text-secondary drop-shadow-primary flex size-64 items-center justify-evenly rounded-full border-2 text-base font-medium lg:size-96"
-          src={homePageData.image.url!}
-          alt={homePageData.image.alt}
-          widths={[256, 384, 512, 768]}
-          sizes="(max-width: 1023px) 256px, 384px"
-          loading="eager"
-          inferSize
-        />
+        <div
+          class="animate-fade-in-scale relative opacity-0"
+          style="animation-delay: 0.1s;"
+        >
+          {/* Ambient glow layer 1 */}
+          <div
+            class="bg-primary/20 animate-pulse-glow absolute -inset-6 rounded-[20%] blur-3xl"
+            aria-hidden="true"
+          >
+          </div>
+          {/* Ambient glow layer 2 */}
+          <div
+            class="bg-accent/15 animate-pulse-glow absolute -inset-3 rounded-[20%] blur-2xl"
+            style="animation-delay: 1.5s;"
+            aria-hidden="true"
+          >
+          </div>
+          {/* Photo */}
+          <Image
+            class="border-border/50 bg-card text-secondary relative flex size-56 items-center justify-evenly rounded-[20%] border text-base font-medium sm:size-64 lg:size-80"
+            src={homePageData.image.url!}
+            alt={homePageData.image.alt}
+            widths={[224, 256, 320, 512]}
+            sizes="(max-width: 639px) 224px, (max-width: 1023px) 256px, 320px"
+            loading="eager"
+            inferSize
+          />
+        </div>
 
         {/* Texts */}
         {/* Need to override default margin from portable text */}
         <div
-          class="flex max-w-xs flex-col gap-2 text-center sm:max-w-sm sm:text-start lg:max-w-lg lg:gap-4 [&>*]:my-0 [&>*]:lg:my-0"
+          class="flex max-w-xs flex-col text-center sm:max-w-sm sm:text-start lg:max-w-lg"
         >
+          {/* Engineer label */}
+          <span
+            class="text-primary animate-fade-in-up mb-1.5 font-mono text-xs tracking-widest uppercase opacity-0 sm:text-sm lg:mb-2.5"
+            style="animation-delay: 0.2s;"
+          >
+            Software Engineer
+          </span>
+
           {/* Title */}
-          <h1 class="text-secondary text-3xl font-bold lg:text-5xl">
+          <h1
+            class="text-secondary animate-fade-in-up mb-3 text-3xl font-bold tracking-tight opacity-0 lg:mb-5 lg:text-5xl"
+            style="animation-delay: 0.3s;"
+          >
             {homePageData.title}
           </h1>
 
           {/* Paragraph */}
-          <CustomPortableText value={portableTextContent} />
+          <div
+            class="animate-fade-in-up opacity-0 [&>*]:my-0 [&>*]:lg:my-0"
+            style="animation-delay: 0.4s;"
+          >
+            <CustomPortableText value={portableTextContent} />
+          </div>
         </div>
       </div>
     </section>
 
+    {/* Section divider */}
+    <div class="border-border/30 mx-auto w-full max-w-3xl border-t"></div>
+
     <!-- Skills -->
     <section
-      class="flex min-h-[calc(100vh-80px-66px-24px)] flex-auto justify-center px-5 py-12 sm:min-h-[calc(100vh-58px-24px-66px-24px)] sm:p-12 lg:p-16"
+      class="flex min-h-[calc(100vh-6rem)] flex-auto justify-center px-5 py-12 sm:min-h-[calc(100vh-10rem)] sm:p-12 lg:p-16"
     >
       <div class="flex w-full max-w-3xl flex-col gap-6">
         <div class="space-y-2 text-center">
-          <h2 class="text-secondary text-2xl font-bold lg:text-4xl">
+          <h2
+            class="text-secondary text-2xl font-bold tracking-tight lg:text-3xl"
+          >
             {homePageData.skillsSectionTitle}
           </h2>
           <p class="text-muted text-base lg:text-lg">
@@ -72,14 +112,17 @@ const portableTextContent = homePageData.content as PortableTextBlock[];
           </p>
         </div>
 
-        <div class="space-y-8">
+        <div class="space-y-10">
           {
-            homePageData.skillCategories.map((category) => (
-              <div class="space-y-4">
-                <h3 class="text-secondary text-center text-lg font-bold lg:text-2xl">
+            homePageData.skillCategories.map((category, categoryIndex) => (
+              <div
+                class="animate-fade-in-up space-y-4 opacity-0"
+                style={`animation-delay: ${0.1 + categoryIndex * 0.1}s;`}
+              >
+                <h3 class="text-muted text-center font-mono text-xs tracking-widest uppercase sm:text-sm">
                   {category.categoryTitle}
                 </h3>
-                <ul class="flex flex-row flex-wrap justify-center gap-3">
+                <ul class="flex flex-row flex-wrap justify-center gap-2.5">
                   {category.skills.map((skill) => (
                     <li>
                       <Badge>

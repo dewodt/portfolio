@@ -15,7 +15,9 @@ const props = Astro.props;
 
   mediumZoom("[data-zoomable]", {
     margin: window.innerWidth < 1024 ? 24 : 128,
-    background: "rgba(0, 0, 0, 0.8)",
+    background: document.documentElement.classList.contains("dark")
+      ? "rgba(0, 0, 0, 0.8)"
+      : "rgba(255, 255, 255, 0.8)",
   });
 </script>
 

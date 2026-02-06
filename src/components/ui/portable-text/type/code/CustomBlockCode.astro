@@ -20,7 +20,7 @@ const { language, code, filename, highlightedLines } = Astro.props;
     class="border-border mb-5 flex flex-col overflow-hidden rounded-md border text-sm lg:mb-6 lg:text-base"
   >
     <div
-      class="border-border flex h-12 flex-row items-center justify-between border-b bg-[#2c2c2c] pr-2 pl-4"
+      class="border-border bg-card-darker flex h-12 flex-row items-center justify-between border-b pr-2 pl-4"
     >
       {/* Filename */}
       {
@@ -78,12 +78,12 @@ const { language, code, filename, highlightedLines } = Astro.props;
     margin-right: 1.25rem;
     display: inline-block;
     text-align: right;
-    color: #6e7681;
+    color: var(--muted-foreground);
   }
 
   /* Highlighted lines */
   pre code .line.highlighted {
-    background-color: rgba(38, 79, 120, 0.35);
+    background-color: color-mix(in srgb, var(--primary) 15%, transparent);
   }
 </style>
 
