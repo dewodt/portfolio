@@ -1,47 +1,77 @@
 ---
+import { Image } from "astro:assets";
+import ArrowRightIcon from "@/components/icons/ArrowRightIcon.astro";
+import { getFormattedDate } from "@/lib/utils";
 import type { AllAwardsQueryResult } from "@/types/sanity";
-import FileBadgeIcon from "@/components/icons/FileBadgeIcon.astro";
-import CardContainer from "./builder/CardContainer.astro";
-import CardImage from "./builder/CardImage.astro";
-import CardContent from "./builder/CardContent.astro";
-import CardTitle from "./builder/CardTitle.astro";
-import CardSubtitle from "./builder/CardSubtitle.astro";
-import CardDescription from "./builder/CardDescription.astro";
-import CardDate from "./builder/CardDate.astro";
 
 interface Props {
   award: AllAwardsQueryResult[number];
 }
 
 const { award } = Astro.props;
+
+const formattedDate = getFormattedDate(award.date);
 ---
 
-<CardContainer
-  href={`/awards/${award.slug.current}`}
-  ariaLabel={`Link to award ${award.title} issued by ${award.issuer}`}
+<article
+  class="group/card border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary relative overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1.5"
 >
-  {/* Card Image */}
-  <CardImage src={award.image.url!} alt={award.image.alt} />
+  {/* Gradient glow pseudo-element */}
+  <div
+    class="bg-primary/0 group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
+  >
+  </div>
 
-  {/* Card Content */}
-  <CardContent>
-    {/* Title */}
-    <CardTitle>{award.title}</CardTitle>
+  {/* Full-card anchor */}
+  <a
+    href={`/awards/${award.slug.current}`}
+    aria-label={`Link to award ${award.title} issued by ${award.issuer}`}
+    class="absolute inset-0 z-30"></a>
 
-    {/* Issued by */}
-    <CardSubtitle>
-      <FileBadgeIcon class="stroke-secondary size-5" />
-      <span>
-        {award.issuer}
-      </span>
-    </CardSubtitle>
+  {/* Image wrapper */}
+  <div class="bg-surface relative overflow-hidden rounded-t-xl">
+    <Image
+      class="bg-surface text-secondary flex aspect-[16/9] w-full items-center justify-evenly object-cover object-center text-base font-medium transition-transform duration-700 group-hover/card:scale-[1.03]"
+      src={award.image.url!}
+      alt={award.image.alt}
+      widths={[320, 384, 640, 768]}
+      sizes="(max-width: 1023px) 320px, 384px"
+      inferSize
+    />
+    {/* Gradient overlay on hover */}
+    <div
+      class="from-primary/10 absolute inset-0 bg-gradient-to-t via-transparent opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+    >
+    </div>
+  </div>
+
+  {/* Content */}
+  <div class="flex flex-col gap-2 px-4 pt-4 pb-3">
+    {/* Issuer mono label */}
+    <span class="text-primary font-mono text-xs tracking-widest uppercase">
+      {award.issuer}
+    </span>
+
+    {/* Title + arrow */}
+    <div class="flex items-center gap-2">
+      <h2
+        class="text-secondary group-hover/card:text-primary text-lg font-bold transition-colors duration-200 lg:text-xl"
+      >
+        {award.title}
+      </h2>
+      <ArrowRightIcon
+        class="text-primary size-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover/card:translate-x-0 group-hover/card:opacity-100"
+      />
+    </div>
 
     {/* Date */}
-    <CardDate date={award.date} />
+    <span
+      class="text-muted-foreground font-mono text-xs tracking-widest uppercase"
+    >
+      <time datetime={award.date}>{formattedDate}</time>
+    </span>
 
-    {/* Short description */}
-    <CardDescription>
-      {award.description}
-    </CardDescription>
-  </CardContent>
-</CardContainer>
+    {/* Description */}
+    <p class="text-muted line-clamp-3 text-sm">{award.description}</p>
+  </div>
+</article>
