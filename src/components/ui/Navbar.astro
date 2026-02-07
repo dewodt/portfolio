@@ -35,59 +35,18 @@ const isActive = (navbarPath: string) => {
 };
 ---
 
-<!-- Desktop: top blur -->
+<!-- Top blur -->
 <div
   class="from-background pointer-events-none fixed inset-x-0 top-0 z-30 block h-16 w-full bg-gradient-to-b to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
 >
 </div>
 
-<!-- Desktop navbar: floating pill at top center -->
+<!-- Navbar: floating pill at top center -->
 <nav
-  class="fixed top-0 right-0 left-0 z-40 hidden items-center justify-center pt-4 sm:flex"
+  class="fixed top-0 right-0 left-0 z-40 flex items-center justify-center pt-4"
 >
   <div
-    class="border-border/50 bg-card-darker/80 flex flex-row items-center gap-1 rounded-full border p-1.5 backdrop-blur-xl"
-  >
-    {
-      paths.map((path) => {
-        const active = isActive(path.url);
-        return (
-          <a
-            href={path.url}
-            class={`flex flex-row items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-              active
-                ? "bg-primary/15 text-primary"
-                : "text-muted hover:text-secondary hover:bg-border/40"
-            }`}
-          >
-            <path.icon class="size-4" />
-            <span>{path.label}</span>
-          </a>
-        );
-      })
-    }
-
-    {/* Divider */}
-    <div class="bg-border mx-1 h-6 w-px"></div>
-
-    {/* Theme toggle */}
-    <button
-      id="theme-toggle-desktop"
-      aria-label="Toggle theme"
-      class="text-muted hover:text-secondary hover:bg-border flex size-9 items-center justify-center rounded-full transition-colors duration-200"
-    >
-      <SunIcon class="size-4 dark:hidden" />
-      <MoonIcon class="hidden size-4 dark:block" />
-    </button>
-  </div>
-</nav>
-
-<!-- Mobile navbar: fixed top floating pill -->
-<nav
-  class="fixed top-0 right-0 left-0 z-40 flex items-center justify-center pt-4 sm:hidden"
->
-  <div
-    class="border-border/50 bg-card-darker/80 shadow-background/20 flex flex-row items-center gap-1 rounded-full border p-1.5 shadow-lg backdrop-blur-xl"
+    class="border-border/50 bg-card-darker/80 shadow-background/20 flex flex-row items-center gap-1 rounded-full border p-1.5 shadow-lg backdrop-blur-xl sm:shadow-none"
   >
     {
       paths.map((path) => {
@@ -96,44 +55,41 @@ const isActive = (navbarPath: string) => {
           <a
             href={path.url}
             aria-label={path.label}
-            class={`flex size-11 items-center justify-center rounded-full transition-colors duration-200 ${
+            class={`flex size-11 items-center justify-center rounded-full transition-colors duration-200 sm:size-auto sm:flex-row sm:gap-2 sm:px-4 sm:py-2 sm:text-sm sm:font-medium ${
               active
                 ? "bg-primary/15 text-primary"
                 : "text-muted hover:text-secondary hover:bg-border/40"
             }`}
           >
-            <path.icon class="size-[18px]" />
+            <path.icon class="size-[18px] sm:size-4" />
+            <span class="hidden sm:inline">{path.label}</span>
           </a>
         );
       })
     }
 
     {/* Divider */}
-    <div class="bg-border mx-0.5 h-6 w-px"></div>
+    <div class="bg-border mx-0.5 h-6 w-px sm:mx-1"></div>
 
     {/* Theme toggle */}
     <button
-      id="theme-toggle-mobile"
+      id="theme-toggle"
       aria-label="Toggle theme"
-      class="text-muted hover:text-secondary hover:bg-border flex size-11 items-center justify-center rounded-full transition-colors duration-200"
+      class="text-muted hover:text-secondary hover:bg-border flex size-11 items-center justify-center rounded-full transition-colors duration-200 sm:size-9"
     >
-      <SunIcon class="size-[18px] dark:hidden" />
-      <MoonIcon class="hidden size-[18px] dark:block" />
+      <SunIcon class="size-[18px] sm:size-4 dark:hidden" />
+      <MoonIcon class="hidden size-[18px] sm:size-4 dark:block" />
     </button>
   </div>
 </nav>
 
 <script>
   function setupThemeToggle() {
-    const toggles = document.querySelectorAll(
-      "#theme-toggle-desktop, #theme-toggle-mobile",
-    );
+    const toggle = document.getElementById("theme-toggle");
 
-    toggles.forEach((toggle) => {
-      toggle.addEventListener("click", () => {
-        const isDark = document.documentElement.classList.toggle("dark");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-      });
+    toggle?.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
     });
 
     // Listen for system preference changes (only when no manual override)
