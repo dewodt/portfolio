@@ -19,7 +19,7 @@ const formattedEndDate = project.dateRange.endDate
 ---
 
 <article
-  class="group/card border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary relative overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1.5"
+  class="group/card border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary relative flex h-full flex-col overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1.5"
 >
   {/* Gradient glow pseudo-element */}
   <div
@@ -51,7 +51,7 @@ const formattedEndDate = project.dateRange.endDate
   </div>
 
   {/* Content */}
-  <div class="flex flex-col gap-2 px-4 pt-4 pb-3">
+  <div class="flex flex-1 flex-col gap-2 px-4 pt-4 pb-3">
     {/* Date range */}
     <span
       class="text-muted-foreground font-mono text-xs tracking-widest uppercase"
@@ -85,7 +85,7 @@ const formattedEndDate = project.dateRange.endDate
     {/* Links row — rounded-full pill style */}
     {
       (project.repositoryLinks || project.deploymentLinks) && (
-        <div class="flex flex-wrap gap-2 pt-2">
+        <div class="mt-auto flex flex-wrap gap-2 pt-2">
           {project.repositoryLinks?.map((repo) => (
             <PillRepository repository={repo} class="relative z-40" />
           ))}
