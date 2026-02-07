@@ -5,7 +5,6 @@ export interface CodeOption {
 }
 
 export const codeOptions: CodeOption[] = [
-  // groq, javascript, jsx, typescript, tsx, php, sql, mysql, json, markdown, java, html, csharp, sh, css, ruby, python, xml, yaml, golang, text
   { title: "JavaScript", value: "javascript" },
   { title: "JSX", value: "jsx" },
   { title: "TypeScript", value: "typescript" },
