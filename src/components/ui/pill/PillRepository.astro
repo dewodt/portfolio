@@ -1,0 +1,33 @@
+---
+import GitHubIcon from "@/components/icons/GitHubIcon.astro";
+import GitLabOutlineIcon from "@/components/icons/GitLabOutlineIcon.astro";
+
+interface Props {
+  repository: {
+    url: string;
+    label: string;
+  };
+  class?: string;
+}
+
+const { repository, class: className } = Astro.props;
+---
+
+<a
+  href={repository.url}
+  aria-label={repository.label}
+  target="_blank"
+  class:list={[
+    "border-muted-foreground/25 text-muted hover:border-primary hover:bg-primary hover:shadow-primary/20 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-300 hover:text-white hover:shadow-sm",
+    className,
+  ]}
+>
+  {
+    repository.url.startsWith("https://gitlab.com") ? (
+      <GitLabOutlineIcon class="size-3.5" />
+    ) : (
+      <GitHubIcon class="size-3.5" />
+    )
+  }
+  {repository.label}
+</a>

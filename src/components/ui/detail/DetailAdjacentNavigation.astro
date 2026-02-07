@@ -1,9 +1,6 @@
 ---
-// Import necessary icons
 import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon.astro";
 import ChevronRightIcon from "@/components/icons/ChevronRightIcon.astro";
-import CardContainer from "../card/builder/CardContainer.astro";
-import CardContent from "../card/builder/CardContent.astro";
 
 interface Post {
   href: string;
@@ -18,71 +15,57 @@ interface Props {
 
 const { previous, next } = Astro.props;
 
-// Don't render anything if both are null/undefined
 if (!previous && !next) return null;
 ---
 
-<nav
-  class="border-t-border grid w-full grid-cols-1 gap-6 border-t pt-8 md:grid-cols-2 md:gap-8"
->
+<nav class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
   {
     previous ? (
-      <>
-        <CardContainer
-          href={previous.href}
-          ariaLabel={`Link to previous post ${previous.title}`}
-          class="h-auto w-auto max-w-none lg:max-w-none"
-        >
-          <CardContent class="border-none">
-            <div class="text-muted z-20 flex items-center gap-2">
-              <ChevronLeftIcon class="size-4" />
-              <span class="text-sm leading-none font-medium">
-                Previous Post
-              </span>
-            </div>
+      <a
+        href={previous.href}
+        aria-label={`Link to previous post ${previous.title}`}
+        class="group/prev border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary-sm relative flex flex-col gap-2 overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1 lg:p-5"
+      >
+        {/* Glow effect */}
+        <div class="bg-primary/0 group-hover/prev:bg-primary/10 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500" />
 
-            <div class="z-20">
-              <h3 class="text-secondary text-lg font-bold break-keep">
-                {previous.title}
-              </h3>
-              <p class="text-muted mt-1 line-clamp-3 text-sm">
-                {previous.description}
-              </p>
-            </div>
-          </CardContent>
-        </CardContainer>
-      </>
+        <div class="flex items-center gap-2">
+          <ChevronLeftIcon class="text-muted-foreground group-hover/prev:text-primary size-4 transition-all duration-200 group-hover/prev:-translate-x-0.5" />
+          <span class="text-muted-foreground group-hover/prev:text-primary font-mono text-xs tracking-widest uppercase transition-colors duration-200">
+            Previous
+          </span>
+        </div>
+        <h3 class="text-secondary group-hover/prev:text-primary font-semibold transition-colors duration-200">
+          {previous.title}
+        </h3>
+        <p class="text-muted line-clamp-2 text-sm">{previous.description}</p>
+      </a>
     ) : (
-      // Render empty div to maintain grid layout
       <div class="hidden md:block" />
     )
   }
 
   {
     next && (
-      <>
-        <CardContainer
-          href={next.href}
-          ariaLabel={`Link to next post ${next.title}`}
-          class="h-auto w-auto max-w-none lg:max-w-none"
-        >
-          <CardContent class="border-none">
-            <div class="text-muted z-20 flex items-center justify-end gap-2">
-              <span class="text-sm leading-none font-medium">Next Post</span>
-              <ChevronRightIcon class="size-4" />
-            </div>
+      <a
+        href={next.href}
+        aria-label={`Link to next post ${next.title}`}
+        class="group/next border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary-sm relative flex flex-col gap-2 overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1 lg:p-5"
+      >
+        {/* Glow effect */}
+        <div class="bg-primary/0 group-hover/next:bg-primary/10 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500" />
 
-            <div class="z-20">
-              <h3 class="text-secondary text-lg font-bold break-keep">
-                {next.title}
-              </h3>
-              <p class="text-muted mt-1 line-clamp-3 text-sm">
-                {next.description}
-              </p>
-            </div>
-          </CardContent>
-        </CardContainer>
-      </>
+        <div class="flex items-center justify-end gap-2">
+          <span class="text-muted-foreground group-hover/next:text-primary font-mono text-xs tracking-widest uppercase transition-colors duration-200">
+            Next
+          </span>
+          <ChevronRightIcon class="text-muted-foreground group-hover/next:text-primary size-4 transition-all duration-200 group-hover/next:translate-x-0.5" />
+        </div>
+        <h3 class="text-secondary group-hover/next:text-primary font-semibold transition-colors duration-200">
+          {next.title}
+        </h3>
+        <p class="text-muted line-clamp-2 text-sm">{next.description}</p>
+      </a>
     )
   }
 </nav>

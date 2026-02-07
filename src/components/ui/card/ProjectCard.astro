@@ -1,0 +1,99 @@
+---
+import { Image } from "astro:assets";
+import ArrowRightIcon from "@/components/icons/ArrowRightIcon.astro";
+import PillDeployment from "@/components/ui/pill/PillDeployment.astro";
+import PillRepository from "@/components/ui/pill/PillRepository.astro";
+import { getFormattedDate } from "@/lib/utils";
+import type { AllProjectsQueryResult } from "@/types/sanity";
+
+interface Props {
+  project: AllProjectsQueryResult[number];
+}
+
+const { project } = Astro.props;
+
+const formattedStartDate = getFormattedDate(project.dateRange.startDate);
+const formattedEndDate = project.dateRange.endDate
+  ? getFormattedDate(project.dateRange.endDate)
+  : null;
+---
+
+<article
+  class="group/card border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary relative overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1.5"
+>
+  {/* Gradient glow pseudo-element */}
+  <div
+    class="bg-primary/0 group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
+  >
+  </div>
+
+  {/* Full-card anchor */}
+  <a
+    href={`/projects/${project.slug.current}`}
+    aria-label={`Link to project ${project.title}`}
+    class="absolute inset-0 z-30"></a>
+
+  {/* Image wrapper — provides contrast in light mode */}
+  <div class="bg-surface relative overflow-hidden rounded-t-xl">
+    <Image
+      class="bg-surface text-secondary flex aspect-[16/10] w-full items-center justify-evenly object-cover object-center text-base font-medium transition-transform duration-700 group-hover/card:scale-[1.03]"
+      src={project.image.url!}
+      alt={project.image.alt}
+      widths={[320, 384, 640, 768]}
+      sizes="(max-width: 1023px) 320px, 384px"
+      inferSize
+    />
+    {/* Gradient overlay on hover */}
+    <div
+      class="from-primary/10 absolute inset-0 bg-gradient-to-t via-transparent opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+    >
+    </div>
+  </div>
+
+  {/* Content */}
+  <div class="flex flex-col gap-2 px-4 pt-4 pb-3">
+    {/* Date range */}
+    <span
+      class="text-muted-foreground font-mono text-xs tracking-widest uppercase"
+    >
+      <time datetime={project.dateRange.startDate}>{formattedStartDate}</time>
+      {
+        formattedEndDate && (
+          <>
+            {" – "}
+            <time datetime={project.dateRange.endDate}>{formattedEndDate}</time>
+          </>
+        )
+      }
+    </span>
+
+    {/* Title + arrow */}
+    <div class="flex items-center gap-2">
+      <h2
+        class="text-secondary group-hover/card:text-primary text-lg font-bold transition-colors duration-200 lg:text-xl"
+      >
+        {project.title}
+      </h2>
+      <ArrowRightIcon
+        class="text-primary size-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover/card:translate-x-0 group-hover/card:opacity-100"
+      />
+    </div>
+
+    {/* Description */}
+    <p class="text-muted line-clamp-2 text-sm">{project.description}</p>
+
+    {/* Links row — rounded-full pill style */}
+    {
+      (project.repositoryLinks || project.deploymentLinks) && (
+        <div class="flex flex-wrap gap-2 pt-2">
+          {project.repositoryLinks?.map((repo) => (
+            <PillRepository repository={repo} class="relative z-40" />
+          ))}
+          {project.deploymentLinks?.map((deploy) => (
+            <PillDeployment deployment={deploy} class="relative z-40" />
+          ))}
+        </div>
+      )
+    }
+  </div>
+</article>

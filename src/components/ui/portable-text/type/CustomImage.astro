@@ -14,12 +14,14 @@ const props = Astro.props;
 ---
 
 <div class="mb-5 flex justify-center lg:mb-6">
-  <figure class="table">
+  <figure
+    class="border-border/50 bg-surface table overflow-hidden rounded-lg border"
+  >
     {
       /* Max image width is container width, image height will adjust according to original aspect ratio */
     }
     <ZoomableImage
-      class="bg-card text-secondary flex h-auto max-w-full items-center justify-evenly rounded-lg object-cover object-center text-base font-medium"
+      class="text-secondary flex h-auto max-w-full items-center justify-evenly rounded-lg object-cover object-center text-base font-medium"
       src={props.node.url}
       alt={props.node.alt}
       widths={[576, 768, 1152, 1280, 1440]}
@@ -29,7 +31,7 @@ const props = Astro.props;
 
     {
       props.node.caption && (
-        <figcaption class="text-secondary mt-1 table-caption caption-bottom text-center text-base font-medium lg:mt-2 lg:text-lg">
+        <figcaption class="text-muted mt-1 table-caption caption-bottom text-center text-base font-medium lg:mt-2 lg:text-lg">
           {props.node.alt}
         </figcaption>
       )

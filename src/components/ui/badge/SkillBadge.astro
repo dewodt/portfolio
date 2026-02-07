@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  logo: string;
+  title: string;
+}
+
+const { logo, title } = Astro.props;
+---
+
+<div
+  class="group/badge border-border bg-card text-secondary hover:border-border-hover/80 hover:drop-shadow-primary-sm relative overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1"
+>
+  {/* Glow effect — matches ProjectCard */}
+  <div
+    class="bg-primary/0 group-hover/badge:bg-primary/10 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-lg transition-all duration-500"
+  >
+  </div>
+
+  <div class="flex items-center gap-2 px-4 py-2">
+    <Image class="h-4 w-auto" src={logo} alt={`${title} Logo`} inferSize />
+    <span class="text-sm leading-none font-medium">{title}</span>
+  </div>
+</div>

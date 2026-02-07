@@ -14,6 +14,7 @@ const { language, code } = Astro.props;
   code={code}
   lang={language as any}
   class="rounded-sm p-1 text-sm lg:text-base"
-  theme="dark-plus"
+  themes={{ light: "light-plus", dark: "dark-plus" }}
+  defaultColor="dark"
   inline={true}
 />

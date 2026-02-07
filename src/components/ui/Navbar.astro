@@ -92,18 +92,7 @@ const isActive = (navbarPath: string) => {
       localStorage.setItem("theme", isDark ? "dark" : "light");
     });
 
-    // Listen for system preference changes (only when no manual override)
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", (e) => {
-        if (!localStorage.getItem("theme")) {
-          if (e.matches) {
-            document.documentElement.classList.add("dark");
-          } else {
-            document.documentElement.classList.remove("dark");
-          }
-        }
-      });
+    // Only respect manual toggle — ignore system preference changes
   }
 
   setupThemeToggle();

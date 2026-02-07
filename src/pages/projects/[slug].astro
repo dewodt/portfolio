@@ -1,10 +1,13 @@
 ---
 import DetailAdjacentNavigation from "@/components/ui/detail/DetailAdjacentNavigation.astro";
 import DetailBack from "@/components/ui/detail/DetailBack.astro";
+import DetailDateRange from "@/components/ui/detail/DetailDateRange.astro";
+import DetailDescription from "@/components/ui/detail/DetailDescription.astro";
+import Divider from "@/components/ui/Divider.astro";
 import DetailImage from "@/components/ui/detail/DetailImage.astro";
-import DetailLiDateRange from "@/components/ui/detail/DetailLiDateRange.astro";
-import DetailLiDeployment from "@/components/ui/detail/DetailLiDeployment.astro";
-import DetailLiRepository from "@/components/ui/detail/DetailLiRepository.astro";
+import DetailMonoLabel from "@/components/ui/detail/DetailMonoLabel.astro";
+import PillDeployment from "@/components/ui/pill/PillDeployment.astro";
+import PillRepository from "@/components/ui/pill/PillRepository.astro";
 import DetailTitle from "@/components/ui/detail/DetailTitle.astro";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
 import LayoutBase from "@/layouts/LayoutBase.astro";
@@ -19,7 +22,6 @@ import {
 } from "@/types/sanity";
 
 export const getStaticPaths = async () => {
-  // Get all projects from CMS
   const allProjectsData =
     await sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery);
 
@@ -32,7 +34,6 @@ export const getStaticPaths = async () => {
   return paths;
 };
 
-// Get data from CMS
 const projectDetailData = await sanityClient.fetch<ProjectDetailQueryResult>(
   projectDetailQuery,
   { slug: Astro.params.slug },
@@ -49,53 +50,90 @@ if (!projectDetailData) {
   linkPreviewImage={projectDetailData.image}
 >
   <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
-    <div class="flex w-full max-w-xl flex-col gap-4 lg:max-w-3xl lg:gap-6">
+    <div class="flex w-full max-w-xl flex-col gap-6 lg:max-w-3xl lg:gap-8">
       {/* Back Button */}
-      <DetailBack href="/projects" />
+      <div class="animate-fade-in-up opacity-0" style="animation-delay: 0.1s;">
+        <DetailBack href="/projects" label="Back to Projects" />
+      </div>
 
-      <article class="flex flex-col items-start gap-5 lg:gap-7">
-        {/* Header Section */}
-        <header class="flex w-full flex-col gap-4 lg:gap-6">
-          {/* Title */}
-          <DetailTitle>
-            {projectDetailData.title}
-          </DetailTitle>
-
-          {/* Metadata */}
-          <ul class="flex flex-col items-start gap-3 lg:gap-4">
-            {/* Date Range */}
-            <DetailLiDateRange
-              dateRange={projectDetailData.dateRange}
-              isEmptyEndDateShowNow={false}
-            />
-
-            {/* Repository URLS */}
-            {
-              projectDetailData.repositoryLinks &&
-                projectDetailData.repositoryLinks.map((repository) => (
-                  <DetailLiRepository repository={repository} />
-                ))
-            }
-
-            {/* Deployment URLS */}
-            {
-              projectDetailData.deploymentLinks &&
-                projectDetailData.deploymentLinks.map((deployment) => (
-                  <DetailLiDeployment deployment={deployment} />
-                ))
-            }
-          </ul>
-
-          {/* Preview Image (Usually project logo) */}
+      <article class="flex flex-col gap-6 lg:gap-8">
+        {/* Hero Image */}
+        <div
+          class="animate-fade-in-scale border-border/50 bg-surface relative overflow-hidden rounded-xl border opacity-0"
+          style="animation-delay: 0.2s;"
+        >
           <DetailImage
             src={projectDetailData.image.url!}
             alt={projectDetailData.image.alt}
           />
+          <div
+            class="from-background/40 pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
+          >
+          </div>
+        </div>
+
+        {/* Header Section */}
+        <header class="flex flex-col">
+          {/* Mono label */}
+          <div
+            class="animate-fade-in-up mb-1.5 opacity-0 lg:mb-2.5"
+            style="animation-delay: 0.3s;"
+          >
+            <DetailMonoLabel>Project</DetailMonoLabel>
+          </div>
+
+          {/* Title */}
+          <div
+            class="animate-fade-in-up mb-3 opacity-0 lg:mb-4"
+            style="animation-delay: 0.4s;"
+          >
+            <DetailTitle>{projectDetailData.title}</DetailTitle>
+          </div>
+
+          {/* Description */}
+          <div
+            class="animate-fade-in-up mb-3 opacity-0 lg:mb-4"
+            style="animation-delay: 0.5s;"
+          >
+            <DetailDescription
+              >{projectDetailData.description}</DetailDescription
+            >
+          </div>
+
+          {/* Metadata row */}
+          <div
+            class="animate-fade-in-up flex flex-wrap items-center gap-2 opacity-0"
+            style="animation-delay: 0.6s;"
+          >
+            <DetailDateRange dateRange={projectDetailData.dateRange} />
+
+            {
+              projectDetailData.repositoryLinks?.map((repo) => (
+                <PillRepository repository={repo} />
+              ))
+            }
+
+            {
+              projectDetailData.deploymentLinks?.map((deploy) => (
+                <PillDeployment deployment={deploy} />
+              ))
+            }
+          </div>
         </header>
 
+        {/* Divider */}
+        <div
+          class="animate-fade-in-up opacity-0"
+          style="animation-delay: 0.7s;"
+        >
+          <Divider />
+        </div>
+
         {/* Content Section */}
-        <section class="w-full">
-          {/* Content */}
+        <section
+          class="animate-fade-in-up w-full opacity-0"
+          style="animation-delay: 0.8s;"
+        >
           {
             (
               // @ts-ignore
@@ -104,18 +142,30 @@ if (!projectDetailData) {
           }
         </section>
 
-        <DetailAdjacentNavigation
-          previous={projectDetailData.previous && {
-            title: projectDetailData.previous.title,
-            href: `/projects/${projectDetailData.previous.slug.current}`,
-            description: projectDetailData.previous.description,
-          }}
-          next={projectDetailData.next && {
-            title: projectDetailData.next.title,
-            href: `/projects/${projectDetailData.next.slug.current}`,
-            description: projectDetailData.next.description,
-          }}
-        />
+        {/* Adjacent Navigation */}
+        <div
+          class="animate-fade-in-up opacity-0"
+          style="animation-delay: 0.9s;"
+        >
+          <Divider />
+        </div>
+        <div
+          class="animate-fade-in-up opacity-0"
+          style="animation-delay: 1.0s;"
+        >
+          <DetailAdjacentNavigation
+            previous={projectDetailData.previous && {
+              title: projectDetailData.previous.title,
+              href: `/projects/${projectDetailData.previous.slug.current}`,
+              description: projectDetailData.previous.description,
+            }}
+            next={projectDetailData.next && {
+              title: projectDetailData.next.title,
+              href: `/projects/${projectDetailData.next.slug.current}`,
+              description: projectDetailData.next.description,
+            }}
+          />
+        </div>
       </article>
     </div>
   </main>

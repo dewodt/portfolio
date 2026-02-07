@@ -37,7 +37,7 @@ const finalLinkPreviewImage =
   <meta
     name="theme-color"
     media="(prefers-color-scheme: light)"
-    content="#f8f9fc"
+    content="#fafbfe"
   />
   <meta
     name="theme-color"
@@ -90,13 +90,10 @@ const finalLinkPreviewImage =
   <script is:inline>
     (function () {
       var theme = localStorage.getItem("theme");
-      if (
-        theme === "dark" ||
-        (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        document.documentElement.classList.add("dark");
-      } else {
+      if (theme === "light") {
         document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
       }
     })();
   </script>
@@ -112,7 +109,7 @@ const finalLinkPreviewImage =
     }
     :root:not(.dark) body,
     :root:not(.dark) {
-      background-color: #f8f9fc;
+      background-color: #fafbfe;
     }
   </style>
   <style is:global>

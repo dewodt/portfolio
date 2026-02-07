@@ -17,10 +17,10 @@ const { language, code, filename, highlightedLines } = Astro.props;
 
 <custom-block-code data-language={language}>
   <div
-    class="border-border mb-5 flex flex-col overflow-hidden rounded-md border text-sm lg:mb-6 lg:text-base"
+    class="code-block mb-5 flex flex-col overflow-hidden rounded-md border text-sm lg:mb-6 lg:text-base"
   >
     <div
-      class="border-border bg-card-darker flex h-12 flex-row items-center justify-between border-b pr-2 pl-4"
+      class="code-block-header flex h-12 flex-row items-center justify-between border-b pr-2 pl-4"
     >
       {/* Filename */}
       {
@@ -46,7 +46,8 @@ const { language, code, filename, highlightedLines } = Astro.props;
       code={code}
       lang={language as CodeLanguage}
       class="text-sm lg:text-base"
-      theme="dark-plus"
+      themes={{ light: "light-plus", dark: "dark-plus" }}
+      defaultColor="dark"
       meta={`{${highlightedLines.join(",")}}`}
       transformers={[transformerMetaHighlight()]}
       inline={false}
@@ -55,6 +56,30 @@ const { language, code, filename, highlightedLines } = Astro.props;
 </custom-block-code>
 
 <style is:global>
+  /* Code block — light-plus theme (default) */
+  .code-block {
+    border-color: #e5e5e5;
+    background-color: #ffffff;
+  }
+
+  .code-block-header {
+    border-color: #e5e5e5;
+    background-color: #f8f8f8;
+    color: #6e7681;
+  }
+
+  /* Code block — dark-plus theme */
+  .dark .code-block {
+    border-color: #242425;
+    background-color: #1e1e1e;
+  }
+
+  .dark .code-block-header {
+    border-color: #242425;
+    background-color: #181819;
+    color: #cccccc;
+  }
+
   pre:has(code) {
     padding: 20px 0px;
     overflow-x: auto;

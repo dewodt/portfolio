@@ -4,13 +4,13 @@
 @layer base {
   :root {
     /* Light mode */
-    --background: #f8f9fc;
-    --background-elevated: #f0f2f8;
-    --surface: #e8ebf2;
-    --border: #cdd1db;
+    --background: #fafbfe;
+    --background-elevated: #eef1f8;
+    --surface: #e4e8f2;
+    --border: #cbd0dc;
     --border-hover: #9ca3af;
-    --card: #f0f2f8;
-    --card-darker: #e8ebf2;
+    --card: #eef1f8;
+    --card-darker: #e4e8f2;
     --muted: #6b7280;
     --muted-foreground: #9ca3af;
     --primary: #2563eb;
@@ -35,6 +35,18 @@
     --secondary: #f1f5f9;
     --destructive: #ef4444;
   }
+}
+
+.dark .astro-code,
+.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+.dark .astro-code {
+  background-color: var(--shiki-dark-bg) !important;
 }
 
 @theme {
@@ -67,6 +79,7 @@
   --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
   --animate-fade-in-scale: fade-in-scale 0.6s ease-out forwards;
   --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
+  --animate-shimmer: shimmer 3s ease-in-out infinite;
 }
 
 @keyframes fade-in {
@@ -97,6 +110,15 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }
 

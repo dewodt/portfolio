@@ -1,0 +1,47 @@
+---
+import { getFormattedDate } from "@/lib/utils";
+
+interface Props {
+  dateRange: {
+    startDate: string;
+    endDate?: string;
+  };
+  isEmptyEndDateShowNow?: boolean;
+}
+
+const { dateRange, isEmptyEndDateShowNow = false } = Astro.props;
+---
+
+<span class="text-muted text-sm lg:text-base">
+  {
+    isEmptyEndDateShowNow ? (
+      <>
+        <time datetime={dateRange.startDate}>
+          {getFormattedDate(dateRange.startDate)}
+        </time>
+        {" – "}
+        {dateRange.endDate ? (
+          <time datetime={dateRange.endDate}>
+            {getFormattedDate(dateRange.endDate)}
+          </time>
+        ) : (
+          <span>Now</span>
+        )}
+      </>
+    ) : (
+      <>
+        <time datetime={dateRange.startDate}>
+          {getFormattedDate(dateRange.startDate)}
+        </time>
+        {dateRange.endDate && (
+          <>
+            {" – "}
+            <time datetime={dateRange.endDate}>
+              {getFormattedDate(dateRange.endDate)}
+            </time>
+          </>
+        )}
+      </>
+    )
+  }
+</span>

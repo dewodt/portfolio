@@ -1,0 +1,13 @@
+---
+import { getFormattedDate } from "@/lib/utils";
+
+interface Props {
+  date: string;
+}
+
+const { date } = Astro.props;
+---
+
+<span class="text-muted text-sm lg:text-base">
+  <time datetime={date}>{getFormattedDate(date)}</time>
+</span>

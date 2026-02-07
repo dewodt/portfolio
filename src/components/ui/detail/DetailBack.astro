@@ -3,16 +3,18 @@ import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon.astro";
 
 interface Props {
   href: string;
+  label?: string;
 }
 
-const { href } = Astro.props;
+const { href, label = "Back" } = Astro.props;
 ---
 
-{/* Back Button */}
 <a
   href={href}
-  class="text-primary hover:text-primary/90 flex w-fit items-center gap-1 transition-colors"
+  class="group text-primary hover:text-primary-hover flex w-fit items-center gap-1 transition-all"
 >
-  <ChevronLeftIcon class="size-5" />
-  <span class="text-base leading-none font-medium">Back</span>
+  <ChevronLeftIcon
+    class="size-5 transition-transform group-hover:-translate-x-0.5"
+  />
+  <span class="text-base leading-none font-medium">{label}</span>
 </a>
