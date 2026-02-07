@@ -1,39 +1,69 @@
 ---
+import { Image } from "astro:assets";
+import ArrowRightIcon from "@/components/icons/ArrowRightIcon.astro";
+import { getFormattedDate } from "@/lib/utils";
 import type { AllBlogsQueryResult } from "@/types/sanity";
-import CardContainer from "./builder/CardContainer.astro";
-import CardImage from "./builder/CardImage.astro";
-import CardContent from "./builder/CardContent.astro";
-import CardTitle from "./builder/CardTitle.astro";
-import CardDate from "./builder/CardDate.astro";
-import CardDescription from "./builder/CardDescription.astro";
 
 interface Props {
   blog: AllBlogsQueryResult[number];
 }
 
 const { blog } = Astro.props;
+
+const formattedDate = getFormattedDate(blog.date);
 ---
 
-<CardContainer
-  href={`/blogs/${blog.slug.current}`}
-  ariaLabel={`Link to blog ${blog.title}`}
+<article
+  class="group/card border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary-sm relative overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1"
 >
-  {/* Card Image */}
-  <CardImage src={blog.image.url!} alt={blog.image.alt} />
+  {/* Gradient glow pseudo-element */}
+  <div
+    class="bg-primary/0 group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
+  >
+  </div>
 
-  {/* Card Content */}
-  <CardContent>
-    {/* Title */}
-    <CardTitle>
-      {blog.title}
-    </CardTitle>
+  {/* Full-card anchor */}
+  <a
+    href={`/blogs/${blog.slug.current}`}
+    aria-label={`Link to blog ${blog.title}`}
+    class="absolute inset-0 z-30"></a>
 
-    {/* Date */}
-    <CardDate date={blog.date} />
+  <div class="flex flex-col sm:flex-row">
+    {/* Text content */}
+    <div class="flex flex-1 flex-col gap-2 p-4 lg:p-5">
+      {/* Date */}
+      <span
+        class="text-muted-foreground font-mono text-xs tracking-widest uppercase"
+      >
+        <time datetime={blog.date}>{formattedDate}</time>
+      </span>
 
-    {/* Short description */}
-    <CardDescription>
-      {blog.description}
-    </CardDescription>
-  </CardContent>
-</CardContainer>
+      {/* Title + arrow */}
+      <div class="flex items-center gap-2">
+        <h2
+          class="text-secondary group-hover/card:text-primary text-lg font-bold transition-colors duration-200 lg:text-xl"
+        >
+          {blog.title}
+        </h2>
+        <ArrowRightIcon
+          class="text-primary size-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover/card:translate-x-0 group-hover/card:opacity-100"
+        />
+      </div>
+
+      {/* Description */}
+      <p class="text-muted line-clamp-2 text-sm">{blog.description}</p>
+    </div>
+
+    {/* Image */}
+    <div class="order-first overflow-hidden sm:order-last sm:w-[27.5%]">
+      <Image
+        class="bg-surface text-secondary flex aspect-[16/9] w-full items-center justify-evenly object-cover object-center text-base font-medium transition-transform duration-700 group-hover/card:scale-[1.03] sm:aspect-auto sm:h-full"
+        src={blog.image.url!}
+        alt={blog.image.alt}
+        widths={[320, 384, 640]}
+        sizes="(max-width: 767px) 100vw, 280px"
+        inferSize
+      />
+    </div>
+  </div>
+</article>
