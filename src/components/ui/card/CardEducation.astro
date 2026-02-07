@@ -1,0 +1,72 @@
+---
+import { getFormattedDate } from "@/lib/utils";
+
+interface Props {
+  image: string;
+  imageAlt: string;
+  degree: string;
+  university: string;
+  startDate: string;
+  endDate: string | null;
+  description: string;
+}
+
+const { image, imageAlt, degree, university, startDate, endDate, description } =
+  Astro.props;
+
+const startFormatted = getFormattedDate(startDate);
+const endFormatted = endDate ? getFormattedDate(endDate) : "Present";
+---
+
+<article
+  class="group/card border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary-sm relative overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1"
+>
+  {/* Gradient glow pseudo-element */}
+  <div
+    class="bg-primary/0 group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
+  >
+  </div>
+
+  <div class="flex gap-3 p-4 lg:gap-4 lg:p-5">
+    {/* Institution image thumbnail */}
+    <img
+      class="bg-surface text-secondary size-12 shrink-0 rounded-lg object-cover object-center text-xs font-medium lg:size-14"
+      src={image}
+      alt={imageAlt}
+      width="56"
+      height="56"
+      loading="lazy"
+    />
+
+    {/* Content */}
+    <div class="flex flex-1 flex-col gap-2">
+      {/* University mono label */}
+      <span class="text-primary font-mono text-xs tracking-widest uppercase">
+        {university}
+      </span>
+
+      {/* Degree title */}
+      <h3 class="text-secondary text-lg font-bold lg:text-xl">
+        {degree}
+      </h3>
+
+      {/* Date range */}
+      <span
+        class="text-muted-foreground font-mono text-xs tracking-widest uppercase"
+      >
+        <time datetime={startDate}>{startFormatted}</time>
+        {" – "}
+        {
+          endDate ? (
+            <time datetime={endDate}>{endFormatted}</time>
+          ) : (
+            <span>Present</span>
+          )
+        }
+      </span>
+
+      {/* Description */}
+      <p class="text-muted line-clamp-3 text-sm">{description}</p>
+    </div>
+  </div>
+</article>

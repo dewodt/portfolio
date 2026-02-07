@@ -7,7 +7,32 @@ import { sanityClient, homePageQuery } from "@/lib/query";
 import { toPlainText } from "astro-portabletext";
 import Divider from "@/components/ui/Divider.astro";
 import SkillBadge from "@/components/ui/badge/SkillBadge.astro";
+import MapPinIcon from "@/components/icons/MapPinIcon.astro";
+import CardEducation from "@/components/ui/card/CardEducation.astro";
 import type { PortableTextBlock } from "@portabletext/types";
+
+const educationData = [
+  {
+    image: "https://placehold.co/112x112/1a1a2e/e0e0e0?text=UB",
+    imageAlt: "Universitas Brawijaya logo",
+    degree: "Bachelor of Computer Science",
+    university: "Universitas Brawijaya",
+    startDate: "2021-08-01",
+    endDate: "2025-08-01",
+    description:
+      "Focused on software engineering, algorithms, and web development. Active in competitive programming and open-source communities.",
+  },
+  {
+    image: "https://placehold.co/112x112/1a1a2e/e0e0e0?text=HS",
+    imageAlt: "SMAN 1 Kediri logo",
+    degree: "Natural Sciences",
+    university: "SMAN 1 Kediri",
+    startDate: "2018-07-01",
+    endDate: "2021-05-01",
+    description:
+      "Graduated with honors. Participated in various science olympiads and technology-related extracurricular activities.",
+  },
+];
 
 // Get home page data
 const homePageData =
@@ -30,7 +55,7 @@ const portableTextContent = homePageData.content as PortableTextBlock[];
       class="relative flex min-h-[calc(100vh-6rem)] flex-auto items-center justify-center px-5 py-12 sm:min-h-[calc(100vh-10rem)] sm:p-12 lg:p-16"
     >
       <div
-        class="relative flex flex-col items-center gap-6 sm:flex-row-reverse sm:gap-10 lg:gap-16 xl:gap-24"
+        class="relative flex flex-col items-center gap-6 md:flex-row-reverse md:gap-10 lg:gap-16 xl:gap-24"
       >
         {/* My Photo */}
         <div
@@ -52,11 +77,11 @@ const portableTextContent = homePageData.content as PortableTextBlock[];
           </div>
           {/* Photo */}
           <Image
-            class="border-border/50 bg-card text-secondary relative flex size-56 items-center justify-evenly rounded-[20%] border text-base font-medium sm:size-64 lg:size-80"
+            class="border-border/50 bg-card text-secondary relative flex size-56 items-center justify-evenly rounded-[20%] border text-base font-medium lg:size-80"
             src={homePageData.image.url!}
             alt={homePageData.image.alt}
-            widths={[224, 256, 320, 512]}
-            sizes="(max-width: 639px) 224px, (max-width: 1023px) 256px, 320px"
+            widths={[224, 320, 512]}
+            sizes="(max-width: 1023px) 224px, 320px"
             loading="eager"
             inferSize
           />
@@ -65,19 +90,24 @@ const portableTextContent = homePageData.content as PortableTextBlock[];
         {/* Texts */}
         {/* Need to override default margin from portable text */}
         <div
-          class="flex max-w-xs flex-col text-center sm:max-w-sm sm:text-start lg:max-w-lg"
+          class="flex max-w-xs flex-col text-center md:max-w-[27rem] md:text-start lg:max-w-lg"
         >
-          {/* Engineer label */}
-          <span
-            class="text-primary animate-fade-in-up mb-1.5 font-mono text-xs tracking-widest uppercase opacity-0 lg:mb-2.5 lg:text-sm"
+          {/* Engineer label + Location */}
+          <div
+            class="animate-fade-in-up mb-2 flex flex-col items-center gap-1 font-mono text-xs tracking-widest uppercase opacity-0 md:flex-row md:gap-0 lg:mb-3 lg:text-sm"
             style="animation-delay: 0.2s;"
           >
-            Software Engineer & Hiker
-          </span>
+            <span class="text-primary">Software Engineer & Hiker</span>
+            <span class="text-muted hidden md:inline">&nbsp;·&nbsp;</span>
+            <span class="text-muted flex items-center gap-1">
+              <MapPinIcon class="size-3 lg:size-3.5" />
+              Jakarta, Indonesia
+            </span>
+          </div>
 
           {/* Title */}
           <h1
-            class="text-secondary animate-fade-in-up mb-3 text-3xl font-bold tracking-tight opacity-0 lg:mb-5 lg:text-5xl"
+            class="text-secondary animate-fade-in-up mb-3 text-3xl font-bold tracking-tight opacity-0 lg:mb-4 lg:text-5xl"
             style="animation-delay: 0.3s;"
           >
             {homePageData.title}
@@ -95,21 +125,76 @@ const portableTextContent = homePageData.content as PortableTextBlock[];
     </section>
 
     {/* Section divider */}
-    <Divider class="mx-auto max-w-4xl" />
+    <Divider class="mx-auto max-w-xs sm:max-w-2xl lg:max-w-4xl" />
 
-    <!-- Skills -->
-    <section
-      class="flex min-h-[calc(100vh-6rem)] flex-auto justify-center px-5 py-12 sm:min-h-[calc(100vh-10rem)] sm:p-12 lg:p-16"
-    >
+    <!-- Education -->
+    <section class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
       <div class="flex w-full max-w-3xl flex-col gap-6">
         <div class="flex flex-col text-center">
           <span
-            class="text-primary mb-1.5 font-mono text-xs tracking-widest uppercase lg:mb-2.5 lg:text-sm"
+            class="text-primary mb-1 font-mono text-xs tracking-widest uppercase lg:mb-2 lg:text-sm"
+          >
+            Education
+          </span>
+          <h2
+            class="text-secondary mb-2 text-2xl font-bold tracking-tight lg:mb-3 lg:text-3xl"
+          >
+            Education
+          </h2>
+          <p class="text-muted text-base lg:text-lg">
+            My educational journey and academic foundations.
+          </p>
+        </div>
+
+        {/* Timeline */}
+        <div class="relative w-full">
+          {/* Continuous vertical line */}
+          <div
+            class="animate-grow-down bg-border absolute top-0 bottom-0 left-[5px] w-px origin-top"
+            style="animation-delay: 0.3s; transform: scaleY(0);"
+          >
+          </div>
+
+          <ul class="flex flex-col gap-6 lg:gap-8">
+            {
+              educationData.map((edu, index) => (
+                <li
+                  class="animate-fade-in-up relative pl-8 opacity-0 lg:pl-10"
+                  style={`animation-delay: ${0.3 + index * 0.05}s;`}
+                >
+                  {/* Timeline dot */}
+                  <div class="bg-primary ring-background absolute top-5 left-0 z-10 size-3 rounded-full ring-4" />
+                  <CardEducation
+                    image={edu.image}
+                    imageAlt={edu.imageAlt}
+                    degree={edu.degree}
+                    university={edu.university}
+                    startDate={edu.startDate}
+                    endDate={edu.endDate}
+                    description={edu.description}
+                  />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* Section divider */}
+    <Divider class="mx-auto max-w-xs sm:max-w-2xl lg:max-w-4xl" />
+
+    <!-- Skills -->
+    <section class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
+      <div class="flex w-full max-w-3xl flex-col gap-6">
+        <div class="flex flex-col text-center">
+          <span
+            class="text-primary mb-1 font-mono text-xs tracking-widest uppercase lg:mb-2 lg:text-sm"
           >
             Tools & Technologies
           </span>
           <h2
-            class="text-secondary mb-3 text-2xl font-bold tracking-tight lg:mb-4 lg:text-3xl"
+            class="text-secondary mb-2 text-2xl font-bold tracking-tight lg:mb-3 lg:text-3xl"
           >
             {homePageData.skillsSectionTitle}
           </h2>
