@@ -108,6 +108,13 @@ if (!projectDetailData) {
             <DetailDateRange dateRange={projectDetailData.dateRange} />
 
             {
+              (projectDetailData.repositoryLinks?.length ||
+                projectDetailData.deploymentLinks?.length) && (
+                <span class="text-muted text-sm lg:text-base">&middot;</span>
+              )
+            }
+
+            {
               projectDetailData.repositoryLinks?.map((repo) => (
                 <PillRepository repository={repo} />
               ))
