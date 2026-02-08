@@ -3,7 +3,7 @@ import { schemaTypes } from "./sanity/schema";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
-import { HomeIcon } from "./sanity/components/icon/home-icon";
+import { AboutIcon } from "./sanity/components/icon/about-icon";
 import { ProjectsIcon } from "./sanity/components/icon/projects-icon";
 import { ExperienceIcon } from "./sanity/components/icon/experience-icon";
 import { AwardsIcon } from "./sanity/components/icon/awards-icon";
@@ -30,7 +30,7 @@ const dataset =
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
 
 // Define the singleton document types
-const singletonTypes = new Set(["home"]);
+const singletonTypes = new Set(["about-page"]);
 
 // Sanity config
 export default defineConfig({
@@ -45,13 +45,13 @@ export default defineConfig({
         S.list()
           .title("Content")
           .items([
-            // Home
+            // About
             S.listItem()
-              .title("Home Page")
-              .id("home-page")
-              .icon(HomeIcon)
+              .title("About Page")
+              .id("about-page")
+              .icon(AboutIcon)
               .child(
-                S.document().schemaType("home-page").documentId("home-page"),
+                S.document().schemaType("about-page").documentId("about-page"),
               ),
 
             // Experience

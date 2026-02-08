@@ -36,7 +36,7 @@ const endFormatted = experience.dateRange.endDate
   <div class="flex gap-3 p-4 lg:gap-4">
     {/* Company image thumbnail */}
     <Image
-      class="bg-surface text-secondary size-12 shrink-0 rounded-lg object-cover object-center text-xs font-medium lg:size-14"
+      class="text-secondary size-12 shrink-0 rounded-lg bg-white object-contain object-center text-xs font-medium lg:size-14"
       src={experience.image.url!}
       alt={experience.image.alt}
       widths={[48, 56, 96, 112]}
@@ -79,7 +79,9 @@ const endFormatted = experience.dateRange.endDate
       </span>
 
       {/* Description */}
-      <p class="text-muted line-clamp-3 text-sm">{experience.description}</p>
+      <p class="text-muted text-sm whitespace-pre-line">
+        {experience.description}
+      </p>
 
       {/* Pill links */}
       {

@@ -7,7 +7,7 @@ interface Props {
   degree: string;
   university: string;
   startDate: string;
-  endDate: string | null;
+  endDate?: string | null;
   description: string;
 }
 
@@ -66,7 +66,9 @@ const endFormatted = endDate ? getFormattedDate(endDate) : "Present";
       </span>
 
       {/* Description */}
-      <p class="text-muted line-clamp-3 text-sm">{description}</p>
+      <p class="text-muted text-sm whitespace-pre-line">
+        {description}
+      </p>
     </div>
   </div>
 </article>

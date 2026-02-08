@@ -11,15 +11,31 @@ export const sanityClient = createClient({
 
 // Use slug to query params a single (non single instance) document
 
-export const homePageQuery = groq`
-  *[_type == "home-page"][0] {
+export const aboutPageQuery = groq`
+  *[_type == "about-page"][0] {
     _id,
+    heroMonoLabel,
+    location,
     title,
     content,
     "image": {
       "url": image.asset->url,
       "alt": image.alt,
     },
+    educationMonoLabel,
+    educationSectionTitle,
+    educationSectionDescription,
+    education[]{
+      "image": {
+        "url": image.asset->url,
+        "alt": image.alt,
+      },
+      degree,
+      university,
+      dateRange,
+      description,
+    },
+    skillsMonoLabel,
     skillsSectionTitle,
     skillsSectionDescription,
     skillCategories[]{
@@ -35,6 +51,8 @@ export const homePageQuery = groq`
 export const projectsPageQuery = groq`
   *[_type == "projects-page"][0] {
     _id,
+    monoLabel,
+    detailMonoLabel,
     title,
     description,
   }
@@ -88,6 +106,7 @@ export const projectDetailQuery = groq`
         "alt": alt,
       }
     },
+    "detailMonoLabel": *[_type == "projects-page"][0].detailMonoLabel,
     "previous": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
       _id,
       title,
@@ -108,6 +127,8 @@ export const projectDetailQuery = groq`
 export const experiencePageQuery = groq`
   *[_type == "experience-page"][0] {
     _id,
+    monoLabel,
+    detailMonoLabel,
     title,
     description,
   }
@@ -163,6 +184,7 @@ export const experienceDetailQuery = groq`
         "alt": alt,
       }
     },
+    "detailMonoLabel": *[_type == "experience-page"][0].detailMonoLabel,
     "previous": *[_type == "experience" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
       _id,
       title,
@@ -170,7 +192,7 @@ export const experienceDetailQuery = groq`
       description,
       dateRange,
       company
-    },    
+    },
     "next": *[_type == "experience" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {
       _id,
       title,
@@ -185,6 +207,8 @@ export const experienceDetailQuery = groq`
 export const awardsPageQuery = groq`
   *[_type == "awards-page"][0] {
     _id,
+    monoLabel,
+    detailMonoLabel,
     title,
     description,
   }
@@ -236,6 +260,7 @@ export const awardDetailQuery = groq`
         "alt": alt,
       }
     },
+    "detailMonoLabel": *[_type == "awards-page"][0].detailMonoLabel,
     "previous": *[_type == "awards" && date < ^.date] | order(date desc) [0] {
       _id,
       title,
@@ -258,6 +283,8 @@ export const awardDetailQuery = groq`
 export const blogPageQuery = groq`
   *[_type == "blog-page"][0] {
     _id,
+    monoLabel,
+    detailMonoLabel,
     title,
     description,
   }
@@ -307,6 +334,7 @@ export const blogDetailQuery = groq`
         "alt": alt,
       }
     },
+    "detailMonoLabel": *[_type == "blog-page"][0].detailMonoLabel,
     "previous": *[_type == "blog" && date < ^.date] | order(date desc) [0] {
       _id,
       title,
