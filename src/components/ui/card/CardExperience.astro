@@ -1,10 +1,13 @@
 ---
-import { Image } from "astro:assets";
-import ArrowRightIcon from "@/components/icons/ArrowRightIcon.astro";
-import PillRepository from "@/components/ui/pill/PillRepository.astro";
-import PillDeployment from "@/components/ui/pill/PillDeployment.astro";
 import { getFormattedDate } from "@/lib/utils";
 import type { AllExperiencesQueryResult } from "@/types/sanity";
+import CardDescription from "./shared/CardDescription.astro";
+import CardMetaDateRange from "./shared/CardMetaDateRange.astro";
+import CardMetaLocation from "./shared/CardMetaLocation.astro";
+import CardMonoLabel from "./shared/CardMonoLabel.astro";
+import CardPills from "./shared/CardPills.astro";
+import CardThumbnail from "./shared/CardThumbnail.astro";
+import CardTitle from "./shared/CardTitle.astro";
 
 interface Props {
   experience: AllExperiencesQueryResult[number];
@@ -15,7 +18,7 @@ const { experience } = Astro.props;
 const startFormatted = getFormattedDate(experience.dateRange.startDate);
 const endFormatted = experience.dateRange.endDate
   ? getFormattedDate(experience.dateRange.endDate)
-  : "Present";
+  : null;
 ---
 
 <article
@@ -35,73 +38,43 @@ const endFormatted = experience.dateRange.endDate
 
   <div class="flex gap-3 p-4 lg:gap-4">
     {/* Company image thumbnail */}
-    <div
-      class="flex aspect-square size-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white lg:size-14"
-    >
-      <Image
-        class="text-secondary h-auto w-full object-contain text-xs font-medium"
-        src={experience.image.url!}
-        alt={experience.image.alt}
-        widths={[48, 56, 96, 112]}
-        sizes="(max-width: 1023px) 48px, 56px"
-        inferSize
-      />
-    </div>
+    <CardThumbnail src={experience.image.url!} alt={experience.image.alt} />
 
     {/* Content */}
     <div class="flex flex-1 flex-col">
       {/* Company mono label */}
-      <span
-        class="text-primary mb-0.5 font-mono text-xs tracking-widest uppercase"
-      >
-        {experience.company}
-      </span>
+      <CardMonoLabel class="mb-0.5">{experience.company}</CardMonoLabel>
 
       {/* Title + arrow */}
-      <div class="mb-2 flex items-center gap-2">
-        <h2
-          class="text-secondary group-hover/card:text-primary text-lg font-bold transition-colors duration-200 lg:text-xl"
+      <CardTitle class="mb-1">{experience.title}</CardTitle>
+
+      {/* Date range + location */}
+      <div
+        class="text-muted-foreground mb-2 flex flex-col gap-1 font-mono text-xs tracking-widest uppercase sm:flex-row sm:items-center sm:gap-0.5"
+      >
+        <CardMetaDateRange
+          startDate={experience.dateRange.startDate}
+          endDate={experience.dateRange.endDate}
+          noEndDateLabel="Present"
         >
-          {experience.title}
-        </h2>
-        <ArrowRightIcon
-          class="text-primary size-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover/card:translate-x-0 group-hover/card:opacity-100"
-        />
+          <Fragment slot="start">{startFormatted}</Fragment>
+          <Fragment slot="end">{endFormatted}</Fragment>
+        </CardMetaDateRange>
+        <span class="hidden sm:mx-1 sm:inline">·</span>
+        <CardMetaLocation location="Jakarta, Indonesia" />
       </div>
 
-      {/* Date range */}
-      <span
-        class="text-muted-foreground mb-2 font-mono text-xs tracking-widest uppercase"
-      >
-        <time datetime={experience.dateRange.startDate}>{startFormatted}</time>
-        {" – "}
-        {
-          experience.dateRange.endDate ? (
-            <time datetime={experience.dateRange.endDate}>{endFormatted}</time>
-          ) : (
-            <span>Present</span>
-          )
-        }
-      </span>
-
       {/* Description */}
-      <p class="text-muted mb-2 text-sm whitespace-pre-line">
+      <CardDescription class="whitespace-pre-line">
         {experience.description}
-      </p>
+      </CardDescription>
 
       {/* Pill links */}
-      {
-        (experience.repositoryLinks || experience.deploymentLinks) && (
-          <div class="z-40 flex flex-wrap gap-2">
-            {experience.repositoryLinks?.map((repo) => (
-              <PillRepository repository={repo} />
-            ))}
-            {experience.deploymentLinks?.map((deploy) => (
-              <PillDeployment deployment={deploy} />
-            ))}
-          </div>
-        )
-      }
+      <CardPills
+        repositoryLinks={experience.repositoryLinks}
+        deploymentLinks={experience.deploymentLinks}
+        class="z-40 mt-2"
+      />
     </div>
   </div>
 </article>

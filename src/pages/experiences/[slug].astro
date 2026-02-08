@@ -6,6 +6,7 @@ import DetailDescription from "@/components/ui/detail/DetailDescription.astro";
 import Divider from "@/components/ui/Divider.astro";
 import DetailImage from "@/components/ui/detail/DetailImage.astro";
 import DetailMonoLabel from "@/components/ui/detail/DetailMonoLabel.astro";
+import DetailLocation from "@/components/ui/detail/DetailLocation.astro";
 import PillDeployment from "@/components/ui/pill/PillDeployment.astro";
 import PillRepository from "@/components/ui/pill/PillRepository.astro";
 import DetailCompany from "@/components/ui/detail/DetailCompany.astro";
@@ -114,6 +115,8 @@ if (!experienceDetailData) {
               dateRange={experienceDetailData.dateRange}
               isEmptyEndDateShowNow={true}
             />
+            <span class="text-muted text-sm lg:text-base">&middot;</span>
+            <DetailLocation location="Jakarta, Indonesia" />
 
             {
               (experienceDetailData.repositoryLinks?.length ||

@@ -1,10 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import ArrowRightIcon from "@/components/icons/ArrowRightIcon.astro";
-import PillDeployment from "@/components/ui/pill/PillDeployment.astro";
-import PillRepository from "@/components/ui/pill/PillRepository.astro";
 import { getFormattedDate } from "@/lib/utils";
 import type { AllProjectsQueryResult } from "@/types/sanity";
+import CardDescription from "./shared/CardDescription.astro";
+import CardMetaDateRange from "./shared/CardMetaDateRange.astro";
+import CardPills from "./shared/CardPills.astro";
+import CardTitle from "./shared/CardTitle.astro";
 
 interface Props {
   project: AllProjectsQueryResult[number];
@@ -51,49 +52,29 @@ const formattedEndDate = project.dateRange.endDate
   </div>
 
   {/* Content */}
-  <div class="flex flex-1 flex-col gap-2 px-4 pt-4 pb-3">
+  <div class="flex flex-1 flex-col px-4 pt-4 pb-3">
     {/* Date range */}
-    <span
-      class="text-muted-foreground font-mono text-xs tracking-widest uppercase"
+    <CardMetaDateRange
+      startDate={project.dateRange.startDate}
+      endDate={project.dateRange.endDate}
+      class="mb-1"
     >
-      <time datetime={project.dateRange.startDate}>{formattedStartDate}</time>
-      {
-        formattedEndDate && (
-          <>
-            {" – "}
-            <time datetime={project.dateRange.endDate}>{formattedEndDate}</time>
-          </>
-        )
-      }
-    </span>
+      <Fragment slot="start">{formattedStartDate}</Fragment>
+      <Fragment slot="end">{formattedEndDate}</Fragment>
+    </CardMetaDateRange>
 
     {/* Title + arrow */}
-    <div class="flex items-center gap-2">
-      <h2
-        class="text-secondary group-hover/card:text-primary text-lg font-bold transition-colors duration-200 lg:text-xl"
-      >
-        {project.title}
-      </h2>
-      <ArrowRightIcon
-        class="text-primary size-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover/card:translate-x-0 group-hover/card:opacity-100"
-      />
-    </div>
+    <CardTitle class="mb-2">{project.title}</CardTitle>
 
     {/* Description */}
-    <p class="text-muted line-clamp-3 text-sm">{project.description}</p>
+    <CardDescription class="line-clamp-3">{project.description}</CardDescription
+    >
 
     {/* Links row — rounded-full pill style */}
-    {
-      (project.repositoryLinks || project.deploymentLinks) && (
-        <div class="mt-auto flex flex-wrap gap-2 pt-2">
-          {project.repositoryLinks?.map((repo) => (
-            <PillRepository repository={repo} class="relative z-40" />
-          ))}
-          {project.deploymentLinks?.map((deploy) => (
-            <PillDeployment deployment={deploy} class="relative z-40" />
-          ))}
-        </div>
-      )
-    }
+    <CardPills
+      repositoryLinks={project.repositoryLinks}
+      deploymentLinks={project.deploymentLinks}
+      class="mt-auto pt-2"
+    />
   </div>
 </article>

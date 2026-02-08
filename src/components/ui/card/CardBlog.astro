@@ -1,8 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import ArrowRightIcon from "@/components/icons/ArrowRightIcon.astro";
 import { getFormattedDate } from "@/lib/utils";
 import type { AllBlogsQueryResult } from "@/types/sanity";
+import CardDescription from "./shared/CardDescription.astro";
+import CardMetaDate from "./shared/CardMetaDate.astro";
+import CardTitle from "./shared/CardTitle.astro";
 
 interface Props {
   blog: AllBlogsQueryResult[number];
@@ -30,28 +32,15 @@ const formattedDate = getFormattedDate(blog.date);
 
   <div class="flex flex-col sm:flex-row">
     {/* Text content */}
-    <div class="flex flex-1 flex-col gap-2 p-4 lg:p-5">
+    <div class="flex flex-1 flex-col p-4 lg:p-5">
       {/* Date */}
-      <span
-        class="text-muted-foreground font-mono text-xs tracking-widest uppercase"
-      >
-        <time datetime={blog.date}>{formattedDate}</time>
-      </span>
+      <CardMetaDate date={blog.date} class="mb-1">{formattedDate}</CardMetaDate>
 
       {/* Title + arrow */}
-      <div class="flex items-center gap-2">
-        <h2
-          class="text-secondary group-hover/card:text-primary text-lg font-bold transition-colors duration-200 lg:text-xl"
-        >
-          {blog.title}
-        </h2>
-        <ArrowRightIcon
-          class="text-primary size-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover/card:translate-x-0 group-hover/card:opacity-100"
-        />
-      </div>
+      <CardTitle class="mb-2">{blog.title}</CardTitle>
 
       {/* Description */}
-      <p class="text-muted line-clamp-3 text-sm">{blog.description}</p>
+      <CardDescription class="line-clamp-3">{blog.description}</CardDescription>
     </div>
 
     {/* Image */}

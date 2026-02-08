@@ -1,0 +1,25 @@
+---
+import PillRepository from "@/components/ui/pill/PillRepository.astro";
+import PillDeployment from "@/components/ui/pill/PillDeployment.astro";
+
+interface Props {
+  repositoryLinks?: { url: string; label: string }[] | null;
+  deploymentLinks?: { url: string; label: string }[] | null;
+  class?: string;
+}
+
+const { repositoryLinks, deploymentLinks, class: className } = Astro.props;
+---
+
+{
+  (repositoryLinks || deploymentLinks) && (
+    <div class:list={["flex flex-wrap gap-2", className]}>
+      {repositoryLinks?.map((repo) => (
+        <PillRepository repository={repo} class="relative z-40" />
+      ))}
+      {deploymentLinks?.map((deploy) => (
+        <PillDeployment deployment={deploy} class="relative z-40" />
+      ))}
+    </div>
+  )
+}
