@@ -42,7 +42,8 @@ export const aboutPageQuery = groq`
       categoryTitle,
       skills[]{
         title,
-        "logo": logo.asset->url,
+        "logoLight": logoLight.asset->url,
+        "logoDark": logoDark.asset->url,
       }
     }
   }

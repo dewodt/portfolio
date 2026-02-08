@@ -1,12 +1,11 @@
 ---
-import { Image } from "astro:assets";
-
 interface Props {
-  logo: string;
+  logoLight: string;
+  logoDark: string;
   title: string;
 }
 
-const { logo, title } = Astro.props;
+const { logoLight, logoDark, title } = Astro.props;
 ---
 
 <div
@@ -19,7 +18,12 @@ const { logo, title } = Astro.props;
   </div>
 
   <div class="flex items-center gap-2 px-4 py-2">
-    <Image class="h-4 w-auto" src={logo} alt={`${title} Logo`} inferSize />
+    <img class="h-4 w-auto dark:hidden" src={logoLight} alt={`${title} Logo`} />
+    <img
+      class="hidden h-4 w-auto dark:block"
+      src={logoDark}
+      alt={`${title} Logo`}
+    />
     <span class="text-sm leading-none font-medium">{title}</span>
   </div>
 </div>

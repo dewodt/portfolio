@@ -203,7 +203,11 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
                 <ul class="flex flex-row flex-wrap justify-center gap-2.5">
                   {category.skills.map((skill) => (
                     <li>
-                      <SkillBadge logo={skill.logo!} title={skill.title} />
+                      <SkillBadge
+                        logoLight={skill.logoLight!}
+                        logoDark={skill.logoDark!}
+                        title={skill.title}
+                      />
                     </li>
                   ))}
                 </ul>

@@ -52,12 +52,12 @@ export const skillCategoriesField = defineField({
               preview: {
                 select: {
                   title: "title",
-                  logo: "logo",
+                  logoLight: "logoLight",
                 },
-                prepare({ title, logo }) {
+                prepare({ title, logoLight }) {
                   return {
                     title,
-                    media: logo,
+                    media: logoLight,
                   };
                 },
               },
@@ -70,12 +70,20 @@ export const skillCategoriesField = defineField({
                     Rule.required().error("Title is required"),
                 },
                 {
-                  name: "logo",
-                  title: "Logo",
+                  name: "logoLight",
+                  title: "Logo (Light)",
                   type: "image",
-                  description: "Insert a logo (recommended type is SVG)",
+                  description: "Logo for light mode (recommended type is SVG)",
                   validation: (Rule) =>
                     Rule.required().error("Logo is required"),
+                },
+                {
+                  name: "logoDark",
+                  title: "Logo (Dark)",
+                  type: "image",
+                  description: "Logo for dark mode (recommended type is SVG)",
+                  validation: (Rule) =>
+                    Rule.required().error("Dark logo is required"),
                 },
               ],
             },
