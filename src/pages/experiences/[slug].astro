@@ -124,18 +124,18 @@ if (!experienceDetailData) {
                 <span class="text-muted text-sm lg:text-base">&middot;</span>
               )
             }
-
-            {
-              experienceDetailData.repositoryLinks?.map((repo) => (
-                <PillRepository repository={repo} />
-              ))
-            }
-
-            {
-              experienceDetailData.deploymentLinks?.map((deploy) => (
-                <PillDeployment deployment={deploy} />
-              ))
-            }
+            <div class="flex flex-wrap items-center gap-3">
+              {
+                experienceDetailData.repositoryLinks?.map((repo) => (
+                  <PillRepository repository={repo} />
+                ))
+              }
+              {
+                experienceDetailData.deploymentLinks?.map((deploy) => (
+                  <PillDeployment deployment={deploy} />
+                ))
+              }
+            </div>
           </div>
         </header>
 

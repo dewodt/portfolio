@@ -115,18 +115,18 @@ if (!projectDetailData) {
                 <span class="text-muted text-sm lg:text-base">&middot;</span>
               )
             }
-
-            {
-              projectDetailData.repositoryLinks?.map((repo) => (
-                <PillRepository repository={repo} />
-              ))
-            }
-
-            {
-              projectDetailData.deploymentLinks?.map((deploy) => (
-                <PillDeployment deployment={deploy} />
-              ))
-            }
+            <div class="flex flex-wrap items-center gap-3">
+              {
+                projectDetailData.repositoryLinks?.map((repo) => (
+                  <PillRepository repository={repo} />
+                ))
+              }
+              {
+                projectDetailData.deploymentLinks?.map((deploy) => (
+                  <PillDeployment deployment={deploy} />
+                ))
+              }
+            </div>
           </div>
         </header>
 

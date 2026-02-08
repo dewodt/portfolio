@@ -17,7 +17,7 @@ const { src, alt, class: className } = Astro.props;
   ]}
 >
   <Image
-    class="text-secondary h-auto w-full object-contain text-xs font-medium"
+    class="text-secondary h-auto w-full object-contain text-xs font-medium transition-transform duration-700 group-hover/card:scale-[1.03]"
     src={src}
     alt={alt}
     widths={[48, 56, 96, 112]}
