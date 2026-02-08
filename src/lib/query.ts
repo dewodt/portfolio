@@ -147,6 +147,7 @@ export const allExperiencesQuery = groq`
     description,
     dateRange,
     company,
+    location,
     repositoryLinks,
     deploymentLinks,
   }
@@ -164,6 +165,7 @@ export const experienceDetailQuery = groq`
     description,
     dateRange,
     company,
+    location,
     repositoryLinks,
     deploymentLinks,
     content[]{

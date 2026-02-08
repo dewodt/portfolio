@@ -19,7 +19,7 @@ export const aboutPageSchema = defineType({
       "Hero Mono Label",
       "The mono label displayed in the hero section (e.g., Software Engineer & Hiker)",
     ),
-    locationField,
+    locationField(),
     titleField,
     contentField,
     imageField("Your photo (RECOMMENDED SIZE IS 1:1)"),

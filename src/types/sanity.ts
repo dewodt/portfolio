@@ -440,6 +440,7 @@ export type Experience = {
   slug: Slug;
   description: string;
   company: string;
+  location: string;
   dateRange: {
     startDate: string;
     endDate?: string;
@@ -1323,7 +1324,7 @@ export type ExperiencePageQueryResult = {
   description: string;
 } | null;
 // Variable: allExperiencesQuery
-// Query: *[_type == "experience"] | order(dateRange.startDate desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,  }
+// Query: *[_type == "experience"] | order(dateRange.startDate desc) {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    location,    repositoryLinks,    deploymentLinks,  }
 export type AllExperiencesQueryResult = Array<{
   _id: string;
   image: {
@@ -1338,6 +1339,7 @@ export type AllExperiencesQueryResult = Array<{
     endDate?: string;
   };
   company: string;
+  location: string;
   repositoryLinks: Array<{
     label: string;
     url: string;
@@ -1352,7 +1354,7 @@ export type AllExperiencesQueryResult = Array<{
   }> | null;
 }>;
 // Variable: experienceDetailQuery
-// Query: *[_type == "experience" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },    "detailMonoLabel": *[_type == "experience-page"][0].detailMonoLabel,    "previous": *[_type == "experience" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {      _id,      title,      slug,      description,      dateRange,      company    },    "next": *[_type == "experience" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {      _id,      title,      slug,      description,      dateRange,      company    },  }
+// Query: *[_type == "experience" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    dateRange,    company,    location,    repositoryLinks,    deploymentLinks,    content[]{      ...,      markDefs[]{        ...,        _type == "internalLink" => {          ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,        },        _type == "externalLink" => {          ...,          "href": url,        },      },      _type == "image" => {        ...,        "url": asset->url,        "alt": alt,      }    },    "detailMonoLabel": *[_type == "experience-page"][0].detailMonoLabel,    "previous": *[_type == "experience" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {      _id,      title,      slug,      description,      dateRange,      company    },    "next": *[_type == "experience" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {      _id,      title,      slug,      description,      dateRange,      company    },  }
 export type ExperienceDetailQueryResult = {
   _id: string;
   image: {
@@ -1367,6 +1369,7 @@ export type ExperienceDetailQueryResult = {
     endDate?: string;
   };
   company: string;
+  location: string;
   repositoryLinks: Array<{
     label: string;
     url: string;
@@ -1850,8 +1853,8 @@ declare module "@sanity/client" {
     '\n  *[_type == "projects"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllProjectsQueryResult;
     '\n  *[_type == "projects" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "detailMonoLabel": *[_type == "projects-page"][0].detailMonoLabel,\n    "previous": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n    "next": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n  }\n': ProjectDetailQueryResult;
     '\n  *[_type == "experience-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': ExperiencePageQueryResult;
-    '\n  *[_type == "experience"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    company,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllExperiencesQueryResult;
-    '\n  *[_type == "experience" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    company,\n    repositoryLinks,\n    deploymentLinks,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "detailMonoLabel": *[_type == "experience-page"][0].detailMonoLabel,\n    "previous": *[_type == "experience" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange,\n      company\n    },\n    "next": *[_type == "experience" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange,\n      company\n    },\n  }\n': ExperienceDetailQueryResult;
+    '\n  *[_type == "experience"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    company,\n    location,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllExperiencesQueryResult;
+    '\n  *[_type == "experience" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    company,\n    location,\n    repositoryLinks,\n    deploymentLinks,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "detailMonoLabel": *[_type == "experience-page"][0].detailMonoLabel,\n    "previous": *[_type == "experience" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange,\n      company\n    },\n    "next": *[_type == "experience" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange,\n      company\n    },\n  }\n': ExperienceDetailQueryResult;
     '\n  *[_type == "awards-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': AwardsPageQueryResult;
     '\n  *[_type == "awards"] | order(date desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n  }\n': AllAwardsQueryResult;
     '\n  *[_type == "awards" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "detailMonoLabel": *[_type == "awards-page"][0].detailMonoLabel,\n    "previous": *[_type == "awards" && date < ^.date] | order(date desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n    "next": *[_type == "awards" && date > ^.date] | order(date) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n  }\n': AwardDetailQueryResult;

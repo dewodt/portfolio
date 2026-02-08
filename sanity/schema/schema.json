@@ -2483,6 +2483,13 @@
         },
         "optional": false
       },
+      "location": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
       "dateRange": {
         "type": "objectAttribute",
         "value": {

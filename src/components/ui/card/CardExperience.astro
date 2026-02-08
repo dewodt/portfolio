@@ -61,7 +61,7 @@ const endFormatted = experience.dateRange.endDate
           <Fragment slot="end">{endFormatted}</Fragment>
         </CardMetaDateRange>
         <span class="hidden sm:mx-1 sm:inline">·</span>
-        <CardMetaLocation location="Jakarta, Indonesia" />
+        <CardMetaLocation location={experience.location} />
       </div>
 
       {/* Description */}

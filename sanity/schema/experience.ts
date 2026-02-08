@@ -8,6 +8,7 @@ import { titleField } from "../fields/title";
 import { dateRangeField } from "../fields/date-range";
 import { descriptionField } from "../fields/description";
 import { companyField } from "../fields/company";
+import { locationField } from "../fields/location";
 import { slugField } from "../fields/slug";
 import { ExperienceIcon } from "../components/icon/experience-icon";
 
@@ -23,6 +24,7 @@ export const experienceSchema = defineType({
     slugField,
     descriptionField,
     companyField,
+    locationField("Location of the experience (e.g., Jakarta, Indonesia)"),
     dateRangeField,
     repositoryLinksField,
     deploymentLinksField,
