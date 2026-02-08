@@ -26,7 +26,7 @@ const html = KaTeX.renderToString(body, {
     <span class="text-secondary" set:html={html} />
   ) : (
     <p
-      class="text-secondary overflow-x-auto text-base lg:text-lg [&>.katex-display]:mt-0 [&>.katex-display]:mb-5 lg:[&>.katex-display]:mb-6"
+      class="text-secondary overflow-x-auto text-base lg:overflow-x-visible lg:text-lg [&>.katex-display]:mt-0 [&>.katex-display]:mb-5 lg:[&>.katex-display]:mb-6"
       set:html={html}
     />
   )
@@ -35,5 +35,12 @@ const html = KaTeX.renderToString(body, {
   /* override inline */
   .katex .vlist-t2 {
     margin-right: 0;
+  }
+  /* center overflowing block equations on large viewports */
+  @media (min-width: 1024px) {
+    .katex-display {
+      display: flex !important;
+      justify-content: center !important;
+    }
   }
 </style>
