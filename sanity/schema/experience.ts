@@ -3,13 +3,13 @@ import { getFormattedDate } from "@/lib/utils";
 import { contentField } from "../fields/content/content";
 import { repositoryLinksField } from "../fields/repository-links";
 import { deploymentLinksField } from "../fields/deployment-links";
+import { imageField } from "../fields/image";
 import { titleField } from "../fields/title";
 import { dateRangeField } from "../fields/date-range";
 import { descriptionField } from "../fields/description";
 import { companyField } from "../fields/company";
 import { slugField } from "../fields/slug";
 import { ExperienceIcon } from "../components/icon/experience-icon";
-import { imageField } from "../fields/image";
 
 export const experienceSchema = defineType({
   name: "experience",
@@ -17,7 +17,7 @@ export const experienceSchema = defineType({
   type: "document",
   fields: [
     imageField(
-      "Image for the card preview, link preview, and first header image (RECOMMENDED SIZE IS 1200x630px + LESS THAN 300kb).",
+      "Image for link preview and detail page hero (RECOMMENDED SIZE IS 1200x630px + LESS THAN 300kb).",
     ),
     titleField,
     slugField,

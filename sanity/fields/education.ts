@@ -24,7 +24,8 @@ export const educationField = defineField({
           name: "image",
           title: "Institution Logo",
           type: "image",
-          description: "Logo of the educational institution",
+          description:
+            "Logo of the educational institution. Recommended size is around 100x100 px (1:1 ratio)",
           fields: [
             {
               name: "alt",
