@@ -3,5 +3,5 @@ export const CustomHighlight = ({
 }: {
   children: React.ReactNode;
 }) => {
-  return <span style={{ color: "#0ea5e9" }}>{children}</span>;
+  return <span style={{ color: "#3b82f6" }}>{children}</span>;
 };
