@@ -1,4 +1,5 @@
 import { defineField } from "sanity";
+import { SkillPreview } from "../components/preview/skill-preview";
 
 export const skillCategoriesField = defineField({
   name: "skillCategories",
@@ -49,16 +50,14 @@ export const skillCategoriesField = defineField({
               title: "Skill Item",
               description: "Insert a skill item",
               type: "object",
+              components: {
+                preview: SkillPreview,
+              },
               preview: {
                 select: {
                   title: "title",
                   logoLight: "logoLight",
-                },
-                prepare({ title, logoLight }) {
-                  return {
-                    title,
-                    media: logoLight,
-                  };
+                  logoDark: "logoDark",
                 },
               },
               fields: [
