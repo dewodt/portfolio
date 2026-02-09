@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { SocialPreview } from "../components/preview/social-preview";
 
 export const socialsSchema = defineType({
   name: "socials",
@@ -55,11 +56,15 @@ export const socialsSchema = defineType({
                 Rule.required().error("Dark icon is required"),
             }),
           ],
+          components: {
+            preview: SocialPreview,
+          },
           preview: {
             select: {
               title: "name",
               subtitle: "url",
-              media: "iconLight",
+              iconLight: "iconLight",
+              iconDark: "iconDark",
             },
           },
         },
