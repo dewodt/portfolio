@@ -1,0 +1,49 @@
+---
+import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+import { getFormattedDate } from "@/lib/utils";
+
+interface Props {
+  dateRange: {
+    startDate: string;
+    endDate?: string;
+  };
+  isEmptyEndDateShowNow?: boolean;
+}
+
+const { dateRange, isEmptyEndDateShowNow = false } = Astro.props;
+---
+
+<span class="text-muted flex items-center gap-1.5 text-sm lg:text-base">
+  <CalendarIcon class="size-3.5 shrink-0 lg:size-4" />
+  {
+    isEmptyEndDateShowNow ? (
+      <>
+        <time datetime={dateRange.startDate}>
+          {getFormattedDate(dateRange.startDate)}
+        </time>
+        {" – "}
+        {dateRange.endDate ? (
+          <time datetime={dateRange.endDate}>
+            {getFormattedDate(dateRange.endDate)}
+          </time>
+        ) : (
+          <span>Now</span>
+        )}
+      </>
+    ) : (
+      <>
+        <time datetime={dateRange.startDate}>
+          {getFormattedDate(dateRange.startDate)}
+        </time>
+        {dateRange.endDate && (
+          <>
+            {" – "}
+            <time datetime={dateRange.endDate}>
+              {getFormattedDate(dateRange.endDate)}
+            </time>
+          </>
+        )}
+      </>
+    )
+  }
+</span>

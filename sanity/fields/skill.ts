@@ -1,4 +1,5 @@
 import { defineField } from "sanity";
+import { SkillPreview } from "../components/preview/skill-preview";
 
 export const skillCategoriesField = defineField({
   name: "skillCategories",
@@ -49,16 +50,14 @@ export const skillCategoriesField = defineField({
               title: "Skill Item",
               description: "Insert a skill item",
               type: "object",
+              components: {
+                preview: SkillPreview,
+              },
               preview: {
                 select: {
                   title: "title",
-                  logo: "logo",
-                },
-                prepare({ title, logo }) {
-                  return {
-                    title,
-                    media: logo,
-                  };
+                  logoLight: "logoLight",
+                  logoDark: "logoDark",
                 },
               },
               fields: [
@@ -70,12 +69,20 @@ export const skillCategoriesField = defineField({
                     Rule.required().error("Title is required"),
                 },
                 {
-                  name: "logo",
-                  title: "Logo",
+                  name: "logoLight",
+                  title: "Logo (Light)",
                   type: "image",
-                  description: "Insert a logo (recommended type is SVG)",
+                  description: "Logo for light mode (recommended type is SVG)",
                   validation: (Rule) =>
                     Rule.required().error("Logo is required"),
+                },
+                {
+                  name: "logoDark",
+                  title: "Logo (Dark)",
+                  type: "image",
+                  description: "Logo for dark mode (recommended type is SVG)",
+                  validation: (Rule) =>
+                    Rule.required().error("Dark logo is required"),
                 },
               ],
             },

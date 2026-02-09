@@ -1,5 +1,3 @@
-import { QuoteIcon } from "../../icon/quote-icon";
-
 export const CustomBlockquote = ({
   children,
 }: {
@@ -8,26 +6,15 @@ export const CustomBlockquote = ({
   return (
     <blockquote
       style={{
-        borderLeft: "4px solid #0ea5e9",
-        backgroundColor: "#1e293b",
-        borderTopRightRadius: "6px",
-        borderBottomRightRadius: "6px",
-        padding: "1rem",
+        borderLeft: "2px solid rgba(59, 130, 246, 0.6)",
+        paddingLeft: "1.25rem",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
         fontSize: "1rem",
-        fontWeight: 500,
-        color: "#ffffff",
+        color: "#94a3b8",
         fontStyle: "italic",
       }}
     >
-      <QuoteIcon
-        style={{
-          fill: "#0ea5e9",
-          marginBottom: "0.5rem",
-          width: "1.5rem",
-          height: "1.5rem",
-          stroke: "none",
-        }}
-      />
       {children}
     </blockquote>
   );

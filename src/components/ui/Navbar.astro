@@ -1,19 +1,25 @@
 ---
-import MenuIcon from "../icons/MenuIcon.astro";
-import XIcon from "../icons/XIcon.astro";
+import UserRoundIcon from "../icons/UserRoundIcon.astro";
+import BriefcaseIcon from "../icons/BriefcaseIcon.astro";
+import FolderCodeIcon from "../icons/FolderCodeIcon.astro";
+import TrophyIcon from "../icons/TrophyIcon.astro";
+import PenLineIcon from "../icons/PenLineIcon.astro";
+import SunIcon from "../icons/SunIcon.astro";
+import MoonIcon from "../icons/MoonIcon.astro";
 
 interface NavigationPath {
   label: string;
   url: string;
+  icon: any;
 }
 
 // List of paths
 const paths: NavigationPath[] = [
-  { label: "Home", url: "/" },
-  { label: "Experiences", url: "/experiences" },
-  { label: "Projects", url: "/projects" },
-  { label: "Awards", url: "/awards" },
-  { label: "Blogs", url: "/blogs" },
+  { label: "About", url: "/", icon: UserRoundIcon },
+  { label: "Experiences", url: "/experiences", icon: BriefcaseIcon },
+  { label: "Projects", url: "/projects", icon: FolderCodeIcon },
+  { label: "Awards", url: "/awards", icon: TrophyIcon },
+  { label: "Blogs", url: "/blogs", icon: PenLineIcon },
 ];
 
 // Current page
@@ -29,139 +35,66 @@ const isActive = (navbarPath: string) => {
 };
 ---
 
-<!-- Blur -->
+<!-- Top blur -->
 <div
-  class="from-background pointer-events-none fixed inset-x-0 top-0 z-30 h-12 w-full bg-gradient-to-b to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
+  class="from-background pointer-events-none fixed inset-x-0 top-0 z-30 block h-16 w-full bg-gradient-to-b to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
 >
 </div>
 
-<!-- Navbar -->
-<nav-bar
-  class="sticky top-0 right-0 left-0 z-40 sm:top-6 sm:right-auto sm:left-auto sm:mx-auto sm:mt-6"
+<!-- Navbar: floating pill at top center -->
+<nav
+  class="fixed top-0 right-0 left-0 z-40 flex items-center justify-center pt-4"
 >
-  <header
-    class="border-border bg-card-darker sm:bg-card-darker flex h-20 w-full flex-row items-center justify-between border-b px-7 py-2 sm:h-fit sm:rounded-full sm:border sm:p-2"
+  <div
+    class="border-border/50 bg-card-darker/80 shadow-background/20 flex flex-row items-center gap-1 rounded-full border p-1.5 shadow-lg backdrop-blur-xl sm:shadow-none"
   >
-    {/* Mobile Icon */}
-    <a href="/" class="text-2xl font-bold sm:hidden">
-      <span class="text-secondary">dewo</span><span class="text-primary"
-        >dt</span
-      >
-    </a>
+    {
+      paths.map((path) => {
+        const active = isActive(path.url);
+        return (
+          <a
+            href={path.url}
+            aria-label={path.label}
+            class={`flex size-11 items-center justify-center rounded-full transition-colors duration-200 sm:size-auto sm:flex-row sm:gap-2 sm:px-4 sm:py-2 sm:text-sm sm:font-medium ${
+              active
+                ? "bg-primary/15 text-primary"
+                : "text-muted hover:text-secondary hover:bg-border/40"
+            }`}
+          >
+            <path.icon class="size-[18px] sm:size-4" />
+            <span class="hidden sm:inline">{path.label}</span>
+          </a>
+        );
+      })
+    }
 
-    {/* Menu Icon Button */}
+    {/* Divider */}
+    <div class="bg-border mx-0.5 h-6 w-px sm:mx-1"></div>
+
+    {/* Theme toggle */}
     <button
-      id="button-open-sidebar"
-      aria-label="Open Navigation Bar"
-      class="flex size-9 sm:hidden"
+      id="theme-toggle"
+      aria-label="Toggle theme"
+      class="text-muted hover:text-secondary hover:bg-border flex size-11 items-center justify-center rounded-full transition-colors duration-200 sm:size-9"
     >
-      <MenuIcon class="stroke-secondary size-full" />
+      <SunIcon class="size-[18px] sm:size-4 dark:hidden" />
+      <MoonIcon class="hidden size-[18px] sm:size-4 dark:block" />
     </button>
-
-    {/* Sidebar */}
-    <div
-      id="sidebar-container"
-      class="border-l-border bg-card-darker fixed top-0 right-[-200px] bottom-0 z-10 flex h-full w-[200px] translate-x-0 flex-col gap-12 border-l py-6 pr-6 pl-8 text-base duration-300 ease-in-out sm:static sm:h-auto sm:w-auto sm:translate-x-0 sm:border-none sm:bg-transparent sm:p-0"
-    >
-      {/* Close Button */}
-      <button
-        id="button-close-sidebar"
-        aria-label="Close Navigation Bar"
-        class="flex size-9 self-end sm:hidden"
-      >
-        <XIcon class="stroke-secondary size-full" />
-      </button>
-
-      {/* Path lists */}
-      <nav>
-        <ul class="flex flex-col gap-5 sm:flex-row sm:gap-3">
-          {
-            paths.map((path) => {
-              return (
-                <li>
-                  <a
-                    href={path.url}
-                    class={`flex text-base sm:rounded-full sm:px-5 sm:py-2 ${
-                      isActive(path.url)
-                        ? "text-secondary sm:bg-primary font-semibold"
-                        : "text-muted hover:text-secondary sm:hover:bg-primary/35 hover:drop-shadow-primary-sm font-medium transition-[filter,--tw-drop-shadow,background-color,color] duration-200"
-                    }`}
-                  >
-                    {path.label}
-                  </a>
-                </li>
-              );
-            })
-          }
-        </ul>
-      </nav>
-    </div>
-
-    {/* Side bar opaque background */}
-    <div
-      id="sidebar-blur"
-      class="inset-0 z-0 hidden h-full w-full bg-black/50 sm:hidden"
-    >
-    </div>
-  </header>
-</nav-bar>
+  </div>
+</nav>
 
 <script>
-  class Navbar extends HTMLElement {
-    constructor() {
-      super();
+  function setupThemeToggle() {
+    const toggle = document.getElementById("theme-toggle");
 
-      // Open sidebar callback function
-      const onOpenSidebar = () => {
-        // Select elements
-        const body = document.querySelector("body");
-        const sidebarBlur = this.querySelector("#sidebar-blur");
-        const sidebar = this.querySelector("#sidebar-container");
+    toggle?.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
 
-        // Body transition
-        body?.classList.add("overflow-hidden");
-
-        // Blur transition
-        sidebarBlur?.classList.remove("hidden");
-        sidebarBlur?.classList.add("fixed");
-
-        // Sidebar transition
-        sidebar?.classList.remove("translate-x-0");
-        sidebar?.classList.add("-translate-x-[200px]");
-      };
-
-      // Close sidebar callback function
-      const onCloseSidebar = () => {
-        // Select elements
-        const body = document.querySelector("body");
-        const sidebarBlur = this.querySelector("#sidebar-blur");
-        const sidebar = this.querySelector("#sidebar-container");
-
-        // Sidebar transition
-        sidebar?.classList.remove("-translate-x-[200px]");
-        sidebar?.classList.add("translate-x-0");
-
-        // Blur transition
-        sidebarBlur?.classList.remove("fixed");
-        sidebarBlur?.classList.add("hidden");
-
-        // Body transition
-        body?.classList.remove("overflow-hidden");
-      };
-
-      // Handle open event from button
-      const openButton = this.querySelector("#button-open-sidebar");
-      openButton?.addEventListener("click", onOpenSidebar);
-
-      // Handle close event from button
-      const closeButton = this.querySelector("#button-close-sidebar");
-      closeButton?.addEventListener("click", onCloseSidebar);
-
-      // Handle close event from sidebar blur
-      const sidebarBlur = this.querySelector("#sidebar-blur");
-      sidebarBlur?.addEventListener("click", onCloseSidebar);
-    }
+    // Only respect manual toggle — ignore system preference changes
   }
 
-  customElements.define("nav-bar", Navbar);
+  setupThemeToggle();
+  document.addEventListener("astro:after-swap", setupThemeToggle);
 </script>

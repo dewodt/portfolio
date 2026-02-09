@@ -1,0 +1,64 @@
+---
+import { getFormattedDate } from "@/lib/utils";
+import CardDescription from "./shared/CardDescription.astro";
+import CardMetaDateRange from "./shared/CardMetaDateRange.astro";
+import CardMonoLabel from "./shared/CardMonoLabel.astro";
+import CardThumbnail from "./shared/CardThumbnail.astro";
+import CardTitle from "./shared/CardTitle.astro";
+
+interface Props {
+  image: string;
+  imageAlt: string;
+  degree: string;
+  university: string;
+  startDate: string;
+  endDate?: string | null;
+  description: string;
+}
+
+const { image, imageAlt, degree, university, startDate, endDate, description } =
+  Astro.props;
+
+const startFormatted = getFormattedDate(startDate);
+const endFormatted = endDate ? getFormattedDate(endDate) : null;
+---
+
+<article
+  class="group/card border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary-sm relative overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1"
+>
+  {/* Gradient glow pseudo-element */}
+  <div
+    class="bg-primary/0 group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
+  >
+  </div>
+
+  <div class="flex gap-3 p-4 lg:gap-4">
+    {/* Institution image thumbnail */}
+    <CardThumbnail src={image} alt={imageAlt} />
+
+    {/* Content */}
+    <div class="flex flex-1 flex-col">
+      {/* University mono label */}
+      <CardMonoLabel class="mb-0.5">{university}</CardMonoLabel>
+
+      {/* Degree title */}
+      <CardTitle as="h3" showArrow={false} class="mb-1">{degree}</CardTitle>
+
+      {/* Date range */}
+      <CardMetaDateRange
+        startDate={startDate}
+        endDate={endDate}
+        noEndDateLabel="Present"
+        class="mb-2"
+      >
+        <Fragment slot="start">{startFormatted}</Fragment>
+        <Fragment slot="end">{endFormatted}</Fragment>
+      </CardMetaDateRange>
+
+      {/* Description */}
+      <CardDescription class="whitespace-pre-line">
+        {description}
+      </CardDescription>
+    </div>
+  </div>
+</article>

@@ -1,47 +1,64 @@
 ---
+import { Image } from "astro:assets";
+import { getFormattedDate } from "@/lib/utils";
 import type { AllAwardsQueryResult } from "@/types/sanity";
-import FileBadgeIcon from "@/components/icons/FileBadgeIcon.astro";
-import CardContainer from "./builder/CardContainer.astro";
-import CardImage from "./builder/CardImage.astro";
-import CardContent from "./builder/CardContent.astro";
-import CardTitle from "./builder/CardTitle.astro";
-import CardSubtitle from "./builder/CardSubtitle.astro";
-import CardDescription from "./builder/CardDescription.astro";
-import CardDate from "./builder/CardDate.astro";
+import CardDescription from "./shared/CardDescription.astro";
+import CardMetaDate from "./shared/CardMetaDate.astro";
+import CardMonoLabel from "./shared/CardMonoLabel.astro";
+import CardTitle from "./shared/CardTitle.astro";
 
 interface Props {
   award: AllAwardsQueryResult[number];
 }
 
 const { award } = Astro.props;
+
+const formattedDate = getFormattedDate(award.date);
 ---
 
-<CardContainer
-  href={`/awards/${award.slug.current}`}
-  ariaLabel={`Link to award ${award.title} issued by ${award.issuer}`}
+<article
+  class="group/card border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary relative h-full overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1.5"
 >
-  {/* Card Image */}
-  <CardImage src={award.image.url!} alt={award.image.alt} />
+  {/* Gradient glow pseudo-element */}
+  <div
+    class="bg-primary/0 group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
+  >
+  </div>
 
-  {/* Card Content */}
-  <CardContent>
-    {/* Title */}
-    <CardTitle>{award.title}</CardTitle>
+  {/* Full-card anchor */}
+  <a
+    href={`/awards/${award.slug.current}`}
+    aria-label={`Link to award ${award.title} issued by ${award.issuer}`}
+    class="absolute inset-0 z-30"></a>
 
-    {/* Issued by */}
-    <CardSubtitle>
-      <FileBadgeIcon class="stroke-secondary size-5" />
-      <span>
-        {award.issuer}
-      </span>
-    </CardSubtitle>
+  <div class="flex h-full flex-col sm:flex-row">
+    {/* Image — 1:1 square logo */}
+    <div class="bg-surface relative overflow-hidden sm:w-1/3">
+      <Image
+        class="bg-surface text-secondary flex aspect-[16/9] w-full items-center justify-evenly object-cover object-center text-base font-medium transition-transform duration-700 group-hover/card:scale-[1.03] sm:absolute sm:inset-0 sm:h-full"
+        src={award.image.url!}
+        alt={award.image.alt}
+        widths={[320, 384, 640, 768]}
+        sizes="(max-width: 639px) 100vw, 280px"
+        inferSize
+      />
+    </div>
 
-    {/* Date */}
-    <CardDate date={award.date} />
+    {/* Content */}
+    <div class="flex flex-1 flex-col p-4 lg:p-5">
+      {/* Issuer mono label */}
+      <CardMonoLabel class="mb-0.5">{award.issuer}</CardMonoLabel>
 
-    {/* Short description */}
-    <CardDescription>
-      {award.description}
-    </CardDescription>
-  </CardContent>
-</CardContainer>
+      {/* Title + arrow */}
+      <CardTitle class="mb-1">{award.title}</CardTitle>
+
+      {/* Date */}
+      <CardMetaDate date={award.date} class="mb-2">{formattedDate}</CardMetaDate
+      >
+
+      {/* Description */}
+      <CardDescription class="line-clamp-3">{award.description}</CardDescription
+      >
+    </div>
+  </div>
+</article>

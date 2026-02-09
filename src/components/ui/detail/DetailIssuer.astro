@@ -1,0 +1,14 @@
+---
+import TrophyIcon from "@/components/icons/TrophyIcon.astro";
+
+interface Props {
+  issuer: string;
+}
+
+const { issuer } = Astro.props;
+---
+
+<span class="text-muted flex items-center gap-1.5 text-sm lg:text-base">
+  <TrophyIcon class="size-3.5 shrink-0 lg:size-4" />
+  {issuer}
+</span>

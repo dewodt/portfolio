@@ -1,0 +1,14 @@
+---
+import BriefcaseIcon from "@/components/icons/BriefcaseIcon.astro";
+
+interface Props {
+  company: string;
+}
+
+const { company } = Astro.props;
+---
+
+<span class="text-muted flex items-center gap-1.5 text-sm lg:text-base">
+  <BriefcaseIcon class="size-3.5 shrink-0 lg:size-4" />
+  {company}
+</span>

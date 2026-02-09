@@ -1,0 +1,26 @@
+---
+import LinkIcon from "@/components/icons/LinkIcon.astro";
+
+interface Props {
+  deployment: {
+    label: string;
+    url: string;
+  };
+  class?: string;
+}
+
+const { deployment, class: className } = Astro.props;
+---
+
+<a
+  href={deployment.url}
+  aria-label={deployment.label}
+  target="_blank"
+  class:list={[
+    "border-muted-foreground/25 text-muted hover:border-primary hover:bg-primary hover:shadow-primary/20 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-300 hover:text-white hover:shadow-sm",
+    className,
+  ]}
+>
+  <LinkIcon class="size-3.5" />
+  {deployment.label}
+</a>

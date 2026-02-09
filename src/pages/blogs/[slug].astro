@@ -1,8 +1,11 @@
 ---
 import DetailAdjacentNavigation from "@/components/ui/detail/DetailAdjacentNavigation.astro";
 import DetailBack from "@/components/ui/detail/DetailBack.astro";
+import DetailDate from "@/components/ui/detail/DetailDate.astro";
+import DetailDescription from "@/components/ui/detail/DetailDescription.astro";
+import Divider from "@/components/ui/Divider.astro";
 import DetailImage from "@/components/ui/detail/DetailImage.astro";
-import DetailLiDate from "@/components/ui/detail/DetailLiDate.astro";
+import DetailMonoLabel from "@/components/ui/detail/DetailMonoLabel.astro";
 import DetailTitle from "@/components/ui/detail/DetailTitle.astro";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
 import LayoutBase from "@/layouts/LayoutBase.astro";
@@ -13,7 +16,6 @@ import {
 } from "@/types/sanity";
 
 export const getStaticPaths = async () => {
-  // Get all awards from CMS
   const allBlogsData =
     await sanityClient.fetch<AllBlogsQueryResult>(allBlogsQuery);
 
@@ -26,7 +28,6 @@ export const getStaticPaths = async () => {
   return paths;
 };
 
-// Get data from CMS
 const blogDetailData = await sanityClient.fetch<BlogDetailQueryResult>(
   blogDetailQuery,
   { slug: Astro.params.slug },
@@ -43,34 +44,76 @@ if (!blogDetailData) {
   linkPreviewImage={blogDetailData.image}
 >
   <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
-    <div class="flex w-full max-w-xl flex-col gap-4 lg:max-w-3xl lg:gap-6">
+    <div class="flex w-full max-w-xl flex-col gap-6 lg:max-w-3xl lg:gap-8">
       {/* Back Button */}
-      <DetailBack href="/blogs" />
+      <div class="animate-fade-in-up opacity-0" style="animation-delay: 0.1s;">
+        <DetailBack href="/blogs" label="Back to Blogs" />
+      </div>
 
-      <article class="flex flex-col items-start gap-5 lg:gap-7">
-        {/* Header Section */}
-        <header class="flex w-full flex-col gap-4 lg:gap-6">
-          {/* Title */}
-          <DetailTitle>
-            {blogDetailData.title}
-          </DetailTitle>
-
-          {/* Metadata */}
-          <ul class="flex flex-col items-start gap-3 lg:gap-4">
-            {/* Date */}
-            <DetailLiDate date={blogDetailData.date} />
-          </ul>
-
-          {/* Preview Image (Usually project logo) */}
+      <article class="flex flex-col gap-6 lg:gap-8">
+        {/* Hero Image */}
+        <div
+          class="animate-fade-in-scale border-border/50 bg-surface relative overflow-hidden rounded-xl border opacity-0"
+          style="animation-delay: 0.2s;"
+        >
           <DetailImage
             src={blogDetailData.image.url!}
             alt={blogDetailData.image.alt}
           />
+          <div
+            class="from-background/40 pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
+          >
+          </div>
+        </div>
+
+        {/* Header Section */}
+        <header class="flex flex-col">
+          {/* Mono label */}
+          <div
+            class="animate-fade-in-up mb-1 opacity-0 lg:mb-2"
+            style="animation-delay: 0.3s;"
+          >
+            <DetailMonoLabel>{blogDetailData.detailMonoLabel}</DetailMonoLabel>
+          </div>
+
+          {/* Title */}
+          <div
+            class="animate-fade-in-up mb-2 opacity-0 lg:mb-3"
+            style="animation-delay: 0.4s;"
+          >
+            <DetailTitle>{blogDetailData.title}</DetailTitle>
+          </div>
+
+          {/* Description */}
+          <div
+            class="animate-fade-in-up mb-2 opacity-0 lg:mb-3"
+            style="animation-delay: 0.5s;"
+          >
+            <DetailDescription>{blogDetailData.description}</DetailDescription>
+          </div>
+
+          {/* Metadata row */}
+          <div
+            class="animate-fade-in-up flex flex-wrap items-center gap-3 opacity-0"
+            style="animation-delay: 0.6s;"
+          >
+            <DetailDate date={blogDetailData.date} />
+          </div>
         </header>
 
+        {/* Divider */}
+        <div
+          class="animate-fade-in-up opacity-0"
+          style="animation-delay: 0.7s;"
+        >
+          <Divider />
+        </div>
+
         {/* Content Section */}
-        <section class="w-full">
-          {/* Content */}
+        <section
+          class="animate-fade-in-up w-full opacity-0"
+          style="animation-delay: 0.8s;"
+        >
           {
             (
               // @ts-ignore
@@ -79,19 +122,30 @@ if (!blogDetailData) {
           }
         </section>
 
-        {/* Adjancent Navigation */}
-        <DetailAdjacentNavigation
-          previous={blogDetailData.previous && {
-            title: blogDetailData.previous.title,
-            href: `/blogs/${blogDetailData.previous.slug.current}`,
-            description: blogDetailData.previous.description,
-          }}
-          next={blogDetailData.next && {
-            title: blogDetailData.next.title,
-            href: `/blogs/${blogDetailData.next.slug.current}`,
-            description: blogDetailData.next.description,
-          }}
-        />
+        {/* Adjacent Navigation */}
+        <div
+          class="animate-fade-in-up opacity-0"
+          style="animation-delay: 0.9s;"
+        >
+          <Divider />
+        </div>
+        <div
+          class="animate-fade-in-up opacity-0"
+          style="animation-delay: 1.0s;"
+        >
+          <DetailAdjacentNavigation
+            previous={blogDetailData.previous && {
+              title: blogDetailData.previous.title,
+              href: `/blogs/${blogDetailData.previous.slug.current}`,
+              description: blogDetailData.previous.description,
+            }}
+            next={blogDetailData.next && {
+              title: blogDetailData.next.title,
+              href: `/blogs/${blogDetailData.next.slug.current}`,
+              description: blogDetailData.next.description,
+            }}
+          />
+        </div>
       </article>
     </div>
   </main>

@@ -1,20 +1,155 @@
 @import "tailwindcss" source("../../src");
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    /* Light mode */
+    --background: #fafbfe;
+    --background-elevated: #eef1f8;
+    --surface: #e4e8f2;
+    --border: #cbd0dc;
+    --border-hover: #9ca3af;
+    --card: #eef1f8;
+    --card-darker: #e4e8f2;
+    --muted: #6b7280;
+    --muted-foreground: #9ca3af;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --accent: #0891b2;
+    --secondary: #0f172a;
+    --destructive: #dc2626;
+  }
+  .dark {
+    --background: #090f1c;
+    --background-elevated: #0f1629;
+    --surface: #131b2e;
+    --border: #1e293b;
+    --border-hover: #334155;
+    --card: #1a2332;
+    --card-darker: #111827;
+    --muted: #94a3b8;
+    --muted-foreground: #64748b;
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --accent: #06b6d4;
+    --secondary: #f1f5f9;
+    --destructive: #ef4444;
+  }
+}
+
+.dark .astro-code,
+.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+.dark .astro-code {
+  background-color: var(--shiki-dark-bg) !important;
+}
 
 @theme {
   /* Colors */
-  --color-background: #0b1120;
-  --color-border: #343841;
-  --color-card: #1e293b;
-  --color-muted: #a0a4a3;
-  --color-primary: #0ea5e9;
-  --color-secondary: #ffffff;
-  --color-destructive: #ef4444;
-  --color-card-darker: #18212f;
+  --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-card: var(--card);
+  --color-card-darker: var(--card-darker);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-accent: var(--accent);
+  --color-secondary: var(--secondary);
+  --color-destructive: var(--destructive);
 
   /* Font Family */
-  --font-inter: "Inter Variable", sans-serif;
+  --font-sans: "Geist Variable", sans-serif;
+  --font-mono: "Geist Mono Variable", monospace;
 
   /* Drop Shadow */
-  --drop-shadow-primary: 0px 0px 48px rgba(14, 165, 233, 0.35);
-  --drop-shadow-primary-sm: 0px 0px 16px rgba(14, 165, 233, 0.35);
+  --drop-shadow-primary: 0px 0px 48px color-mix(in srgb, var(--primary) 25%, transparent);
+  --drop-shadow-primary-sm: 0px 0px 16px color-mix(in srgb, var(--primary) 25%, transparent);
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
+  --animate-fade-in-scale: fade-in-scale 0.6s ease-out forwards;
+  --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
+  --animate-shimmer: shimmer 3s ease-in-out infinite;
+  --animate-grow-down: grow-down 0.8s ease-out forwards;
+}
+
+@keyframes grow-down {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

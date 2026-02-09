@@ -1,0 +1,29 @@
+---
+interface Props {
+  logoLight: string;
+  logoDark: string;
+  title: string;
+}
+
+const { logoLight, logoDark, title } = Astro.props;
+---
+
+<div
+  class="group/badge border-border bg-card text-secondary hover:border-border-hover/80 hover:drop-shadow-primary-sm relative overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1"
+>
+  {/* Glow effect */}
+  <div
+    class="bg-primary/0 group-hover/badge:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
+  >
+  </div>
+
+  <div class="flex items-center gap-2 px-4 py-2">
+    <img class="h-4 w-auto dark:hidden" src={logoLight} alt={`${title} Logo`} />
+    <img
+      class="hidden h-4 w-auto dark:block"
+      src={logoDark}
+      alt={`${title} Logo`}
+    />
+    <span class="text-sm leading-none font-medium">{title}</span>
+  </div>
+</div>

@@ -1,10 +1,12 @@
 ---
-import FileBadgeIcon from "@/components/icons/FileBadgeIcon.astro";
 import DetailAdjacentNavigation from "@/components/ui/detail/DetailAdjacentNavigation.astro";
 import DetailBack from "@/components/ui/detail/DetailBack.astro";
+import DetailDate from "@/components/ui/detail/DetailDate.astro";
+import DetailDescription from "@/components/ui/detail/DetailDescription.astro";
+import Divider from "@/components/ui/Divider.astro";
 import DetailImage from "@/components/ui/detail/DetailImage.astro";
-import DetailLiCustom from "@/components/ui/detail/DetailLiCustom.astro";
-import DetailLiDate from "@/components/ui/detail/DetailLiDate.astro";
+import DetailMonoLabel from "@/components/ui/detail/DetailMonoLabel.astro";
+import DetailIssuer from "@/components/ui/detail/DetailIssuer.astro";
 import DetailTitle from "@/components/ui/detail/DetailTitle.astro";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
 import LayoutBase from "@/layouts/LayoutBase.astro";
@@ -15,7 +17,6 @@ import {
 } from "@/types/sanity";
 
 export const getStaticPaths = async () => {
-  // Get all awards from CMS
   const allAwardsData =
     await sanityClient.fetch<AllAwardsQueryResult>(allAwardsQuery);
 
@@ -28,7 +29,6 @@ export const getStaticPaths = async () => {
   return paths;
 };
 
-// Get data from CMS
 const awardDetailData = await sanityClient.fetch<AwardDetailQueryResult>(
   awardDetailQuery,
   { slug: Astro.params.slug },
@@ -45,42 +45,78 @@ if (!awardDetailData) {
   linkPreviewImage={awardDetailData.image}
 >
   <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
-    <div class="flex w-full max-w-xl flex-col gap-4 lg:max-w-3xl lg:gap-6">
+    <div class="flex w-full max-w-xl flex-col gap-6 lg:max-w-3xl lg:gap-8">
       {/* Back Button */}
-      <DetailBack href="/awards" />
+      <div class="animate-fade-in-up opacity-0" style="animation-delay: 0.1s;">
+        <DetailBack href="/awards" label="Back to Awards" />
+      </div>
 
-      <article class="flex flex-col items-start gap-5 lg:gap-7">
-        {/* Header Section */}
-        <header class="flex w-full flex-col gap-4 lg:gap-6">
-          {/* Title */}
-          <DetailTitle>
-            {awardDetailData.title}
-          </DetailTitle>
-
-          {/* Metadata */}
-          <ul class="flex flex-col items-start gap-3 lg:gap-4">
-            {/* Issued by */}
-            <DetailLiCustom>
-              <FileBadgeIcon class="stroke-muted size-5 lg:size-6" />
-
-              <span>
-                {awardDetailData.issuer}
-              </span>
-            </DetailLiCustom>
-
-            {/* Date */}
-            <DetailLiDate date={awardDetailData.date} />
-          </ul>
-
-          {/* Preview Image (Usually project logo) */}
+      <article class="flex flex-col gap-6 lg:gap-8">
+        {/* Hero Image */}
+        <div
+          class="animate-fade-in-scale border-border/50 bg-surface relative overflow-hidden rounded-xl border opacity-0"
+          style="animation-delay: 0.2s;"
+        >
           <DetailImage
             src={awardDetailData.image.url!}
             alt={awardDetailData.image.alt}
           />
+          <div
+            class="from-background/40 pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
+          >
+          </div>
+        </div>
+
+        {/* Header Section */}
+        <header class="flex flex-col">
+          {/* Mono label */}
+          <div
+            class="animate-fade-in-up mb-1 opacity-0 lg:mb-2"
+            style="animation-delay: 0.3s;"
+          >
+            <DetailMonoLabel>{awardDetailData.detailMonoLabel}</DetailMonoLabel>
+          </div>
+
+          {/* Title */}
+          <div
+            class="animate-fade-in-up mb-2 opacity-0 lg:mb-3"
+            style="animation-delay: 0.4s;"
+          >
+            <DetailTitle>{awardDetailData.title}</DetailTitle>
+          </div>
+
+          {/* Description */}
+          <div
+            class="animate-fade-in-up mb-2 opacity-0 lg:mb-3"
+            style="animation-delay: 0.5s;"
+          >
+            <DetailDescription>{awardDetailData.description}</DetailDescription>
+          </div>
+
+          {/* Metadata row */}
+          <div
+            class="animate-fade-in-up flex flex-wrap items-center gap-3 opacity-0"
+            style="animation-delay: 0.6s;"
+          >
+            <DetailIssuer issuer={awardDetailData.issuer} />
+            <span class="text-muted text-sm lg:text-base">&middot;</span>
+            <DetailDate date={awardDetailData.date} />
+          </div>
         </header>
 
+        {/* Divider */}
+        <div
+          class="animate-fade-in-up opacity-0"
+          style="animation-delay: 0.7s;"
+        >
+          <Divider />
+        </div>
+
         {/* Content Section */}
-        <section class="w-full">
+        <section
+          class="animate-fade-in-up w-full opacity-0"
+          style="animation-delay: 0.8s;"
+        >
           {
             (
               // @ts-ignore
@@ -89,19 +125,30 @@ if (!awardDetailData) {
           }
         </section>
 
-        {/* Adjancent Navigation */}
-        <DetailAdjacentNavigation
-          previous={awardDetailData.previous && {
-            title: awardDetailData.previous.title,
-            href: `/awards/${awardDetailData.previous.slug.current}`,
-            description: awardDetailData.previous.description,
-          }}
-          next={awardDetailData.next && {
-            title: awardDetailData.next.title,
-            href: `/awards/${awardDetailData.next.slug.current}`,
-            description: awardDetailData.next.description,
-          }}
-        />
+        {/* Adjacent Navigation */}
+        <div
+          class="animate-fade-in-up opacity-0"
+          style="animation-delay: 0.9s;"
+        >
+          <Divider />
+        </div>
+        <div
+          class="animate-fade-in-up opacity-0"
+          style="animation-delay: 1.0s;"
+        >
+          <DetailAdjacentNavigation
+            previous={awardDetailData.previous && {
+              title: awardDetailData.previous.title,
+              href: `/awards/${awardDetailData.previous.slug.current}`,
+              description: awardDetailData.previous.description,
+            }}
+            next={awardDetailData.next && {
+              title: awardDetailData.next.title,
+              href: `/awards/${awardDetailData.next.slug.current}`,
+              description: awardDetailData.next.description,
+            }}
+          />
+        </div>
       </article>
     </div>
   </main>

@@ -1,7 +1,9 @@
 ---
 import SpeedInsights from "@vercel/speed-insights/astro";
-import "@fontsource-variable/inter";
-import interWoff2 from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+import geistWoff2 from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
+import geistMonoWoff2 from "@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2?url";
 
 interface Props {
   title: string;
@@ -31,8 +33,17 @@ const finalLinkPreviewImage =
   <!-- Viewport -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="black" />
+  <meta name="color-scheme" content="dark light" />
+  <meta
+    name="theme-color"
+    media="(prefers-color-scheme: light)"
+    content="#fafbfe"
+  />
+  <meta
+    name="theme-color"
+    media="(prefers-color-scheme: dark)"
+    content="#0f1629"
+  />
 
   <!-- SEO -->
   <title>{title}</title>
@@ -75,11 +86,30 @@ const finalLinkPreviewImage =
   <meta name="twitter:image" content={finalLinkPreviewImage.url} />
   <meta name="twitter:image:alt" content={finalLinkPreviewImage.alt} />
 
+  <!-- Theme detection (runs before paint to prevent FOUC) -->
+  <script is:inline>
+    (function () {
+      var theme = localStorage.getItem("theme");
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+    })();
+  </script>
+
   <!-- Prevent FOUC -->
   <style is:inline>
     body {
-      background-color: #0b1120;
       visibility: hidden;
+    }
+    .dark body,
+    .dark {
+      background-color: #090f1c;
+    }
+    :root:not(.dark) body,
+    :root:not(.dark) {
+      background-color: #fafbfe;
     }
   </style>
   <style is:global>
@@ -88,12 +118,19 @@ const finalLinkPreviewImage =
     }
   </style>
 
-  <!-- Font -->
+  <!-- Fonts -->
   <link
     rel="preload"
     as="font"
     type="font/woff2"
-    href={interWoff2}
+    href={geistWoff2}
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    as="font"
+    type="font/woff2"
+    href={geistMonoWoff2}
     crossorigin="anonymous"
   />
 

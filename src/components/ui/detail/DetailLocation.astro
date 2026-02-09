@@ -1,0 +1,14 @@
+---
+import MapPinIcon from "@/components/icons/MapPinIcon.astro";
+
+interface Props {
+  location: string;
+}
+
+const { location } = Astro.props;
+---
+
+<span class="text-muted flex items-center gap-1.5 text-sm lg:text-base">
+  <MapPinIcon class="size-3.5 shrink-0 lg:size-4" />
+  {location}
+</span>

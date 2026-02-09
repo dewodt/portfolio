@@ -1,4 +1,4 @@
-import { homePageSchema } from "./home-page";
+import { aboutPageSchema } from "./about-page";
 import { projectsPageSchema } from "./projects-page";
 import { projectsSchema } from "./projects";
 import { experiencePageSchema } from "./experience-page";
@@ -7,9 +7,10 @@ import { awardsPageSchema } from "./awards-page";
 import { awardsSchema } from "./awards";
 import { blogPageSchema } from "./blog-page";
 import { blogSchema } from "./blog";
+import { socialsSchema } from "./socials";
 
 export const schemaTypes = [
-  homePageSchema,
+  aboutPageSchema,
   projectsPageSchema,
   projectsSchema,
   experiencePageSchema,
@@ -18,4 +19,5 @@ export const schemaTypes = [
   awardsSchema,
   blogPageSchema,
   blogSchema,
+  socialsSchema,
 ];

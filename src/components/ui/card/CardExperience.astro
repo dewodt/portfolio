@@ -1,73 +1,80 @@
 ---
+import { getFormattedDate } from "@/lib/utils";
 import type { AllExperiencesQueryResult } from "@/types/sanity";
-import CompanyIcon from "@/components/icons/CompanyIcon.astro";
-import CardContainer from "./builder/CardContainer.astro";
-import CardImage from "./builder/CardImage.astro";
-import CardContent from "./builder/CardContent.astro";
-import CardTitle from "./builder/CardTitle.astro";
-import CardSubtitle from "./builder/CardSubtitle.astro";
-import CardDescription from "./builder/CardDescription.astro";
-import CardDateRange from "./builder/CardDateRange.astro";
-import CardLiRepository from "./builder/CardLiRepository.astro";
-import CardLiDeployment from "./builder/CardLiDeployment.astro";
+import CardDescription from "./shared/CardDescription.astro";
+import CardMetaDateRange from "./shared/CardMetaDateRange.astro";
+import CardMetaLocation from "./shared/CardMetaLocation.astro";
+import CardMonoLabel from "./shared/CardMonoLabel.astro";
+import CardPills from "./shared/CardPills.astro";
+import CardThumbnail from "./shared/CardThumbnail.astro";
+import CardTitle from "./shared/CardTitle.astro";
 
 interface Props {
   experience: AllExperiencesQueryResult[number];
 }
 
 const { experience } = Astro.props;
+
+const startFormatted = getFormattedDate(experience.dateRange.startDate);
+const endFormatted = experience.dateRange.endDate
+  ? getFormattedDate(experience.dateRange.endDate)
+  : null;
 ---
 
-<CardContainer
-  href={`/experiences/${experience.slug.current}`}
-  ariaLabel={`Link to experience ${experience.title} at ${experience.company}`}
+<article
+  class="group/card border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary-sm relative overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1"
 >
-  {/* Card Image */}
-  <CardImage src={experience.image.url!} alt={experience.image.alt} />
+  {/* Gradient glow pseudo-element */}
+  <div
+    class="bg-primary/0 group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
+  >
+  </div>
 
-  {/* Card Content */}
-  <CardContent class="justify-between">
-    <div class="flex flex-col gap-2">
-      {/* Title */}
-      <CardTitle>
-        {experience.title}
-      </CardTitle>
+  {/* Full-card anchor */}
+  <a
+    href={`/experiences/${experience.slug.current}`}
+    aria-label={`Link to experience ${experience.title} at ${experience.company}`}
+    class="absolute inset-0 z-30"></a>
 
-      {/* Company */}
-      <CardSubtitle>
-        <CompanyIcon class="stroke-secondary size-5" />
-        <span>
-          {experience.company}
-        </span>
-      </CardSubtitle>
+  <div class="flex gap-3 p-4 lg:gap-4">
+    {/* Company image thumbnail */}
+    <CardThumbnail src={experience.image.url!} alt={experience.image.alt} />
 
-      {/* Date */}
-      <CardDateRange
-        dateRange={experience.dateRange}
-        isEmptyEndDateShowNow={true}
-      />
+    {/* Content */}
+    <div class="flex flex-1 flex-col">
+      {/* Company mono label */}
+      <CardMonoLabel class="mb-0.5">{experience.company}</CardMonoLabel>
 
-      {/* Short description */}
-      <CardDescription>
+      {/* Title + arrow */}
+      <CardTitle class="mb-1">{experience.title}</CardTitle>
+
+      {/* Date range + location */}
+      <div
+        class="text-muted-foreground mb-2 flex flex-col gap-1 font-mono text-xs tracking-widest uppercase sm:flex-row sm:items-center sm:gap-0.5"
+      >
+        <CardMetaDateRange
+          startDate={experience.dateRange.startDate}
+          endDate={experience.dateRange.endDate}
+          noEndDateLabel="Present"
+        >
+          <Fragment slot="start">{startFormatted}</Fragment>
+          <Fragment slot="end">{endFormatted}</Fragment>
+        </CardMetaDateRange>
+        <span class="hidden sm:mx-1 sm:inline">·</span>
+        <CardMetaLocation location={experience.location} />
+      </div>
+
+      {/* Description */}
+      <CardDescription class="whitespace-pre-line">
         {experience.description}
       </CardDescription>
+
+      {/* Pill links */}
+      <CardPills
+        repositoryLinks={experience.repositoryLinks}
+        deploymentLinks={experience.deploymentLinks}
+        class="z-40 mt-2"
+      />
     </div>
-
-    {/* Links */}
-    {
-      (experience.repositoryLinks || experience.deploymentLinks) && (
-        <ul class="flex flex-row gap-5">
-          {/* First Repo link */}
-          {experience.repositoryLinks && (
-            <CardLiRepository repository={experience.repositoryLinks[0]} />
-          )}
-
-          {/* First Deployment link */}
-          {experience.deploymentLinks && (
-            <CardLiDeployment deployment={experience.deploymentLinks[0]} />
-          )}
-        </ul>
-      )
-    }
-  </CardContent>
-</CardContainer>
+  </div>
+</article>

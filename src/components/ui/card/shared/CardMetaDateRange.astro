@@ -1,0 +1,39 @@
+---
+import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+
+interface Props {
+  startDate: string;
+  endDate?: string | null;
+  noEndDateLabel?: string;
+  class?: string;
+}
+
+const { startDate, endDate, noEndDateLabel, class: className } = Astro.props;
+---
+
+<span
+  class:list={[
+    "text-muted-foreground inline-flex items-center gap-1.5 font-mono text-xs tracking-widest uppercase",
+    className,
+  ]}
+>
+  <CalendarIcon class="size-3.5 shrink-0" />
+  <time datetime={startDate}><slot name="start" /></time>
+  {
+    endDate ? (
+      <>
+        {" – "}
+        <time datetime={endDate}>
+          <slot name="end" />
+        </time>
+      </>
+    ) : (
+      noEndDateLabel && (
+        <>
+          {" – "}
+          <span>{noEndDateLabel}</span>
+        </>
+      )
+    )
+  }
+</span>
