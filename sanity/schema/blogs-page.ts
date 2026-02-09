@@ -1,5 +1,5 @@
 import { descriptionField } from "../fields/description";
-import { titleField } from "./../fields/title";
+import { titleField } from "../fields/title";
 import { defineType } from "sanity";
 import { monoLabelField } from "../fields/mono-label";
 

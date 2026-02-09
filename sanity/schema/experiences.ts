@@ -10,7 +10,7 @@ import { descriptionField } from "../fields/description";
 import { companyField } from "../fields/company";
 import { locationField } from "../fields/location";
 import { slugField } from "../fields/slug";
-import { ExperienceIcon } from "../components/icon/experience-icon";
+import { ExperienceIcon } from "../components/icon/experiences-icon";
 
 export const experienceSchema = defineType({
   name: "experiences",
