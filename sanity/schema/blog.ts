@@ -9,7 +9,7 @@ import { slugField } from "../fields/slug";
 import { BlogIcon } from "../components/icon/blog-icon";
 
 export const blogSchema = defineType({
-  name: "blog",
+  name: "blogs",
   title: "Blog",
   type: "document",
   fields: [

@@ -13,7 +13,7 @@ import { slugField } from "../fields/slug";
 import { ExperienceIcon } from "../components/icon/experience-icon";
 
 export const experienceSchema = defineType({
-  name: "experience",
+  name: "experiences",
   title: "Experience",
   type: "document",
   fields: [

@@ -64,15 +64,15 @@ export default defineConfig({
 
             // Experience
             S.listItem()
-              .title("Experience Page")
-              .id("experience-page")
+              .title("Experiences Page")
+              .id("experiences-page")
               .icon(ExperienceIcon)
               .child(
                 S.document()
-                  .schemaType("experience-page")
-                  .documentId("experience-page"),
+                  .schemaType("experiences-page")
+                  .documentId("experiences-page"),
               ),
-            S.documentTypeListItem("experience").title("Experience List"),
+            S.documentTypeListItem("experiences").title("Experiences List"),
 
             // Projects
             S.listItem()
@@ -100,13 +100,13 @@ export default defineConfig({
 
             // Blog
             S.listItem()
-              .title("Blog Page")
-              .id("blog-page")
+              .title("Blogs Page")
+              .id("blogs-page")
               .icon(BlogIcon)
               .child(
-                S.document().schemaType("blog-page").documentId("blog-page"),
+                S.document().schemaType("blogs-page").documentId("blogs-page"),
               ),
-            S.documentTypeListItem("blog").title("Blog List"),
+            S.documentTypeListItem("blogs").title("Blogs List"),
           ]),
     }),
     media(), // Note: only use the media to manage images, not to use the metadata feature (like alt) because it's for the image native metadata stored in sanity cloud, thus can't be forced to be required
