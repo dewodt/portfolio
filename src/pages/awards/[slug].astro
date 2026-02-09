@@ -44,18 +44,18 @@ if (!awardDetailData) {
   description={awardDetailData.description}
   linkPreviewImage={awardDetailData.image}
 >
-  <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
+  <main class="flex flex-auto justify-center px-5 py-8 sm:p-12 lg:p-16">
     <div class="flex w-full max-w-xl flex-col gap-6 lg:max-w-3xl lg:gap-8">
       {/* Back Button */}
-      <div class="animate-fade-in-up opacity-0" style="animation-delay: 0.1s;">
+      <div class="animate-fade-in-up" style="animation-delay: 0.05s;">
         <DetailBack href="/awards" label="Back to Awards" />
       </div>
 
       <article class="flex flex-col gap-6 lg:gap-8">
         {/* Hero Image */}
         <div
-          class="animate-fade-in-scale border-border/50 bg-surface relative overflow-hidden rounded-xl border opacity-0"
-          style="animation-delay: 0.2s;"
+          class="border-border/50 bg-surface animate-fade-in-scale relative overflow-hidden rounded-xl border"
+          style="animation-delay: 0.1s;"
         >
           <DetailImage
             src={awardDetailData.image.url!}
@@ -71,32 +71,32 @@ if (!awardDetailData) {
         <header class="flex flex-col">
           {/* Mono label */}
           <div
-            class="animate-fade-in-up mb-1 opacity-0 lg:mb-2"
-            style="animation-delay: 0.3s;"
+            class="animate-fade-in-up mb-1 lg:mb-2"
+            style="animation-delay: 0.15s;"
           >
             <DetailMonoLabel>{awardDetailData.detailMonoLabel}</DetailMonoLabel>
           </div>
 
           {/* Title */}
           <div
-            class="animate-fade-in-up mb-2 opacity-0 lg:mb-3"
-            style="animation-delay: 0.4s;"
+            class="animate-fade-in-up mb-2 lg:mb-3"
+            style="animation-delay: 0.2s;"
           >
             <DetailTitle>{awardDetailData.title}</DetailTitle>
           </div>
 
           {/* Description */}
           <div
-            class="animate-fade-in-up mb-2 opacity-0 lg:mb-3"
-            style="animation-delay: 0.5s;"
+            class="animate-fade-in-up mb-2 lg:mb-3"
+            style="animation-delay: 0.25s;"
           >
             <DetailDescription>{awardDetailData.description}</DetailDescription>
           </div>
 
           {/* Metadata row */}
           <div
-            class="animate-fade-in-up flex flex-wrap items-center gap-3 opacity-0"
-            style="animation-delay: 0.6s;"
+            class="animate-fade-in-up flex flex-wrap items-center gap-3"
+            style="animation-delay: 0.3s;"
           >
             <DetailIssuer issuer={awardDetailData.issuer} />
             <span class="text-muted text-sm lg:text-base">&middot;</span>
@@ -105,17 +105,14 @@ if (!awardDetailData) {
         </header>
 
         {/* Divider */}
-        <div
-          class="animate-fade-in-up opacity-0"
-          style="animation-delay: 0.7s;"
-        >
+        <div class="animate-fade-in-up" style="animation-delay: 0.35s;">
           <Divider />
         </div>
 
         {/* Content Section */}
         <section
-          class="animate-fade-in-up w-full opacity-0"
-          style="animation-delay: 0.8s;"
+          class="animate-fade-in-up w-full"
+          style="animation-delay: 0.4s;"
         >
           {
             (
@@ -126,16 +123,10 @@ if (!awardDetailData) {
         </section>
 
         {/* Adjacent Navigation */}
-        <div
-          class="animate-fade-in-up opacity-0"
-          style="animation-delay: 0.9s;"
-        >
+        <div class="animate-fade-in-up" style="animation-delay: 0.45s;">
           <Divider />
         </div>
-        <div
-          class="animate-fade-in-up opacity-0"
-          style="animation-delay: 1.0s;"
-        >
+        <div class="animate-fade-in-up" style="animation-delay: 0.5s;">
           <DetailAdjacentNavigation
             previous={awardDetailData.previous && {
               title: awardDetailData.previous.title,
