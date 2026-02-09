@@ -23,7 +23,7 @@ if (!blogPageData) {
 >
   <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
     <section
-      class="flex w-full max-w-4xl flex-col items-center gap-8 lg:gap-10"
+      class="flex w-full max-w-3xl flex-col items-center gap-8 lg:gap-10"
     >
       {/* Header */}
       <div class="flex flex-col text-center">
@@ -48,7 +48,9 @@ if (!blogPageData) {
       </div>
 
       {/* Blog Grid */}
-      <ul class="grid w-full grid-cols-1 gap-6 lg:gap-8">
+      <ul
+        class="mx-auto grid w-full max-w-sm grid-cols-1 gap-6 sm:max-w-none lg:gap-8"
+      >
         {
           allBlogData.map((blog, index) => (
             <li
