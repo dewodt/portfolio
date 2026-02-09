@@ -89,6 +89,7 @@ const finalLinkPreviewImage =
   <!-- Theme detection (runs before paint to prevent FOUC) -->
   <script is:inline>
     (function () {
+      document.documentElement.classList.add("no-transitions");
       var theme = localStorage.getItem("theme");
       if (theme === "light") {
         document.documentElement.classList.remove("dark");
@@ -103,8 +104,11 @@ const finalLinkPreviewImage =
     body {
       visibility: hidden;
     }
-    button:not(:hover) {
-      background-color: transparent;
+    .no-transitions,
+    .no-transitions *,
+    .no-transitions *::before,
+    .no-transitions *::after {
+      transition: none !important;
     }
     .dark body,
     .dark {
@@ -120,6 +124,11 @@ const finalLinkPreviewImage =
       visibility: visible;
     }
   </style>
+  <script is:inline>
+    requestAnimationFrame(function () {
+      document.documentElement.classList.remove("no-transitions");
+    });
+  </script>
 
   <!-- Fonts -->
   <link
