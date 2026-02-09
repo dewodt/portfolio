@@ -6,10 +6,10 @@ import { titleField } from "../fields/title";
 import { descriptionField } from "../fields/description";
 import { dateField } from "../fields/date";
 import { slugField } from "../fields/slug";
-import { BlogIcon } from "../components/icon/blog-icon";
+import { BlogIcon } from "../components/icon/blogs-icon";
 
 export const blogSchema = defineType({
-  name: "blog",
+  name: "blogs",
   title: "Blog",
   type: "document",
   fields: [

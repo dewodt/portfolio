@@ -1,5 +1,58 @@
 [
   {
+    "type": "type",
+    "name": "dateRange",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "startDate": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": false
+        },
+        "endDate": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        }
+      }
+    }
+  },
+  {
+    "type": "type",
+    "name": "sanity.imageAsset.reference",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_ref": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          }
+        },
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "reference"
+          }
+        },
+        "_weak": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
+        }
+      },
+      "dereferencesTo": "sanity.imageAsset"
+    }
+  },
+  {
     "name": "socials",
     "type": "document",
     "attributes": {
@@ -63,30 +116,8 @@
                     "asset": {
                       "type": "objectAttribute",
                       "value": {
-                        "type": "object",
-                        "attributes": {
-                          "_ref": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "string"
-                            }
-                          },
-                          "_type": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "string",
-                              "value": "reference"
-                            }
-                          },
-                          "_weak": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "boolean"
-                            },
-                            "optional": true
-                          }
-                        },
-                        "dereferencesTo": "sanity.imageAsset"
+                        "type": "inline",
+                        "name": "sanity.imageAsset.reference"
                       },
                       "optional": true
                     },
@@ -132,30 +163,8 @@
                     "asset": {
                       "type": "objectAttribute",
                       "value": {
-                        "type": "object",
-                        "attributes": {
-                          "_ref": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "string"
-                            }
-                          },
-                          "_type": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "string",
-                              "value": "reference"
-                            }
-                          },
-                          "_weak": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "boolean"
-                            },
-                            "optional": true
-                          }
-                        },
-                        "dereferencesTo": "sanity.imageAsset"
+                        "type": "inline",
+                        "name": "sanity.imageAsset.reference"
                       },
                       "optional": true
                     },
@@ -300,7 +309,7 @@
     }
   },
   {
-    "name": "blog-page",
+    "name": "blogs-page",
     "type": "document",
     "attributes": {
       "_id": {
@@ -313,7 +322,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "blog-page"
+          "value": "blogs-page"
         }
       },
       "_createdAt": {
@@ -430,7 +439,7 @@
     }
   },
   {
-    "name": "experience-page",
+    "name": "experiences-page",
     "type": "document",
     "attributes": {
       "_id": {
@@ -443,7 +452,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "experience-page"
+          "value": "experiences-page"
         }
       },
       "_createdAt": {
@@ -557,6 +566,126 @@
         },
         "optional": false
       }
+    }
+  },
+  {
+    "type": "type",
+    "name": "projects.reference",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_ref": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          }
+        },
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "reference"
+          }
+        },
+        "_weak": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
+        }
+      },
+      "dereferencesTo": "projects"
+    }
+  },
+  {
+    "type": "type",
+    "name": "experiences.reference",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_ref": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          }
+        },
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "reference"
+          }
+        },
+        "_weak": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
+        }
+      },
+      "dereferencesTo": "experiences"
+    }
+  },
+  {
+    "type": "type",
+    "name": "awards.reference",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_ref": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          }
+        },
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "reference"
+          }
+        },
+        "_weak": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
+        }
+      },
+      "dereferencesTo": "awards"
+    }
+  },
+  {
+    "type": "type",
+    "name": "blogs.reference",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_ref": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          }
+        },
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "reference"
+          }
+        },
+        "_weak": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
+        }
+      },
+      "dereferencesTo": "blogs"
     }
   },
   {
@@ -892,108 +1021,20 @@
                                   "type": "union",
                                   "of": [
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "projects"
+                                      "type": "inline",
+                                      "name": "projects.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "experience"
+                                      "type": "inline",
+                                      "name": "experiences.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "awards"
+                                      "type": "inline",
+                                      "name": "awards.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "blog"
+                                      "type": "inline",
+                                      "name": "blogs.reference"
                                     }
                                   ]
                                 },
@@ -1087,30 +1128,8 @@
                   "asset": {
                     "type": "objectAttribute",
                     "value": {
-                      "type": "object",
-                      "attributes": {
-                        "_ref": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string"
-                          }
-                        },
-                        "_type": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string",
-                            "value": "reference"
-                          }
-                        },
-                        "_weak": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "boolean"
-                          },
-                          "optional": true
-                        }
-                      },
-                      "dereferencesTo": "sanity.imageAsset"
+                      "type": "inline",
+                      "name": "sanity.imageAsset.reference"
                     },
                     "optional": true
                   },
@@ -1213,7 +1232,7 @@
                 },
                 "rest": {
                   "type": "inline",
-                  "name": "customCode"
+                  "name": "code"
                 }
               }
             ]
@@ -1229,30 +1248,8 @@
             "asset": {
               "type": "objectAttribute",
               "value": {
-                "type": "object",
-                "attributes": {
-                  "_ref": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string"
-                    }
-                  },
-                  "_type": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string",
-                      "value": "reference"
-                    }
-                  },
-                  "_weak": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "boolean"
-                    },
-                    "optional": true
-                  }
-                },
-                "dereferencesTo": "sanity.imageAsset"
+                "type": "inline",
+                "name": "sanity.imageAsset.reference"
               },
               "optional": false
             },
@@ -1333,30 +1330,8 @@
                     "asset": {
                       "type": "objectAttribute",
                       "value": {
-                        "type": "object",
-                        "attributes": {
-                          "_ref": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "string"
-                            }
-                          },
-                          "_type": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "string",
-                              "value": "reference"
-                            }
-                          },
-                          "_weak": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "boolean"
-                            },
-                            "optional": true
-                          }
-                        },
-                        "dereferencesTo": "sanity.imageAsset"
+                        "type": "inline",
+                        "name": "sanity.imageAsset.reference"
                       },
                       "optional": false
                     },
@@ -1525,30 +1500,8 @@
                             "asset": {
                               "type": "objectAttribute",
                               "value": {
-                                "type": "object",
-                                "attributes": {
-                                  "_ref": {
-                                    "type": "objectAttribute",
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "_type": {
-                                    "type": "objectAttribute",
-                                    "value": {
-                                      "type": "string",
-                                      "value": "reference"
-                                    }
-                                  },
-                                  "_weak": {
-                                    "type": "objectAttribute",
-                                    "value": {
-                                      "type": "boolean"
-                                    },
-                                    "optional": true
-                                  }
-                                },
-                                "dereferencesTo": "sanity.imageAsset"
+                                "type": "inline",
+                                "name": "sanity.imageAsset.reference"
                               },
                               "optional": true
                             },
@@ -1594,30 +1547,8 @@
                             "asset": {
                               "type": "objectAttribute",
                               "value": {
-                                "type": "object",
-                                "attributes": {
-                                  "_ref": {
-                                    "type": "objectAttribute",
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "_type": {
-                                    "type": "objectAttribute",
-                                    "value": {
-                                      "type": "string",
-                                      "value": "reference"
-                                    }
-                                  },
-                                  "_weak": {
-                                    "type": "objectAttribute",
-                                    "value": {
-                                      "type": "boolean"
-                                    },
-                                    "optional": true
-                                  }
-                                },
-                                "dereferencesTo": "sanity.imageAsset"
+                                "type": "inline",
+                                "name": "sanity.imageAsset.reference"
                               },
                               "optional": true
                             },
@@ -1746,30 +1677,8 @@
             "asset": {
               "type": "objectAttribute",
               "value": {
-                "type": "object",
-                "attributes": {
-                  "_ref": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string"
-                    }
-                  },
-                  "_type": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string",
-                      "value": "reference"
-                    }
-                  },
-                  "_weak": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "boolean"
-                    },
-                    "optional": true
-                  }
-                },
-                "dereferencesTo": "sanity.imageAsset"
+                "type": "inline",
+                "name": "sanity.imageAsset.reference"
               },
               "optional": false
             },
@@ -1839,23 +1748,8 @@
       "dateRange": {
         "type": "objectAttribute",
         "value": {
-          "type": "object",
-          "attributes": {
-            "startDate": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": false
-            },
-            "endDate": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            }
-          }
+          "type": "inline",
+          "name": "dateRange"
         },
         "optional": false
       },
@@ -2224,108 +2118,20 @@
                                   "type": "union",
                                   "of": [
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "projects"
+                                      "type": "inline",
+                                      "name": "projects.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "experience"
+                                      "type": "inline",
+                                      "name": "experiences.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "awards"
+                                      "type": "inline",
+                                      "name": "awards.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "blog"
+                                      "type": "inline",
+                                      "name": "blogs.reference"
                                     }
                                   ]
                                 },
@@ -2419,30 +2225,8 @@
                   "asset": {
                     "type": "objectAttribute",
                     "value": {
-                      "type": "object",
-                      "attributes": {
-                        "_ref": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string"
-                          }
-                        },
-                        "_type": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string",
-                            "value": "reference"
-                          }
-                        },
-                        "_weak": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "boolean"
-                          },
-                          "optional": true
-                        }
-                      },
-                      "dereferencesTo": "sanity.imageAsset"
+                      "type": "inline",
+                      "name": "sanity.imageAsset.reference"
                     },
                     "optional": true
                   },
@@ -2545,7 +2329,7 @@
                 },
                 "rest": {
                   "type": "inline",
-                  "name": "customCode"
+                  "name": "code"
                 }
               }
             ]
@@ -2556,7 +2340,7 @@
     }
   },
   {
-    "name": "experience",
+    "name": "experiences",
     "type": "document",
     "attributes": {
       "_id": {
@@ -2569,7 +2353,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "experience"
+          "value": "experiences"
         }
       },
       "_createdAt": {
@@ -2598,30 +2382,8 @@
             "asset": {
               "type": "objectAttribute",
               "value": {
-                "type": "object",
-                "attributes": {
-                  "_ref": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string"
-                    }
-                  },
-                  "_type": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string",
-                      "value": "reference"
-                    }
-                  },
-                  "_weak": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "boolean"
-                    },
-                    "optional": true
-                  }
-                },
-                "dereferencesTo": "sanity.imageAsset"
+                "type": "inline",
+                "name": "sanity.imageAsset.reference"
               },
               "optional": false
             },
@@ -2705,23 +2467,8 @@
       "dateRange": {
         "type": "objectAttribute",
         "value": {
-          "type": "object",
-          "attributes": {
-            "startDate": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": false
-            },
-            "endDate": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            }
-          }
+          "type": "inline",
+          "name": "dateRange"
         },
         "optional": false
       },
@@ -3090,108 +2837,20 @@
                                   "type": "union",
                                   "of": [
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "projects"
+                                      "type": "inline",
+                                      "name": "projects.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "experience"
+                                      "type": "inline",
+                                      "name": "experiences.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "awards"
+                                      "type": "inline",
+                                      "name": "awards.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "blog"
+                                      "type": "inline",
+                                      "name": "blogs.reference"
                                     }
                                   ]
                                 },
@@ -3285,30 +2944,8 @@
                   "asset": {
                     "type": "objectAttribute",
                     "value": {
-                      "type": "object",
-                      "attributes": {
-                        "_ref": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string"
-                          }
-                        },
-                        "_type": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string",
-                            "value": "reference"
-                          }
-                        },
-                        "_weak": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "boolean"
-                          },
-                          "optional": true
-                        }
-                      },
-                      "dereferencesTo": "sanity.imageAsset"
+                      "type": "inline",
+                      "name": "sanity.imageAsset.reference"
                     },
                     "optional": true
                   },
@@ -3411,7 +3048,7 @@
                 },
                 "rest": {
                   "type": "inline",
-                  "name": "customCode"
+                  "name": "code"
                 }
               }
             ]
@@ -3464,30 +3101,8 @@
             "asset": {
               "type": "objectAttribute",
               "value": {
-                "type": "object",
-                "attributes": {
-                  "_ref": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string"
-                    }
-                  },
-                  "_type": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string",
-                      "value": "reference"
-                    }
-                  },
-                  "_weak": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "boolean"
-                    },
-                    "optional": true
-                  }
-                },
-                "dereferencesTo": "sanity.imageAsset"
+                "type": "inline",
+                "name": "sanity.imageAsset.reference"
               },
               "optional": false
             },
@@ -3845,108 +3460,20 @@
                                   "type": "union",
                                   "of": [
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "projects"
+                                      "type": "inline",
+                                      "name": "projects.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "experience"
+                                      "type": "inline",
+                                      "name": "experiences.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "awards"
+                                      "type": "inline",
+                                      "name": "awards.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "blog"
+                                      "type": "inline",
+                                      "name": "blogs.reference"
                                     }
                                   ]
                                 },
@@ -4040,30 +3567,8 @@
                   "asset": {
                     "type": "objectAttribute",
                     "value": {
-                      "type": "object",
-                      "attributes": {
-                        "_ref": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string"
-                          }
-                        },
-                        "_type": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string",
-                            "value": "reference"
-                          }
-                        },
-                        "_weak": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "boolean"
-                          },
-                          "optional": true
-                        }
-                      },
-                      "dereferencesTo": "sanity.imageAsset"
+                      "type": "inline",
+                      "name": "sanity.imageAsset.reference"
                     },
                     "optional": true
                   },
@@ -4166,7 +3671,7 @@
                 },
                 "rest": {
                   "type": "inline",
-                  "name": "customCode"
+                  "name": "code"
                 }
               }
             ]
@@ -4177,7 +3682,7 @@
     }
   },
   {
-    "name": "blog",
+    "name": "blogs",
     "type": "document",
     "attributes": {
       "_id": {
@@ -4190,7 +3695,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "blog"
+          "value": "blogs"
         }
       },
       "_createdAt": {
@@ -4219,30 +3724,8 @@
             "asset": {
               "type": "objectAttribute",
               "value": {
-                "type": "object",
-                "attributes": {
-                  "_ref": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string"
-                    }
-                  },
-                  "_type": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string",
-                      "value": "reference"
-                    }
-                  },
-                  "_weak": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "boolean"
-                    },
-                    "optional": true
-                  }
-                },
-                "dereferencesTo": "sanity.imageAsset"
+                "type": "inline",
+                "name": "sanity.imageAsset.reference"
               },
               "optional": false
             },
@@ -4593,108 +4076,20 @@
                                   "type": "union",
                                   "of": [
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "projects"
+                                      "type": "inline",
+                                      "name": "projects.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "experience"
+                                      "type": "inline",
+                                      "name": "experiences.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "awards"
+                                      "type": "inline",
+                                      "name": "awards.reference"
                                     },
                                     {
-                                      "type": "object",
-                                      "attributes": {
-                                        "_ref": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "_type": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "string",
-                                            "value": "reference"
-                                          }
-                                        },
-                                        "_weak": {
-                                          "type": "objectAttribute",
-                                          "value": {
-                                            "type": "boolean"
-                                          },
-                                          "optional": true
-                                        }
-                                      },
-                                      "dereferencesTo": "blog"
+                                      "type": "inline",
+                                      "name": "blogs.reference"
                                     }
                                   ]
                                 },
@@ -4788,30 +4183,8 @@
                   "asset": {
                     "type": "objectAttribute",
                     "value": {
-                      "type": "object",
-                      "attributes": {
-                        "_ref": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string"
-                          }
-                        },
-                        "_type": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string",
-                            "value": "reference"
-                          }
-                        },
-                        "_weak": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "boolean"
-                          },
-                          "optional": true
-                        }
-                      },
-                      "dereferencesTo": "sanity.imageAsset"
+                      "type": "inline",
+                      "name": "sanity.imageAsset.reference"
                     },
                     "optional": true
                   },
@@ -4914,7 +4287,7 @@
                 },
                 "rest": {
                   "type": "inline",
-                  "name": "customCode"
+                  "name": "code"
                 }
               }
             ]
@@ -5244,6 +4617,13 @@
           "optional": true
         },
         "blurHash": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "thumbHash": {
           "type": "objectAttribute",
           "value": {
             "type": "string"

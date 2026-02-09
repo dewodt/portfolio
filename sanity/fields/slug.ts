@@ -9,7 +9,7 @@ export const slugField = defineField({
   options: {
     // Generate slugs
     source: (doc) => {
-      if (doc._type === "experience") {
+      if (doc._type === "experiences") {
         // For experiences, use the company name and position (to avoid duplicates)
         const posititon = doc.title as string;
         const company = doc.company as string;

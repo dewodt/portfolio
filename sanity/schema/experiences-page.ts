@@ -4,7 +4,7 @@ import { descriptionField } from "../fields/description";
 import { monoLabelField } from "../fields/mono-label";
 
 export const experiencePageSchema = defineType({
-  name: "experience-page",
+  name: "experiences-page",
   title: "Experience Page",
   type: "document",
   fields: [

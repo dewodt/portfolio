@@ -126,7 +126,7 @@ export const projectDetailQuery = groq`
 `;
 
 export const experiencePageQuery = groq`
-  *[_type == "experience-page"][0] {
+  *[_type == "experiences-page"][0] {
     _id,
     monoLabel,
     detailMonoLabel,
@@ -136,7 +136,7 @@ export const experiencePageQuery = groq`
 `;
 
 export const allExperiencesQuery = groq`
-  *[_type == "experience"] | order(dateRange.startDate desc) {
+  *[_type == "experiences"] | order(dateRange.startDate desc) {
     _id,
     "image": {
       "url": image.asset->url,
@@ -154,7 +154,7 @@ export const allExperiencesQuery = groq`
 `;
 
 export const experienceDetailQuery = groq`
-  *[_type == "experience" && slug.current == $slug][0] {
+  *[_type == "experiences" && slug.current == $slug][0] {
     _id,
     "image": {
       "url": image.asset->url,
@@ -187,8 +187,8 @@ export const experienceDetailQuery = groq`
         "alt": alt,
       }
     },
-    "detailMonoLabel": *[_type == "experience-page"][0].detailMonoLabel,
-    "previous": *[_type == "experience" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
+    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel,
+    "previous": *[_type == "experiences" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
       _id,
       title,
       slug,
@@ -196,7 +196,7 @@ export const experienceDetailQuery = groq`
       dateRange,
       company
     },
-    "next": *[_type == "experience" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {
+    "next": *[_type == "experiences" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {
       _id,
       title,
       slug,
@@ -291,7 +291,7 @@ export const socialsQuery = groq`
 `;
 
 export const blogPageQuery = groq`
-  *[_type == "blog-page"][0] {
+  *[_type == "blogs-page"][0] {
     _id,
     monoLabel,
     detailMonoLabel,
@@ -301,7 +301,7 @@ export const blogPageQuery = groq`
 `;
 
 export const allBlogsQuery = groq`
-  *[_type == "blog"] | order(date desc) {
+  *[_type == "blogs"] | order(date desc) {
     _id,
     "image": {
       "url": image.asset->url,
@@ -315,7 +315,7 @@ export const allBlogsQuery = groq`
 `;
 
 export const blogDetailQuery = groq`
-  *[_type == "blog" && slug.current == $slug][0] {
+  *[_type == "blogs" && slug.current == $slug][0] {
     _id,
     "image": {
       "url": image.asset->url,
@@ -344,15 +344,15 @@ export const blogDetailQuery = groq`
         "alt": alt,
       }
     },
-    "detailMonoLabel": *[_type == "blog-page"][0].detailMonoLabel,
-    "previous": *[_type == "blog" && date < ^.date] | order(date desc) [0] {
+    "detailMonoLabel": *[_type == "blogs-page"][0].detailMonoLabel,
+    "previous": *[_type == "blogs" && date < ^.date] | order(date desc) [0] {
       _id,
       title,
       slug,
       description,
       date
     },
-    "next": *[_type == "blog" && date > ^.date] | order(date) [0] {
+    "next": *[_type == "blogs" && date > ^.date] | order(date) [0] {
       _id,
       title,
       slug,

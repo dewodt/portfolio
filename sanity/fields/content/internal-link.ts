@@ -14,9 +14,9 @@ export const internalLinkField = defineField({
       type: "reference",
       to: [
         { type: "projects" },
-        { type: "experience" },
+        { type: "experiences" },
         { type: "awards" },
-        { type: "blog" },
+        { type: "blogs" },
       ],
       validation: (Rule) => Rule.required().error("Reference is required"),
     },
