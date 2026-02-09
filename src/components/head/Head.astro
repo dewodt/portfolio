@@ -89,12 +89,16 @@ const finalLinkPreviewImage =
   <!-- Theme detection (runs before paint to prevent FOUC) -->
   <script is:inline>
     (function () {
+      document.documentElement.classList.add("no-transitions");
       var theme = localStorage.getItem("theme");
       if (theme === "light") {
         document.documentElement.classList.remove("dark");
       } else {
         document.documentElement.classList.add("dark");
       }
+      window.addEventListener("load", function () {
+        document.documentElement.classList.remove("no-transitions");
+      });
     })();
   </script>
 
@@ -102,6 +106,12 @@ const finalLinkPreviewImage =
   <style is:inline>
     body {
       visibility: hidden;
+    }
+    .no-transitions,
+    .no-transitions *,
+    .no-transitions *::before,
+    .no-transitions *::after {
+      transition: none !important;
     }
     .dark body,
     .dark {
