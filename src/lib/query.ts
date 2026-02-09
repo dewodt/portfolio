@@ -283,6 +283,13 @@ export const awardDetailQuery = groq`
   }
 `;
 
+export const socialsQuery = groq`
+  *[_type == "socials"][0] {
+    _id,
+    socialLinks[]{ name, url, "iconLight": iconLight.asset->url, "iconDark": iconDark.asset->url }
+  }
+`;
+
 export const blogPageQuery = groq`
   *[_type == "blog-page"][0] {
     _id,

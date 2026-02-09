@@ -7,6 +7,7 @@ import { awardsPageSchema } from "./awards-page";
 import { awardsSchema } from "./awards";
 import { blogPageSchema } from "./blog-page";
 import { blogSchema } from "./blog";
+import { socialsSchema } from "./socials";
 
 export const schemaTypes = [
   aboutPageSchema,
@@ -18,4 +19,5 @@ export const schemaTypes = [
   awardsSchema,
   blogPageSchema,
   blogSchema,
+  socialsSchema,
 ];

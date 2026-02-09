@@ -13,6 +13,59 @@
  */
 
 // Source: schema.json
+export type Socials = {
+  _id: string;
+  _type: "socials";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  socialLinks?: Array<{
+    name: string;
+    url: string;
+    iconLight: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    iconDark: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _key: string;
+  }>;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
+
 export type BlogPage = {
   _id: string;
   _type: "blog-page";
@@ -253,22 +306,6 @@ export type AboutPage = {
     _type: "skillCategory";
     _key: string;
   }>;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
 };
 
 export type Projects = {
@@ -948,13 +985,14 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | Socials
+  | SanityImageCrop
+  | SanityImageHotspot
   | BlogPage
   | AwardsPage
   | ExperiencePage
   | ProjectsPage
   | AboutPage
-  | SanityImageCrop
-  | SanityImageHotspot
   | Projects
   | Experience
   | Awards
@@ -1682,6 +1720,17 @@ export type AwardDetailQueryResult = {
     date: string;
   } | null;
 } | null;
+// Variable: socialsQuery
+// Query: *[_type == "socials"][0] {    _id,    socialLinks[]{ name, url, "iconLight": iconLight.asset->url, "iconDark": iconDark.asset->url }  }
+export type SocialsQueryResult = {
+  _id: string;
+  socialLinks: Array<{
+    name: string;
+    url: string;
+    iconLight: string | null;
+    iconDark: string | null;
+  }> | null;
+} | null;
 // Variable: blogPageQuery
 // Query: *[_type == "blog-page"][0] {    _id,    monoLabel,    detailMonoLabel,    title,    description,  }
 export type BlogPageQueryResult = {
@@ -1858,6 +1907,7 @@ declare module "@sanity/client" {
     '\n  *[_type == "awards-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': AwardsPageQueryResult;
     '\n  *[_type == "awards"] | order(date desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n  }\n': AllAwardsQueryResult;
     '\n  *[_type == "awards" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "detailMonoLabel": *[_type == "awards-page"][0].detailMonoLabel,\n    "previous": *[_type == "awards" && date < ^.date] | order(date desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n    "next": *[_type == "awards" && date > ^.date] | order(date) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n  }\n': AwardDetailQueryResult;
+    '\n  *[_type == "socials"][0] {\n    _id,\n    socialLinks[]{ name, url, "iconLight": iconLight.asset->url, "iconDark": iconDark.asset->url }\n  }\n': SocialsQueryResult;
     '\n  *[_type == "blog-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': BlogPageQueryResult;
     '\n  *[_type == "blog"] | order(date desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    date,\n  }\n': AllBlogsQueryResult;
     '\n  *[_type == "blog" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    date,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "internalLink" => {\n          ...,\n          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n        },\n        _type == "externalLink" => {\n          ...,\n          "href": url,\n        },\n      },\n      _type == "image" => {\n        ...,\n        "url": asset->url,\n        "alt": alt,\n      }\n    },\n    "detailMonoLabel": *[_type == "blog-page"][0].detailMonoLabel,\n    "previous": *[_type == "blog" && date < ^.date] | order(date desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      date\n    },\n    "next": *[_type == "blog" && date > ^.date] | order(date) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      date\n    },\n  }\n': BlogDetailQueryResult;

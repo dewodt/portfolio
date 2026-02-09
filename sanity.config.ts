@@ -8,6 +8,7 @@ import { ProjectsIcon } from "./sanity/components/icon/projects-icon";
 import { ExperienceIcon } from "./sanity/components/icon/experience-icon";
 import { AwardsIcon } from "./sanity/components/icon/awards-icon";
 import { BlogIcon } from "./sanity/components/icon/blog-icon";
+import { SocialsIcon } from "./sanity/components/icon/socials-icon";
 import { dashboardTool } from "@sanity/dashboard";
 import { vercelWidget } from "sanity-plugin-dashboard-widget-vercel";
 import { codeInput } from "@sanity/code-input";
@@ -30,7 +31,7 @@ const dataset =
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
 
 // Define the singleton document types
-const singletonTypes = new Set(["about-page"]);
+const singletonTypes = new Set(["about-page", "socials"]);
 
 // Sanity config
 export default defineConfig({
@@ -53,6 +54,13 @@ export default defineConfig({
               .child(
                 S.document().schemaType("about-page").documentId("about-page"),
               ),
+
+            // Socials
+            S.listItem()
+              .title("Socials")
+              .id("socials")
+              .icon(SocialsIcon)
+              .child(S.document().schemaType("socials").documentId("socials")),
 
             // Experience
             S.listItem()
