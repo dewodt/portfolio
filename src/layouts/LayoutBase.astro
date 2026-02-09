@@ -37,5 +37,32 @@ const { title, description, linkPreviewImage } = Astro.props;
 
     {/* Footer */}
     <SocialBar />
+
+    {/* Scroll-triggered animations */}
+    <script>
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      const els = document.querySelectorAll<HTMLElement>("[data-scroll]");
+
+      if (prefersReducedMotion) {
+        els.forEach((el) => (el.style.opacity = "1"));
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const type = (entry.target as HTMLElement).dataset.scroll!;
+                entry.target.classList.add(`animate-${type}`);
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 },
+        );
+        els.forEach((el) => observer.observe(el));
+      }
+    </script>
   </body>
 </html>

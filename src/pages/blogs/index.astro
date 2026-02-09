@@ -21,26 +21,26 @@ if (!blogPageData) {
   title={`${blogPageData.title} | Dewantoro Triatmojo`}
   description={blogPageData.description}
 >
-  <main class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-16">
+  <main class="flex flex-auto justify-center px-5 py-8 sm:p-12 lg:p-16">
     <section
       class="flex w-full max-w-3xl flex-col items-center gap-8 lg:gap-10"
     >
       {/* Header */}
       <div class="flex flex-col text-center">
         <span
-          class="animate-fade-in-up text-primary mb-1 font-mono text-xs tracking-widest uppercase opacity-0 lg:mb-2 lg:text-sm"
+          class="text-primary animate-fade-in-up mb-1 font-mono text-xs tracking-widest uppercase lg:mb-2 lg:text-sm"
           style="animation-delay: 0.1s;"
         >
           {blogPageData.monoLabel}
         </span>
         <h1
-          class="animate-fade-in-up text-secondary mb-2 text-3xl font-bold opacity-0 lg:mb-3 lg:text-5xl"
+          class="text-secondary animate-fade-in-up mb-2 text-3xl font-bold lg:mb-3 lg:text-5xl"
           style="animation-delay: 0.2s;"
         >
           {blogPageData.title}
         </h1>
         <p
-          class="animate-fade-in-up text-muted text-base opacity-0 lg:text-lg"
+          class="text-muted animate-fade-in-up text-base lg:text-lg"
           style="animation-delay: 0.3s;"
         >
           {blogPageData.description}
@@ -54,8 +54,8 @@ if (!blogPageData) {
         {
           allBlogData.map((blog, index) => (
             <li
-              class="animate-fade-in-up opacity-0"
-              style={`animation-delay: ${0.3 + index * 0.05}s;`}
+              class="animate-fade-in-up"
+              style={`animation-delay: ${0.4 + index * 0.1}s;`}
             >
               <CardBlog blog={blog} />
             </li>
