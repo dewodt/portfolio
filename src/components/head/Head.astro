@@ -96,6 +96,9 @@ const finalLinkPreviewImage =
       } else {
         document.documentElement.classList.add("dark");
       }
+      window.addEventListener("load", function () {
+        document.documentElement.classList.remove("no-transitions");
+      });
     })();
   </script>
 
@@ -124,11 +127,6 @@ const finalLinkPreviewImage =
       visibility: visible;
     }
   </style>
-  <script is:inline>
-    requestAnimationFrame(function () {
-      document.documentElement.classList.remove("no-transitions");
-    });
-  </script>
 
   <!-- Fonts -->
   <link
