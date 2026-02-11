@@ -30,6 +30,7 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
     <!-- Hero -->
     <section
       class="relative mb-[78px] flex min-h-[calc(100vh-74px-78px)] flex-auto items-center justify-center px-5 py-12 sm:min-h-[calc(100vh-66px-78px)] sm:p-12 lg:p-14"
+      data-scroll-section
     >
       <div
         class="relative flex flex-col items-center gap-6 md:flex-row-reverse md:gap-10 lg:gap-16 xl:gap-24"
@@ -106,12 +107,17 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
     </section>
 
     {/* Section divider */}
-    <div data-scroll="fade-in-up" style="animation-delay: 0.1s;">
-      <Divider class="mx-auto max-w-xs sm:max-w-2xl lg:max-w-4xl" />
+    <div data-scroll-section>
+      <div data-scroll="fade-in-up" style="animation-delay: 0.1s;">
+        <Divider class="mx-auto max-w-xs sm:max-w-2xl lg:max-w-4xl" />
+      </div>
     </div>
 
     <!-- Education -->
-    <section class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-14">
+    <section
+      class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-14"
+      data-scroll-section
+    >
       <div class="flex w-full max-w-3xl flex-col gap-6">
         <div class="flex flex-col text-center">
           <span
@@ -143,7 +149,7 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
           <div
             class="bg-border absolute top-0 bottom-0 left-[5px] w-px origin-top"
             data-scroll="grow-down"
-            style="animation-delay: 0.3s; transform: scaleY(0);"
+            style="animation-delay: 0.3s;"
           >
           </div>
 
@@ -175,12 +181,17 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
     </section>
 
     {/* Section divider */}
-    <div data-scroll="fade-in-up" style="animation-delay: 0.1s;">
-      <Divider class="mx-auto max-w-xs sm:max-w-2xl lg:max-w-4xl" />
+    <div data-scroll-section>
+      <div data-scroll="fade-in-up" style="animation-delay: 0.1s;">
+        <Divider class="mx-auto max-w-xs sm:max-w-2xl lg:max-w-4xl" />
+      </div>
     </div>
 
     <!-- Skills -->
-    <section class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-14">
+    <section
+      class="flex flex-auto justify-center px-5 py-12 sm:p-12 lg:p-14"
+      data-scroll-section
+    >
       <div class="flex w-full max-w-3xl flex-col gap-6">
         <div class="flex flex-col text-center">
           <span

@@ -38,30 +38,38 @@ const { title, description, linkPreviewImage } = Astro.props;
     {/* Footer */}
     <SocialBar />
 
-    {/* Scroll-triggered animations */}
+    {/* Section-triggered animations */}
     <script>
       const prefersReducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
 
-      const els = document.querySelectorAll<HTMLElement>("[data-scroll]");
+      const sections = document.querySelectorAll<HTMLElement>(
+        "[data-scroll-section]",
+      );
 
       if (prefersReducedMotion) {
-        els.forEach((el) => (el.style.opacity = "1"));
+        document
+          .querySelectorAll<HTMLElement>("[data-scroll]")
+          .forEach((el) => (el.style.opacity = "1"));
       } else {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                const type = (entry.target as HTMLElement).dataset.scroll!;
-                entry.target.classList.add(`animate-${type}`);
-                observer.unobserve(entry.target);
+                const section = entry.target as HTMLElement;
+                section
+                  .querySelectorAll<HTMLElement>("[data-scroll]")
+                  .forEach((el) => {
+                    el.classList.add(`animate-${el.dataset.scroll}`);
+                  });
+                observer.unobserve(section);
               }
             });
           },
-          { threshold: 0.1 },
+          { threshold: 0.2 }, // 20% section
         );
-        els.forEach((el) => observer.observe(el));
+        sections.forEach((section) => observer.observe(section));
       }
     </script>
   </body>

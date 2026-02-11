@@ -83,12 +83,12 @@
   --animate-grow-down: grow-down 0.8s ease-out both;
 }
 
-/* Hide scroll-animated elements until they enter the viewport */
+/* Hide scroll-animated elements until their section enters the viewport */
 [data-scroll] {
   opacity: 0;
 }
 
-/* Animation utility classes (used for both scroll-triggered and on-load animations) */
+/* Animation utility classes */
 .animate-fade-in {
   animation: fade-in 0.6s ease-out both;
 }
