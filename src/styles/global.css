@@ -2,6 +2,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   :root {
     /* Light mode */
     --background: #fafbfe;

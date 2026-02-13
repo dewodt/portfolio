@@ -17,7 +17,7 @@ const { title, description, linkPreviewImage } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="overflow-x-hidden">
+<html lang="en">
   {/* Common Head */}
   <Head
     title={title}
@@ -27,7 +27,7 @@ const { title, description, linkPreviewImage } = Astro.props;
 
   {/* Body Content */}
   <body
-    class="bg-background flex min-h-screen flex-col overflow-x-hidden pt-[74px] pb-[78px] font-sans antialiased sm:pt-[66px]"
+    class="bg-background flex min-h-screen flex-col pt-[74px] pb-[78px] font-sans antialiased sm:pt-[66px]"
   >
     {/* Navbar */}
     <Navbar />
