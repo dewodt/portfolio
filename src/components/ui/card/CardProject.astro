@@ -24,7 +24,7 @@ const formattedEndDate = project.dateRange.endDate
 >
   {/* Gradient glow pseudo-element */}
   <div
-    class="bg-primary/0 group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
+    class="bg-primary/0 group-hover/card:bg-primary/10 dark:group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
   >
   </div>
 
@@ -35,9 +35,11 @@ const formattedEndDate = project.dateRange.endDate
     class="absolute inset-0 z-30"></a>
 
   {/* Image wrapper — provides contrast in light mode */}
-  <div class="bg-surface relative overflow-hidden rounded-t-xl">
+  <div
+    class="bg-surface border-border group-hover/card:border-border-hover/80 relative overflow-hidden rounded-t-xl border-b transition-colors duration-300 dark:border-none"
+  >
     <Image
-      class="bg-surface text-secondary flex aspect-[16/9] w-full items-center justify-evenly object-cover object-center text-base font-medium transition-transform duration-700 group-hover/card:scale-[1.03]"
+      class="bg-surface text-secondary flex aspect-video w-full items-center justify-evenly object-cover object-center text-base font-medium transition-transform duration-700 group-hover/card:scale-[1.03]"
       src={project.image.url!}
       alt={project.image.alt}
       widths={[320, 384, 640, 768]}
@@ -46,7 +48,7 @@ const formattedEndDate = project.dateRange.endDate
     />
     {/* Gradient overlay on hover */}
     <div
-      class="from-primary/10 absolute inset-0 bg-gradient-to-t via-transparent opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+      class="from-primary/10 absolute inset-0 bg-linear-to-t via-transparent opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
     >
     </div>
   </div>

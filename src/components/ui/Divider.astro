@@ -6,4 +6,10 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<div class:list={["border-border/50 w-full border-t", className]}></div>
+<div
+  class:list={[
+    "border-border dark:border-border/50 w-full border-t",
+    className,
+  ]}
+>
+</div>

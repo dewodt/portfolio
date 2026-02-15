@@ -37,16 +37,16 @@ const isActive = (navbarPath: string) => {
 
 <!-- Top blur -->
 <div
-  class="from-background pointer-events-none fixed inset-x-0 top-0 z-30 block h-16 w-full bg-gradient-to-b to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
+  class="dark:from-background pointer-events-none fixed inset-x-0 top-0 z-30 block h-16 w-full bg-linear-to-b from-black/30 to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
 >
 </div>
 
 <!-- Navbar: floating pill at top center -->
 <nav
-  class="fixed top-0 right-0 left-0 z-40 flex items-center justify-center pt-4"
+  class="pointer-events-none fixed top-0 right-0 left-0 z-40 flex items-center justify-center pt-4"
 >
   <div
-    class="border-border/50 bg-card-darker/80 shadow-background/20 flex flex-row items-center gap-1 rounded-full border p-1.5 shadow-lg backdrop-blur-xl sm:shadow-none"
+    class="border-border/50 bg-card-darker/80 shadow-background/20 pointer-events-auto flex flex-row items-center gap-1 rounded-full border p-1.5 shadow-lg backdrop-blur-xl sm:shadow-none"
   >
     {
       paths.map((path) => {

@@ -20,7 +20,7 @@ const formattedDate = getFormattedDate(blog.date);
 >
   {/* Gradient glow pseudo-element */}
   <div
-    class="bg-primary/0 group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
+    class="bg-primary/0 group-hover/card:bg-primary/10 dark:group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
   >
   </div>
 
@@ -44,9 +44,11 @@ const formattedDate = getFormattedDate(blog.date);
     </div>
 
     {/* Image */}
-    <div class="order-first overflow-hidden sm:order-last sm:w-[27.5%]">
+    <div
+      class="border-border group-hover/card:border-border-hover/80 order-first overflow-hidden border-b transition-colors duration-300 sm:order-last sm:w-[27.5%] sm:border-b-0 sm:border-l dark:border-none"
+    >
       <Image
-        class="bg-surface text-secondary flex aspect-[16/9] w-full items-center justify-evenly object-cover object-center text-base font-medium transition-transform duration-700 group-hover/card:scale-[1.03] sm:aspect-auto sm:h-full"
+        class="bg-surface text-secondary flex aspect-video w-full items-center justify-evenly object-cover object-center text-base font-medium transition-transform duration-700 group-hover/card:scale-[1.03] sm:aspect-auto sm:h-full"
         src={blog.image.url!}
         alt={blog.image.alt}
         widths={[320, 384, 640]}
