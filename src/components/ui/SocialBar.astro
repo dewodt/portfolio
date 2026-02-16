@@ -10,14 +10,14 @@ const socialLinks = (data?.socialLinks ?? []).filter(
 
 <!-- Bottom blur -->
 <div
-  class="dark:from-background pointer-events-none fixed inset-x-0 bottom-0 z-30 block h-12 w-full bg-linear-to-t from-black/30 to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"
+  class="dark:from-background pointer-events-none fixed inset-x-0 bottom-0 z-30 block h-16 w-full bg-linear-to-t from-black/30 to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"
 >
 </div>
 
 <!-- Bar -->
 <!-- Note: When using sticky bottom the anchor link is misplaced in mobile firefox (because of the top search browser bar). Alternatively, use fixed with margin to overcome this issue.-->
 <ul
-  class="social-dock border-border/50 bg-card-darker/80 fixed bottom-4 left-1/2 z-30 flex -translate-x-1/2 flex-row items-center justify-center gap-2 rounded-full border p-1.5 backdrop-blur-xl transition-[gap] duration-300 ease-out hover:gap-3"
+  class="social-dock border-border dark:border-border/50 bg-card-darker/80 fixed bottom-4 left-1/2 z-30 flex -translate-x-1/2 flex-row items-center justify-center gap-2 rounded-full border p-1.5 backdrop-blur-xl transition-[gap] duration-300 ease-out hover:gap-3"
 >
   {
     socialLinks.map((social) => (
