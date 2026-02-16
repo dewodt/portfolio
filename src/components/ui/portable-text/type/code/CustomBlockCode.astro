@@ -1,6 +1,5 @@
 ---
 import CopyIcon from "@/components/icons/CopyIcon.astro";
-import Button from "@/components/ui/Button.astro";
 import { transformerMetaHighlight } from "@shikijs/transformers";
 import type { CodeLanguage } from "astro";
 import { Code } from "astro:components";
@@ -32,13 +31,11 @@ const { language, code, filename, highlightedLines } = Astro.props;
       }
 
       {/* Copy button */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="hover:bg-muted/10 relative size-9"
+      <button
+        class="hover:bg-muted-foreground/15 inline-flex size-9 cursor-pointer items-center justify-center rounded-md transition-colors"
       >
         <CopyIcon class="size-4" />
-      </Button>
+      </button>
     </div>
 
     {/* Code */}
@@ -108,6 +105,10 @@ const { language, code, filename, highlightedLines } = Astro.props;
 
   /* Highlighted lines */
   pre code .line.highlighted {
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .dark pre code .line.highlighted {
     background-color: color-mix(in srgb, var(--primary) 15%, transparent);
   }
 </style>

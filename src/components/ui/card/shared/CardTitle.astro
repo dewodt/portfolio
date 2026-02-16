@@ -15,8 +15,8 @@ const { as: Tag = "h2", showArrow = true, class: className } = Astro.props;
     class:list={[
       "text-lg font-bold lg:text-xl",
       showArrow
-        ? "text-secondary group-hover/card:text-primary transition-colors duration-200"
-        : "text-secondary",
+        ? "text-foreground group-hover/card:text-primary transition-colors duration-200"
+        : "text-foreground",
     ]}
   >
     <slot />

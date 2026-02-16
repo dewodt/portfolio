@@ -3,37 +3,38 @@
 
 @layer base {
   :root {
-    /* Light mode — off-white bg with white card islands for depth */
     --background: #f1f5f9;
-    --background-elevated: #f8fafc;
-    --surface: #e2e8f0;
-    --border: #e2e8f0;
-    --border-hover: #cbd5e1;
+    --foreground: #0f172a;
     --card: #ffffff;
-    --card-darker: #ffffff;
-    --muted: #64748b;
-    --muted-foreground: #94a3b8;
+    --card-foreground: #0f172a;
     --primary: #2563eb;
-    --primary-hover: #1d4ed8;
-    --accent: #0891b2;
-    --secondary: #0f172a;
+    --primary-foreground: #ffffff;
+    --muted: #e2e8f0;
+    --muted-foreground: #64748b;
+    --accent: #e2e8f0;
+    --accent-foreground: #0f172a;
+    --border: #e2e8f0;
+    --input: #e2e8f0;
+    --ring: #2563eb;
     --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
   }
   .dark {
     --background: #090f1c;
-    --background-elevated: #0f1629;
-    --surface: #131b2e;
-    --border: #1e293b;
-    --border-hover: #334155;
+    --foreground: #f1f5f9;
     --card: #1a2332;
-    --card-darker: #111827;
-    --muted: #94a3b8;
-    --muted-foreground: #64748b;
+    --card-foreground: #f1f5f9;
     --primary: #3b82f6;
-    --primary-hover: #60a5fa;
-    --accent: #06b6d4;
-    --secondary: #f1f5f9;
+    --primary-foreground: #ffffff;
+    --muted: #131b2e;
+    --muted-foreground: #94a3b8;
+    --accent: #131b2e;
+    --accent-foreground: #f1f5f9;
+    --border: #1e293b;
+    --input: #1e293b;
+    --ring: #3b82f6;
     --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
   }
 }
 
@@ -52,19 +53,20 @@
 @theme {
   /* Colors */
   --color-background: var(--background);
-  --color-background-elevated: var(--background-elevated);
-  --color-surface: var(--surface);
-  --color-border: var(--border);
-  --color-border-hover: var(--border-hover);
+  --color-foreground: var(--foreground);
   --color-card: var(--card);
-  --color-card-darker: var(--card-darker);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
   --color-accent: var(--accent);
-  --color-secondary: var(--secondary);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 
   /* Font Family */
   --font-sans: "Geist Variable", sans-serif;

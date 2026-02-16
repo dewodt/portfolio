@@ -54,7 +54,7 @@ if (!awardDetailData) {
       <article class="flex flex-col gap-6 lg:gap-8">
         {/* Hero Image */}
         <div
-          class="border-border dark:border-border/50 bg-surface animate-fade-in-scale relative overflow-hidden rounded-xl border"
+          class="border-border bg-muted animate-fade-in-scale relative overflow-hidden rounded-xl border"
           style="animation-delay: 0.1s;"
         >
           <DetailImage
@@ -99,7 +99,9 @@ if (!awardDetailData) {
             style="animation-delay: 0.3s;"
           >
             <DetailIssuer issuer={awardDetailData.issuer} />
-            <span class="text-muted text-sm lg:text-base">&middot;</span>
+            <span class="text-muted-foreground text-sm lg:text-base"
+              >&middot;</span
+            >
             <DetailDate date={awardDetailData.date} />
           </div>
         </header>

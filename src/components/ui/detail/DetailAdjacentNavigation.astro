@@ -24,7 +24,7 @@ if (!previous && !next) return null;
       <a
         href={previous.href}
         aria-label={`Link to previous post ${previous.title}`}
-        class="group/prev border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary-sm relative flex flex-col gap-2 overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1 lg:p-5"
+        class="group/prev border-border bg-card hover:drop-shadow-primary-sm relative flex flex-col gap-2 overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1 lg:p-5"
       >
         {/* Glow effect */}
         <div class="bg-primary/0 group-hover/prev:bg-primary/10 dark:group-hover/prev:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500" />
@@ -35,10 +35,12 @@ if (!previous && !next) return null;
             Previous
           </span>
         </div>
-        <h3 class="text-secondary group-hover/prev:text-primary font-semibold transition-colors duration-200">
+        <h3 class="text-foreground group-hover/prev:text-primary font-semibold transition-colors duration-200">
           {previous.title}
         </h3>
-        <p class="text-muted line-clamp-2 text-sm">{previous.description}</p>
+        <p class="text-muted-foreground line-clamp-2 text-sm">
+          {previous.description}
+        </p>
       </a>
     ) : (
       <div class="hidden md:block" />
@@ -50,7 +52,7 @@ if (!previous && !next) return null;
       <a
         href={next.href}
         aria-label={`Link to next post ${next.title}`}
-        class="group/next border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary-sm relative flex flex-col gap-2 overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1 lg:p-5"
+        class="group/next border-border bg-card hover:drop-shadow-primary-sm relative flex flex-col gap-2 overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1 lg:p-5"
       >
         {/* Glow effect */}
         <div class="bg-primary/0 group-hover/next:bg-primary/10 dark:group-hover/next:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500" />
@@ -61,10 +63,12 @@ if (!previous && !next) return null;
           </span>
           <ChevronRightIcon class="text-muted-foreground group-hover/next:text-primary size-4 transition-all duration-200 group-hover/next:translate-x-0.5" />
         </div>
-        <h3 class="text-secondary group-hover/next:text-primary font-semibold transition-colors duration-200">
+        <h3 class="text-foreground group-hover/next:text-primary font-semibold transition-colors duration-200">
           {next.title}
         </h3>
-        <p class="text-muted line-clamp-2 text-sm">{next.description}</p>
+        <p class="text-muted-foreground line-clamp-2 text-sm">
+          {next.description}
+        </p>
       </a>
     )
   }

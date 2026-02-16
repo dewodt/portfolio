@@ -49,14 +49,14 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
           </div>
           {/* Ambient glow layer 2 */}
           <div
-            class="bg-accent/15 animate-pulse-glow absolute -inset-3 rounded-[20%] blur-2xl"
+            class="bg-primary/15 animate-pulse-glow absolute -inset-3 rounded-[20%] blur-2xl"
             style="animation-delay: 1.5s;"
             aria-hidden="true"
           >
           </div>
           {/* Photo */}
           <Image
-            class="border-border dark:border-border/50 bg-card text-secondary relative flex size-56 items-center justify-evenly rounded-[20%] border text-base font-medium lg:size-80"
+            class="bg-muted text-muted-foreground relative flex size-56 items-center justify-evenly rounded-[20%] text-base font-medium lg:size-80"
             src={aboutPageData.image.url!}
             alt={aboutPageData.image.alt}
             widths={[224, 320, 512]}
@@ -78,8 +78,12 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
             style="animation-delay: 0.2s;"
           >
             <span class="text-primary">{aboutPageData.heroMonoLabel}</span>
-            <span class="text-muted hidden md:inline">&nbsp;·&nbsp;</span>
-            <span class="text-muted flex items-center gap-1 lg:gap-1.5">
+            <span class="text-muted-foreground hidden md:inline"
+              >&nbsp;·&nbsp;</span
+            >
+            <span
+              class="text-muted-foreground flex items-center gap-1 lg:gap-1.5"
+            >
               <MapPinIcon class="size-3 lg:size-3.5" />
               {aboutPageData.location}
             </span>
@@ -87,7 +91,7 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
 
           {/* Title */}
           <h1
-            class="text-secondary mb-3 text-3xl font-bold tracking-tight lg:mb-4 lg:text-5xl"
+            class="text-foreground mb-3 text-3xl font-bold tracking-tight lg:mb-4 lg:text-5xl"
             data-scroll="fade-in-up"
             style="animation-delay: 0.3s;"
           >
@@ -128,14 +132,14 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
             {aboutPageData.educationMonoLabel}
           </span>
           <h2
-            class="text-secondary mb-2 text-2xl font-bold tracking-tight lg:mb-3 lg:text-3xl"
+            class="text-foreground mb-2 text-2xl font-bold tracking-tight lg:mb-3 lg:text-3xl"
             data-scroll="fade-in-up"
             style="animation-delay: 0.2s;"
           >
             {aboutPageData.educationSectionTitle}
           </h2>
           <p
-            class="text-muted text-base lg:text-lg"
+            class="text-muted-foreground text-base lg:text-lg"
             data-scroll="fade-in-up"
             style="animation-delay: 0.3s;"
           >
@@ -202,14 +206,14 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
             {aboutPageData.skillsMonoLabel}
           </span>
           <h2
-            class="text-secondary mb-2 text-2xl font-bold tracking-tight lg:mb-3 lg:text-3xl"
+            class="text-foreground mb-2 text-2xl font-bold tracking-tight lg:mb-3 lg:text-3xl"
             data-scroll="fade-in-up"
             style="animation-delay: 0.2s;"
           >
             {aboutPageData.skillsSectionTitle}
           </h2>
           <p
-            class="text-muted text-base lg:text-lg"
+            class="text-muted-foreground text-base lg:text-lg"
             data-scroll="fade-in-up"
             style="animation-delay: 0.3s;"
           >
@@ -225,7 +229,7 @@ const portableTextContent = aboutPageData.content as PortableTextBlock[];
                 data-scroll="fade-in-up"
                 style={`animation-delay: ${0.4 + categoryIndex * 0.1}s;`}
               >
-                <h3 class="text-muted text-center font-mono text-xs tracking-widest uppercase lg:text-sm">
+                <h3 class="text-muted-foreground text-center font-mono text-xs tracking-widest uppercase lg:text-sm">
                   {category.categoryTitle}
                 </h3>
                 <ul class="flex flex-row flex-wrap justify-center gap-2.5">

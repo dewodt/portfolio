@@ -20,7 +20,7 @@ const formattedEndDate = project.dateRange.endDate
 ---
 
 <article
-  class="group/card border-border bg-card hover:border-border-hover/80 hover:drop-shadow-primary relative flex h-full flex-col overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1.5"
+  class="group/card border-border bg-card hover:drop-shadow-primary relative flex h-full flex-col overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1.5"
 >
   {/* Gradient glow pseudo-element */}
   <div
@@ -36,10 +36,10 @@ const formattedEndDate = project.dateRange.endDate
 
   {/* Image wrapper — provides contrast in light mode */}
   <div
-    class="bg-surface border-border group-hover/card:border-border-hover/80 relative overflow-hidden rounded-t-xl border-b transition-colors duration-300 dark:border-none"
+    class="bg-muted border-border relative overflow-hidden rounded-t-xl border-b transition-colors duration-300"
   >
     <Image
-      class="bg-surface text-secondary flex aspect-video w-full items-center justify-evenly object-cover object-center text-base font-medium transition-transform duration-700 group-hover/card:scale-[1.03]"
+      class="bg-muted text-muted-foreground flex aspect-video w-full items-center justify-evenly object-cover object-center text-base font-medium transition-transform duration-700 group-hover/card:scale-[1.03]"
       src={project.image.url!}
       alt={project.image.alt}
       widths={[320, 384, 640, 768]}

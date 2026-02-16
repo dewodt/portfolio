@@ -13,7 +13,9 @@ interface Props {
 const { dateRange, isEmptyEndDateShowNow = false } = Astro.props;
 ---
 
-<span class="text-muted flex items-center gap-1.5 text-sm lg:text-base">
+<span
+  class="text-muted-foreground flex items-center gap-1.5 text-sm lg:text-base"
+>
   <CalendarIcon class="size-3.5 shrink-0 lg:size-4" />
   {
     isEmptyEndDateShowNow ? (
