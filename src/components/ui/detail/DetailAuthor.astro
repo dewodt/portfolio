@@ -1,0 +1,28 @@
+---
+interface Props {
+  name: string;
+  imageUrl?: string | null;
+}
+
+const { name, imageUrl } = Astro.props;
+
+const initials = name
+  .split(" ")
+  .map((w) => w[0])
+  .join("")
+  .slice(0, 2)
+  .toUpperCase();
+
+const fallbackSvg = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='14' fill='%236b7280'/%3E%3Ctext x='14' y='18' text-anchor='middle' font-size='12' font-family='system-ui,sans-serif' font-weight='600' fill='white'%3E${initials}%3C/text%3E%3C/svg%3E`;
+---
+
+<span
+  class="text-muted-foreground flex items-center gap-1.5 text-sm lg:text-base"
+>
+  <img
+    src={imageUrl || fallbackSvg}
+    alt={name}
+    class="size-5 shrink-0 rounded-full object-cover lg:size-6"
+  />
+  {name}
+</span>
