@@ -1,6 +1,7 @@
 ---
 import DetailAdjacentNavigation from "@/components/ui/detail/DetailAdjacentNavigation.astro";
 import DetailBack from "@/components/ui/detail/DetailBack.astro";
+import DetailAuthor from "@/components/ui/detail/DetailAuthor.astro";
 import DetailDate from "@/components/ui/detail/DetailDate.astro";
 import DetailDescription from "@/components/ui/detail/DetailDescription.astro";
 import Divider from "@/components/ui/Divider.astro";
@@ -98,6 +99,13 @@ if (!awardDetailData) {
             class="animate-fade-in-up flex flex-wrap items-center gap-3"
             style="animation-delay: 0.3s;"
           >
+            <DetailAuthor
+              name={awardDetailData.authorName!}
+              imageUrl={awardDetailData.authorImage.url}
+            />
+            <span class="text-muted-foreground text-sm lg:text-base"
+              >&middot;</span
+            >
             <DetailIssuer issuer={awardDetailData.issuer} />
             <span class="text-muted-foreground text-sm lg:text-base"
               >&middot;</span

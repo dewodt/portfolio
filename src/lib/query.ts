@@ -108,6 +108,11 @@ export const projectDetailQuery = groq`
       }
     },
     "detailMonoLabel": *[_type == "projects-page"][0].detailMonoLabel,
+    "authorName": *[_type == "about-page"][0].title,
+    "authorImage": {
+      "url": *[_type == "about-page"][0].image.asset->url,
+      "alt": *[_type == "about-page"][0].image.alt,
+    },
     "previous": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
       _id,
       title,
@@ -188,6 +193,11 @@ export const experienceDetailQuery = groq`
       }
     },
     "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel,
+    "authorName": *[_type == "about-page"][0].title,
+    "authorImage": {
+      "url": *[_type == "about-page"][0].image.asset->url,
+      "alt": *[_type == "about-page"][0].image.alt,
+    },
     "previous": *[_type == "experiences" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
       _id,
       title,
@@ -264,6 +274,11 @@ export const awardDetailQuery = groq`
       }
     },
     "detailMonoLabel": *[_type == "awards-page"][0].detailMonoLabel,
+    "authorName": *[_type == "about-page"][0].title,
+    "authorImage": {
+      "url": *[_type == "about-page"][0].image.asset->url,
+      "alt": *[_type == "about-page"][0].image.alt,
+    },
     "previous": *[_type == "awards" && date < ^.date] | order(date desc) [0] {
       _id,
       title,
@@ -345,6 +360,11 @@ export const blogDetailQuery = groq`
       }
     },
     "detailMonoLabel": *[_type == "blogs-page"][0].detailMonoLabel,
+    "authorName": *[_type == "about-page"][0].title,
+    "authorImage": {
+      "url": *[_type == "about-page"][0].image.asset->url,
+      "alt": *[_type == "about-page"][0].image.alt,
+    },
     "previous": *[_type == "blogs" && date < ^.date] | order(date desc) [0] {
       _id,
       title,
