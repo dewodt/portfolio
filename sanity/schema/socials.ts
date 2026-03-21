@@ -1,5 +1,8 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 import { SocialPreview } from "../components/preview/social-preview";
+import { imageField } from "../fields/image";
+import { stringField } from "../fields/string-field";
+import { urlField } from "../fields/url-field";
 
 export const socialsSchema = defineType({
   name: "socials",
@@ -17,43 +20,40 @@ export const socialsSchema = defineType({
       description: "List of social media links displayed in the social bar",
       type: "array",
       of: [
-        {
+        defineArrayMember({
+          name: "socialLink",
+          title: "Social Link",
           type: "object",
           fields: [
-            defineField({
+            stringField({
               name: "name",
               title: "Name",
               description: "Display name / aria-label (e.g., GitHub)",
-              type: "string",
-              validation: (Rule) => Rule.required().error("Name is required"),
+              validation: { required: true },
             }),
-            defineField({
+            urlField({
               name: "url",
               title: "URL",
-              description: "The link URL (supports http, https, and mailto)",
-              type: "url",
-              validation: (Rule) =>
-                Rule.required()
-                  .uri({ scheme: ["http", "https", "mailto"] })
-                  .error("A valid URL is required"),
+              description:
+                "The link URL (supports http, https, mailto, and tel)",
+              validation: {
+                required: true,
+                schemes: ["http", "https", "mailto", "tel"],
+              },
             }),
-            defineField({
+            imageField({
               name: "iconLight",
               title: "Icon (Light)",
               description: "Icon displayed in light mode (recommended: SVG)",
-              type: "image",
               options: { accept: "image/svg+xml" },
-              validation: (Rule) =>
-                Rule.required().error("Light icon is required"),
+              validation: { required: true },
             }),
-            defineField({
+            imageField({
               name: "iconDark",
               title: "Icon (Dark)",
               description: "Icon displayed in dark mode (recommended: SVG)",
-              type: "image",
               options: { accept: "image/svg+xml" },
-              validation: (Rule) =>
-                Rule.required().error("Dark icon is required"),
+              validation: { required: true },
             }),
           ],
           components: {
@@ -67,7 +67,7 @@ export const socialsSchema = defineType({
               iconDark: "iconDark",
             },
           },
-        },
+        }),
       ],
     }),
   ],

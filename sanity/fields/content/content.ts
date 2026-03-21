@@ -1,121 +1,103 @@
-import { externalLinkField } from "./external-link";
-import { internalLinkField } from "./internal-link";
-import { latexField } from "./latex";
-import { codeInlineField } from "./code-inline";
-import { codeBlockField } from "./code-block";
 import { defineField } from "sanity";
 import { HighlightIcon } from "../../components/icon/highlight-icon";
 import { ImageIcon } from "../../components/icon/image-icon";
 import { CustomHighlight } from "../../components/portable-text/mark/custom-highlight";
 import { CustomBlockquote } from "../../components/portable-text/block/custom-blockquote";
+import {
+  buildRequiredValidation,
+  type BaseValidationOptions,
+} from "../../utils/validation";
+import { booleanField } from "../boolean-field";
+import { stringField } from "../string-field";
+import { codeBlockField, codeInlineField } from "./code";
+import { externalLinkField } from "./external-link";
+import { internalLinkField } from "./internal-link";
+import { latexBlockField, latexInlineField } from "./latex";
 
-export const contentField = defineField({
-  name: "content",
-  title: "Content",
-  type: "array",
-  description: "Insert a content portable text!",
-  validation: (Rule) => Rule.required().error("A content is required"),
-  of: [
-    {
-      type: "block",
+type ContentFieldOptions = {
+  name: string;
+  title: string;
+  description: string;
+  validation?: BaseValidationOptions;
+};
 
-      // Remove small headings & h1 (h1 already with title)
-      styles: [
-        { title: "Normal", value: "normal" },
-        { title: "H2", value: "h2" },
-        { title: "H3", value: "h3" },
-        { title: "H4", value: "h4" },
-        {
-          title: "Blockquote",
-          value: "blockquote",
-          component: CustomBlockquote,
+export const contentField = ({
+  name,
+  title,
+  description,
+  validation,
+}: ContentFieldOptions) =>
+  defineField({
+    name,
+    title,
+    type: "array",
+    description,
+    ...(validation
+      ? { validation: buildRequiredValidation(title, validation) }
+      : {}),
+    of: [
+      {
+        type: "block",
+
+        styles: [
+          { title: "Normal", value: "normal" },
+          { title: "H2", value: "h2" },
+          { title: "H3", value: "h3" },
+          { title: "H4", value: "h4" },
+          {
+            title: "Blockquote",
+            value: "blockquote",
+            component: CustomBlockquote,
+          },
+        ],
+
+        lists: [
+          { title: "Bullet", value: "bullet" },
+          { title: "Numbered", value: "number" },
+        ],
+
+        marks: {
+          decorators: [
+            { title: "Strong", value: "strong" },
+            { title: "Emphasis", value: "em" },
+            { title: "Underline", value: "underline" },
+            { title: "Strike", value: "strike-through" },
+            {
+              title: "Highlight",
+              value: "highlight",
+              icon: HighlightIcon,
+              component: CustomHighlight,
+            },
+          ],
+          annotations: [internalLinkField(), externalLinkField()],
         },
-      ],
 
-      // Default lists
-      lists: [
-        { title: "Bullet", value: "bullet" },
-        { title: "Numbered", value: "number" },
-      ],
-
-      // Custom marks
-      marks: {
-        decorators: [
-          // Default
-          { title: "Strong", value: "strong" },
-          { title: "Emphasis", value: "em" },
-          { title: "Underline", value: "underline" },
-          { title: "Strike", value: "strike-through" },
-
-          // Addition
-          {
-            title: "Highlight",
-            value: "highlight",
-            icon: HighlightIcon,
-            component: CustomHighlight,
-          },
-        ],
-        annotations: [
-          // Internal link
-          {
-            ...internalLinkField,
-          },
-
-          // External link
-          {
-            ...externalLinkField,
-          },
-        ],
+        of: [latexInlineField(), codeInlineField()],
       },
 
-      // Other inline elements
-      of: [
-        // Inline latex
-        {
-          ...latexField(true),
-        },
+      {
+        type: "image",
+        icon: ImageIcon,
+        fields: [
+          stringField({
+            name: "alt",
+            title: "Alt Text",
+            description: "Describe the image for screen readers",
+            validation: { required: true },
+          }),
+          booleanField({
+            name: "caption",
+            title: "Caption",
+            description: "Add a caption (using alt text) to the image",
+            initialValue: false,
+            validation: { required: true },
+          }),
+        ],
+        validation: buildRequiredValidation("Image", { required: true }),
+      },
 
-        // Inline code
-        {
-          ...codeInlineField,
-        },
-      ],
-    },
+      latexBlockField(),
 
-    // Image
-    {
-      type: "image",
-      icon: ImageIcon,
-      fields: [
-        {
-          name: "alt",
-          title: "Alt Text",
-          type: "string",
-          description: "Describe the image for screen readers",
-          validation: (Rule) =>
-            Rule.required().error("Alt text is required for the image"),
-        },
-        {
-          name: "caption",
-          title: "Caption",
-          type: "boolean",
-          description: "Add a caption (using alt text) to the image",
-          initialValue: false,
-          validation: (Rule) =>
-            Rule.required().error("A caption option is required"),
-        },
-      ],
-      validation: (Rule) => Rule.required().error("An image is required"),
-    },
-
-    // Latex
-    {
-      ...latexField(false),
-    },
-
-    // Code field
-    {
-      ...codeBlockField,
-    },
-  ],
-});
+      codeBlockField(),
+    ],
+  });

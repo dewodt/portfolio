@@ -1,107 +1,65 @@
 import { defineField } from "sanity";
+import { buildCollectionValidation } from "../utils/validation";
+import { dateRangeField } from "./date-range";
+import { imageField } from "./image";
+import { stringField } from "./string-field";
+import { textField } from "./text-field";
 
-export const educationField = defineField({
-  name: "education",
-  title: "Education",
-  description: "Add your educational background",
-  type: "array",
-  validation: (Rule) =>
-    Rule.required().min(1).error("At least one education entry is required"),
-  of: [
-    {
-      name: "educationItem",
-      title: "Education Item",
-      type: "object",
-      preview: {
-        select: {
-          title: "degree",
-          subtitle: "university",
-          media: "image",
-        },
-      },
-      fields: [
-        {
-          name: "image",
-          title: "Institution Logo",
-          type: "image",
-          description:
-            "Logo of the educational institution. Recommended size is around 100x100 px (1:1 ratio)",
-          fields: [
-            {
-              name: "alt",
-              type: "string",
-              title: "Alt Text",
-              description: "Describe the image for screen readers",
-              validation: (Rule: any) =>
-                Rule.required().error("Alt text is required for the image"),
-            },
-          ],
-          validation: (Rule: any) =>
-            Rule.required().assetRequired().error("Image is required"),
-        },
-        {
-          name: "degree",
-          title: "Degree",
-          type: "string",
-          description: "e.g., Bachelor of Computer Science",
-          validation: (Rule: any) =>
-            Rule.required().error("Degree is required"),
-        },
-        {
-          name: "university",
-          title: "University / Institution",
-          type: "string",
-          description: "e.g., Universitas Brawijaya",
-          validation: (Rule: any) =>
-            Rule.required().error("University is required"),
-        },
-        {
-          name: "dateRange",
-          title: "Date Range",
-          type: "object",
-          description: "Start and end dates",
-          fields: [
-            {
-              name: "startDate",
-              title: "Start Date",
-              description: "Insert start date (YYYY-MM)",
-              type: "date",
-              validation: (Rule: any) =>
-                Rule.required().error("A start date is required"),
-              options: {
-                dateFormat: "YYYY-MM",
-              },
-            },
-            {
-              name: "endDate",
-              title: "End Date",
-              description:
-                "Insert end date (YYYY-MM), leave empty if currently attending",
-              type: "date",
-              validation: (Rule: any) =>
-                Rule.min(Rule.valueOfField("startDate")).error(
-                  "End date must be after start date",
-                ),
-              options: {
-                dateFormat: "YYYY-MM",
-              },
-            },
-          ],
-          validation: (Rule: any) =>
-            Rule.required().error("Date range is required"),
-          options: {
-            columns: 2,
+export const educationField = () =>
+  defineField({
+    name: "education",
+    title: "Education",
+    description: "Add your educational background",
+    type: "array",
+    validation: buildCollectionValidation("Education", {
+      required: true,
+      min: 1,
+    }),
+    of: [
+      {
+        name: "educationItem",
+        title: "Education Item",
+        type: "object",
+        preview: {
+          select: {
+            title: "degree",
+            subtitle: "university",
+            media: "image",
           },
         },
-        {
-          name: "description",
-          title: "Description",
-          type: "text",
-          description: "Brief description of your education",
-          validation: (Rule: any) =>
-            Rule.required().error("Description is required"),
-        },
-      ],
-    },
-  ],
-});
+        fields: [
+          imageField({
+            name: "image",
+            title: "Institution Logo",
+            description:
+              "Logo of the educational institution. Recommended size is around 100x100 px (1:1 ratio)",
+            validation: { required: true },
+          }),
+          stringField({
+            name: "degree",
+            title: "Degree",
+            description: "e.g., Bachelor of Computer Science",
+            validation: { required: true },
+          }),
+          stringField({
+            name: "university",
+            title: "University / Institution",
+            description: "e.g., Universitas Brawijaya",
+            validation: { required: true },
+          }),
+          dateRangeField({
+            name: "dateRange",
+            title: "Date Range",
+            description: "Start and end dates",
+            validation: { required: true },
+          }),
+          textField({
+            name: "description",
+            title: "Description",
+            description: "Brief description of your education",
+            validation: { required: true },
+          }),
+        ],
+      },
+    ],
+  });
