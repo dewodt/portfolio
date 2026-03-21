@@ -1,73 +1,103 @@
 ---
 import DetailAdjacentNavigation from "@/components/ui/detail/DetailAdjacentNavigation.astro";
 import DetailBack from "@/components/ui/detail/DetailBack.astro";
-import DetailAuthor from "@/components/ui/detail/DetailAuthor.astro";
+import DetailCompany from "@/components/ui/detail/DetailCompany.astro";
 import DetailDateRange from "@/components/ui/detail/DetailDateRange.astro";
 import DetailDescription from "@/components/ui/detail/DetailDescription.astro";
-import Divider from "@/components/ui/Divider.astro";
+import DetailEmploymentType from "@/components/ui/detail/DetailEmploymentType.astro";
 import DetailImage from "@/components/ui/detail/DetailImage.astro";
-import DetailMonoLabel from "@/components/ui/detail/DetailMonoLabel.astro";
 import DetailLocation from "@/components/ui/detail/DetailLocation.astro";
+import DetailMonoLabel from "@/components/ui/detail/DetailMonoLabel.astro";
+import DetailTitle from "@/components/ui/detail/DetailTitle.astro";
+import Divider from "@/components/ui/Divider.astro";
 import PillDeployment from "@/components/ui/pill/PillDeployment.astro";
 import PillRepository from "@/components/ui/pill/PillRepository.astro";
-import DetailCompany from "@/components/ui/detail/DetailCompany.astro";
-import DetailTitle from "@/components/ui/detail/DetailTitle.astro";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
-import LayoutBase from "@/layouts/LayoutBase.astro";
+import MetaSeparator from "@/components/ui/shared/MetaSeparator.astro";
 import {
+  allExperienceCompaniesQuery,
+  experienceRoleDetailQuery,
   sanityClient,
-  allExperiencesQuery,
-  experienceDetailQuery,
 } from "@/lib/query";
-import {
-  type AllExperiencesQueryResult,
-  type ExperienceDetailQueryResult,
+import LayoutBase from "@/layouts/LayoutBase.astro";
+import type {
+  AllExperienceCompaniesQueryResult,
+  ExperienceRoleDetailQueryResult,
 } from "@/types/sanity";
 
-export const getStaticPaths = async () => {
-  const allExperienceData =
-    await sanityClient.fetch<AllExperiencesQueryResult>(allExperiencesQuery);
+interface AdjacentExperienceRole {
+  description: string;
+  href: string;
+  title: string;
+}
 
-  const paths = allExperienceData.map((project) => ({
+export const getStaticPaths = async () => {
+  const allExperienceCompanies =
+    await sanityClient.fetch<AllExperienceCompaniesQueryResult>(
+      allExperienceCompaniesQuery,
+    );
+
+  const orderedExperienceRoles = allExperienceCompanies.flatMap(
+    (experienceCompany) =>
+      experienceCompany.roles.map((role) => ({
+        description: experienceCompany.companySummary,
+        href: `/experiences/${role.slug.current}`,
+        slug: role.slug.current,
+        title: `${role.title} at ${experienceCompany.company}`,
+      })),
+  );
+
+  return orderedExperienceRoles.map((role, index) => ({
+    props: {
+      next: orderedExperienceRoles[index + 1],
+      previous: orderedExperienceRoles[index - 1],
+    },
     params: {
-      slug: project.slug.current,
+      slug: role.slug,
     },
   }));
-
-  return paths;
 };
 
-const experienceDetailData =
-  await sanityClient.fetch<ExperienceDetailQueryResult>(experienceDetailQuery, {
-    slug: Astro.params.slug,
-  });
+const experienceRoleDetailData =
+  await sanityClient.fetch<ExperienceRoleDetailQueryResult>(
+    experienceRoleDetailQuery,
+    { slug: Astro.params.slug },
+  );
 
-if (!experienceDetailData) {
-  throw new Error("Data not found");
+if (!experienceRoleDetailData) {
+  throw new Error("Experience role data not found");
 }
+
+const { company } = experienceRoleDetailData;
+const { next, previous } = Astro.props as {
+  next?: AdjacentExperienceRole;
+  previous?: AdjacentExperienceRole;
+};
+
+const repositoryLinks = experienceRoleDetailData.repositoryLinks ?? [];
+const deploymentLinks = experienceRoleDetailData.deploymentLinks ?? [];
+const hasExperienceLinks = repositoryLinks.length + deploymentLinks.length > 0;
 ---
 
 <LayoutBase
-  title={`${experienceDetailData.title} at ${experienceDetailData.company} | Dewantoro Triatmojo`}
-  description={experienceDetailData.description}
-  linkPreviewImage={experienceDetailData.image}
+  title={`${experienceRoleDetailData.title} at ${company.name} | Dewantoro Triatmojo`}
+  description={company.summary}
+  linkPreviewImage={company.image}
 >
   <main class="flex flex-auto justify-center px-5 py-10 sm:p-12 lg:p-14">
     <div class="flex w-full max-w-xl flex-col gap-6 lg:max-w-3xl lg:gap-8">
-      {/* Back Button */}
       <div class="animate-fade-in-up" style="animation-delay: 0.05s;">
         <DetailBack href="/experiences" label="Back to Experiences" />
       </div>
 
       <article class="flex flex-col gap-6 lg:gap-8">
-        {/* Hero Image */}
         <div
           class="border-border bg-muted animate-fade-in-scale relative overflow-hidden rounded-xl border"
           style="animation-delay: 0.1s;"
         >
           <DetailImage
-            src={experienceDetailData.image.url!}
-            alt={experienceDetailData.image.alt}
+            src={experienceRoleDetailData.company.image.url!}
+            alt={experienceRoleDetailData.company.image.alt}
           />
           <div
             class="from-background/40 pointer-events-none absolute inset-0 bg-linear-to-t via-transparent to-transparent"
@@ -75,90 +105,80 @@ if (!experienceDetailData) {
           </div>
         </div>
 
-        {/* Header Section */}
         <header class="flex flex-col">
-          {/* Mono label */}
-          <div
-            class="animate-fade-in-up mb-1 lg:mb-2"
-            style="animation-delay: 0.15s;"
-          >
+          <div class="animate-fade-in-up" style="animation-delay: 0.15s;">
             <DetailMonoLabel
-              >{experienceDetailData.detailMonoLabel}</DetailMonoLabel
+              >{experienceRoleDetailData.detailMonoLabel}</DetailMonoLabel
             >
           </div>
 
-          {/* Title */}
           <div
-            class="animate-fade-in-up mb-2 lg:mb-3"
+            class="animate-fade-in-up mt-1 lg:mt-2"
             style="animation-delay: 0.2s;"
           >
-            <DetailTitle>{experienceDetailData.title}</DetailTitle>
+            <DetailTitle>{experienceRoleDetailData.title}</DetailTitle>
           </div>
 
-          {/* Description */}
           <div
-            class="animate-fade-in-up mb-2 lg:mb-3"
+            class="animate-fade-in-up mt-2 lg:mt-3"
             style="animation-delay: 0.25s;"
           >
-            <DetailDescription
-              >{experienceDetailData.description}</DetailDescription
-            >
-          </div>
-
-          {/* Metadata row */}
-          <div
-            class="animate-fade-in-up flex flex-wrap items-center gap-3"
-            style="animation-delay: 0.3s;"
-          >
-            <DetailAuthor
-              name={experienceDetailData.authorName!}
-              imageUrl={experienceDetailData.authorImage.url}
-            />
-            <span class="text-muted-foreground text-sm lg:text-base"
-              >&middot;</span
-            >
-            <DetailCompany company={experienceDetailData.company} />
-            <span class="text-muted-foreground text-sm lg:text-base"
-              >&middot;</span
-            >
-            <DetailDateRange
-              dateRange={experienceDetailData.dateRange}
-              isEmptyEndDateShowNow={true}
-            />
-            <span class="text-muted-foreground text-sm lg:text-base"
-              >&middot;</span
-            >
-            <DetailLocation location={experienceDetailData.location} />
-
-            {
-              (experienceDetailData.repositoryLinks?.length ||
-                experienceDetailData.deploymentLinks?.length) && (
-                <span class="text-muted-foreground text-sm lg:text-base">
-                  &middot;
-                </span>
-              )
-            }
             <div class="flex flex-wrap items-center gap-3">
+              <DetailCompany company={company.name} />
+              <MetaSeparator class="text-muted-foreground text-xs lg:text-sm" />
+              <DetailDateRange
+                dateRange={experienceRoleDetailData.dateRange}
+                showPresentForEmptyEndDate={true}
+              />
               {
-                experienceDetailData.repositoryLinks?.map((repo) => (
-                  <PillRepository repository={repo} />
-                ))
+                experienceRoleDetailData.employmentType && (
+                  <>
+                    <MetaSeparator class="text-muted-foreground text-xs lg:text-sm" />
+                    <DetailEmploymentType
+                      employmentType={experienceRoleDetailData.employmentType}
+                    />
+                  </>
+                )
               }
               {
-                experienceDetailData.deploymentLinks?.map((deploy) => (
-                  <PillDeployment deployment={deploy} />
-                ))
+                experienceRoleDetailData.location && (
+                  <>
+                    <MetaSeparator class="text-muted-foreground text-xs lg:text-sm" />
+                    <DetailLocation
+                      location={experienceRoleDetailData.location}
+                    />
+                  </>
+                )
               }
             </div>
+            {
+              hasExperienceLinks && (
+                <div class="mt-2 flex flex-wrap items-center gap-3 lg:mt-3">
+                  {repositoryLinks.map((repo) => (
+                    <PillRepository repository={repo} />
+                  ))}
+                  {deploymentLinks.map((deploy) => (
+                    <PillDeployment deployment={deploy} />
+                  ))}
+                </div>
+              )
+            }
+          </div>
+
+          <div
+            class="animate-fade-in-up mt-2 lg:mt-3"
+            style="animation-delay: 0.3s;"
+          >
+            <DetailDescription>
+              {company.summary}
+            </DetailDescription>
           </div>
         </header>
 
-        {/* Divider */}
         <div class="animate-fade-in-up" style="animation-delay: 0.35s;">
           <Divider />
         </div>
 
-        {/* Content Section */}
         <section
           class="animate-fade-in-up w-full"
           style="animation-delay: 0.4s;"
@@ -166,28 +186,17 @@ if (!experienceDetailData) {
           {
             (
               // @ts-ignore
-              <CustomPortableText value={experienceDetailData.content} />
+              <CustomPortableText value={experienceRoleDetailData.content} />
             )
           }
         </section>
 
-        {/* Adjacent Navigation */}
         <div class="animate-fade-in-up" style="animation-delay: 0.45s;">
           <Divider />
         </div>
+
         <div class="animate-fade-in-up" style="animation-delay: 0.5s;">
-          <DetailAdjacentNavigation
-            previous={experienceDetailData.previous && {
-              title: `${experienceDetailData.previous.title} @ ${experienceDetailData.previous.company}`,
-              href: `/experiences/${experienceDetailData.previous.slug.current}`,
-              description: experienceDetailData.previous.description,
-            }}
-            next={experienceDetailData.next && {
-              title: `${experienceDetailData.next.title} @ ${experienceDetailData.next.company}`,
-              href: `/experiences/${experienceDetailData.next.slug.current}`,
-              description: experienceDetailData.next.description,
-            }}
-          />
+          <DetailAdjacentNavigation previous={previous} next={next} />
         </div>
       </article>
     </div>

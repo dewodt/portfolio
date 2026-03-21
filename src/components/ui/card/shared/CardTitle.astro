@@ -4,26 +4,42 @@ import ArrowRightIcon from "@/components/icons/ArrowRightIcon.astro";
 interface Props {
   as?: "h2" | "h3";
   showArrow?: boolean;
+  hoverScope?: "card" | "role";
   class?: string;
 }
 
-const { as: Tag = "h2", showArrow = true, class: className } = Astro.props;
+const {
+  as: Tag = "h2",
+  showArrow = true,
+  hoverScope = "card",
+  class: className,
+} = Astro.props as Props;
+
+const hoverClasses = {
+  card: {
+    text: "text-foreground transition-colors duration-200 group-hover/card:text-primary",
+    arrow:
+      "text-primary size-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover/card:translate-x-0 group-hover/card:opacity-100",
+  },
+  role: {
+    text: "text-foreground transition-colors duration-200 group-hover/role:text-primary",
+    arrow:
+      "text-primary size-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover/role:translate-x-0 group-hover/role:opacity-100",
+  },
+} as const;
+
+const hoverTextClass = hoverClasses[hoverScope].text;
+const hoverArrowClass = hoverClasses[hoverScope].arrow;
 ---
 
 <div class:list={["flex items-center gap-2", className]}>
   <Tag
     class:list={[
       "text-lg font-bold lg:text-xl",
-      showArrow
-        ? "text-foreground group-hover/card:text-primary transition-colors duration-200"
-        : "text-foreground",
+      showArrow ? hoverTextClass : "text-foreground",
     ]}
   >
     <slot />
   </Tag>
-  {
-    showArrow && (
-      <ArrowRightIcon class="text-primary size-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover/card:translate-x-0 group-hover/card:opacity-100" />
-    )
-  }
+  {showArrow && <ArrowRightIcon class={hoverArrowClass} />}
 </div>

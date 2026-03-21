@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import { getFormattedDate } from "@/lib/utils";
 import type { AllProjectsQueryResult } from "@/types/sanity";
 import CardDescription from "./shared/CardDescription.astro";
 import CardMetaDateRange from "./shared/CardMetaDateRange.astro";
@@ -12,11 +11,6 @@ interface Props {
 }
 
 const { project } = Astro.props;
-
-const formattedStartDate = getFormattedDate(project.dateRange.startDate);
-const formattedEndDate = project.dateRange.endDate
-  ? getFormattedDate(project.dateRange.endDate)
-  : null;
 ---
 
 <article
@@ -60,10 +54,7 @@ const formattedEndDate = project.dateRange.endDate
       startDate={project.dateRange.startDate}
       endDate={project.dateRange.endDate}
       class="mb-1"
-    >
-      <Fragment slot="start">{formattedStartDate}</Fragment>
-      <Fragment slot="end">{formattedEndDate}</Fragment>
-    </CardMetaDateRange>
+    />
 
     {/* Title + arrow */}
     <CardTitle class="mb-2">{project.title}</CardTitle>

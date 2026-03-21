@@ -1,0 +1,20 @@
+---
+import BriefcaseIcon from "@/components/icons/BriefcaseIcon.astro";
+
+interface Props {
+  employmentType: string;
+  class?: string;
+}
+
+const { employmentType, class: className } = Astro.props;
+---
+
+<span
+  class:list={[
+    "text-muted-foreground inline-flex items-center gap-1.5 font-mono text-xs tracking-widest uppercase",
+    className,
+  ]}
+>
+  <BriefcaseIcon class="size-3.5 shrink-0" />
+  {employmentType}
+</span>
