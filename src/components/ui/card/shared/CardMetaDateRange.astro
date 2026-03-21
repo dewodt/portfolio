@@ -1,5 +1,6 @@
 ---
 import CalendarIcon from "@/components/icons/CalendarIcon.astro";
+import { getFormattedDate } from "@/lib/utils";
 
 interface Props {
   startDate: string;
@@ -18,14 +19,12 @@ const { startDate, endDate, noEndDateLabel, class: className } = Astro.props;
   ]}
 >
   <CalendarIcon class="size-3.5 shrink-0" />
-  <time datetime={startDate}><slot name="start" /></time>
+  <time datetime={startDate}>{getFormattedDate(startDate)}</time>
   {
     endDate ? (
       <>
         {" – "}
-        <time datetime={endDate}>
-          <slot name="end" />
-        </time>
+        <time datetime={endDate}>{getFormattedDate(endDate)}</time>
       </>
     ) : (
       noEndDateLabel && (

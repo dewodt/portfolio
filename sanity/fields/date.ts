@@ -1,9 +1,32 @@
 import { defineField } from "sanity";
+import {
+  buildRequiredValidation,
+  type BaseValidationOptions,
+} from "../utils/validation";
+import { MONTH_DATE_FORMAT } from "../utils/constants";
 
-export const dateField = defineField({
-  name: "date",
-  title: "Date",
-  description: "Insert date",
-  type: "date",
-  validation: (Rule) => Rule.required().error("Date is required"),
-});
+type DateFieldOptions = {
+  name: string;
+  title: string;
+  description: string;
+  validation?: BaseValidationOptions;
+};
+
+export const dateField = ({
+  name,
+  title,
+  description,
+  validation,
+}: DateFieldOptions) =>
+  defineField({
+    name,
+    title,
+    description,
+    type: "date",
+    options: {
+      dateFormat: MONTH_DATE_FORMAT,
+    },
+    ...(validation
+      ? { validation: buildRequiredValidation(title, validation) }
+      : {}),
+  });

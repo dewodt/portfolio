@@ -9,6 +9,7 @@ import DetailImage from "@/components/ui/detail/DetailImage.astro";
 import DetailMonoLabel from "@/components/ui/detail/DetailMonoLabel.astro";
 import DetailTitle from "@/components/ui/detail/DetailTitle.astro";
 import CustomPortableText from "@/components/ui/portable-text/CustomPortableText.astro";
+import MetaSeparator from "@/components/ui/shared/MetaSeparator.astro";
 import LayoutBase from "@/layouts/LayoutBase.astro";
 import { sanityClient, blogDetailQuery, allBlogsQuery } from "@/lib/query";
 import {
@@ -70,42 +71,39 @@ if (!blogDetailData) {
         {/* Header Section */}
         <header class="flex flex-col">
           {/* Mono label */}
-          <div
-            class="animate-fade-in-up mb-1 lg:mb-2"
-            style="animation-delay: 0.15s;"
-          >
+          <div class="animate-fade-in-up" style="animation-delay: 0.15s;">
             <DetailMonoLabel>{blogDetailData.detailMonoLabel}</DetailMonoLabel>
           </div>
 
           {/* Title */}
           <div
-            class="animate-fade-in-up mb-2 lg:mb-3"
+            class="animate-fade-in-up mt-1 lg:mt-2"
             style="animation-delay: 0.2s;"
           >
             <DetailTitle>{blogDetailData.title}</DetailTitle>
           </div>
 
-          {/* Description */}
-          <div
-            class="animate-fade-in-up mb-2 lg:mb-3"
-            style="animation-delay: 0.25s;"
-          >
-            <DetailDescription>{blogDetailData.description}</DetailDescription>
-          </div>
-
           {/* Metadata row */}
           <div
-            class="animate-fade-in-up flex flex-wrap items-center gap-3"
+            class="animate-fade-in-up mt-2 lg:mt-3"
+            style="animation-delay: 0.25s;"
+          >
+            <div class="flex flex-wrap items-center gap-3">
+              <DetailAuthor
+                name={blogDetailData.authorName!}
+                imageUrl={blogDetailData.authorImage.url}
+              />
+              <MetaSeparator class="text-muted-foreground text-xs lg:text-sm" />
+              <DetailDate date={blogDetailData.date} />
+            </div>
+          </div>
+
+          {/* Description */}
+          <div
+            class="animate-fade-in-up mt-2 lg:mt-3"
             style="animation-delay: 0.3s;"
           >
-            <DetailAuthor
-              name={blogDetailData.authorName!}
-              imageUrl={blogDetailData.authorImage.url}
-            />
-            <span class="text-muted-foreground text-sm lg:text-base"
-              >&middot;</span
-            >
-            <DetailDate date={blogDetailData.date} />
+            <DetailDescription>{blogDetailData.description}</DetailDescription>
           </div>
         </header>
 

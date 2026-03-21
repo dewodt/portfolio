@@ -1,5 +1,4 @@
 ---
-import { getFormattedDate } from "@/lib/utils";
 import CardDescription from "./shared/CardDescription.astro";
 import CardMetaDateRange from "./shared/CardMetaDateRange.astro";
 import CardMonoLabel from "./shared/CardMonoLabel.astro";
@@ -18,9 +17,6 @@ interface Props {
 
 const { image, imageAlt, degree, university, startDate, endDate, description } =
   Astro.props;
-
-const startFormatted = getFormattedDate(startDate);
-const endFormatted = endDate ? getFormattedDate(endDate) : null;
 ---
 
 <article
@@ -50,10 +46,7 @@ const endFormatted = endDate ? getFormattedDate(endDate) : null;
         endDate={endDate}
         noEndDateLabel="Present"
         class="mb-2"
-      >
-        <Fragment slot="start">{startFormatted}</Fragment>
-        <Fragment slot="end">{endFormatted}</Fragment>
-      </CardMetaDateRange>
+      />
 
       {/* Description */}
       <CardDescription class="whitespace-pre-line">

@@ -31,7 +31,14 @@ const dataset =
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
 
 // Define the singleton document types
-const singletonTypes = new Set(["about-page", "socials"]);
+const singletonTypes = new Set([
+  "about-page",
+  "socials",
+  "experiences-page",
+  "projects-page",
+  "awards-page",
+  "blogs-page",
+]);
 
 // Sanity config
 export default defineConfig({
@@ -72,6 +79,7 @@ export default defineConfig({
                   .schemaType("experiences-page")
                   .documentId("experiences-page"),
               ),
+            S.documentTypeListItem("companies").title("Companies List"),
             S.documentTypeListItem("experiences").title("Experiences List"),
 
             // Projects

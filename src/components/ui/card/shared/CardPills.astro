@@ -8,16 +8,24 @@ interface Props {
   class?: string;
 }
 
-const { repositoryLinks, deploymentLinks, class: className } = Astro.props;
+const {
+  repositoryLinks: repositoryLinksProp,
+  deploymentLinks: deploymentLinksProp,
+  class: className,
+} = Astro.props;
+const repositoryLinks = repositoryLinksProp ?? [];
+const deploymentLinks = deploymentLinksProp ?? [];
+const hasRepositoryLinks = repositoryLinks.length > 0;
+const hasDeploymentLinks = deploymentLinks.length > 0;
 ---
 
 {
-  (repositoryLinks || deploymentLinks) && (
-    <div class:list={["flex flex-wrap gap-2", className]}>
-      {repositoryLinks?.map((repo) => (
+  (hasRepositoryLinks || hasDeploymentLinks) && (
+    <div class:list={["pointer-events-none flex flex-wrap gap-2", className]}>
+      {repositoryLinks.map((repo) => (
         <PillRepository repository={repo} class="relative z-40" />
       ))}
-      {deploymentLinks?.map((deploy) => (
+      {deploymentLinks.map((deploy) => (
         <PillDeployment deployment={deploy} class="relative z-40" />
       ))}
     </div>

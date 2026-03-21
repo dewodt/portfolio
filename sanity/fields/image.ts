@@ -1,23 +1,42 @@
 import { defineField } from "sanity";
+import { stringField } from "./string-field";
+import {
+  buildAssetValidation,
+  type BaseValidationOptions,
+} from "../utils/validation";
 
-export const imageField = (
-  description: string = "An image to be displayed.", // Custom helper message for different images
-) =>
+type ImageFieldOptions = {
+  name: string;
+  title: string;
+  description: string;
+  validation?: BaseValidationOptions;
+  options?: {
+    accept?: string;
+  };
+};
+
+export const imageField = ({
+  name,
+  title,
+  description,
+  validation,
+  options,
+}: ImageFieldOptions) =>
   defineField({
-    name: "image",
-    title: "Image",
+    name,
+    title,
     type: "image",
-    description: description,
+    description,
+    ...(options ? { options } : {}),
     fields: [
-      {
+      stringField({
         name: "alt",
-        type: "string",
         title: "Alt Text",
-        description: "Describe the image for screen readers",
-        validation: (Rule) =>
-          Rule.required().error("Alt text is required for the image"),
-      },
+        description: `Describe the ${title.toLowerCase()} for screen readers`,
+        validation: { required: true },
+      }),
     ],
-    validation: (Rule) =>
-      Rule.required().assetRequired().error("Image is required"),
+    ...(validation
+      ? { validation: buildAssetValidation(title, validation) }
+      : {}),
   });

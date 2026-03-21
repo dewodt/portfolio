@@ -3,9 +3,7 @@ import { sanityClient, socialsQuery } from "@/lib/query";
 import type { SocialsQueryResult } from "@/types/sanity";
 
 const data = await sanityClient.fetch<SocialsQueryResult>(socialsQuery);
-const socialLinks = (data?.socialLinks ?? []).filter(
-  (link) => link.iconLight || link.iconDark,
-);
+const socialLinks = data?.socialLinks ?? [];
 ---
 
 <!-- Bottom blur -->
@@ -30,13 +28,13 @@ const socialLinks = (data?.socialLinks ?? []).filter(
         >
           <img
             class="size-full dark:hidden"
-            src={social.iconLight!}
-            alt={social.name}
+            src={social.iconLight.url!}
+            alt={social.iconLight.alt}
           />
           <img
             class="hidden size-full dark:block"
-            src={social.iconDark!}
-            alt={social.name}
+            src={social.iconDark.url!}
+            alt={social.iconDark.alt}
           />
         </a>
       </li>

@@ -10,7 +10,7 @@ const { date } = Astro.props;
 ---
 
 <span
-  class="text-muted-foreground flex items-center gap-1.5 text-sm lg:text-base"
+  class="text-muted-foreground inline-flex items-center gap-1.5 font-mono text-xs tracking-widest uppercase lg:text-sm"
 >
   <CalendarIcon class="size-3.5 shrink-0 lg:size-4" />
   <time datetime={date}>{getFormattedDate(date)}</time>

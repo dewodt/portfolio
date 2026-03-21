@@ -9,7 +9,31 @@ export const sanityClient = createClient({
   perspective: "published", // Use the published dataset
 });
 
-// Use slug to query params a single (non single instance) document
+const internalLinkHrefProjection = `
+  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
+`;
+
+const portableTextContentProjection = `
+  content[]{
+    ...,
+    markDefs[]{
+      ...,
+      _type == "internalLink" => {
+        ...,
+        ${internalLinkHrefProjection}
+      },
+      _type == "externalLink" => {
+        ...,
+        "href": url,
+      },
+    },
+    _type == "image" => {
+      ...,
+      "url": asset->url,
+      "alt": alt,
+    }
+  },
+`;
 
 export const aboutPageQuery = groq`
   *[_type == "about-page"][0] {
@@ -88,39 +112,16 @@ export const projectDetailQuery = groq`
     dateRange,
     repositoryLinks,
     deploymentLinks,
-    content[]{
-      ...,
-      markDefs[]{
-        ...,
-        _type == "internalLink" => {
-          ...,
-          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
-        },
-        _type == "externalLink" => {
-          ...,
-          "href": url,
-        },
-      },
-      _type == "image" => {
-        ...,
-        "url": asset->url,
-        "alt": alt,
-      }
-    },
+    ${portableTextContentProjection}
     "detailMonoLabel": *[_type == "projects-page"][0].detailMonoLabel,
-    "authorName": *[_type == "about-page"][0].title,
-    "authorImage": {
-      "url": *[_type == "about-page"][0].image.asset->url,
-      "alt": *[_type == "about-page"][0].image.alt,
-    },
-    "previous": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
+    "previous": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {
       _id,
       title,
       slug,
       description,
       dateRange
     },
-    "next": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {
+    "next": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
       _id,
       title,
       slug,
@@ -140,80 +141,54 @@ export const experiencePageQuery = groq`
   }
 `;
 
-export const allExperiencesQuery = groq`
-  *[_type == "experiences"] | order(dateRange.startDate desc) {
+export const allExperienceCompaniesQuery = groq`
+  *[
+    _type == "companies" &&
+    count(*[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)]) > 0
+  ] {
     _id,
     "image": {
       "url": image.asset->url,
       "alt": image.alt
     },
-    title,
-    slug,
-    description,
-    dateRange,
-    company,
-    location,
-    repositoryLinks,
-    deploymentLinks,
+    "company": name,
+    "companySummary": summary,
+    "latestRoleStartDate": *[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)] | order(dateRange.startDate desc, slug.current asc)[0].dateRange.startDate,
+    "roles": *[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)] | order(dateRange.startDate desc, slug.current asc) {
+      _id,
+      _key,
+      title,
+      slug,
+      employmentType,
+      dateRange,
+      location,
+      repositoryLinks,
+      deploymentLinks,
+    },
   }
+  | order(latestRoleStartDate desc, company asc)
 `;
 
-export const experienceDetailQuery = groq`
-  *[_type == "experiences" && slug.current == $slug][0] {
+export const experienceRoleDetailQuery = groq`
+  *[_type == "experiences" && slug.current == $slug && defined(company._ref)][0] {
     _id,
-    "image": {
-      "url": image.asset->url,
-      "alt": image.alt
-    },
     title,
     slug,
-    description,
+    employmentType,
     dateRange,
-    company,
     location,
     repositoryLinks,
     deploymentLinks,
-    content[]{
-      ...,
-      markDefs[]{
-        ...,
-        _type == "internalLink" => {
-          ...,
-          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
-        },
-        _type == "externalLink" => {
-          ...,
-          "href": url,
-        },
-      },
-      _type == "image" => {
-        ...,
-        "url": asset->url,
-        "alt": alt,
+    ${portableTextContentProjection}
+    "company": {
+      "name": company->name,
+      "summary": company->summary,
+      "image": {
+        "url": company->image.asset->url,
+        "alt": company->image.alt
       }
     },
-    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel,
-    "authorName": *[_type == "about-page"][0].title,
-    "authorImage": {
-      "url": *[_type == "about-page"][0].image.asset->url,
-      "alt": *[_type == "about-page"][0].image.alt,
-    },
-    "previous": *[_type == "experiences" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {
-      _id,
-      title,
-      slug,
-      description,
-      dateRange,
-      company
-    },
-    "next": *[_type == "experiences" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {
-      _id,
-      title,
-      slug,
-      description,
-      dateRange,
-      company
-    },
+    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel
   }
 `;
 
@@ -254,32 +229,9 @@ export const awardDetailQuery = groq`
     description,
     issuer,
     date,
-    content[]{
-      ...,
-      markDefs[]{
-        ...,
-        _type == "internalLink" => {
-          ...,
-          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
-        },
-        _type == "externalLink" => {
-          ...,
-          "href": url,
-        },
-      },
-      _type == "image" => {
-        ...,
-        "url": asset->url,
-        "alt": alt,
-      }
-    },
+    ${portableTextContentProjection}
     "detailMonoLabel": *[_type == "awards-page"][0].detailMonoLabel,
-    "authorName": *[_type == "about-page"][0].title,
-    "authorImage": {
-      "url": *[_type == "about-page"][0].image.asset->url,
-      "alt": *[_type == "about-page"][0].image.alt,
-    },
-    "previous": *[_type == "awards" && date < ^.date] | order(date desc) [0] {
+    "previous": *[_type == "awards" && date > ^.date] | order(date) [0] {
       _id,
       title,
       slug,
@@ -287,7 +239,7 @@ export const awardDetailQuery = groq`
       issuer,
       date
     },
-    "next": *[_type == "awards" && date > ^.date] | order(date) [0] {
+    "next": *[_type == "awards" && date < ^.date] | order(date desc) [0] {
       _id,
       title,
       slug,
@@ -301,7 +253,18 @@ export const awardDetailQuery = groq`
 export const socialsQuery = groq`
   *[_type == "socials"][0] {
     _id,
-    socialLinks[]{ name, url, "iconLight": iconLight.asset->url, "iconDark": iconDark.asset->url }
+    socialLinks[]{
+      name,
+      url,
+      "iconLight": {
+        "url": iconLight.asset->url,
+        "alt": iconLight.alt,
+      },
+      "iconDark": {
+        "url": iconDark.asset->url,
+        "alt": iconDark.alt,
+      }
+    }
   }
 `;
 
@@ -340,39 +303,21 @@ export const blogDetailQuery = groq`
     slug,
     description,
     date,
-    content[]{
-      ...,
-      markDefs[]{
-        ...,
-        _type == "internalLink" => {
-          ...,
-          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
-        },
-        _type == "externalLink" => {
-          ...,
-          "href": url,
-        },
-      },
-      _type == "image" => {
-        ...,
-        "url": asset->url,
-        "alt": alt,
-      }
-    },
+    ${portableTextContentProjection}
     "detailMonoLabel": *[_type == "blogs-page"][0].detailMonoLabel,
     "authorName": *[_type == "about-page"][0].title,
     "authorImage": {
       "url": *[_type == "about-page"][0].image.asset->url,
       "alt": *[_type == "about-page"][0].image.alt,
     },
-    "previous": *[_type == "blogs" && date < ^.date] | order(date desc) [0] {
+    "previous": *[_type == "blogs" && date > ^.date] | order(date) [0] {
       _id,
       title,
       slug,
       description,
       date
     },
-    "next": *[_type == "blogs" && date > ^.date] | order(date) [0] {
+    "next": *[_type == "blogs" && date < ^.date] | order(date desc) [0] {
       _id,
       title,
       slug,

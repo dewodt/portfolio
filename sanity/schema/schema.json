@@ -1,29 +1,6 @@
 [
   {
     "type": "type",
-    "name": "dateRange",
-    "value": {
-      "type": "object",
-      "attributes": {
-        "startDate": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          },
-          "optional": false
-        },
-        "endDate": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          },
-          "optional": true
-        }
-      }
-    }
-  },
-  {
-    "type": "type",
     "name": "sanity.imageAsset.reference",
     "value": {
       "type": "object",
@@ -119,7 +96,7 @@
                         "type": "inline",
                         "name": "sanity.imageAsset.reference"
                       },
-                      "optional": true
+                      "optional": false
                     },
                     "media": {
                       "type": "objectAttribute",
@@ -143,6 +120,13 @@
                         "name": "sanity.imageCrop"
                       },
                       "optional": true
+                    },
+                    "alt": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      },
+                      "optional": false
                     },
                     "_type": {
                       "type": "objectAttribute",
@@ -166,7 +150,7 @@
                         "type": "inline",
                         "name": "sanity.imageAsset.reference"
                       },
-                      "optional": true
+                      "optional": false
                     },
                     "media": {
                       "type": "objectAttribute",
@@ -191,6 +175,13 @@
                       },
                       "optional": true
                     },
+                    "alt": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      },
+                      "optional": false
+                    },
                     "_type": {
                       "type": "objectAttribute",
                       "value": {
@@ -201,6 +192,13 @@
                   }
                 },
                 "optional": false
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "socialLink"
+                }
               }
             },
             "rest": {
@@ -1503,7 +1501,7 @@
                                 "type": "inline",
                                 "name": "sanity.imageAsset.reference"
                               },
-                              "optional": true
+                              "optional": false
                             },
                             "media": {
                               "type": "objectAttribute",
@@ -1527,6 +1525,13 @@
                                 "name": "sanity.imageCrop"
                               },
                               "optional": true
+                            },
+                            "alt": {
+                              "type": "objectAttribute",
+                              "value": {
+                                "type": "string"
+                              },
+                              "optional": false
                             },
                             "_type": {
                               "type": "objectAttribute",
@@ -1550,7 +1555,7 @@
                                 "type": "inline",
                                 "name": "sanity.imageAsset.reference"
                               },
-                              "optional": true
+                              "optional": false
                             },
                             "media": {
                               "type": "objectAttribute",
@@ -1574,6 +1579,13 @@
                                 "name": "sanity.imageCrop"
                               },
                               "optional": true
+                            },
+                            "alt": {
+                              "type": "objectAttribute",
+                              "value": {
+                                "type": "string"
+                              },
+                              "optional": false
                             },
                             "_type": {
                               "type": "objectAttribute",
@@ -1748,8 +1760,23 @@
       "dateRange": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "dateRange"
+          "type": "object",
+          "attributes": {
+            "startDate": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": false
+            },
+            "endDate": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            }
+          }
         },
         "optional": false
       },
@@ -2340,6 +2367,36 @@
     }
   },
   {
+    "type": "type",
+    "name": "companies.reference",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_ref": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          }
+        },
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "reference"
+          }
+        },
+        "_weak": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
+        }
+      },
+      "dereferencesTo": "companies"
+    }
+  },
+  {
     "name": "experiences",
     "type": "document",
     "attributes": {
@@ -2374,57 +2431,11 @@
           "type": "string"
         }
       },
-      "image": {
+      "company": {
         "type": "objectAttribute",
         "value": {
-          "type": "object",
-          "attributes": {
-            "asset": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "sanity.imageAsset.reference"
-              },
-              "optional": false
-            },
-            "media": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "unknown"
-              },
-              "optional": true
-            },
-            "hotspot": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "sanity.imageHotspot"
-              },
-              "optional": true
-            },
-            "crop": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "sanity.imageCrop"
-              },
-              "optional": true
-            },
-            "alt": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": false
-            },
-            "_type": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string",
-                "value": "image"
-              }
-            }
-          }
+          "type": "inline",
+          "name": "companies.reference"
         },
         "optional": false
       },
@@ -2435,6 +2446,31 @@
         },
         "optional": false
       },
+      "employmentType": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "Contract"
+            },
+            {
+              "type": "string",
+              "value": "Part-time"
+            },
+            {
+              "type": "string",
+              "value": "Full-time"
+            },
+            {
+              "type": "string",
+              "value": "Internship"
+            }
+          ]
+        },
+        "optional": true
+      },
       "slug": {
         "type": "objectAttribute",
         "value": {
@@ -2443,17 +2479,26 @@
         },
         "optional": false
       },
-      "description": {
+      "dateRange": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
-        },
-        "optional": false
-      },
-      "company": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
+          "type": "object",
+          "attributes": {
+            "startDate": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": false
+            },
+            "endDate": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            }
+          }
         },
         "optional": false
       },
@@ -2462,13 +2507,12 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
-      "dateRange": {
+      "description": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "dateRange"
+          "type": "string"
         },
         "optional": false
       },
@@ -4324,6 +4368,111 @@
           },
           "optional": true
         }
+      }
+    }
+  },
+  {
+    "name": "companies",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "companies"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "image": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "asset": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageAsset.reference"
+              },
+              "optional": false
+            },
+            "media": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "unknown"
+              },
+              "optional": true
+            },
+            "hotspot": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageHotspot"
+              },
+              "optional": true
+            },
+            "crop": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageCrop"
+              },
+              "optional": true
+            },
+            "alt": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": false
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "image"
+              }
+            }
+          }
+        },
+        "optional": false
+      },
+      "name": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
+      "summary": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
       }
     }
   },
