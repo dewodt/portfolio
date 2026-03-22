@@ -2509,13 +2509,6 @@
         },
         "optional": true
       },
-      "description": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": false
-      },
       "repositoryLinks": {
         "type": "objectAttribute",
         "value": {
