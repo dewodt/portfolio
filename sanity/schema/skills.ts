@@ -1,8 +1,8 @@
-import imageUrlBuilder from "@sanity/image-url";
 import { createElement } from "react";
 import { defineType, useClient, useColorSchemeValue } from "sanity";
 import { SkillsIcon } from "../components/icon/skills-icon";
 import { skillFields } from "../fields/skill";
+import { resolvePreviewImageUrl } from "../utils/image-preview";
 
 function SkillPreviewMedia({
   logoLight,
@@ -14,11 +14,7 @@ function SkillPreviewMedia({
   const scheme = useColorSchemeValue();
   const client = useClient({ apiVersion: "2024-04-19" });
   const logo = scheme === "dark" ? logoDark : logoLight;
-  const src = logo
-    ? imageUrlBuilder(client)
-        .image(logo as any)
-        .url()
-    : null;
+  const src = resolvePreviewImageUrl(client, logo);
 
   if (!src) {
     return null;

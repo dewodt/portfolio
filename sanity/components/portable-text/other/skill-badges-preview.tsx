@@ -1,7 +1,7 @@
-import imageUrlBuilder from "@sanity/image-url";
 import { useEffect, useMemo, useState } from "react";
 import { useClient, useColorSchemeValue } from "sanity";
 import type { PreviewProps } from "sanity";
+import { resolvePreviewImageUrl } from "../../../utils/image-preview";
 
 function SkillBadgePreview({
   title,
@@ -15,11 +15,7 @@ function SkillBadgePreview({
   const client = useClient({ apiVersion: "2024-04-19" });
   const scheme = useColorSchemeValue();
   const logo = scheme === "dark" ? logoDark : logoLight;
-  const logoUrl = logo
-    ? imageUrlBuilder(client)
-        .image(logo as any)
-        .url()
-    : null;
+  const logoUrl = resolvePreviewImageUrl(client, logo);
 
   return (
     <div
