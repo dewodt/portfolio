@@ -1,29 +1,40 @@
 ---
 interface Props {
-  logoLight: string;
-  logoDark: string;
-  title: string;
+  skill: {
+    logoLight: string | null;
+    logoDark: string | null;
+    title: string;
+    url: string | null;
+  };
 }
 
-const { logoLight, logoDark, title } = Astro.props;
+const { skill } = Astro.props;
 ---
 
-<div
-  class="group/badge border-border bg-card text-foreground hover:drop-shadow-primary-sm relative overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1"
->
-  {/* Glow effect */}
-  <div
-    class="bg-primary/0 group-hover/badge:bg-primary/10 dark:group-hover/badge:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"
-  >
-  </div>
+{
+  skill.logoLight && skill.logoDark && skill.url && (
+    <a
+      href={skill.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group/card border-border bg-card text-foreground hover:drop-shadow-primary-sm relative inline-flex overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-0.5"
+    >
+      {/* Glow effect */}
+      <div class="bg-primary/0 group-hover/card:bg-primary/10 dark:group-hover/card:bg-primary/15 pointer-events-none absolute -inset-px -z-10 rounded-xl blur-xl transition-all duration-500"></div>
 
-  <div class="flex items-center gap-2 px-4 py-2">
-    <img class="h-4 w-auto dark:hidden" src={logoLight} alt={`${title} Logo`} />
-    <img
-      class="hidden h-4 w-auto dark:block"
-      src={logoDark}
-      alt={`${title} Logo`}
-    />
-    <span class="text-sm leading-none font-medium">{title}</span>
-  </div>
-</div>
+      <div class="flex items-center gap-2 px-4 py-2">
+        <img
+          class="h-4 w-auto dark:hidden"
+          src={skill.logoLight}
+          alt={`${skill.title} Logo`}
+        />
+        <img
+          class="hidden h-4 w-auto dark:block"
+          src={skill.logoDark}
+          alt={`${skill.title} Logo`}
+        />
+        <span class="text-sm leading-none font-medium">{skill.title}</span>
+      </div>
+    </a>
+  )
+}
