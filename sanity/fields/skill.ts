@@ -1,8 +1,34 @@
-import { defineField } from "sanity";
-import { SkillPreview } from "../components/preview/skill-preview";
+import { defineArrayMember, defineField } from "sanity";
 import { buildCollectionValidation } from "../utils/validation";
 import { imageField } from "./image";
 import { stringField } from "./string-field";
+import { urlField } from "./url-field";
+
+export const skillReferencesField = ({
+  name,
+  title,
+  description,
+}: {
+  name: string;
+  title: string;
+  description: string;
+}) =>
+  defineField({
+    name,
+    title,
+    description,
+    type: "array",
+    validation: buildCollectionValidation(title, {
+      required: true,
+      min: 1,
+    }),
+    of: [
+      defineArrayMember({
+        type: "reference",
+        to: [{ type: "skills" }],
+      }),
+    ],
+  });
 
 export const skillCategoriesField = () =>
   defineField({
@@ -15,7 +41,7 @@ export const skillCategoriesField = () =>
       min: 1,
     }),
     of: [
-      {
+      defineArrayMember({
         name: "skillCategory",
         title: "Skill Category",
         description: "A category containing related skills",
@@ -41,58 +67,44 @@ export const skillCategoriesField = () =>
               "e.g., Programming Languages, Web Development, Databases, Tools",
             validation: { required: true },
           }),
-          defineField({
+          skillReferencesField({
             name: "skills",
             title: "Skills",
-            type: "array",
-            description: "Skills in this category",
-            validation: buildCollectionValidation("Skills", {
-              required: true,
-              min: 1,
-            }),
-            of: [
-              {
-                name: "skillItem",
-                title: "Skill Item",
-                description: "Insert a skill item",
-                type: "object",
-                components: {
-                  preview: SkillPreview,
-                },
-                preview: {
-                  select: {
-                    title: "title",
-                    logoLight: "logoLight",
-                    logoDark: "logoDark",
-                  },
-                },
-                fields: [
-                  stringField({
-                    name: "title",
-                    title: "Title",
-                    description: "Insert skill title",
-                    validation: { required: true },
-                  }),
-                  imageField({
-                    name: "logoLight",
-                    title: "Logo (Light)",
-                    description:
-                      "Logo for light mode (recommended type is SVG)",
-                    options: { accept: "image/svg+xml" },
-                    validation: { required: true },
-                  }),
-                  imageField({
-                    name: "logoDark",
-                    title: "Logo (Dark)",
-                    description: "Logo for dark mode (recommended type is SVG)",
-                    options: { accept: "image/svg+xml" },
-                    validation: { required: true },
-                  }),
-                ],
-              },
-            ],
+            description: "Select skills in the exact order they should appear",
           }),
         ],
-      },
+      }),
     ],
   });
+
+export const skillFields = () => [
+  stringField({
+    name: "title",
+    title: "Title",
+    description: "Insert skill title",
+    validation: { required: true },
+  }),
+  urlField({
+    name: "url",
+    title: "URL",
+    description: "Insert the official website or canonical page for this skill",
+    validation: {
+      required: true,
+      schemes: ["http", "https"],
+    },
+  }),
+  imageField({
+    name: "logoLight",
+    title: "Logo (Light)",
+    description: "Logo for light mode (recommended type is SVG)",
+    options: { accept: "image/svg+xml" },
+    validation: { required: true },
+  }),
+  imageField({
+    name: "logoDark",
+    title: "Logo (Dark)",
+    description: "Logo for dark mode (recommended type is SVG)",
+    options: { accept: "image/svg+xml" },
+    validation: { required: true },
+  }),
+];

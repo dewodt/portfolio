@@ -8,6 +8,7 @@ import { projectsPageSchema } from "./projects-page";
 import { projectsSchema } from "./projects";
 import { experiencePageSchema } from "./experiences-page";
 import { experiencesSchema } from "./experiences";
+import { skillsSchema } from "./skills";
 import { socialsSchema } from "./socials";
 
 export const schemaTypes = [
@@ -17,6 +18,7 @@ export const schemaTypes = [
   experiencePageSchema,
   companiesSchema,
   experiencesSchema,
+  skillsSchema,
   awardsPageSchema,
   awardsSchema,
   blogPageSchema,

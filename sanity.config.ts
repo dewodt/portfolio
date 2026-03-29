@@ -61,6 +61,7 @@ export default defineConfig({
               .child(
                 S.document().schemaType("about-page").documentId("about-page"),
               ),
+            S.documentTypeListItem("skills").title("Skills List"),
 
             // Socials
             S.listItem()
