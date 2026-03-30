@@ -13,6 +13,14 @@ const internalLinkHrefProjection = `
   "href": "/" + @.reference->_type + "/" + @.reference->slug.current,
 `;
 
+const skillProjection = `
+  _id,
+  title,
+  url,
+  "logoLight": logoLight.asset->url,
+  "logoDark": logoDark.asset->url,
+`;
+
 const portableTextContentProjection = `
   content[]{
     ...,
@@ -31,6 +39,12 @@ const portableTextContentProjection = `
       ...,
       "url": asset->url,
       "alt": alt,
+    },
+    _type == "skillBadges" => {
+      ...,
+      skills[]->{
+        ${skillProjection}
+      }
     }
   },
 `;
@@ -41,7 +55,7 @@ export const aboutPageQuery = groq`
     heroMonoLabel,
     location,
     title,
-    content,
+    ${portableTextContentProjection}
     "image": {
       "url": image.asset->url,
       "alt": image.alt,
@@ -64,10 +78,8 @@ export const aboutPageQuery = groq`
     skillsSectionDescription,
     skillCategories[]{
       categoryTitle,
-      skills[]{
-        title,
-        "logoLight": logoLight.asset->url,
-        "logoDark": logoDark.asset->url,
+      skills[]->{
+        ${skillProjection}
       }
     }
   }
