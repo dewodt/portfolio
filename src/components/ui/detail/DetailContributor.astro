@@ -35,9 +35,10 @@ const fallbackSvg = `data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/s
         <Image
           src={imageUrl}
           alt={name}
+          width={256}
+          height={256}
           widths={[128, 192, 256]}
           sizes="(max-width: 1023px) 28px, 32px"
-          inferSize
           loading="eager"
           style="display:none"
           class="size-full rounded-full object-cover"
