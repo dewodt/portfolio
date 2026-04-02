@@ -275,6 +275,15 @@ export type AboutPage = {
         _type: "skillBadges";
         _key: string;
       }
+    | {
+        contributors: Array<{
+          profileUrl: string;
+          _type: "contributorProfile";
+          _key: string;
+        }>;
+        _type: "contributors";
+        _key: string;
+      }
   >;
   image: {
     asset: SanityImageAssetReference;
@@ -445,6 +454,15 @@ export type Projects = {
         _type: "skillBadges";
         _key: string;
       }
+    | {
+        contributors: Array<{
+          profileUrl: string;
+          _type: "contributorProfile";
+          _key: string;
+        }>;
+        _type: "contributors";
+        _key: string;
+      }
   >;
 };
 
@@ -573,6 +591,15 @@ export type Experiences = {
         _type: "skillBadges";
         _key: string;
       }
+    | {
+        contributors: Array<{
+          profileUrl: string;
+          _type: "contributorProfile";
+          _key: string;
+        }>;
+        _type: "contributors";
+        _key: string;
+      }
   >;
 };
 
@@ -686,6 +713,15 @@ export type Awards = {
         _type: "skillBadges";
         _key: string;
       }
+    | {
+        contributors: Array<{
+          profileUrl: string;
+          _type: "contributorProfile";
+          _key: string;
+        }>;
+        _type: "contributors";
+        _key: string;
+      }
   >;
 };
 
@@ -796,6 +832,15 @@ export type Blogs = {
           } & SkillsReference
         >;
         _type: "skillBadges";
+        _key: string;
+      }
+    | {
+        contributors: Array<{
+          profileUrl: string;
+          _type: "contributorProfile";
+          _key: string;
+        }>;
+        _type: "contributors";
         _key: string;
       }
   >;
@@ -1059,6 +1104,16 @@ export type AboutPageQueryResult = {
         markDefs: null;
       }
     | {
+        contributors: Array<{
+          profileUrl: string;
+          _type: "contributorProfile";
+          _key: string;
+        }>;
+        _type: "contributors";
+        _key: string;
+        markDefs: null;
+      }
+    | {
         asset?: SanityImageAssetReference;
         media?: unknown;
         hotspot?: SanityImageHotspot;
@@ -1266,6 +1321,16 @@ export type ProjectDetailQueryResult = {
         filename?: string;
         code?: string;
         highlightedLines?: Array<number>;
+        markDefs: null;
+      }
+    | {
+        contributors: Array<{
+          profileUrl: string;
+          _type: "contributorProfile";
+          _key: string;
+        }>;
+        _type: "contributors";
+        _key: string;
         markDefs: null;
       }
     | {
@@ -1477,6 +1542,16 @@ export type ExperienceRoleDetailQueryResult = {
         markDefs: null;
       }
     | {
+        contributors: Array<{
+          profileUrl: string;
+          _type: "contributorProfile";
+          _key: string;
+        }>;
+        _type: "contributors";
+        _key: string;
+        markDefs: null;
+      }
+    | {
         asset?: SanityImageAssetReference;
         media?: unknown;
         hotspot?: SanityImageHotspot;
@@ -1632,6 +1707,16 @@ export type AwardDetailQueryResult = {
         filename?: string;
         code?: string;
         highlightedLines?: Array<number>;
+        markDefs: null;
+      }
+    | {
+        contributors: Array<{
+          profileUrl: string;
+          _type: "contributorProfile";
+          _key: string;
+        }>;
+        _type: "contributors";
+        _key: string;
         markDefs: null;
       }
     | {
@@ -1815,6 +1900,16 @@ export type BlogDetailQueryResult = {
         filename?: string;
         code?: string;
         highlightedLines?: Array<number>;
+        markDefs: null;
+      }
+    | {
+        contributors: Array<{
+          profileUrl: string;
+          _type: "contributorProfile";
+          _key: string;
+        }>;
+        _type: "contributors";
+        _key: string;
         markDefs: null;
       }
     | {
