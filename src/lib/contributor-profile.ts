@@ -55,7 +55,7 @@ export const resolveContributorProfile = (
       username,
       displayName: username,
       profileUrl: baseUrl,
-      avatarUrl: `https://avatars.githubusercontent.com/${encodedUsername}?size=256`,
+      avatarUrl: `https://avatars.githubusercontent.com/${encodedUsername}?size=460`,
     };
   } catch {
     return null;
