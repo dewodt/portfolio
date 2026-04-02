@@ -4,13 +4,15 @@ import { Image } from "astro:assets";
 interface Props {
   name: string;
   imageUrl?: string | null;
+  profileUrl: string;
 }
 
-const { name, imageUrl } = Astro.props;
+const { name, imageUrl, profileUrl } = Astro.props;
 
 const initials = name
-  .split(" ")
-  .map((w) => w[0])
+  .replace(/^@/, "")
+  .split(/[\s.-]+/)
+  .map((part) => part[0])
   .join("")
   .slice(0, 2)
   .toUpperCase();
@@ -18,20 +20,23 @@ const initials = name
 const fallbackSvg = `data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2728%27 height=%2728%27 viewBox=%270 0 28 28%27%3E%3Ccircle cx=%2714%27 cy=%2714%27 r=%2714%27 fill=%27%236b7280%27/%3E%3Ctext x=%2714%27 y=%2718%27 text-anchor=%27middle%27 font-size=%2712%27 font-family=%27system-ui,sans-serif%27 font-weight=%27600%27 fill=%27white%27%3E${initials}%3C/text%3E%3C/svg%3E`;
 ---
 
-<span
-  class="text-muted-foreground inline-flex items-center gap-2 text-sm lg:text-base"
+<a
+  href={profileUrl}
+  target="_blank"
+  rel="noreferrer"
+  class="group text-muted-foreground hover:text-foreground inline-flex items-center gap-2.5 text-sm transition-colors lg:text-base"
 >
   {
     imageUrl ? (
       <span
-        class="size-6 shrink-0 rounded-full bg-cover bg-center lg:size-7"
+        class="size-7 shrink-0 rounded-full bg-cover bg-center lg:size-8"
         style={`background-image: url('${fallbackSvg}')`}
       >
         <Image
           src={imageUrl}
           alt={name}
-          widths={[192, 256, 384]}
-          sizes="(max-width: 1023px) 20px, 24px"
+          widths={[128, 192, 256]}
+          sizes="(max-width: 1023px) 28px, 32px"
           inferSize
           loading="eager"
           style="display:none"
@@ -44,9 +49,11 @@ const fallbackSvg = `data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/s
       <img
         src={fallbackSvg}
         alt={name}
-        class="size-6 shrink-0 rounded-full object-cover lg:size-7"
+        class="size-7 shrink-0 rounded-full object-cover lg:size-8"
       />
     )
   }
-  {name}
-</span>
+  <span class="font-mono font-medium underline-offset-4 group-hover:underline">
+    {name}
+  </span>
+</a>

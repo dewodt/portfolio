@@ -30,6 +30,11 @@ export default defineConfig({
         hostname: "cdn.sanity.io",
         pathname: "/images/**",
       },
+      {
+        protocol: "https",
+        hostname: "github.com",
+        pathname: "/**",
+      },
     ],
   },
   vite: {

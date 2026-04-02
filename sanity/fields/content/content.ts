@@ -13,6 +13,7 @@ import { codeBlockField, codeInlineField } from "./code";
 import { externalLinkField } from "./external-link";
 import { internalLinkField } from "./internal-link";
 import { latexBlockField, latexInlineField } from "./latex";
+import { contributorsField } from "./contributors";
 import { skillBadgesField } from "./skill-badges";
 
 type ContentFieldOptions = {
@@ -102,5 +103,7 @@ export const contentField = ({
       codeBlockField(),
 
       skillBadgesField(),
+
+      contributorsField(),
     ],
   });

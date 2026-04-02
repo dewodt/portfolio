@@ -1,0 +1,32 @@
+---
+import type { Props as $, TypedObject } from "astro-portabletext/types";
+import DetailContributor from "@/components/ui/detail/DetailContributor.astro";
+import { resolveContributorProfiles } from "@/lib/contributor-profile";
+
+type Props = $<TypedObject> & {
+  node: {
+    contributors?: Array<{ profileUrl?: string | null } | null>;
+  };
+};
+
+const { node } = Astro.props;
+const contributors = resolveContributorProfiles(node.contributors);
+---
+
+{
+  contributors.length > 0 && (
+    <div class="mt-3 mb-6 lg:mb-7">
+      <ul class="space-y-2.5">
+        {contributors.map((contributor) => (
+          <li>
+            <DetailContributor
+              name={contributor.displayName}
+              imageUrl={contributor.avatarUrl}
+              profileUrl={contributor.profileUrl}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
