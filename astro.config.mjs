@@ -32,7 +32,7 @@ export default defineConfig({
       },
       {
         protocol: "https",
-        hostname: "github.com",
+        hostname: "avatars.githubusercontent.com",
         pathname: "/**",
       },
     ],
