@@ -47,8 +47,7 @@ const imageSizesMap = {
   "max-w-2xl": "(max-width: 1023px) 100vw, 672px",
   "max-w-3xl": "(max-width: 1023px) 100vw, 768px",
 } as const;
-const figureClass =
-  `border-border bg-muted w-full overflow-hidden rounded-lg border ${maxWidthClassMap[maxWidth]}`.trim();
+const figureClass = `w-full ${maxWidthClassMap[maxWidth]}`.trim();
 const imageSizes = imageSizesMap[maxWidth];
 ---
 
@@ -57,14 +56,16 @@ const imageSizes = imageSizesMap[maxWidth];
     {
       /* Max image width is container width, image height will adjust according to original aspect ratio */
     }
-    <ZoomableImage
-      class="bg-muted text-muted-foreground flex h-auto w-full items-center justify-evenly rounded-lg object-cover object-center text-base font-medium"
-      src={props.node.url}
-      alt={props.node.alt}
-      widths={[576, 768, 1152, 1280, 1440]}
-      sizes={imageSizes}
-      inferSize
-    />
+    <div class="border-border bg-muted overflow-hidden rounded-lg border">
+      <ZoomableImage
+        class="bg-muted text-muted-foreground flex h-auto w-full items-center justify-evenly rounded-lg object-cover object-center text-base font-medium"
+        src={props.node.url}
+        alt={props.node.alt}
+        widths={[576, 768, 1152, 1280, 1440]}
+        sizes={imageSizes}
+        inferSize
+      />
+    </div>
 
     {
       props.node.caption && (
