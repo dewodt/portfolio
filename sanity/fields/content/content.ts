@@ -87,6 +87,25 @@ export const contentField = ({
             description: "Describe the image for screen readers",
             validation: { required: true },
           }),
+          stringField({
+            name: "maxWidth",
+            title: "Max Width",
+            description:
+              "Choose the image max width in the UI. Leave empty for full width.",
+            options: {
+              list: [
+                { title: "3XS (256px)", value: "max-w-3xs" },
+                { title: "2XS (288px)", value: "max-w-2xs" },
+                { title: "XS (320px)", value: "max-w-xs" },
+                { title: "SM (384px)", value: "max-w-sm" },
+                { title: "MD (448px)", value: "max-w-md" },
+                { title: "LG (512px)", value: "max-w-lg" },
+                { title: "XL (576px)", value: "max-w-xl" },
+                { title: "2XL (672px)", value: "max-w-2xl" },
+                { title: "3XL (768px)", value: "max-w-3xl" },
+              ],
+            },
+          }),
           booleanField({
             name: "caption",
             title: "Caption",

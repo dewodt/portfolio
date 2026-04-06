@@ -254,6 +254,16 @@ export type AboutPage = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        maxWidth?:
+          | "max-w-3xs"
+          | "max-w-2xs"
+          | "max-w-xs"
+          | "max-w-sm"
+          | "max-w-md"
+          | "max-w-lg"
+          | "max-w-xl"
+          | "max-w-2xl"
+          | "max-w-3xl";
         caption: boolean;
         _type: "image";
         _key: string;
@@ -433,6 +443,16 @@ export type Projects = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        maxWidth?:
+          | "max-w-3xs"
+          | "max-w-2xs"
+          | "max-w-xs"
+          | "max-w-sm"
+          | "max-w-md"
+          | "max-w-lg"
+          | "max-w-xl"
+          | "max-w-2xl"
+          | "max-w-3xl";
         caption: boolean;
         _type: "image";
         _key: string;
@@ -570,6 +590,16 @@ export type Experiences = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        maxWidth?:
+          | "max-w-3xs"
+          | "max-w-2xs"
+          | "max-w-xs"
+          | "max-w-sm"
+          | "max-w-md"
+          | "max-w-lg"
+          | "max-w-xl"
+          | "max-w-2xl"
+          | "max-w-3xl";
         caption: boolean;
         _type: "image";
         _key: string;
@@ -692,6 +722,16 @@ export type Awards = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        maxWidth?:
+          | "max-w-3xs"
+          | "max-w-2xs"
+          | "max-w-xs"
+          | "max-w-sm"
+          | "max-w-md"
+          | "max-w-lg"
+          | "max-w-xl"
+          | "max-w-2xl"
+          | "max-w-3xl";
         caption: boolean;
         _type: "image";
         _key: string;
@@ -813,6 +853,16 @@ export type Blogs = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        maxWidth?:
+          | "max-w-3xs"
+          | "max-w-2xs"
+          | "max-w-xs"
+          | "max-w-sm"
+          | "max-w-md"
+          | "max-w-lg"
+          | "max-w-xl"
+          | "max-w-2xl"
+          | "max-w-3xl";
         caption: boolean;
         _type: "image";
         _key: string;
@@ -1022,7 +1072,7 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: src/lib/query.ts
 // Variable: aboutPageQuery
-// Query: *[_type == "about-page"][0] {    _id,    heroMonoLabel,    location,    title,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "image": {      "url": image.asset->url,      "alt": image.alt,    },    educationMonoLabel,    educationSectionTitle,    educationSectionDescription,    education[]{      "image": {        "url": image.asset->url,        "alt": image.alt,      },      degree,      university,      dateRange,      description,    },    skillsMonoLabel,    skillsSectionTitle,    skillsSectionDescription,    skillCategories[]{      categoryTitle,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  }
+// Query: *[_type == "about-page"][0] {    _id,    heroMonoLabel,    location,    title,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,      "maxWidth": coalesce(maxWidth, "full"),    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "image": {      "url": image.asset->url,      "alt": image.alt,    },    educationMonoLabel,    educationSectionTitle,    educationSectionDescription,    education[]{      "image": {        "url": image.asset->url,        "alt": image.alt,      },      degree,      university,      dateRange,      description,    },    skillsMonoLabel,    skillsSectionTitle,    skillsSectionDescription,    skillCategories[]{      categoryTitle,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  }
 export type AboutPageQueryResult = {
   _id: string;
   heroMonoLabel: string;
@@ -1119,6 +1169,17 @@ export type AboutPageQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        maxWidth:
+          | "full"
+          | "max-w-2xl"
+          | "max-w-2xs"
+          | "max-w-3xl"
+          | "max-w-3xs"
+          | "max-w-lg"
+          | "max-w-md"
+          | "max-w-sm"
+          | "max-w-xl"
+          | "max-w-xs";
         caption: boolean;
         _type: "image";
         _key: string;
@@ -1222,7 +1283,7 @@ export type AllProjectsQueryResult = Array<{
 
 // Source: src/lib/query.ts
 // Variable: projectDetailQuery
-// Query: *[_type == "projects" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    dateRange,    repositoryLinks,    deploymentLinks,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "detailMonoLabel": *[_type == "projects-page"][0].detailMonoLabel,    "previous": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {      _id,      title,      slug,      description,      dateRange    },    "next": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {      _id,      title,      slug,      description,      dateRange    },  }
+// Query: *[_type == "projects" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    dateRange,    repositoryLinks,    deploymentLinks,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,      "maxWidth": coalesce(maxWidth, "full"),    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "detailMonoLabel": *[_type == "projects-page"][0].detailMonoLabel,    "previous": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {      _id,      title,      slug,      description,      dateRange    },    "next": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {      _id,      title,      slug,      description,      dateRange    },  }
 export type ProjectDetailQueryResult = {
   _id: string;
   image: {
@@ -1339,6 +1400,17 @@ export type ProjectDetailQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        maxWidth:
+          | "full"
+          | "max-w-2xl"
+          | "max-w-2xs"
+          | "max-w-3xl"
+          | "max-w-3xs"
+          | "max-w-lg"
+          | "max-w-md"
+          | "max-w-sm"
+          | "max-w-xl"
+          | "max-w-xs";
         caption: boolean;
         _type: "image";
         _key: string;
@@ -1443,7 +1515,7 @@ export type AllExperienceCompaniesQueryResult = Array<{
 
 // Source: src/lib/query.ts
 // Variable: experienceRoleDetailQuery
-// Query: *[_type == "experiences" && slug.current == $slug && defined(company._ref)][0] {    _id,    title,    slug,    employmentType,    dateRange,    location,    repositoryLinks,    deploymentLinks,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "company": {      "name": company->name,      "summary": company->summary,      "image": {        "url": company->image.asset->url,        "alt": company->image.alt      }    },    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel  }
+// Query: *[_type == "experiences" && slug.current == $slug && defined(company._ref)][0] {    _id,    title,    slug,    employmentType,    dateRange,    location,    repositoryLinks,    deploymentLinks,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,      "maxWidth": coalesce(maxWidth, "full"),    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "company": {      "name": company->name,      "summary": company->summary,      "image": {        "url": company->image.asset->url,        "alt": company->image.alt      }    },    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel  }
 export type ExperienceRoleDetailQueryResult = {
   _id: string;
   title: string;
@@ -1557,6 +1629,17 @@ export type ExperienceRoleDetailQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        maxWidth:
+          | "full"
+          | "max-w-2xl"
+          | "max-w-2xs"
+          | "max-w-3xl"
+          | "max-w-3xs"
+          | "max-w-lg"
+          | "max-w-md"
+          | "max-w-sm"
+          | "max-w-xl"
+          | "max-w-xs";
         caption: boolean;
         _type: "image";
         _key: string;
@@ -1622,7 +1705,7 @@ export type AllAwardsQueryResult = Array<{
 
 // Source: src/lib/query.ts
 // Variable: awardDetailQuery
-// Query: *[_type == "awards" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    issuer,    date,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "detailMonoLabel": *[_type == "awards-page"][0].detailMonoLabel,    "previous": *[_type == "awards" && date > ^.date] | order(date) [0] {      _id,      title,      slug,      description,      issuer,      date    },    "next": *[_type == "awards" && date < ^.date] | order(date desc) [0] {      _id,      title,      slug,      description,      issuer,      date    },  }
+// Query: *[_type == "awards" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    title,    slug,    description,    issuer,    date,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,      "maxWidth": coalesce(maxWidth, "full"),    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "detailMonoLabel": *[_type == "awards-page"][0].detailMonoLabel,    "previous": *[_type == "awards" && date > ^.date] | order(date) [0] {      _id,      title,      slug,      description,      issuer,      date    },    "next": *[_type == "awards" && date < ^.date] | order(date desc) [0] {      _id,      title,      slug,      description,      issuer,      date    },  }
 export type AwardDetailQueryResult = {
   _id: string;
   image: {
@@ -1725,6 +1808,17 @@ export type AwardDetailQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        maxWidth:
+          | "full"
+          | "max-w-2xl"
+          | "max-w-2xs"
+          | "max-w-3xl"
+          | "max-w-3xs"
+          | "max-w-lg"
+          | "max-w-md"
+          | "max-w-sm"
+          | "max-w-xl"
+          | "max-w-xs";
         caption: boolean;
         _type: "image";
         _key: string;
@@ -1816,7 +1910,7 @@ export type AllBlogsQueryResult = Array<{
 
 // Source: src/lib/query.ts
 // Variable: blogDetailQuery
-// Query: *[_type == "blogs" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    date,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "detailMonoLabel": *[_type == "blogs-page"][0].detailMonoLabel,    "authorName": *[_type == "about-page"][0].title,    "authorImage": {      "url": *[_type == "about-page"][0].image.asset->url,      "alt": *[_type == "about-page"][0].image.alt,    },    "previous": *[_type == "blogs" && date > ^.date] | order(date) [0] {      _id,      title,      slug,      description,      date    },    "next": *[_type == "blogs" && date < ^.date] | order(date desc) [0] {      _id,      title,      slug,      description,      date    },  }
+// Query: *[_type == "blogs" && slug.current == $slug][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt,    },    title,    slug,    description,    date,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,      "maxWidth": coalesce(maxWidth, "full"),    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "detailMonoLabel": *[_type == "blogs-page"][0].detailMonoLabel,    "authorName": *[_type == "about-page"][0].title,    "authorImage": {      "url": *[_type == "about-page"][0].image.asset->url,      "alt": *[_type == "about-page"][0].image.alt,    },    "previous": *[_type == "blogs" && date > ^.date] | order(date) [0] {      _id,      title,      slug,      description,      date    },    "next": *[_type == "blogs" && date < ^.date] | order(date desc) [0] {      _id,      title,      slug,      description,      date    },  }
 export type BlogDetailQueryResult = {
   _id: string;
   image: {
@@ -1918,6 +2012,17 @@ export type BlogDetailQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         alt: string;
+        maxWidth:
+          | "full"
+          | "max-w-2xl"
+          | "max-w-2xs"
+          | "max-w-3xl"
+          | "max-w-3xs"
+          | "max-w-lg"
+          | "max-w-md"
+          | "max-w-sm"
+          | "max-w-xl"
+          | "max-w-xs";
         caption: boolean;
         _type: "image";
         _key: string;
@@ -1969,19 +2074,19 @@ export type BlogDetailQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "about-page"][0] {\n    _id,\n    heroMonoLabel,\n    location,\n    title,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    educationMonoLabel,\n    educationSectionTitle,\n    educationSectionDescription,\n    education[]{\n      "image": {\n        "url": image.asset->url,\n        "alt": image.alt,\n      },\n      degree,\n      university,\n      dateRange,\n      description,\n    },\n    skillsMonoLabel,\n    skillsSectionTitle,\n    skillsSectionDescription,\n    skillCategories[]{\n      categoryTitle,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  }\n': AboutPageQueryResult;
+    '\n  *[_type == "about-page"][0] {\n    _id,\n    heroMonoLabel,\n    location,\n    title,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    educationMonoLabel,\n    educationSectionTitle,\n    educationSectionDescription,\n    education[]{\n      "image": {\n        "url": image.asset->url,\n        "alt": image.alt,\n      },\n      degree,\n      university,\n      dateRange,\n      description,\n    },\n    skillsMonoLabel,\n    skillsSectionTitle,\n    skillsSectionDescription,\n    skillCategories[]{\n      categoryTitle,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  }\n': AboutPageQueryResult;
     '\n  *[_type == "projects-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': ProjectsPageQueryResult;
     '\n  *[_type == "projects"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllProjectsQueryResult;
-    '\n  *[_type == "projects" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "detailMonoLabel": *[_type == "projects-page"][0].detailMonoLabel,\n    "previous": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n    "next": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n  }\n': ProjectDetailQueryResult;
+    '\n  *[_type == "projects" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "detailMonoLabel": *[_type == "projects-page"][0].detailMonoLabel,\n    "previous": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n    "next": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n  }\n': ProjectDetailQueryResult;
     '\n  *[_type == "experiences-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': ExperiencePageQueryResult;
     '\n  *[\n    _type == "companies" &&\n    count(*[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)]) > 0\n  ] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    "company": name,\n    "companySummary": summary,\n    "latestRoleStartDate": *[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)] | order(dateRange.startDate desc, slug.current asc)[0].dateRange.startDate,\n    "roles": *[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)] | order(dateRange.startDate desc, slug.current asc) {\n      _id,\n      _key,\n      title,\n      slug,\n      employmentType,\n      dateRange,\n      location,\n      repositoryLinks,\n      deploymentLinks,\n    },\n  }\n  | order(latestRoleStartDate desc, company asc)\n': AllExperienceCompaniesQueryResult;
-    '\n  *[_type == "experiences" && slug.current == $slug && defined(company._ref)][0] {\n    _id,\n    title,\n    slug,\n    employmentType,\n    dateRange,\n    location,\n    repositoryLinks,\n    deploymentLinks,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "company": {\n      "name": company->name,\n      "summary": company->summary,\n      "image": {\n        "url": company->image.asset->url,\n        "alt": company->image.alt\n      }\n    },\n    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel\n  }\n': ExperienceRoleDetailQueryResult;
+    '\n  *[_type == "experiences" && slug.current == $slug && defined(company._ref)][0] {\n    _id,\n    title,\n    slug,\n    employmentType,\n    dateRange,\n    location,\n    repositoryLinks,\n    deploymentLinks,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "company": {\n      "name": company->name,\n      "summary": company->summary,\n      "image": {\n        "url": company->image.asset->url,\n        "alt": company->image.alt\n      }\n    },\n    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel\n  }\n': ExperienceRoleDetailQueryResult;
     '\n  *[_type == "awards-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': AwardsPageQueryResult;
     '\n  *[_type == "awards"] | order(date desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n  }\n': AllAwardsQueryResult;
-    '\n  *[_type == "awards" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "detailMonoLabel": *[_type == "awards-page"][0].detailMonoLabel,\n    "previous": *[_type == "awards" && date > ^.date] | order(date) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n    "next": *[_type == "awards" && date < ^.date] | order(date desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n  }\n': AwardDetailQueryResult;
+    '\n  *[_type == "awards" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "detailMonoLabel": *[_type == "awards-page"][0].detailMonoLabel,\n    "previous": *[_type == "awards" && date > ^.date] | order(date) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n    "next": *[_type == "awards" && date < ^.date] | order(date desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n  }\n': AwardDetailQueryResult;
     '\n  *[_type == "socials"][0] {\n    _id,\n    socialLinks[]{\n      name,\n      url,\n      "iconLight": {\n        "url": iconLight.asset->url,\n        "alt": iconLight.alt,\n      },\n      "iconDark": {\n        "url": iconDark.asset->url,\n        "alt": iconDark.alt,\n      }\n    }\n  }\n': SocialsQueryResult;
     '\n  *[_type == "blogs-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': BlogPageQueryResult;
     '\n  *[_type == "blogs"] | order(date desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    date,\n  }\n': AllBlogsQueryResult;
-    '\n  *[_type == "blogs" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    date,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "detailMonoLabel": *[_type == "blogs-page"][0].detailMonoLabel,\n    "authorName": *[_type == "about-page"][0].title,\n    "authorImage": {\n      "url": *[_type == "about-page"][0].image.asset->url,\n      "alt": *[_type == "about-page"][0].image.alt,\n    },\n    "previous": *[_type == "blogs" && date > ^.date] | order(date) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      date\n    },\n    "next": *[_type == "blogs" && date < ^.date] | order(date desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      date\n    },\n  }\n': BlogDetailQueryResult;
+    '\n  *[_type == "blogs" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    date,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "detailMonoLabel": *[_type == "blogs-page"][0].detailMonoLabel,\n    "authorName": *[_type == "about-page"][0].title,\n    "authorImage": {\n      "url": *[_type == "about-page"][0].image.asset->url,\n      "alt": *[_type == "about-page"][0].image.alt,\n    },\n    "previous": *[_type == "blogs" && date > ^.date] | order(date) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      date\n    },\n    "next": *[_type == "blogs" && date < ^.date] | order(date desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      date\n    },\n  }\n': BlogDetailQueryResult;
   }
 }

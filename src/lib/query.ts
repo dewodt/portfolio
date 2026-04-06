@@ -39,6 +39,7 @@ const portableTextContentProjection = `
       ...,
       "url": asset->url,
       "alt": alt,
+      "maxWidth": coalesce(maxWidth, "full"),
     },
     _type == "skillBadges" => {
       ...,

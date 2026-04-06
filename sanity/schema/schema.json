@@ -1350,6 +1350,51 @@
                     },
                     "optional": false
                   },
+                  "maxWidth": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "union",
+                      "of": [
+                        {
+                          "type": "string",
+                          "value": "max-w-3xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-2xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-sm"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-md"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-lg"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-xl"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-2xl"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-3xl"
+                        }
+                      ]
+                    },
+                    "optional": true
+                  },
                   "caption": {
                     "type": "objectAttribute",
                     "value": {
@@ -2458,6 +2503,51 @@
                     },
                     "optional": false
                   },
+                  "maxWidth": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "union",
+                      "of": [
+                        {
+                          "type": "string",
+                          "value": "max-w-3xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-2xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-sm"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-md"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-lg"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-xl"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-2xl"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-3xl"
+                        }
+                      ]
+                    },
+                    "optional": true
+                  },
                   "caption": {
                     "type": "objectAttribute",
                     "value": {
@@ -3292,6 +3382,51 @@
                     },
                     "optional": false
                   },
+                  "maxWidth": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "union",
+                      "of": [
+                        {
+                          "type": "string",
+                          "value": "max-w-3xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-2xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-sm"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-md"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-lg"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-xl"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-2xl"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-3xl"
+                        }
+                      ]
+                    },
+                    "optional": true
+                  },
                   "caption": {
                     "type": "objectAttribute",
                     "value": {
@@ -4020,6 +4155,51 @@
                     },
                     "optional": false
                   },
+                  "maxWidth": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "union",
+                      "of": [
+                        {
+                          "type": "string",
+                          "value": "max-w-3xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-2xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-sm"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-md"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-lg"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-xl"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-2xl"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-3xl"
+                        }
+                      ]
+                    },
+                    "optional": true
+                  },
                   "caption": {
                     "type": "objectAttribute",
                     "value": {
@@ -4740,6 +4920,51 @@
                       "type": "string"
                     },
                     "optional": false
+                  },
+                  "maxWidth": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "union",
+                      "of": [
+                        {
+                          "type": "string",
+                          "value": "max-w-3xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-2xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-xs"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-sm"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-md"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-lg"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-xl"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-2xl"
+                        },
+                        {
+                          "type": "string",
+                          "value": "max-w-3xl"
+                        }
+                      ]
+                    },
+                    "optional": true
                   },
                   "caption": {
                     "type": "objectAttribute",
