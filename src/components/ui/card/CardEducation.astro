@@ -13,10 +13,19 @@ interface Props {
   startDate: string;
   endDate?: string | null;
   description: string;
+  link: string;
 }
 
-const { image, imageAlt, degree, university, startDate, endDate, description } =
-  Astro.props;
+const {
+  image,
+  imageAlt,
+  degree,
+  university,
+  startDate,
+  endDate,
+  description,
+  link,
+} = Astro.props;
 ---
 
 <article
@@ -28,6 +37,13 @@ const { image, imageAlt, degree, university, startDate, endDate, description } =
   >
   </div>
 
+  <a
+    href={link}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`Open ${degree} at ${university} in a new tab`}
+    class="absolute inset-0 z-30"></a>
+
   <div class="flex gap-3 p-4 lg:gap-4">
     {/* Institution image thumbnail */}
     <CardThumbnail src={image} alt={imageAlt} />
@@ -38,7 +54,7 @@ const { image, imageAlt, degree, university, startDate, endDate, description } =
       <CardMonoLabel class="mb-0.5">{university}</CardMonoLabel>
 
       {/* Degree title */}
-      <CardTitle as="h3" showArrow={false} class="mb-1">{degree}</CardTitle>
+      <CardTitle as="h3" showArrow={true} class="mb-1">{degree}</CardTitle>
 
       {/* Date range */}
       <CardMetaDateRange

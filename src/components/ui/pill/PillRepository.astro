@@ -17,6 +17,7 @@ const { repository, class: className } = Astro.props;
   href={repository.url}
   aria-label={repository.label}
   target="_blank"
+  rel="noopener noreferrer"
   class:list={[
     "border-muted-foreground/25 text-muted-foreground hover:border-primary hover:bg-primary hover:shadow-primary/20 pointer-events-auto flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-300 hover:text-white hover:shadow-sm",
     className,

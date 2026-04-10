@@ -322,6 +322,7 @@ export type AboutPage = {
       endDate?: string;
     };
     description: string;
+    link: string;
     _type: "educationItem";
     _key: string;
   }>;
@@ -1072,7 +1073,7 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: src/lib/query.ts
 // Variable: aboutPageQuery
-// Query: *[_type == "about-page"][0] {    _id,    heroMonoLabel,    location,    title,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,      "maxWidth": coalesce(maxWidth, "full"),    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "image": {      "url": image.asset->url,      "alt": image.alt,    },    educationMonoLabel,    educationSectionTitle,    educationSectionDescription,    education[]{      "image": {        "url": image.asset->url,        "alt": image.alt,      },      degree,      university,      dateRange,      description,    },    skillsMonoLabel,    skillsSectionTitle,    skillsSectionDescription,    skillCategories[]{      categoryTitle,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  }
+// Query: *[_type == "about-page"][0] {    _id,    heroMonoLabel,    location,    title,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,      "maxWidth": coalesce(maxWidth, "full"),    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "image": {      "url": image.asset->url,      "alt": image.alt,    },    educationMonoLabel,    educationSectionTitle,    educationSectionDescription,    education[]{      _key,      "image": {        "url": image.asset->url,        "alt": image.alt,      },      degree,      university,      dateRange,      description,      link,    },    skillsMonoLabel,    skillsSectionTitle,    skillsSectionDescription,    skillCategories[]{      categoryTitle,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  }
 export type AboutPageQueryResult = {
   _id: string;
   heroMonoLabel: string;
@@ -1213,6 +1214,7 @@ export type AboutPageQueryResult = {
   educationSectionTitle: string;
   educationSectionDescription: string;
   education: Array<{
+    _key: string;
     image: {
       url: string | null;
       alt: string;
@@ -1224,6 +1226,7 @@ export type AboutPageQueryResult = {
       endDate?: string;
     };
     description: string;
+    link: string;
   }>;
   skillsMonoLabel: string;
   skillsSectionTitle: string;
@@ -2074,7 +2077,7 @@ export type BlogDetailQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "about-page"][0] {\n    _id,\n    heroMonoLabel,\n    location,\n    title,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    educationMonoLabel,\n    educationSectionTitle,\n    educationSectionDescription,\n    education[]{\n      "image": {\n        "url": image.asset->url,\n        "alt": image.alt,\n      },\n      degree,\n      university,\n      dateRange,\n      description,\n    },\n    skillsMonoLabel,\n    skillsSectionTitle,\n    skillsSectionDescription,\n    skillCategories[]{\n      categoryTitle,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  }\n': AboutPageQueryResult;
+    '\n  *[_type == "about-page"][0] {\n    _id,\n    heroMonoLabel,\n    location,\n    title,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    educationMonoLabel,\n    educationSectionTitle,\n    educationSectionDescription,\n    education[]{\n      _key,\n      "image": {\n        "url": image.asset->url,\n        "alt": image.alt,\n      },\n      degree,\n      university,\n      dateRange,\n      description,\n      link,\n    },\n    skillsMonoLabel,\n    skillsSectionTitle,\n    skillsSectionDescription,\n    skillCategories[]{\n      categoryTitle,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  }\n': AboutPageQueryResult;
     '\n  *[_type == "projects-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': ProjectsPageQueryResult;
     '\n  *[_type == "projects"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllProjectsQueryResult;
     '\n  *[_type == "projects" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "detailMonoLabel": *[_type == "projects-page"][0].detailMonoLabel,\n    "previous": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n    "next": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n  }\n': ProjectDetailQueryResult;

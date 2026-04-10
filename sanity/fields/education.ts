@@ -4,6 +4,7 @@ import { dateRangeField } from "./date-range";
 import { imageField } from "./image";
 import { stringField } from "./string-field";
 import { textField } from "./text-field";
+import { urlField } from "./url-field";
 
 export const educationField = () =>
   defineField({
@@ -58,6 +59,16 @@ export const educationField = () =>
             title: "Description",
             description: "Brief description of your education",
             validation: { required: true },
+          }),
+          urlField({
+            name: "link",
+            title: "Link",
+            description:
+              "External URL to open when this education card is clicked",
+            validation: {
+              required: true,
+              schemes: ["http", "https"],
+            },
           }),
         ],
       },
