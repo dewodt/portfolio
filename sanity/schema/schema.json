@@ -1757,6 +1757,13 @@
                 },
                 "optional": false
               },
+              "link": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": false
+              },
               "_type": {
                 "type": "objectAttribute",
                 "value": {

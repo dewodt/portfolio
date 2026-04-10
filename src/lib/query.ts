@@ -65,6 +65,7 @@ export const aboutPageQuery = groq`
     educationSectionTitle,
     educationSectionDescription,
     education[]{
+      _key,
       "image": {
         "url": image.asset->url,
         "alt": image.alt,
@@ -73,6 +74,7 @@ export const aboutPageQuery = groq`
       university,
       dateRange,
       description,
+      link,
     },
     skillsMonoLabel,
     skillsSectionTitle,
