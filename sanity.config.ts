@@ -80,7 +80,6 @@ export default defineConfig({
                   .schemaType("experiences-page")
                   .documentId("experiences-page"),
               ),
-            S.documentTypeListItem("companies").title("Companies List"),
             S.documentTypeListItem("experiences").title("Experiences List"),
 
             // Projects

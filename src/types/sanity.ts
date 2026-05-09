@@ -487,38 +487,44 @@ export type Projects = {
   >;
 };
 
-export type CompaniesReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "companies";
-};
-
 export type Experiences = {
   _id: string;
   _type: "experiences";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  company: CompaniesReference;
-  title: string;
-  employmentType?: "Contract" | "Part-time" | "Full-time" | "Internship";
-  slug: Slug;
-  dateRange: {
-    startDate: string;
-    endDate?: string;
+  image: {
+    asset: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
   };
-  location?: string;
-  repositoryLinks?: Array<{
-    label: string;
-    url: string;
-    _type: "repositoryLink";
-    _key: string;
-  }>;
-  deploymentLinks?: Array<{
-    label: string;
-    url: string;
-    _type: "deploymentLink";
+  company: string;
+  companySummary: string;
+  slug: Slug;
+  roles: Array<{
+    title: string;
+    employmentType?: "Contract" | "Part-time" | "Full-time" | "Internship";
+    dateRange: {
+      startDate: string;
+      endDate?: string;
+    };
+    location?: string;
+    repositoryLinks?: Array<{
+      label: string;
+      url: string;
+      _type: "repositoryLink";
+      _key: string;
+    }>;
+    deploymentLinks?: Array<{
+      label: string;
+      url: string;
+      _type: "deploymentLink";
+      _key: string;
+    }>;
+    _type: "experienceRole";
     _key: string;
   }>;
   content: Array<
@@ -903,24 +909,6 @@ export type Slug = {
   source?: string;
 };
 
-export type Companies = {
-  _id: string;
-  _type: "companies";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  image: {
-    asset: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-  };
-  name: string;
-  summary: string;
-};
-
 export type Code = {
   _type: "code";
   language?: string;
@@ -1052,12 +1040,10 @@ export type AllSanitySchemaTypes =
   | SkillsReference
   | AboutPage
   | Projects
-  | CompaniesReference
   | Experiences
   | Awards
   | Blogs
   | Slug
-  | Companies
   | Code
   | MediaTag
   | SanityImagePaletteSwatch
@@ -1474,9 +1460,9 @@ export type ExperiencePageQueryResult = {
 } | null;
 
 // Source: src/lib/query.ts
-// Variable: allExperienceCompaniesQuery
-// Query: *[    _type == "companies" &&    count(*[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)]) > 0  ] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    "company": name,    "companySummary": summary,    "latestRoleStartDate": *[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)] | order(dateRange.startDate desc, slug.current asc)[0].dateRange.startDate,    "roles": *[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)] | order(dateRange.startDate desc, slug.current asc) {      _id,      _key,      title,      slug,      employmentType,      dateRange,      location,      repositoryLinks,      deploymentLinks,    },  }  | order(latestRoleStartDate desc, company asc)
-export type AllExperienceCompaniesQueryResult = Array<{
+// Variable: allExperiencesQuery
+// Query: *[_type == "experiences" && defined(slug.current) && count(roles) > 0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    company,    companySummary,    slug,    "latestRoleStartDate": roles[] | order(dateRange.startDate desc)[0].dateRange.startDate,    "roles": roles[] | order(dateRange.startDate desc) {      _key,      title,      employmentType,      dateRange,      location,      repositoryLinks,      deploymentLinks,    },  }  | order(latestRoleStartDate desc, company asc)
+export type AllExperiencesQueryResult = Array<{
   _id: string;
   image: {
     url: string | null;
@@ -1484,12 +1470,11 @@ export type AllExperienceCompaniesQueryResult = Array<{
   };
   company: string;
   companySummary: string;
+  slug: Slug;
   latestRoleStartDate: string | null;
   roles: Array<{
-    _id: string;
-    _key: null;
+    _key: string;
     title: string;
-    slug: Slug;
     employmentType:
       | "Contract"
       | "Full-time"
@@ -1517,30 +1502,45 @@ export type AllExperienceCompaniesQueryResult = Array<{
 }>;
 
 // Source: src/lib/query.ts
-// Variable: experienceRoleDetailQuery
-// Query: *[_type == "experiences" && slug.current == $slug && defined(company._ref)][0] {    _id,    title,    slug,    employmentType,    dateRange,    location,    repositoryLinks,    deploymentLinks,      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,      "maxWidth": coalesce(maxWidth, "full"),    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "company": {      "name": company->name,      "summary": company->summary,      "image": {        "url": company->image.asset->url,        "alt": company->image.alt      }    },    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel  }
-export type ExperienceRoleDetailQueryResult = {
+// Variable: experienceDetailQuery
+// Query: *[_type == "experiences" && slug.current == $slug && count(roles) > 0][0] {    _id,    "image": {      "url": image.asset->url,      "alt": image.alt    },    company,    companySummary,    slug,    "latestRoleStartDate": roles[] | order(dateRange.startDate desc)[0].dateRange.startDate,    "roles": roles[] | order(dateRange.startDate desc) {      _key,      title,      employmentType,      dateRange,      location,      repositoryLinks,      deploymentLinks,    },      content[]{    ...,    markDefs[]{      ...,      _type == "internalLink" => {        ...,          "href": "/" + @.reference->_type + "/" + @.reference->slug.current,      },      _type == "externalLink" => {        ...,        "href": url,      },    },    _type == "image" => {      ...,      "url": asset->url,      "alt": alt,      "maxWidth": coalesce(maxWidth, "full"),    },    _type == "skillBadges" => {      ...,      skills[]->{          _id,  title,  url,  "logoLight": logoLight.asset->url,  "logoDark": logoDark.asset->url,      }    }  },    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel  }
+export type ExperienceDetailQueryResult = {
   _id: string;
-  title: string;
-  slug: Slug;
-  employmentType: "Contract" | "Full-time" | "Internship" | "Part-time" | null;
-  dateRange: {
-    startDate: string;
-    endDate?: string;
+  image: {
+    url: string | null;
+    alt: string;
   };
-  location: string | null;
-  repositoryLinks: Array<{
-    label: string;
-    url: string;
-    _type: "repositoryLink";
+  company: string;
+  companySummary: string;
+  slug: Slug;
+  latestRoleStartDate: string | null;
+  roles: Array<{
     _key: string;
-  }> | null;
-  deploymentLinks: Array<{
-    label: string;
-    url: string;
-    _type: "deploymentLink";
-    _key: string;
-  }> | null;
+    title: string;
+    employmentType:
+      | "Contract"
+      | "Full-time"
+      | "Internship"
+      | "Part-time"
+      | null;
+    dateRange: {
+      startDate: string;
+      endDate?: string;
+    };
+    location: string | null;
+    repositoryLinks: Array<{
+      label: string;
+      url: string;
+      _type: "repositoryLink";
+      _key: string;
+    }> | null;
+    deploymentLinks: Array<{
+      label: string;
+      url: string;
+      _type: "deploymentLink";
+      _key: string;
+    }> | null;
+  }>;
   content: Array<
     | {
         children?: Array<
@@ -1668,14 +1668,6 @@ export type ExperienceRoleDetailQueryResult = {
         markDefs: null;
       }
   >;
-  company: {
-    name: string;
-    summary: string;
-    image: {
-      url: string | null;
-      alt: string;
-    };
-  };
   detailMonoLabel: string | null;
 } | null;
 
@@ -2082,8 +2074,8 @@ declare module "@sanity/client" {
     '\n  *[_type == "projects"] | order(dateRange.startDate desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n  }\n': AllProjectsQueryResult;
     '\n  *[_type == "projects" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt,\n    },\n    title,\n    slug,\n    description,\n    dateRange,\n    repositoryLinks,\n    deploymentLinks,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "detailMonoLabel": *[_type == "projects-page"][0].detailMonoLabel,\n    "previous": *[_type == "projects" && dateRange.startDate > ^.dateRange.startDate] | order(dateRange.startDate) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n    "next": *[_type == "projects" && dateRange.startDate < ^.dateRange.startDate] | order(dateRange.startDate desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      dateRange\n    },\n  }\n': ProjectDetailQueryResult;
     '\n  *[_type == "experiences-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': ExperiencePageQueryResult;
-    '\n  *[\n    _type == "companies" &&\n    count(*[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)]) > 0\n  ] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    "company": name,\n    "companySummary": summary,\n    "latestRoleStartDate": *[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)] | order(dateRange.startDate desc, slug.current asc)[0].dateRange.startDate,\n    "roles": *[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)] | order(dateRange.startDate desc, slug.current asc) {\n      _id,\n      _key,\n      title,\n      slug,\n      employmentType,\n      dateRange,\n      location,\n      repositoryLinks,\n      deploymentLinks,\n    },\n  }\n  | order(latestRoleStartDate desc, company asc)\n': AllExperienceCompaniesQueryResult;
-    '\n  *[_type == "experiences" && slug.current == $slug && defined(company._ref)][0] {\n    _id,\n    title,\n    slug,\n    employmentType,\n    dateRange,\n    location,\n    repositoryLinks,\n    deploymentLinks,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "company": {\n      "name": company->name,\n      "summary": company->summary,\n      "image": {\n        "url": company->image.asset->url,\n        "alt": company->image.alt\n      }\n    },\n    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel\n  }\n': ExperienceRoleDetailQueryResult;
+    '\n  *[_type == "experiences" && defined(slug.current) && count(roles) > 0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    company,\n    companySummary,\n    slug,\n    "latestRoleStartDate": roles[] | order(dateRange.startDate desc)[0].dateRange.startDate,\n    "roles": roles[] | order(dateRange.startDate desc) {\n      _key,\n      title,\n      employmentType,\n      dateRange,\n      location,\n      repositoryLinks,\n      deploymentLinks,\n    },\n  }\n  | order(latestRoleStartDate desc, company asc)\n': AllExperiencesQueryResult;
+    '\n  *[_type == "experiences" && slug.current == $slug && count(roles) > 0][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    company,\n    companySummary,\n    slug,\n    "latestRoleStartDate": roles[] | order(dateRange.startDate desc)[0].dateRange.startDate,\n    "roles": roles[] | order(dateRange.startDate desc) {\n      _key,\n      title,\n      employmentType,\n      dateRange,\n      location,\n      repositoryLinks,\n      deploymentLinks,\n    },\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel\n  }\n': ExperienceDetailQueryResult;
     '\n  *[_type == "awards-page"][0] {\n    _id,\n    monoLabel,\n    detailMonoLabel,\n    title,\n    description,\n  }\n': AwardsPageQueryResult;
     '\n  *[_type == "awards"] | order(date desc) {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n  }\n': AllAwardsQueryResult;
     '\n  *[_type == "awards" && slug.current == $slug][0] {\n    _id,\n    "image": {\n      "url": image.asset->url,\n      "alt": image.alt\n    },\n    title,\n    slug,\n    description,\n    issuer,\n    date,\n    \n  content[]{\n    ...,\n    markDefs[]{\n      ...,\n      _type == "internalLink" => {\n        ...,\n        \n  "href": "/" + @.reference->_type + "/" + @.reference->slug.current,\n\n      },\n      _type == "externalLink" => {\n        ...,\n        "href": url,\n      },\n    },\n    _type == "image" => {\n      ...,\n      "url": asset->url,\n      "alt": alt,\n      "maxWidth": coalesce(maxWidth, "full"),\n    },\n    _type == "skillBadges" => {\n      ...,\n      skills[]->{\n        \n  _id,\n  title,\n  url,\n  "logoLight": logoLight.asset->url,\n  "logoDark": logoDark.asset->url,\n\n      }\n    }\n  },\n\n    "detailMonoLabel": *[_type == "awards-page"][0].detailMonoLabel,\n    "previous": *[_type == "awards" && date > ^.date] | order(date) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n    "next": *[_type == "awards" && date < ^.date] | order(date desc) [0] {\n      _id,\n      title,\n      slug,\n      description,\n      issuer,\n      date\n    },\n  }\n': AwardDetailQueryResult;

@@ -156,24 +156,20 @@ export const experiencePageQuery = groq`
   }
 `;
 
-export const allExperienceCompaniesQuery = groq`
-  *[
-    _type == "companies" &&
-    count(*[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)]) > 0
-  ] {
+export const allExperiencesQuery = groq`
+  *[_type == "experiences" && defined(slug.current) && count(roles) > 0] {
     _id,
     "image": {
       "url": image.asset->url,
       "alt": image.alt
     },
-    "company": name,
-    "companySummary": summary,
-    "latestRoleStartDate": *[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)] | order(dateRange.startDate desc, slug.current asc)[0].dateRange.startDate,
-    "roles": *[_type == "experiences" && defined(company._ref) && company._ref == ^._id && defined(slug.current)] | order(dateRange.startDate desc, slug.current asc) {
-      _id,
+    company,
+    companySummary,
+    slug,
+    "latestRoleStartDate": roles[] | order(dateRange.startDate desc)[0].dateRange.startDate,
+    "roles": roles[] | order(dateRange.startDate desc) {
       _key,
       title,
-      slug,
       employmentType,
       dateRange,
       location,
@@ -184,25 +180,27 @@ export const allExperienceCompaniesQuery = groq`
   | order(latestRoleStartDate desc, company asc)
 `;
 
-export const experienceRoleDetailQuery = groq`
-  *[_type == "experiences" && slug.current == $slug && defined(company._ref)][0] {
+export const experienceDetailQuery = groq`
+  *[_type == "experiences" && slug.current == $slug && count(roles) > 0][0] {
     _id,
-    title,
-    slug,
-    employmentType,
-    dateRange,
-    location,
-    repositoryLinks,
-    deploymentLinks,
-    ${portableTextContentProjection}
-    "company": {
-      "name": company->name,
-      "summary": company->summary,
-      "image": {
-        "url": company->image.asset->url,
-        "alt": company->image.alt
-      }
+    "image": {
+      "url": image.asset->url,
+      "alt": image.alt
     },
+    company,
+    companySummary,
+    slug,
+    "latestRoleStartDate": roles[] | order(dateRange.startDate desc)[0].dateRange.startDate,
+    "roles": roles[] | order(dateRange.startDate desc) {
+      _key,
+      title,
+      employmentType,
+      dateRange,
+      location,
+      repositoryLinks,
+      deploymentLinks,
+    },
+    ${portableTextContentProjection}
     "detailMonoLabel": *[_type == "experiences-page"][0].detailMonoLabel
   }
 `;
