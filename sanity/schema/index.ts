@@ -3,7 +3,6 @@ import { awardsPageSchema } from "./awards-page";
 import { awardsSchema } from "./awards";
 import { blogPageSchema } from "./blogs-page";
 import { blogSchema } from "./blogs";
-import { companiesSchema } from "./companies";
 import { projectsPageSchema } from "./projects-page";
 import { projectsSchema } from "./projects";
 import { experiencePageSchema } from "./experiences-page";
@@ -16,7 +15,6 @@ export const schemaTypes = [
   projectsPageSchema,
   projectsSchema,
   experiencePageSchema,
-  companiesSchema,
   experiencesSchema,
   skillsSchema,
   awardsPageSchema,

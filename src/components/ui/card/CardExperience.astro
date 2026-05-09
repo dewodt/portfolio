@@ -1,5 +1,5 @@
 ---
-import type { AllExperienceCompaniesQueryResult } from "@/types/sanity";
+import type { AllExperiencesQueryResult } from "@/types/sanity";
 import CardDescription from "./shared/CardDescription.astro";
 import CardMetaDateRange from "./shared/CardMetaDateRange.astro";
 import CardMetaEmploymentType from "./shared/CardMetaEmploymentType.astro";
@@ -11,12 +11,13 @@ import CardTitle from "./shared/CardTitle.astro";
 import MetaSeparator from "../shared/MetaSeparator.astro";
 
 interface Props {
-  experience: AllExperienceCompaniesQueryResult[number];
+  experience: AllExperiencesQueryResult[number];
 }
 
 const { experience } = Astro.props;
 const isSingleRole = experience.roles.length === 1;
-const role = experience.roles[0];
+const role = experience.roles[0]!;
+const href = `/experiences/${experience.slug.current}`;
 ---
 
 <article
@@ -27,18 +28,13 @@ const role = experience.roles[0];
   >
   </div>
 
-  {
-    isSingleRole && role && (
-      <a
-        href={`/experiences/${role.slug.current}`}
-        aria-label={`Link to ${role.title} at ${experience.company}`}
-        class="absolute inset-0 z-30"
-      />
-    )
-  }
+  <a
+    href={href}
+    aria-label={`Link to ${experience.company} experience`}
+    class="absolute inset-0 z-20"></a>
 
   <div class="flex gap-3 p-4 lg:gap-4">
-    {/* Company image thumbnail */}
+    {/* Company logo thumbnail */}
     <CardThumbnail src={experience.image.url!} alt={experience.image.alt} />
 
     {/* Content */}
@@ -47,7 +43,7 @@ const role = experience.roles[0];
       <CardMonoLabel>{experience.company}</CardMonoLabel>
 
       {
-        isSingleRole && role ? (
+        isSingleRole ? (
           <>
             <CardTitle class="mt-0.5">{role.title}</CardTitle>
 
@@ -90,10 +86,10 @@ const role = experience.roles[0];
                 <div class="border-muted-foreground/25 pointer-events-none absolute top-1 bottom-1 left-[7.5px] border-l sm:left-[11.5px]" />
                 <ul class="flex flex-col gap-4">
                   {experience.roles.map((experienceRole) => (
-                    <li class="group/role relative pl-6 sm:pl-8">
+                    <li class="group/section relative pl-6 sm:pl-8">
                       <div class="bg-primary ring-card pointer-events-none absolute top-2 left-2 z-10 size-3.5 -translate-x-1/2 rounded-full ring-4 sm:left-3" />
 
-                      <CardTitle hoverScope="role">
+                      <CardTitle arrowHover="section">
                         {experienceRole.title}
                       </CardTitle>
 
@@ -128,9 +124,9 @@ const role = experience.roles[0];
                       />
 
                       <a
-                        href={`/experiences/${experienceRole.slug.current}`}
-                        aria-label={`Link to ${experienceRole.title}`}
-                        class="absolute inset-0 z-20"
+                        href={href}
+                        aria-label={`Link to ${experienceRole.title} at ${experience.company}`}
+                        class="absolute inset-0 z-30"
                       />
                     </li>
                   ))}

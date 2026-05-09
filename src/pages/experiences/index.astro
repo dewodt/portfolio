@@ -2,13 +2,13 @@
 import CardExperience from "@/components/ui/card/CardExperience.astro";
 import LayoutBase from "@/layouts/LayoutBase.astro";
 import type {
-  AllExperienceCompaniesQueryResult,
+  AllExperiencesQueryResult,
   ExperiencePageQueryResult,
 } from "@/types/sanity";
 import {
   sanityClient,
   experiencePageQuery,
-  allExperienceCompaniesQuery,
+  allExperiencesQuery,
 } from "@/lib/query";
 
 // Get experiences page from CMS
@@ -16,9 +16,7 @@ const experiencePageData =
   await sanityClient.fetch<ExperiencePageQueryResult>(experiencePageQuery);
 // Get all experiences from CMS
 const allExperienceData =
-  await sanityClient.fetch<AllExperienceCompaniesQueryResult>(
-    allExperienceCompaniesQuery,
-  );
+  await sanityClient.fetch<AllExperiencesQueryResult>(allExperiencesQuery);
 
 if (!experiencePageData) {
   throw new Error("Failed to fetch experiences page data");

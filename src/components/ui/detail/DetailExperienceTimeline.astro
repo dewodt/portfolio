@@ -1,0 +1,80 @@
+---
+import type { ExperienceDetailQueryResult } from "@/types/sanity";
+import CardMetaDateRange from "@/components/ui/card/shared/CardMetaDateRange.astro";
+import CardMetaEmploymentType from "@/components/ui/card/shared/CardMetaEmploymentType.astro";
+import CardMetaLocation from "@/components/ui/card/shared/CardMetaLocation.astro";
+import PillDeployment from "@/components/ui/pill/PillDeployment.astro";
+import PillRepository from "@/components/ui/pill/PillRepository.astro";
+import MetaSeparator from "@/components/ui/shared/MetaSeparator.astro";
+
+type ExperienceRole = NonNullable<ExperienceDetailQueryResult>["roles"][number];
+
+interface Props {
+  roles: ExperienceRole[];
+}
+
+const { roles } = Astro.props;
+---
+
+<div class="relative">
+  <div
+    class="border-muted-foreground/25 pointer-events-none absolute top-1 bottom-1 left-[7.5px] border-l sm:left-[11.5px]"
+  >
+  </div>
+
+  <ul class="flex flex-col gap-4">
+    {
+      roles.map((role) => {
+        const repositoryLinks = role.repositoryLinks ?? [];
+        const deploymentLinks = role.deploymentLinks ?? [];
+        const hasExperienceLinks =
+          repositoryLinks.length + deploymentLinks.length > 0;
+
+        return (
+          <li class="relative pl-6 sm:pl-8">
+            <div class="bg-primary ring-background pointer-events-none absolute top-2 left-2 z-10 size-3.5 -translate-x-1/2 rounded-full ring-4 sm:left-3" />
+
+            <div>
+              <h2 class="text-foreground text-lg font-bold lg:text-xl">
+                {role.title}
+              </h2>
+
+              <div class="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                <CardMetaDateRange
+                  startDate={role.dateRange.startDate}
+                  endDate={role.dateRange.endDate}
+                  noEndDateLabel="Present"
+                />
+                {role.employmentType && (
+                  <>
+                    <MetaSeparator class="text-muted-foreground/70 text-xs lg:text-xs" />
+                    <CardMetaEmploymentType
+                      employmentType={role.employmentType}
+                    />
+                  </>
+                )}
+                {role.location && (
+                  <>
+                    <MetaSeparator class="text-muted-foreground/70 text-xs lg:text-xs" />
+                    <CardMetaLocation location={role.location} />
+                  </>
+                )}
+              </div>
+
+              {hasExperienceLinks && (
+                <div class="mt-2 flex flex-wrap items-center gap-2">
+                  {repositoryLinks.map((repo) => (
+                    <PillRepository repository={repo} />
+                  ))}
+                  {deploymentLinks.map((deploy) => (
+                    <PillDeployment deployment={deploy} />
+                  ))}
+                </div>
+              )}
+            </div>
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>
